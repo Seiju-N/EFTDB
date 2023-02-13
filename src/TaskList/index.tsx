@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 
 import {
   Box,
-  Table,
-  TableContainer,
   Backdrop,
   CircularProgress,
+  ToggleButtonGroup,
+  ToggleButton,
+  Container,
 } from "@mui/material";
 
-import RowChild from "./RowChild";
 import { Task } from "../graphql/generated";
 import { parseData } from "../utils";
+import { DataGrid } from "@mui/x-data-grid";
+import { useHooks } from "./hooks";
 
 const fetchParams = {
   method: "POST",
@@ -21,7 +23,18 @@ const fetchParams = {
 };
 
 const TaskList = () => {
+  const {
+    handleDialogOpen,
+    handleTradersFilter,
+    filter,
+    tradersFilter,
+    cols,
+    localeText,
+    defaultSort,
+  } = useHooks();
+
   const [tasks, setTasks] = useState<Task[]>([]);
+
   useEffect(() => {
     const access_api = async () => {
       await fetch("https://api.tarkov.dev/graphql", {
@@ -169,13 +182,42 @@ const TaskList = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
       <Box>
-        <TableContainer sx={{ height: 550 }}>
-          <Table>
+        <Container sx={{ height: "100%" }}>
+          <ToggleButtonGroup
+            size="small"
+            value={filter}
+            onChange={handleTradersFilter}
+            aria-label="text formatting"
+            exclusive
+          >
             {parseData(tasks)?.map((task) => (
-              <RowChild key={task.trader.id} taskData={task} />
+              <ToggleButton
+                key={task.trader.name}
+                value={task.trader.name}
+                aria-label={task.trader.name}
+              >
+                {task.trader.name}
+              </ToggleButton>
             ))}
-          </Table>
-        </TableContainer>
+          </ToggleButtonGroup>
+          <Box height={"88vh"}>
+            <DataGrid
+              columns={cols}
+              rows={tasks}
+              sx={{ cursor: "pointer" }}
+              density="compact"
+              localeText={localeText}
+              initialState={{
+                columns: {
+                  columnVisibilityModel: { experience: false, trader: false },
+                },
+                sorting: defaultSort,
+              }}
+              filterModel={tradersFilter}
+              onCellClick={(event: any) => handleDialogOpen(event.row)}
+            />
+          </Box>
+        </Container>
       </Box>
     </>
   );
