@@ -50,6 +50,8 @@ function TopBar() {
           query: `{
             traders{
               name
+              imageLink
+              image4xLink
             }
           }`,
         }),
@@ -127,6 +129,7 @@ function TopBar() {
                   <List component="div" disablePadding>
                     {traders.map((trader) => (
                       <ListItemButton
+                        key={trader.name}
                         sx={{ pl: 4 }}
                         component={RouterLink}
                         to={`task/${trader.name}`}
