@@ -10,24 +10,57 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link as RouterLink } from 'react-router-dom';
-
-
-
-const pages = ["task", "item"];
+import { Link as RouterLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchParams } from "./ItemList/utils";
+import { Trader } from "./graphql/generated";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 
 function TopBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElTask, setAnchorElTask] = useState<null | HTMLElement>(null);
+  const [traders, setTraders] = useState<Trader[]>([]);
+  const [open, setOpen] = useState(true);
 
+  const handleClick = () => {
+    setOpen(!open);
+  };
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenTaskMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElTask(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const handleCloseTaskMenu = () => {
+    setAnchorElTask(null);
+  };
+
+  useEffect(() => {
+    const access_api = async () => {
+      await fetch("https://api.tarkov.dev/graphql", {
+        ...fetchParams,
+        body: JSON.stringify({
+          query: `{
+            traders{
+              name
+            }
+          }`,
+        }),
+      })
+        .then((r) => r.json())
+        .then(({ data }) => {
+          setTraders(data.traders);
+        });
+    };
+    access_api();
+  }, []);
 
   return (
     <AppBar position="static">
@@ -62,6 +95,7 @@ function TopBar() {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -80,19 +114,38 @@ function TopBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} component={RouterLink} to={page}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <List>
+                <ListItemButton onClick={handleClick}>
+                  <ListItemText secondary="TASK" sx={{ pr: 6 }} />
+                  {open ? (
+                    <ExpandLess fontSize="large" />
+                  ) : (
+                    <ExpandMore fontSize="large" />
+                  )}
+                </ListItemButton>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {traders.map((trader) => (
+                      <ListItemButton
+                        sx={{ pl: 4 }}
+                        component={RouterLink}
+                        to={`task/${trader.name}`}
+                      >
+                        <ListItemText primary={trader.name} />
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Collapse>
+                <ListItemButton component={RouterLink} to={"item"}>
+                  <ListItemText secondary="ITEM"></ListItemText>
+                </ListItemButton>
+              </List>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -107,15 +160,46 @@ function TopBar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                component={RouterLink} to={page}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              sx={{ my: 2, color: "white", display: "block" }}
+              onClick={handleOpenTaskMenu}
+            >
+              task
+            </Button>
+            <Button
+              component={RouterLink}
+              to={"item"}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              item
+            </Button>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElTask}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElTask)}
+              onClose={handleCloseTaskMenu}
+            >
+              {traders.map((trader) => (
+                <MenuItem
+                  key={trader.name}
+                  component={RouterLink}
+                  to={`task/${trader.name}`}
+                  onClick={handleCloseTaskMenu}
+                >
+                  <Typography textAlign="center">{trader.name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>

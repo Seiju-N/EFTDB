@@ -1,22 +1,16 @@
-import { useState } from "react";
+import  { useCallback, useState } from "react";
 
-import { GridColDef, GridSortingInitialState, jaJP } from "@mui/x-data-grid";
+import {  GridColDef, GridFilterModel, GridSortingInitialState, jaJP } from "@mui/x-data-grid";
 
-import { Task, TraderName } from "@/graphql/generated";
+import { Task } from "@/graphql/generated";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 export const useHooks = () => {
-  const [listOpen, setListOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState<Task>();
-  const [filter, setFilter] = useState<TraderName>();
-  const [tradersFilter, setTradersFilter] = useState({
-    items: [
-      {
-        columnField: "trader",
-        operatorValue: "contains",
-        value: "Prapor",
-      },
-    ],
+  const [filter, setFilter] = useState<string>("");
+  const [taskFilter, setTaskFilter] = useState<GridFilterModel>({
+    items: [],
   });
 
   const cols: GridColDef[] = [
@@ -51,11 +45,22 @@ export const useHooks = () => {
         return value?.name;
       },
     },
+    {
+      field: "kappaRequired",
+      headerName: "Kappa",
+      minWidth: 40,
+      flex: 0.3,
+      type:"boolean",
+    },
+    {
+      field: "lightkeeperRequired",
+      headerName: "Lightkeeper",
+      minWidth: 40,
+      flex: 0.3,
+      type:"boolean",
+    },
   ];
 
-  const handleClick = () => {
-    setListOpen(!listOpen);
-  };
 
   const handleDialogOpen = (value: Task) => {
     setCurrentTask(value);
@@ -72,32 +77,33 @@ export const useHooks = () => {
 
   const localeText = jaJP.components.MuiDataGrid.defaultProps.localeText;
 
-  const convertObject = (name: TraderName) => {
+  const isAllArrayElementsEmpty = useCallback((obj: any) => {
+    return Object.values(obj).every((val: any) => val.length === 0);
+  },[]);
+
+  const convertObject = useCallback((name: string) => {
+    console.log(name);
     return {
       items: [
-        { columnField: "trader", operatorValue: "contains", value: name },
+        { columnField: name, operatorValue: "is", value: "true" },
       ],
     };
-  };
-
-  const handleTradersFilter = (
-    event: React.MouseEvent<HTMLElement>,
-    newFilters: TraderName
-  ) => {
-    setFilter(newFilters);
-    setTradersFilter(convertObject(newFilters));
+  },[]);
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    const value: string = event.target.value as string;
+    setFilter(value);
+    setTaskFilter(convertObject(value));
   };
 
   return {
-    handleClick,
     handleDialogOpen,
     handleDialogClose,
-    handleTradersFilter,
-    listOpen,
+    handleChange,
+    isAllArrayElementsEmpty,
     dialogOpen,
     currentTask,
     filter,
-    tradersFilter,
+    taskFilter,
     cols,
     localeText,
     defaultSort,
