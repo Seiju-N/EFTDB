@@ -26,7 +26,7 @@ import FilterAlt from "@mui/icons-material/FilterAlt";
 import { Task } from "../graphql/generated";
 import { DataGrid } from "@mui/x-data-grid";
 import { useHooks } from "./hooks";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const fetchParams = {
   method: "POST",
@@ -195,6 +195,17 @@ const TaskList = () => {
 
     return <DetailDialog />;
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.state || !location.state.taskId) return;
+    const temp = tasks.find((task) => task.id === location.state.taskId);
+    if (!temp) return;
+    handleDialogOpen(temp);
+    window.history.replaceState({}, document.title);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location, tasks]);
 
   useEffect(() => {
     const access_api = async () => {

@@ -36,7 +36,7 @@ function App() {
       <CssBaseline />
       <TopBar />
       <Routes>
-        <Route path="/task/:traderName" element={<TaskList />} />
+        <Route path="/task/:traderName/" element={<TaskList />} />
         <Route path="/item/" element={<ItemList />} />
       </Routes>
     </ThemeProvider>

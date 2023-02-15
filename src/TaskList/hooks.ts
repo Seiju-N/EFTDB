@@ -100,6 +100,7 @@ export const useHooks = () => {
     handleDialogClose,
     handleChange,
     isAllArrayElementsEmpty,
+    setCurrentTask,
     dialogOpen,
     currentTask,
     filter,
