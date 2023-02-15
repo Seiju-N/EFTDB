@@ -8,7 +8,6 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link as RouterLink } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -16,7 +15,15 @@ import { fetchParams } from "./ItemList/utils";
 import { Trader } from "./graphql/generated";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Avatar,
+  Collapse,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 
 function TopBar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -51,7 +58,6 @@ function TopBar() {
             traders{
               name
               imageLink
-              image4xLink
             }
           }`,
         }),
@@ -63,7 +69,6 @@ function TopBar() {
     };
     access_api();
   }, []);
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -118,7 +123,7 @@ function TopBar() {
             >
               <List>
                 <ListItemButton onClick={handleClick}>
-                  <ListItemText secondary="TASK" sx={{ pr: 6 }} />
+                  <ListItemText secondary="TASK" sx={{ pr: 10 }} />
                   {open ? (
                     <ExpandLess fontSize="large" />
                   ) : (
@@ -128,14 +133,24 @@ function TopBar() {
                 <Collapse in={open} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
                     {traders.map((trader) => (
-                      <ListItemButton
+                      <ListItem
+                        alignItems="flex-start"
                         key={trader.name}
-                        sx={{ pl: 4 }}
-                        component={RouterLink}
-                        to={`task/${trader.name}`}
+                        disablePadding
                       >
-                        <ListItemText primary={trader.name} />
-                      </ListItemButton>
+                        <ListItemButton
+                          component={RouterLink}
+                          to={`task/${trader.name}`}
+                        >
+                          <ListItemAvatar>
+                            <Avatar
+                              alt={trader.name}
+                              src={trader.imageLink || ""}
+                            />
+                          </ListItemAvatar>
+                          <ListItemText primary={trader.name} />
+                        </ListItemButton>
+                      </ListItem>
                     ))}
                   </List>
                 </Collapse>
@@ -193,14 +208,21 @@ function TopBar() {
               onClose={handleCloseTaskMenu}
             >
               {traders.map((trader) => (
-                <MenuItem
+                <ListItem
+                  alignItems="flex-start"
                   key={trader.name}
-                  component={RouterLink}
-                  to={`task/${trader.name}`}
-                  onClick={handleCloseTaskMenu}
+                  disablePadding
                 >
-                  <Typography textAlign="center">{trader.name}</Typography>
-                </MenuItem>
+                  <ListItemButton
+                    component={RouterLink}
+                    to={`task/${trader.name}`}
+                  >
+                    <ListItemAvatar>
+                      <Avatar alt={trader.name} src={trader.imageLink || ""} />
+                    </ListItemAvatar>
+                    <ListItemText primary={trader.name} />
+                  </ListItemButton>
+                </ListItem>
               ))}
             </Menu>
           </Box>
