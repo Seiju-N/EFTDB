@@ -13,6 +13,15 @@ export const useHooks = () => {
     items: [],
   });
 
+  
+const fetchParams = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+};
+
   const cols: GridColDef[] = [
     {
       field: "name",
@@ -108,5 +117,6 @@ export const useHooks = () => {
     cols,
     localeText,
     defaultSort,
+    fetchParams
   };
 };

@@ -11,6 +11,7 @@ import TaskList from "./TaskList";
 import TopBar from "./TopBar";
 
 import { Routes, Route } from "react-router-dom";
+import Home from "./Home";
 
 const darkTheme = createTheme(
   {
@@ -36,6 +37,7 @@ function App() {
       <CssBaseline />
       <TopBar />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/task/:traderName/" element={<TaskList />} />
         <Route path="/item/" element={<ItemList />} />
       </Routes>

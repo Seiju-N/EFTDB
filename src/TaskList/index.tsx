@@ -28,14 +28,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useHooks } from "./hooks";
 import { useLocation, useParams } from "react-router-dom";
 
-const fetchParams = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-};
-
 const TaskList = () => {
   const {
     handleChange,
@@ -49,6 +41,7 @@ const TaskList = () => {
     cols,
     localeText,
     defaultSort,
+    fetchParams,
   } = useHooks();
 
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -354,6 +347,7 @@ const TaskList = () => {
         });
     };
     access_api();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [param.traderName]);
 
   return (

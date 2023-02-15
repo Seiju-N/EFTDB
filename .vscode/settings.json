@@ -4,5 +4,6 @@
         "lightkeeper",
         "normalise",
         "Prapor"
-    ]
+    ],
+    "editor.tabSize": 2
 }
