@@ -23,7 +23,9 @@ import {
   ListItemAvatar,
   ListItemButton,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
+import { SITE_NAME } from "./constants/CONST_VALUES";
 
 function TopBar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -88,7 +90,7 @@ function TopBar() {
               textDecoration: "none",
             }}
           >
-            SITE_NAME
+            {SITE_NAME}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -175,7 +177,7 @@ function TopBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            {SITE_NAME}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
@@ -225,6 +227,11 @@ function TopBar() {
                 </ListItem>
               ))}
             </Menu>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Join our discord server.">
+              <IconButton></IconButton>
+            </Tooltip>
           </Box>
         </Toolbar>
       </Container>

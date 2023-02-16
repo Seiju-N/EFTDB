@@ -1,9 +1,10 @@
 import { ServerStatus as ServerStatusType } from "@/graphql/generated";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Card, Container, List, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import StorageIcon from "@mui/icons-material/Storage";
 import Grid from "@mui/material/Unstable_Grid2";
 
 const Home = () => {
@@ -16,35 +17,43 @@ const Home = () => {
     },
   };
 
+  const Home = () => {
+    return <Card>This is home page</Card>;
+  };
+
   const ServerStatus = () => {
     return (
       <Paper sx={{ display: "flex", flexDirection: "column" }}>
-        <Typography variant="h4" gutterBottom>
-          Server Status
-        </Typography>
-        <Grid container spacing={3}>
+        <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
+          <StorageIcon fontSize="large" />
+          <Typography variant="h5" pl={1}>
+            Server Status
+          </Typography>
+        </Box>
+
+        <List>
           {serverStatus.currentStatuses?.map((status, index) => (
-            <Grid xs={6} key={index}>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  mb: 1,
-                }}
-              >
+            <Grid container key={index}>
+              <Grid xs={10}>
+                <Typography variant="h6" paddingLeft={2}>
+                  {status?.name}
+                </Typography>
+              </Grid>
+              <Grid xs={2}>
                 {status?.status === 0 ? (
                   <CheckCircleIcon fontSize="large" color="success" />
                 ) : (
                   <CancelIcon fontSize="large" color="error" />
                 )}
-
-                <Typography variant="h5" paddingLeft={2}>
-                  {status?.name}
+              </Grid>
+              <Grid xs={12}>
+                <Typography variant="subtitle2" pl={2} pb={2}>
+                  {status?.message}
                 </Typography>
-              </Box>
+              </Grid>
             </Grid>
           ))}
-        </Grid>
+        </List>
       </Paper>
     );
   };
@@ -88,7 +97,14 @@ const Home = () => {
   }, []);
   return (
     <Container>
-      <ServerStatus />
+      <Grid container>
+        <Grid xs={12} md={9}>
+          <Home />
+        </Grid>
+        <Grid xs={12} md={3}>
+          <ServerStatus />
+        </Grid>
+      </Grid>
     </Container>
   );
 };
