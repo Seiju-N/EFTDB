@@ -9,8 +9,13 @@ import { jaJP } from "@mui/material/locale";
 import ItemList from "./ItemList";
 import TaskList from "./TaskList";
 import TopBar from "./TopBar";
+import Home from "./Home";
 
 import { Routes, Route } from "react-router-dom";
+
+import { LanguageCode, Trader } from "./graphql/generated";
+import { createContext, useEffect, useState } from "react";
+import { fetchParams } from "./ItemList/utils";
 
 const darkTheme = createTheme(
   {
@@ -30,17 +35,52 @@ const darkTheme = createTheme(
   },
   jaJP
 );
-function App() {
+
+export const TradersContext = createContext<Trader[]>([]);
+export const LanguageDictContext = createContext({});
+
+const App = () => {
+  const [traders, setTraders] = useState<Trader[]>([]);
+  const [language, setLanguage] = useState("");
+  useEffect(() => {
+    const access_api = async () => {
+      await fetch("https://api.tarkov.dev/graphql", {
+        ...fetchParams,
+        body: JSON.stringify({
+          query: `{
+            traders{
+              id
+              name
+              imageLink
+            }
+          }`,
+        }),
+      })
+        .then((r) => r.json())
+        .then(({ data }) => {
+          setTraders(data.traders);
+        });
+    };
+    access_api();
+    const storageLang = localStorage.getItem("lang");
+    storageLang ? setLanguage(storageLang) : setLanguage("en");
+  }, []);
+
+  console.log(language);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <TopBar />
-      <Routes>
-        <Route path="/task/" element={<TaskList />} />
-        <Route path="/item/" element={<ItemList />} />
-      </Routes>
+      <TradersContext.Provider value={traders}>
+        <TopBar setLanguage={setLanguage} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/task/:traderName/" element={<TaskList />} />
+          <Route path="/item/" element={<ItemList />} />
+        </Routes>
+      </TradersContext.Provider>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

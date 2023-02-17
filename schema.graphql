@@ -1,3 +1,9 @@
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
 type Ammo {
   item: Item!
   weight: Float!
@@ -20,6 +26,7 @@ type Ammo {
   initialSpeed: Float
   lightBleedModifier: Float!
   heavyBleedModifier: Float!
+  staminaBurnPerDamage: Float
 }
 
 type ArmorMaterial {
@@ -50,6 +57,18 @@ type Barter {
   requirements: [PriceRequirement]! @deprecated(reason: "Use level instead.")
 }
 
+type BossEscort {
+  boss: MobInfo!
+  amount: [BossEscortAmount]
+  name: String! @deprecated(reason: "Use boss.name instead.")
+  normalizedName: String! @deprecated(reason: "Use boss.normalizedName instead.")
+}
+
+type BossEscortAmount {
+  count: Int!
+  chance: Float!
+}
+
 type BossSpawn {
   boss: MobInfo!
   spawnChance: Float!
@@ -59,25 +78,13 @@ type BossSpawn {
   spawnTimeRandom: Boolean
   spawnTrigger: String
   name: String! @deprecated(reason: "Use boss.name instead.")
-  normalizedName: String!
-    @deprecated(reason: "Use boss.normalizedName instead.")
+  normalizedName: String! @deprecated(reason: "Use boss.normalizedName instead.")
 }
 
-type BossEscort {
-  boss: MobInfo!
-  amount: [BossEscortAmount]
-  name: String! @deprecated(reason: "Use boss.name instead.")
-  normalizedName: String!
-    @deprecated(reason: "Use boss.normalizedName instead.")
-}
-
-type BossEscortAmount {
-  count: Int!
-  chance: Float!
-}
-
-# The chances of spawning in a given location are
-# very rough estimates and may be incaccurate
+"""
+The chances of spawning in a given location are 
+very rough estimates and may be incaccurate
+"""
 type BossSpawnLocation {
   name: String!
   chance: Float!
@@ -101,16 +108,7 @@ type Craft {
   rewardItems: [ContainedItem]!
   source: String! @deprecated(reason: "Use stationLevel instead.")
   sourceName: String! @deprecated(reason: "Use stationLevel instead.")
-  requirements: [PriceRequirement]!
-    @deprecated(reason: "Use stationLevel instead.")
-}
-
-type GameProperty {
-  key: String!
-  numericValue: Float
-  stringValue: String
-  arrayValue: [String]
-  objectValue: String
+  requirements: [PriceRequirement]! @deprecated(reason: "Use stationLevel instead.")
 }
 
 type FleaMarket implements Vendor {
@@ -129,6 +127,101 @@ type FleaMarketReputationLevel {
   maxRep: Float!
 }
 
+type GameProperty {
+  key: String!
+  numericValue: Float
+  stringValue: String
+  arrayValue: [String]
+  objectValue: String
+}
+
+enum HandbookCategoryName {
+  Ammo
+  AmmoPacks
+  AssaultCarbines
+  AssaultRifles
+  AssaultScopes
+  AuxiliaryParts
+  Backpacks
+  Barrels
+  BarterItems
+  Bipods
+  BodyArmor
+  BoltActionRifles
+  BuildingMaterials
+  ChargingHandles
+  Collimators
+  CompactCollimators
+  Drinks
+  ElectronicKeys
+  Electronics
+  EnergyElements
+  Eyewear
+  Facecovers
+  FlammableMaterials
+  FlashhidersBrakes
+  Flashlights
+  Food
+  Foregrips
+  FunctionalMods
+  GasBlocks
+  Gear
+  GearComponents
+  GearMods
+  GrenadeLaunchers
+  Handguards
+  Headgear
+  Headsets
+  HouseholdMaterials
+  InfoItems
+  Injectors
+  InjuryTreatment
+  IronSights
+  Keys
+  LaserTargetPointers
+  Launchers
+  LightLaserDevices
+  MachineGuns
+  Magazines
+  Maps
+  MarksmanRifles
+  MechanicalKeys
+  MedicalSupplies
+  Medication
+  Medkits
+  MeleeWeapons
+  Money
+  Mounts
+  MuzzleAdapters
+  MuzzleDevices
+  Optics
+  Others
+  Pills
+  PistolGrips
+  Pistols
+  Provisions
+  ReceiversSlides
+  Rounds
+  SMGs
+  SecureContainers
+  Shotguns
+  Sights
+  SpecialEquipment
+  SpecialPurposeSights
+  SpecialWeapons
+  StocksChassis
+  StorageContainers
+  Suppressors
+  TacticalComboDevices
+  TacticalRigs
+  Throwables
+  Tools
+  Valuables
+  VitalParts
+  WeaponPartsMods
+  Weapons
+}
+
 type HealthEffect {
   bodyParts: [String]!
   effects: [String]!
@@ -141,6 +234,15 @@ type HealthPart {
   bodyPart: String!
 }
 
+"""HideoutModule has been replaced with HideoutStation."""
+type HideoutModule {
+  id: Int @deprecated(reason: "Use HideoutStation type instead.")
+  name: String @deprecated(reason: "Use HideoutStation type instead.")
+  level: Int
+  itemRequirements: [ContainedItem]!
+  moduleRequirements: [HideoutModule]!
+}
+
 type HideoutStation {
   id: ID!
   name: String!
@@ -148,7 +250,7 @@ type HideoutStation {
   levels: [HideoutStationLevel]!
   tarkovDataId: Int
 
-  # crafts is only available via the hideoutStations query.
+  """crafts is only available via the hideoutStations query."""
   crafts: [Craft]!
 }
 
@@ -163,7 +265,7 @@ type HideoutStationLevel {
   traderRequirements: [RequirementTrader]!
   tarkovDataId: Int
 
-  # crafts is only available via the hideoutStations query.
+  """crafts is only available via the hideoutStations query."""
   crafts: [Craft]!
 }
 
@@ -224,28 +326,17 @@ type Item {
   craftsFor: [Craft]!
   craftsUsing: [Craft]!
 
-  # historicalPrices is only available via the item and items queries.
+  """historicalPrices is only available via the item and items queries."""
   historicalPrices: [historicalPricePoint]
-  fleaMarketFee(
-    price: Int
-    intelCenterLevel: Int
-    hideoutManagementLevel: Int
-    count: Int
-    requireAll: Boolean
-  ): Int
-  categoryTop: ItemCategory
-    @deprecated(reason: "No longer meaningful with inclusion of Item category.")
-  translation(languageCode: LanguageCode): ItemTranslation
-    @deprecated(reason: "Use the lang argument on queries instead.")
+  fleaMarketFee(price: Int, intelCenterLevel: Int, hideoutManagementLevel: Int, count: Int, requireAll: Boolean): Int
+  categoryTop: ItemCategory @deprecated(reason: "No longer meaningful with inclusion of Item category.")
+  translation(languageCode: LanguageCode): ItemTranslation @deprecated(reason: "Use the lang argument on queries instead.")
   traderPrices: [TraderPrice]! @deprecated(reason: "Use sellFor instead.")
   bsgCategory: ItemCategory @deprecated(reason: "Use category instead.")
   imageLink: String @deprecated(reason: "Use inspectImageLink instead.")
-  imageLinkFallback: String!
-    @deprecated(reason: "Fallback handled automatically by inspectImageLink.")
-  iconLinkFallback: String!
-    @deprecated(reason: "Fallback handled automatically by iconLink.")
-  gridImageLinkFallback: String!
-    @deprecated(reason: "Fallback handled automatically by gridImageLink.")
+  imageLinkFallback: String! @deprecated(reason: "Fallback handled automatically by inspectImageLink.")
+  iconLinkFallback: String! @deprecated(reason: "Fallback handled automatically by iconLink.")
+  gridImageLinkFallback: String! @deprecated(reason: "Fallback handled automatically by gridImageLink.")
 }
 
 type ItemAttribute {
@@ -260,6 +351,106 @@ type ItemCategory {
   normalizedName: String!
   parent: ItemCategory
   children: [ItemCategory]
+}
+
+enum ItemCategoryName {
+  Ammo
+  AmmoContainer
+  ArmBand
+  Armor
+  ArmoredEquipment
+  AssaultCarbine
+  AssaultRifle
+  AssaultScope
+  AuxiliaryMod
+  Backpack
+  Barrel
+  BarterItem
+  Battery
+  Bipod
+  BuildingMaterial
+  ChargingHandle
+  ChestRig
+  CombMuzzleDevice
+  CombTactDevice
+  CommonContainer
+  CompactReflexSight
+  Compass
+  CompoundItem
+  CylinderMagazine
+  Drink
+  Drug
+  Electronics
+  Equipment
+  EssentialMod
+  FaceCover
+  Flashhider
+  Flashlight
+  Food
+  FoodAndDrink
+  Foregrip
+  Fuel
+  FunctionalMod
+  GasBlock
+  GearMod
+  GrenadeLauncher
+  Handguard
+  Handgun
+  Headphones
+  Headwear
+  HouseholdGoods
+  Info
+  Ironsight
+  Item
+  Jewelry
+  Key
+  KeyMechanical
+  Keycard
+  Knife
+  LockingContainer
+  Lubricant
+  Machinegun
+  Magazine
+  Map
+  MarksmanRifle
+  MedicalItem
+  MedicalSupplies
+  Medikit
+  Meds
+  Money
+  Mount
+  MuzzleDevice
+  NightVision
+  Other
+  PistolGrip
+  PortContainer
+  PortableRangeFinder
+  RadioTransmitter
+  RandomLootContainer
+  Receiver
+  ReflexSight
+  RepairKits
+  Revolver
+  SMG
+  Scope
+  SearchableItem
+  Shotgun
+  Sights
+  Silencer
+  SniperRifle
+  SpecialItem
+  SpecialScope
+  SpringDrivenCylinder
+  StackableItem
+  Stimulant
+  Stock
+  ThermalVision
+  ThrowableWeapon
+  Tool
+  UBGL
+  VisObservDevice
+  Weapon
+  WeaponMod
 }
 
 type ItemFilters {
@@ -278,6 +469,8 @@ type ItemPrice {
   source: ItemSourceName @deprecated(reason: "Use vendor instead.")
   requirements: [PriceRequirement]! @deprecated(reason: "Use vendor instead.")
 }
+
+union ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesMedKit | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesScope | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod | ItemPropertiesStim
 
 type ItemPropertiesAmmo {
   caliber: String
@@ -301,6 +494,7 @@ type ItemPropertiesAmmo {
   heavyBleedModifier: Float
   durabilityBurnFactor: Float
   heatFactor: Float
+  staminaBurnPerDamage: Float
 }
 
 type ItemPropertiesArmor {
@@ -312,6 +506,7 @@ type ItemPropertiesArmor {
   ergoPenalty: Int
   zones: [String]
   material: ArmorMaterial
+  armorType: String
 }
 
 type ItemPropertiesArmorAttachment {
@@ -336,10 +531,7 @@ type ItemPropertiesBarrel {
   ergonomics: Float
   recoil: Float @deprecated(reason: "Use recoilModifier instead.")
   recoilModifier: Float
-  accuracyModifier: Float
-    @deprecated(
-      reason: "Use centerOfImpact, deviationCurve, and deviationMax instead."
-    )
+  accuracyModifier: Float @deprecated(reason: "Use centerOfImpact, deviationCurve, and deviationMax instead.")
   centerOfImpact: Float
   deviationCurve: Float
   deviationMax: Float
@@ -358,6 +550,7 @@ type ItemPropertiesChestRig {
   capacity: Int
   grids: [ItemStorageGrid]
   pouches: [ItemStorageGrid] @deprecated(reason: "Use grids instead.")
+  armorType: String
 }
 
 type ItemPropertiesContainer {
@@ -405,6 +598,7 @@ type ItemPropertiesHelmet {
   ricochetX: Float
   ricochetY: Float
   ricochetZ: Float
+  armorType: String
 }
 
 type ItemPropertiesKey {
@@ -466,6 +660,7 @@ type ItemPropertiesPreset {
   recoilVertical: Int
   recoilHorizontal: Int
   moa: Float
+  default: Boolean
 }
 
 type ItemPropertiesScope {
@@ -527,32 +722,6 @@ type ItemPropertiesWeaponMod {
   slots: [ItemSlot]
 }
 
-union ItemProperties =
-    ItemPropertiesAmmo
-  | ItemPropertiesArmor
-  | ItemPropertiesArmorAttachment
-  | ItemPropertiesBackpack
-  | ItemPropertiesBarrel
-  | ItemPropertiesChestRig
-  | ItemPropertiesContainer
-  | ItemPropertiesFoodDrink
-  | ItemPropertiesGlasses
-  | ItemPropertiesGrenade
-  | ItemPropertiesHelmet
-  | ItemPropertiesKey
-  | ItemPropertiesMagazine
-  | ItemPropertiesMedicalItem
-  | ItemPropertiesMelee
-  | ItemPropertiesMedKit
-  | ItemPropertiesNightVision
-  | ItemPropertiesPainkiller
-  | ItemPropertiesPreset
-  | ItemPropertiesScope
-  | ItemPropertiesSurgicalKit
-  | ItemPropertiesWeapon
-  | ItemPropertiesWeaponMod
-  | ItemPropertiesStim
-
 type ItemSlot {
   id: ID!
   name: String!
@@ -579,6 +748,61 @@ type ItemStorageGrid {
   filters: ItemFilters!
 }
 
+"""
+The below types are all deprecated and may not return current data.
+ItemTranslation has been replaced with the lang argument on all queries
+"""
+type ItemTranslation {
+  name: String @deprecated(reason: "Use the lang argument on queries instead.")
+  shortName: String @deprecated(reason: "Use the lang argument on queries instead.")
+  description: String @deprecated(reason: "Use the lang argument on queries instead.")
+}
+
+enum ItemType {
+  ammo
+  ammoBox
+  any
+  armor
+  backpack
+  barter
+  container
+  glasses
+  grenade
+  gun
+  headphones
+  helmet
+  injectors
+  keys
+  markedOnly
+  meds
+  mods
+  noFlea
+  pistolGrip
+  preset
+  provisions
+  rig
+  suppressor
+  wearable
+}
+
+enum LanguageCode {
+  cs
+  de
+  en
+  es
+  fr
+  hu
+  it
+  ja
+  ko
+  pl
+  pt
+  ru
+  sk
+  tr
+  zh
+}
+
 type Map {
   id: ID!
   tarkovDataId: ID
@@ -594,11 +818,14 @@ type Map {
 }
 
 type MobInfo {
+  id: ID!
   name: String!
   normalizedName: String!
   health: [HealthPart]
+  imagePortraitLink: String
+  imagePosterLink: String
 
-  # equipment and items are estimates and may be inaccurate.
+  """equipment and items are estimates and may be inaccurate."""
   equipment: [ContainedItem]!
   items: [Item]!
 }
@@ -626,6 +853,50 @@ type PriceRequirement {
   stringValue: String
 }
 
+type Query {
+  ammo(lang: LanguageCode, limit: Int, offset: Int): [Ammo]
+  barters(lang: LanguageCode, limit: Int, offset: Int): [Barter]
+  bosses(lang: LanguageCode, name: [String!], limit: Int, offset: Int): [MobInfo]
+  crafts(lang: LanguageCode, limit: Int, offset: Int): [Craft]
+  hideoutStations(lang: LanguageCode, limit: Int, offset: Int): [HideoutStation]!
+  historicalItemPrices(id: ID!, lang: LanguageCode, limit: Int, offset: Int): [historicalPricePoint]!
+  item(id: ID, normalizedName: String, lang: LanguageCode): Item
+  items(ids: [ID], name: String, names: [String], type: ItemType, types: [ItemType], categoryNames: [ItemCategoryName], handbookCategoryNames: [HandbookCategoryName], bsgCategoryId: String, bsgCategoryIds: [String], bsgCategory: String, lang: LanguageCode, limit: Int, offset: Int): [Item]!
+  itemCategories(lang: LanguageCode, limit: Int, offset: Int): [ItemCategory]!
+  handbookCategories(lang: LanguageCode, limit: Int, offset: Int): [ItemCategory]!
+  maps(lang: LanguageCode, name: [String!], enemies: [String!], limit: Int, offset: Int): [Map]!
+  questItems(lang: LanguageCode): [QuestItem]
+  status: ServerStatus!
+  task(id: ID!, lang: LanguageCode): Task
+  tasks(faction: String, lang: LanguageCode, limit: Int, offset: Int): [Task]!
+  traders(lang: LanguageCode, limit: Int, offset: Int): [Trader]!
+  fleaMarket(lang: LanguageCode): FleaMarket!
+  armorMaterials(lang: LanguageCode): [ArmorMaterial]!
+  playerLevels: [PlayerLevel]!
+  hideoutModules: [HideoutModule] @deprecated(reason: "Use hideoutStations instead.")
+  itemsByIDs(ids: [ID]!): [Item] @deprecated(reason: "Use items instead.")
+  itemsByType(type: ItemType!): [Item]! @deprecated(reason: "Use items instead.")
+  itemsByName(name: String!): [Item]! @deprecated(reason: "Use items instead.")
+  itemByNormalizedName(normalizedName: String!): Item @deprecated(reason: "Use item instead.")
+  itemsByBsgCategoryId(bsgCategoryId: String!): [Item]! @deprecated(reason: "Use items instead.")
+  quests: [Quest] @deprecated(reason: "Use tasks instead.")
+  traderResetTimes: [TraderResetTime] @deprecated(reason: "Use traders instead.")
+}
+
+"""Quest has been replaced with Task."""
+type Quest {
+  id: String! @deprecated(reason: "Use Task type instead.")
+  requirements: QuestRequirement @deprecated(reason: "Use Task type instead.")
+  giver: Trader! @deprecated(reason: "Use Task type instead.")
+  turnin: Trader! @deprecated(reason: "Use Task type instead.")
+  title: String! @deprecated(reason: "Use Task type instead.")
+  wikiLink: String! @deprecated(reason: "Use Task type instead.")
+  exp: Int! @deprecated(reason: "Use Task type instead.")
+  unlocks: [String]! @deprecated(reason: "Use Task type instead.")
+  reputation: [QuestRewardReputation!] @deprecated(reason: "Use Task type instead.")
+  objectives: [QuestObjective]! @deprecated(reason: "Use Task type instead.")
+}
+
 type QuestItem {
   id: ID
   name: String!
@@ -640,6 +911,28 @@ type QuestItem {
   inspectImageLink: String
   image512pxLink: String
   image8xLink: String
+}
+
+"""QuestObjective has been replaced with TaskObjective."""
+type QuestObjective {
+  id: String @deprecated(reason: "Use Task type instead.")
+  type: String! @deprecated(reason: "Use Task type instead.")
+  target: [String!] @deprecated(reason: "Use Task type instead.")
+  targetItem: Item @deprecated(reason: "Use Task type instead.")
+  number: Int @deprecated(reason: "Use Task type instead.")
+  location: String @deprecated(reason: "Use Task type instead.")
+}
+
+"""QuestRequirement has been replaced with TaskRequirement."""
+type QuestRequirement {
+  level: Int @deprecated(reason: "Use Task type instead.")
+  quests: [[Int]]! @deprecated(reason: "Use Task type instead.")
+  prerequisiteQuests: [[Quest]]! @deprecated(reason: "Use Task type instead.")
+}
+
+type QuestRewardReputation {
+  trader: Trader! @deprecated(reason: "Use Task type instead.")
+  amount: Float! @deprecated(reason: "Use Task type instead.")
 }
 
 type RequirementHideoutStationLevel {
@@ -740,6 +1033,8 @@ type Task {
   finishRewards: TaskRewards
   factionName: String
   neededKeys: [TaskKey]
+  kappaRequired: Boolean
+  lightkeeperRequired: Boolean
   descriptionMessageId: String
   startMessageId: String
   successMessageId: String
@@ -915,25 +1210,12 @@ type Trader {
   discount: Float!
   levels: [TraderLevel!]!
 
-  # barters and cashOffers are only available via the traders query.
+  """barters and cashOffers are only available via the traders query."""
   barters: [Barter]!
   cashOffers: [TraderCashOffer]!
+  imageLink: String
+  image4xLink: String
   tarkovDataId: Int
-}
-
-type TraderLevel {
-  id: ID!
-  level: Int!
-  requiredPlayerLevel: Int!
-  requiredReputation: Float!
-  requiredCommerce: Int!
-  payRate: Float!
-  insuranceRate: Float
-  repairCostMultiplier: Float
-
-  # barters and cashOffers are only available via the traders query.
-  barters: [Barter]!
-  cashOffers: [TraderCashOffer]!
 }
 
 type TraderCashOffer {
@@ -946,6 +1228,23 @@ type TraderCashOffer {
   taskUnlock: Task
 }
 
+type TraderLevel {
+  id: ID!
+  level: Int!
+  requiredPlayerLevel: Int!
+  requiredReputation: Float!
+  requiredCommerce: Int!
+  payRate: Float!
+  insuranceRate: Float
+  repairCostMultiplier: Float
+
+  """barters and cashOffers are only available via the traders query."""
+  barters: [Barter]!
+  cashOffers: [TraderCashOffer]!
+  imageLink: String
+  image4xLink: String
+}
+
 enum TraderName {
   prapor
   therapist
@@ -955,6 +1254,7 @@ enum TraderName {
   mechanic
   ragman
   jaeger
+  lightkeeper
 }
 
 type TraderOffer implements Vendor {
@@ -963,6 +1263,20 @@ type TraderOffer implements Vendor {
   trader: Trader!
   minTraderLevel: Int
   taskUnlock: Task
+}
+
+"""TraderPrice is deprecated and replaced with ItemPrice."""
+type TraderPrice {
+  price: Int! @deprecated(reason: "Use item.buyFor instead.")
+  currency: String! @deprecated(reason: "Use item.buyFor instead.")
+  priceRUB: Int! @deprecated(reason: "Use item.buyFor instead.")
+  trader: Trader! @deprecated(reason: "Use item.buyFor instead.")
+}
+
+"""TraderResetTime is deprecated and replaced with Trader."""
+type TraderResetTime {
+  name: String @deprecated(reason: "Use Trader.name type instead.")
+  resetTimestamp: String @deprecated(reason: "Use Trader.resetTime type instead.")
 }
 
 type TraderStanding {
@@ -975,378 +1289,3 @@ interface Vendor {
   normalizedName: String!
 }
 
-type Query {
-  ammo(lang: LanguageCode, limit: Int, offset: Int): [Ammo]
-  barters(lang: LanguageCode, limit: Int, offset: Int): [Barter]
-  bosses(
-    lang: LanguageCode
-    name: [String!]
-    limit: Int
-    offset: Int
-  ): [MobInfo]
-  crafts(lang: LanguageCode, limit: Int, offset: Int): [Craft]
-  hideoutStations(
-    lang: LanguageCode
-    limit: Int
-    offset: Int
-  ): [HideoutStation]!
-  historicalItemPrices(
-    id: ID!
-    lang: LanguageCode
-    limit: Int
-    offset: Int
-  ): [historicalPricePoint]!
-  item(id: ID, normalizedName: String, lang: LanguageCode): Item
-  items(
-    ids: [ID]
-    name: String
-    names: [String]
-    type: ItemType
-    types: [ItemType]
-    categoryNames: [ItemCategoryName]
-    handbookCategoryNames: [HandbookCategoryName]
-    bsgCategoryId: String
-    bsgCategoryIds: [String]
-    bsgCategory: String
-    lang: LanguageCode
-    limit: Int
-    offset: Int
-  ): [Item]!
-  itemCategories(lang: LanguageCode, limit: Int, offset: Int): [ItemCategory]!
-  handbookCategories(
-    lang: LanguageCode
-    limit: Int
-    offset: Int
-  ): [ItemCategory]!
-  maps(
-    lang: LanguageCode
-    name: [String!]
-    enemies: [String!]
-    limit: Int
-    offset: Int
-  ): [Map]!
-  questItems(lang: LanguageCode): [QuestItem]
-  status: ServerStatus!
-  task(id: ID!, lang: LanguageCode): Task
-  tasks(faction: String, lang: LanguageCode, limit: Int, offset: Int): [Task]!
-  traders(lang: LanguageCode, limit: Int, offset: Int): [Trader]!
-  fleaMarket(lang: LanguageCode): FleaMarket!
-  armorMaterials(lang: LanguageCode): [ArmorMaterial]!
-  playerLevels: [PlayerLevel]!
-  hideoutModules: [HideoutModule]
-    @deprecated(reason: "Use hideoutStations instead.")
-  itemsByIDs(ids: [ID]!): [Item] @deprecated(reason: "Use items instead.")
-  itemsByType(type: ItemType!): [Item]!
-    @deprecated(reason: "Use items instead.")
-  itemsByName(name: String!): [Item]! @deprecated(reason: "Use items instead.")
-  itemByNormalizedName(normalizedName: String!): Item
-    @deprecated(reason: "Use item instead.")
-  itemsByBsgCategoryId(bsgCategoryId: String!): [Item]!
-    @deprecated(reason: "Use items instead.")
-  quests: [Quest] @deprecated(reason: "Use tasks instead.")
-  traderResetTimes: [TraderResetTime]
-    @deprecated(reason: "Use traders instead.")
-}
-
-# The below types are all deprecated and may not return current data.
-# ItemTranslation has been replaced with the lang argument on all queries
-type ItemTranslation {
-  name: String @deprecated(reason: "Use the lang argument on queries instead.")
-  shortName: String
-    @deprecated(reason: "Use the lang argument on queries instead.")
-  description: String
-    @deprecated(reason: "Use the lang argument on queries instead.")
-}
-
-# HideoutModule has been replaced with HideoutStation.
-type HideoutModule {
-  id: Int @deprecated(reason: "Use HideoutStation type instead.")
-  name: String @deprecated(reason: "Use HideoutStation type instead.")
-  level: Int
-  itemRequirements: [ContainedItem]!
-  moduleRequirements: [HideoutModule]!
-}
-
-# Quest has been replaced with Task.
-type Quest {
-  id: String! @deprecated(reason: "Use Task type instead.")
-  requirements: QuestRequirement @deprecated(reason: "Use Task type instead.")
-  giver: Trader! @deprecated(reason: "Use Task type instead.")
-  turnin: Trader! @deprecated(reason: "Use Task type instead.")
-  title: String! @deprecated(reason: "Use Task type instead.")
-  wikiLink: String! @deprecated(reason: "Use Task type instead.")
-  exp: Int! @deprecated(reason: "Use Task type instead.")
-  unlocks: [String]! @deprecated(reason: "Use Task type instead.")
-  reputation: [QuestRewardReputation!]
-    @deprecated(reason: "Use Task type instead.")
-  objectives: [QuestObjective]! @deprecated(reason: "Use Task type instead.")
-}
-
-# QuestObjective has been replaced with TaskObjective.
-type QuestObjective {
-  id: String @deprecated(reason: "Use Task type instead.")
-  type: String! @deprecated(reason: "Use Task type instead.")
-  target: [String!] @deprecated(reason: "Use Task type instead.")
-  targetItem: Item @deprecated(reason: "Use Task type instead.")
-  number: Int @deprecated(reason: "Use Task type instead.")
-  location: String @deprecated(reason: "Use Task type instead.")
-}
-
-# QuestRequirement has been replaced with TaskRequirement.
-type QuestRequirement {
-  level: Int @deprecated(reason: "Use Task type instead.")
-  quests: [[Int]]! @deprecated(reason: "Use Task type instead.")
-  prerequisiteQuests: [[Quest]]! @deprecated(reason: "Use Task type instead.")
-}
-
-type QuestRewardReputation {
-  trader: Trader! @deprecated(reason: "Use Task type instead.")
-  amount: Float! @deprecated(reason: "Use Task type instead.")
-}
-
-# TraderPrice is deprecated and replaced with ItemPrice.
-type TraderPrice {
-  price: Int! @deprecated(reason: "Use item.buyFor instead.")
-  currency: String! @deprecated(reason: "Use item.buyFor instead.")
-  priceRUB: Int! @deprecated(reason: "Use item.buyFor instead.")
-  trader: Trader! @deprecated(reason: "Use item.buyFor instead.")
-}
-
-# TraderResetTime is deprecated and replaced with Trader.
-type TraderResetTime {
-  name: String @deprecated(reason: "Use Trader.name type instead.")
-  resetTimestamp: String
-    @deprecated(reason: "Use Trader.resetTime type instead.")
-}
-
-enum ItemType {
-  ammo
-  ammoBox
-  any
-  armor
-  backpack
-  barter
-  container
-  glasses
-  grenade
-  gun
-  headphones
-  helmet
-  injectors
-  keys
-  markedOnly
-  meds
-  mods
-  noFlea
-  pistolGrip
-  preset
-  provisions
-  rig
-  suppressor
-  wearable
-}
-
-enum ItemCategoryName {
-  Ammo
-  AmmoContainer
-  ArmBand
-  Armor
-  ArmoredEquipment
-  AssaultCarbine
-  AssaultRifle
-  AssaultScope
-  AuxiliaryMod
-  Backpack
-  Barrel
-  BarterItem
-  Battery
-  Bipod
-  BuildingMaterial
-  ChargingHandle
-  ChestRig
-  CombMuzzleDevice
-  CombTactDevice
-  CommonContainer
-  CompactReflexSight
-  Compass
-  CompoundItem
-  CylinderMagazine
-  Drink
-  Drug
-  Electronics
-  Equipment
-  EssentialMod
-  FaceCover
-  Flashhider
-  Flashlight
-  Food
-  FoodAndDrink
-  Foregrip
-  Fuel
-  FunctionalMod
-  GasBlock
-  GearMod
-  GrenadeLauncher
-  Handguard
-  Handgun
-  Headphones
-  Headwear
-  HouseholdGoods
-  Info
-  Ironsight
-  Item
-  Jewelry
-  Key
-  KeyMechanical
-  Keycard
-  Knife
-  LockingContainer
-  Lubricant
-  Machinegun
-  Magazine
-  Map
-  MarksmanRifle
-  MedicalItem
-  MedicalSupplies
-  Medikit
-  Meds
-  Money
-  Mount
-  MuzzleDevice
-  NightVision
-  Other
-  PistolGrip
-  PortContainer
-  PortableRangeFinder
-  RadioTransmitter
-  RandomLootContainer
-  Receiver
-  ReflexSight
-  RepairKits
-  Revolver
-  SMG
-  Scope
-  SearchableItem
-  Shotgun
-  Sights
-  Silencer
-  SniperRifle
-  SpecialItem
-  SpecialScope
-  SpringDrivenCylinder
-  StackableItem
-  Stimulant
-  Stock
-  ThermalVision
-  ThrowableWeapon
-  Tool
-  UBGL
-  VisObservDevice
-  Weapon
-  WeaponMod
-}
-
-enum HandbookCategoryName {
-  Ammo
-  AmmoPacks
-  AssaultCarbines
-  AssaultRifles
-  AssaultScopes
-  AuxiliaryParts
-  Backpacks
-  Barrels
-  BarterItems
-  Bipods
-  BodyArmor
-  BoltActionRifles
-  BuildingMaterials
-  ChargingHandles
-  Collimators
-  CompactCollimators
-  Drinks
-  ElectronicKeys
-  Electronics
-  EnergyElements
-  Eyewear
-  Facecovers
-  FlammableMaterials
-  FlashhidersBrakes
-  Flashlights
-  Food
-  Foregrips
-  FunctionalMods
-  GasBlocks
-  Gear
-  GearComponents
-  GearMods
-  GrenadeLaunchers
-  Handguards
-  Headgear
-  Headsets
-  HouseholdMaterials
-  InfoItems
-  Injectors
-  InjuryTreatment
-  IronSights
-  Keys
-  LaserTargetPointers
-  Launchers
-  LightLaserDevices
-  MachineGuns
-  Magazines
-  Maps
-  MarksmanRifles
-  MechanicalKeys
-  MedicalSupplies
-  Medication
-  Medkits
-  MeleeWeapons
-  Money
-  Mounts
-  MuzzleAdapters
-  MuzzleDevices
-  Optics
-  Others
-  Pills
-  PistolGrips
-  Pistols
-  Provisions
-  ReceiversSlides
-  Rounds
-  SMGs
-  SecureContainers
-  Shotguns
-  Sights
-  SpecialEquipment
-  SpecialPurposeSights
-  SpecialWeapons
-  StocksChassis
-  StorageContainers
-  Suppressors
-  TacticalComboDevices
-  TacticalRigs
-  Throwables
-  Tools
-  Valuables
-  VitalParts
-  WeaponPartsMods
-  Weapons
-}
-
-enum LanguageCode {
-  cs
-  de
-  en
-  es
-  fr
-  hu
-  it
-  ja
-  ko
-  pl
-  pt
-  ru
-  sk
-  tr
-  zh
-}
