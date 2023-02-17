@@ -38,8 +38,9 @@ const darkTheme = createTheme(
 
 export const TradersContext = createContext<Trader[]>([]);
 
-function App() {
+const App = () => {
   const [traders, setTraders] = useState<Trader[]>([]);
+  console.log(navigator.language);
   useEffect(() => {
     const access_api = async () => {
       await fetch("https://api.tarkov.dev/graphql", {
@@ -74,6 +75,6 @@ function App() {
       </TradersContext.Provider>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

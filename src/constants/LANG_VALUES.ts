@@ -259,3 +259,9 @@ export const ITEM_PROPERTIES_WEAPON = {
   sightingRange: "照準可能距離",
   slots: "slots",
 };
+
+export const ITEM_PROPERTIES_WEAPON_MOD = {
+  accuracyModifier: "精度",
+  ergonomics: "エルゴノミクス",
+  recoilModifier: "リコイル",
+};

@@ -19,6 +19,9 @@ import Painkiller from "./Painkiller";
 import Preset from "./Preset";
 import Scope from "./Scope";
 import Stim from "./Stim";
+import SurgicalKit from "./SurgicalKit";
+import Weapon from "./Weapon";
+import WeaponMod from "./WeaponMod";
 
 type Props = {
   typeName: string;
@@ -69,6 +72,12 @@ const ItemDetail = ({ typeName, ItemId }: Props) => {
       return <Scope ItemId={ItemId} />;
     case "ItemPropertiesStim":
       return <Stim ItemId={ItemId} />;
+    case "ItemPropertiesSurgicalKit":
+      return <SurgicalKit ItemId={ItemId} />;
+    case "ItemPropertiesWeapon":
+      return <Weapon ItemId={ItemId} />;
+    case "ItemPropertiesWeaponMod":
+      return <WeaponMod ItemId={ItemId} />;
     default:
       return <></>;
   }

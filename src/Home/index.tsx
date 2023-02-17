@@ -190,7 +190,7 @@ const Home = () => {
           </Typography>
         </Box>
 
-        <Button startIcon={<Discord height={22} width={"auto"} />}>
+        <Button startIcon={<Discord height={22} />}>
           <Typography
             variant="h6"
             color="text.secondary"
