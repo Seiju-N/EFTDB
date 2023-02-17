@@ -21,24 +21,38 @@ import {
   ListItemAvatar,
   ListItemButton,
   ListItemText,
+  MenuItem,
   Tooltip,
 } from "@mui/material";
-import { SITE_NAME } from "./constants/CONST_VALUES";
+import { SITE_NAME, SUPPORTED_LANG } from "./constants/CONST_VALUES";
 import { TradersContext } from "./App";
+import { ReactComponent as Discord } from "./img/discord.svg";
+import Language from "@mui/icons-material/Language";
 
-function TopBar() {
+type Props = {
+  setLanguage: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const TopBar = (props: Props) => {
+  const { setLanguage } = props;
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElTask, setAnchorElTask] = useState<null | HTMLElement>(null);
+  const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
   const [open, setOpen] = useState(true);
 
   const handleClick = () => {
     setOpen(!open);
   };
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenTaskMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElTask(event.currentTarget);
+  };
+
+  const handleOpenLangMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElLang(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -48,8 +62,17 @@ function TopBar() {
   const handleCloseTaskMenu = () => {
     setAnchorElTask(null);
   };
+  const handleCloseLangMenu = () => {
+    setAnchorElLang(null);
+  };
+
+  const handleLangClick = (lang: string) => {
+    handleCloseLangMenu();
+    setLanguage(lang);
+  };
 
   const traders = useContext(TradersContext);
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -93,7 +116,7 @@ function TopBar() {
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
+                vertical: "bottom",
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
@@ -191,7 +214,7 @@ function TopBar() {
               {traders.map((trader) => (
                 <ListItem
                   alignItems="flex-start"
-                  key={trader.name}
+                  key={trader.id}
                   disablePadding
                 >
                   <ListItemButton
@@ -209,12 +232,31 @@ function TopBar() {
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Join our discord server.">
-              <IconButton></IconButton>
+              <IconButton>
+                <Discord height={26} />
+              </IconButton>
             </Tooltip>
+          </Box>
+          <IconButton id="simple-menu" onClick={handleOpenLangMenu}>
+            <Language />
+          </IconButton>
+          <Box sx={{ flexGrow: 0 }}>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorElLang}
+              open={Boolean(anchorElLang)}
+              onClose={handleCloseLangMenu}
+            >
+              {SUPPORTED_LANG.map((lang, index) => (
+                <MenuItem key={index} onClick={() => handleLangClick(lang)}>
+                  {lang}
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
-}
+};
 export default TopBar;

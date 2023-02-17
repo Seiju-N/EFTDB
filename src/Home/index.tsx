@@ -192,7 +192,7 @@ const Home = () => {
 
         <Button startIcon={<Discord height={22} />}>
           <Typography
-            variant="h6"
+            variant="h5"
             color="text.secondary"
             textTransform={"none"}
           >

@@ -13,7 +13,7 @@ import Home from "./Home";
 
 import { Routes, Route } from "react-router-dom";
 
-import { Trader } from "./graphql/generated";
+import { LanguageCode, Trader } from "./graphql/generated";
 import { createContext, useEffect, useState } from "react";
 import { fetchParams } from "./ItemList/utils";
 
@@ -37,10 +37,11 @@ const darkTheme = createTheme(
 );
 
 export const TradersContext = createContext<Trader[]>([]);
+export const LanguageDictContext = createContext({});
 
 const App = () => {
   const [traders, setTraders] = useState<Trader[]>([]);
-  console.log(navigator.language);
+  const [language, setLanguage] = useState("");
   useEffect(() => {
     const access_api = async () => {
       await fetch("https://api.tarkov.dev/graphql", {
@@ -48,6 +49,7 @@ const App = () => {
         body: JSON.stringify({
           query: `{
             traders{
+              id
               name
               imageLink
             }
@@ -60,13 +62,17 @@ const App = () => {
         });
     };
     access_api();
+    const storageLang = localStorage.getItem("lang");
+    storageLang ? setLanguage(storageLang) : setLanguage("en");
   }, []);
+
+  console.log(language);
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <TradersContext.Provider value={traders}>
-        <TopBar />
+        <TopBar setLanguage={setLanguage} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/task/:traderName/" element={<TaskList />} />
