@@ -10,9 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link as RouterLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { fetchParams } from "./ItemList/utils";
-import { Trader } from "./graphql/generated";
+import { useContext, useState } from "react";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {
@@ -26,11 +24,11 @@ import {
   Tooltip,
 } from "@mui/material";
 import { SITE_NAME } from "./constants/CONST_VALUES";
+import { TradersContext } from "./App";
 
 function TopBar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElTask, setAnchorElTask] = useState<null | HTMLElement>(null);
-  const [traders, setTraders] = useState<Trader[]>([]);
   const [open, setOpen] = useState(true);
 
   const handleClick = () => {
@@ -51,26 +49,7 @@ function TopBar() {
     setAnchorElTask(null);
   };
 
-  useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            traders{
-              name
-              imageLink
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setTraders(data.traders);
-        });
-    };
-    access_api();
-  }, []);
+  const traders = useContext(TradersContext);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

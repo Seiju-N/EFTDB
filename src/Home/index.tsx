@@ -1,11 +1,30 @@
 import { ServerStatus as ServerStatusType } from "@/graphql/generated";
-import { Box, Card, Container, List, Paper, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Container,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  Paper,
+  Typography,
+} from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 
+import { Link as RouterLink } from "react-router-dom";
+import DoubleArrow from "@mui/icons-material/DoubleArrow";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import StorageIcon from "@mui/icons-material/Storage";
 import Grid from "@mui/material/Unstable_Grid2";
+import { TradersContext } from "../App";
+import { ReactComponent as Discord } from "../img/discord.svg";
 
 const Home = () => {
   const [serverStatus, setServerStatus] = useState<ServerStatusType>({});
@@ -17,8 +36,74 @@ const Home = () => {
     },
   };
 
-  const Home = () => {
-    return <Card>This is home page</Card>;
+  const TypographySx = () => {
+    return (
+      <Typography
+        sx={{
+          fontSize: {
+            xs: "1.5rem",
+            md: "2.4rem",
+          },
+        }}
+        color="text.secondary"
+      >
+        Welcome to
+      </Typography>
+    );
+  };
+
+  const Menu = () => {
+    const traders = useContext(TradersContext);
+    return (
+      <Grid container spacing={2}>
+        <Grid xs={12} md={6}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h5" color="text.secondary">
+                Want to search for items?
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button component={RouterLink} to={`item/`}>
+                <DoubleArrow fontSize="large" />
+                <Typography variant="h4">ITEM</Typography>
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+        <Grid xs={12} md={6}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h5" color="text.secondary">
+                Want to search for tasks?
+              </Typography>
+            </CardContent>
+            <List component="div" disablePadding>
+              {traders.map((trader) => (
+                <ListItem
+                  alignItems="flex-start"
+                  key={trader.name}
+                  disablePadding
+                >
+                  <ListItemButton
+                    component={RouterLink}
+                    to={`task/${trader.name}`}
+                  >
+                    <ListItemAvatar>
+                      <Avatar alt={trader.name} src={trader.imageLink || ""} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={trader.name}
+                      primaryTypographyProps={{ fontSize: "1.4rem" }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Card>
+        </Grid>
+      </Grid>
+    );
   };
 
   const ServerStatus = () => {
@@ -97,9 +182,27 @@ const Home = () => {
   }, []);
   return (
     <Container>
-      <Grid container>
+      <Box m={2}>
+        <Box sx={{ display: "flex", alignItems: "baseline" }}>
+          <TypographySx />
+          <Typography variant="h3" pl={1}>
+            EFTDB.
+          </Typography>
+        </Box>
+
+        <Button startIcon={<Discord height={22} width={"auto"} />}>
+          <Typography
+            variant="h6"
+            color="text.secondary"
+            textTransform={"none"}
+          >
+            Join our Discord server.
+          </Typography>
+        </Button>
+      </Box>
+      <Grid container spacing={2}>
         <Grid xs={12} md={9}>
-          <Home />
+          <Menu />
         </Grid>
         <Grid xs={12} md={3}>
           <ServerStatus />
