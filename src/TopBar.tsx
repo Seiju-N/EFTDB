@@ -8,27 +8,71 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import Link from "@mui/material/Link";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from "react-router-dom";
+import { useContext, useState } from "react";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import {
+  Avatar,
+  Collapse,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  MenuItem,
+  Tooltip,
+} from "@mui/material";
+import { SITE_NAME, SUPPORTED_LANG } from "./constants/CONST_VALUES";
+import { TradersContext } from "./App";
+import { ReactComponent as Discord } from "./img/discord.svg";
+import Language from "@mui/icons-material/Language";
 
+type Props = {
+  setLanguage: React.Dispatch<React.SetStateAction<string>>;
+};
 
+const TopBar = (props: Props) => {
+  const { setLanguage } = props;
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElTask, setAnchorElTask] = useState<null | HTMLElement>(null);
+  const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState(true);
 
-const pages = ["task", "item"];
-
-function TopBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenTaskMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElTask(event.currentTarget);
+  };
+
+  const handleOpenLangMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElLang(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const handleCloseTaskMenu = () => {
+    setAnchorElTask(null);
+  };
+  const handleCloseLangMenu = () => {
+    setAnchorElLang(null);
+  };
+
+  const handleLangClick = (lang: string) => {
+    handleCloseLangMenu();
+    setLanguage(lang);
+    localStorage.setItem("lang", lang);
+  };
+
+  const traders = useContext(TradersContext);
 
   return (
     <AppBar position="static">
@@ -38,8 +82,8 @@ function TopBar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={RouterLink}
+            to={""}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -50,7 +94,7 @@ function TopBar() {
               textDecoration: "none",
             }}
           >
-            SITE_NAME
+            {SITE_NAME}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -64,6 +108,7 @@ function TopBar() {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -73,7 +118,7 @@ function TopBar() {
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
+                vertical: "bottom",
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
@@ -82,19 +127,51 @@ function TopBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} component={RouterLink} to={page}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <List>
+                <ListItemButton onClick={handleClick}>
+                  <ListItemText secondary="TASK" sx={{ pr: 10 }} />
+                  {open ? (
+                    <ExpandLess fontSize="large" />
+                  ) : (
+                    <ExpandMore fontSize="large" />
+                  )}
+                </ListItemButton>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {traders.map((trader) => (
+                      <ListItem
+                        alignItems="flex-start"
+                        key={trader.name}
+                        disablePadding
+                      >
+                        <ListItemButton
+                          component={RouterLink}
+                          to={`task/${trader.name}`}
+                        >
+                          <ListItemAvatar>
+                            <Avatar
+                              alt={trader.name}
+                              src={trader.imageLink || ""}
+                            />
+                          </ListItemAvatar>
+                          <ListItemText primary={trader.name} />
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>
+                <ListItemButton component={RouterLink} to={"item"}>
+                  <ListItemText secondary="ITEM"></ListItemText>
+                </ListItemButton>
+              </List>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={RouterLink}
+            to={""}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -106,22 +183,84 @@ function TopBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            {SITE_NAME}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                component={RouterLink} to={page}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              sx={{ my: 2, color: "white", display: "block" }}
+              onClick={handleOpenTaskMenu}
+            >
+              task
+            </Button>
+            <Button
+              component={RouterLink}
+              to={"item"}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              item
+            </Button>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElTask}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElTask)}
+              onClose={handleCloseTaskMenu}
+            >
+              {traders.map((trader) => (
+                <ListItem
+                  alignItems="flex-start"
+                  key={trader.id}
+                  disablePadding
+                >
+                  <ListItemButton
+                    component={RouterLink}
+                    to={`task/${trader.name}`}
+                  >
+                    <ListItemAvatar>
+                      <Avatar alt={trader.name} src={trader.imageLink || ""} />
+                    </ListItemAvatar>
+                    <ListItemText primary={trader.name} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </Menu>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Join our discord server.">
+              <IconButton href="https://discord.gg/cjUhFptaxM">
+                <Discord height={22} />
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <IconButton id="simple-menu" onClick={handleOpenLangMenu}>
+            <Language />
+          </IconButton>
+          <Box sx={{ flexGrow: 0 }}>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorElLang}
+              open={Boolean(anchorElLang)}
+              onClose={handleCloseLangMenu}
+            >
+              {SUPPORTED_LANG.map((lang, index) => (
+                <MenuItem key={index} onClick={() => handleLangClick(lang)}>
+                  {lang}
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
-}
+};
 export default TopBar;

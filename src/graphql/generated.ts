@@ -34,6 +34,7 @@ export type Ammo = {
   recoilModifier?: Maybe<Scalars['Float']>;
   ricochetChance: Scalars['Float'];
   stackMaxSize: Scalars['Int'];
+  staminaBurnPerDamage?: Maybe<Scalars['Float']>;
   tracer: Scalars['Boolean'];
   tracerColor?: Maybe<Scalars['String']>;
   weight: Scalars['Float'];
@@ -104,6 +105,10 @@ export type BossSpawn = {
   spawnTrigger?: Maybe<Scalars['String']>;
 };
 
+/**
+ * The chances of spawning in a given location are
+ * very rough estimates and may be incaccurate
+ */
 export type BossSpawnLocation = {
   __typename?: 'BossSpawnLocation';
   chance: Scalars['Float'];
@@ -264,6 +269,7 @@ export type HealthPart = {
   max: Scalars['Int'];
 };
 
+/** HideoutModule has been replaced with HideoutStation. */
 export type HideoutModule = {
   __typename?: 'HideoutModule';
   /** @deprecated Use HideoutStation type instead. */
@@ -277,6 +283,7 @@ export type HideoutModule = {
 
 export type HideoutStation = {
   __typename?: 'HideoutStation';
+  /** crafts is only available via the hideoutStations query. */
   crafts: Array<Maybe<Craft>>;
   id: Scalars['ID'];
   levels: Array<Maybe<HideoutStationLevel>>;
@@ -288,6 +295,7 @@ export type HideoutStation = {
 export type HideoutStationLevel = {
   __typename?: 'HideoutStationLevel';
   constructionTime: Scalars['Int'];
+  /** crafts is only available via the hideoutStations query. */
   crafts: Array<Maybe<Craft>>;
   description: Scalars['String'];
   id: Scalars['ID'];
@@ -334,6 +342,7 @@ export type Item = {
   hasGrid?: Maybe<Scalars['Boolean']>;
   height: Scalars['Int'];
   high24hPrice?: Maybe<Scalars['Int']>;
+  /** historicalPrices is only available via the item and items queries. */
   historicalPrices?: Maybe<Array<Maybe<HistoricalPricePoint>>>;
   iconLink?: Maybe<Scalars['String']>;
   /** @deprecated Fallback handled automatically by iconLink. */
@@ -547,12 +556,14 @@ export type ItemPropertiesAmmo = {
   recoilModifier?: Maybe<Scalars['Float']>;
   ricochetChance?: Maybe<Scalars['Float']>;
   stackMaxSize?: Maybe<Scalars['Int']>;
+  staminaBurnPerDamage?: Maybe<Scalars['Float']>;
   tracer?: Maybe<Scalars['Boolean']>;
   tracerColor?: Maybe<Scalars['String']>;
 };
 
 export type ItemPropertiesArmor = {
   __typename?: 'ItemPropertiesArmor';
+  armorType?: Maybe<Scalars['String']>;
   class?: Maybe<Scalars['Int']>;
   durability?: Maybe<Scalars['Int']>;
   ergoPenalty?: Maybe<Scalars['Int']>;
@@ -600,6 +611,7 @@ export type ItemPropertiesBarrel = {
 
 export type ItemPropertiesChestRig = {
   __typename?: 'ItemPropertiesChestRig';
+  armorType?: Maybe<Scalars['String']>;
   capacity?: Maybe<Scalars['Int']>;
   class?: Maybe<Scalars['Int']>;
   durability?: Maybe<Scalars['Int']>;
@@ -649,6 +661,7 @@ export type ItemPropertiesGrenade = {
 
 export type ItemPropertiesHelmet = {
   __typename?: 'ItemPropertiesHelmet';
+  armorType?: Maybe<Scalars['String']>;
   blindnessProtection?: Maybe<Scalars['Float']>;
   blocksHeadset?: Maybe<Scalars['Boolean']>;
   class?: Maybe<Scalars['Int']>;
@@ -730,6 +743,7 @@ export type ItemPropertiesPainkiller = {
 export type ItemPropertiesPreset = {
   __typename?: 'ItemPropertiesPreset';
   baseItem: Item;
+  default?: Maybe<Scalars['Boolean']>;
   ergonomics?: Maybe<Scalars['Float']>;
   moa?: Maybe<Scalars['Float']>;
   recoilHorizontal?: Maybe<Scalars['Int']>;
@@ -830,6 +844,10 @@ export type ItemStorageGrid = {
   width: Scalars['Int'];
 };
 
+/**
+ * The below types are all deprecated and may not return current data.
+ * ItemTranslation has been replaced with the lang argument on all queries
+ */
 export type ItemTranslation = {
   __typename?: 'ItemTranslation';
   /** @deprecated Use the lang argument on queries instead. */
@@ -902,8 +920,12 @@ export type Map = {
 
 export type MobInfo = {
   __typename?: 'MobInfo';
+  /** equipment and items are estimates and may be inaccurate. */
   equipment: Array<Maybe<ContainedItem>>;
   health?: Maybe<Array<Maybe<HealthPart>>>;
+  id: Scalars['ID'];
+  imagePortraitLink?: Maybe<Scalars['String']>;
+  imagePosterLink?: Maybe<Scalars['String']>;
   items: Array<Maybe<Item>>;
   name: Scalars['String'];
   normalizedName: Scalars['String'];
@@ -1127,6 +1149,7 @@ export type QueryTradersArgs = {
   offset?: InputMaybe<Scalars['Int']>;
 };
 
+/** Quest has been replaced with Task. */
 export type Quest = {
   __typename?: 'Quest';
   /** @deprecated Use Task type instead. */
@@ -1168,6 +1191,7 @@ export type QuestItem = {
   width?: Maybe<Scalars['Int']>;
 };
 
+/** QuestObjective has been replaced with TaskObjective. */
 export type QuestObjective = {
   __typename?: 'QuestObjective';
   /** @deprecated Use Task type instead. */
@@ -1184,6 +1208,7 @@ export type QuestObjective = {
   type: Scalars['String'];
 };
 
+/** QuestRequirement has been replaced with TaskRequirement. */
 export type QuestRequirement = {
   __typename?: 'QuestRequirement';
   /** @deprecated Use Task type instead. */
@@ -1301,6 +1326,8 @@ export type Task = {
   failMessageId?: Maybe<Scalars['String']>;
   finishRewards?: Maybe<TaskRewards>;
   id?: Maybe<Scalars['ID']>;
+  kappaRequired?: Maybe<Scalars['Boolean']>;
+  lightkeeperRequired?: Maybe<Scalars['Boolean']>;
   map?: Maybe<Map>;
   minPlayerLevel?: Maybe<Scalars['Int']>;
   name: Scalars['String'];
@@ -1494,12 +1521,15 @@ export type TaskStatusRequirement = {
 
 export type Trader = {
   __typename?: 'Trader';
+  /** barters and cashOffers are only available via the traders query. */
   barters: Array<Maybe<Barter>>;
   cashOffers: Array<Maybe<TraderCashOffer>>;
   currency: Item;
   description?: Maybe<Scalars['String']>;
   discount: Scalars['Float'];
   id: Scalars['ID'];
+  image4xLink?: Maybe<Scalars['String']>;
+  imageLink?: Maybe<Scalars['String']>;
   levels: Array<TraderLevel>;
   name: Scalars['String'];
   normalizedName: Scalars['String'];
@@ -1520,9 +1550,12 @@ export type TraderCashOffer = {
 
 export type TraderLevel = {
   __typename?: 'TraderLevel';
+  /** barters and cashOffers are only available via the traders query. */
   barters: Array<Maybe<Barter>>;
   cashOffers: Array<Maybe<TraderCashOffer>>;
   id: Scalars['ID'];
+  image4xLink?: Maybe<Scalars['String']>;
+  imageLink?: Maybe<Scalars['String']>;
   insuranceRate?: Maybe<Scalars['Float']>;
   level: Scalars['Int'];
   payRate: Scalars['Float'];
@@ -1535,6 +1568,7 @@ export type TraderLevel = {
 export enum TraderName {
   Fence = 'fence',
   Jaeger = 'jaeger',
+  Lightkeeper = 'lightkeeper',
   Mechanic = 'mechanic',
   Peacekeeper = 'peacekeeper',
   Prapor = 'prapor',
@@ -1552,6 +1586,7 @@ export type TraderOffer = Vendor & {
   trader: Trader;
 };
 
+/** TraderPrice is deprecated and replaced with ItemPrice. */
 export type TraderPrice = {
   __typename?: 'TraderPrice';
   /** @deprecated Use item.buyFor instead. */
@@ -1564,6 +1599,7 @@ export type TraderPrice = {
   trader: Trader;
 };
 
+/** TraderResetTime is deprecated and replaced with Trader. */
 export type TraderResetTime = {
   __typename?: 'TraderResetTime';
   /** @deprecated Use Trader.name type instead. */

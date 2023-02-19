@@ -1,6 +1,6 @@
 {
-  "homepage": "https://seiju-n.github.io/EFTUtils",
-  "name": "eft-utils",
+  "homepage": "https://seiju-n.github.io/EFTDB",
+  "name": "eftdb",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,7 +13,7 @@
     "@graphql-codegen/typescript-react-query": "^4.1.0",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.7",
-    "@mui/x-data-grid": "^5.17.22",
+    "@mui/x-data-grid": "^5.17.23",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^6.5.1",
     "@testing-library/jest-dom": "^5.16.5",

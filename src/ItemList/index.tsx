@@ -12,7 +12,6 @@ import {
   DialogTitle,
   DialogContent,
   Card,
-  CardContent,
   Typography,
   Tooltip,
   IconButton,
@@ -20,23 +19,20 @@ import {
   ListItem,
   ListItemText,
   ListItemButton,
-  styled,
+  Container,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import {
-  DataGrid,
-  GridColDef,
-  GridSortingInitialState,
-  GridToolbarQuickFilter,
-  jaJP,
-} from "@mui/x-data-grid";
+import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
+import { Link as RouterLink } from "react-router-dom";
 
 import ItemProperties from "./ItemProperties";
 import { fetchParams } from "./utils";
 import { ITEM_PROPERTIES } from "../constants/LANG_VALUES";
 import { Item, Maybe } from "../graphql/generated";
+import { useHooks } from "./hooks";
 
 const ItemList = () => {
+  const { localeText, cols, defaultSort, CardContentNoPadding } = useHooks();
   const [items, setItems] = useState<Item[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<Item>();
@@ -48,30 +44,6 @@ const ItemList = () => {
 
   const handleDialogClose = () => {
     setDialogOpen(false);
-  };
-
-  const localeText = jaJP.components.MuiDataGrid.defaultProps.localeText;
-
-  const cols: GridColDef[] = [
-    {
-      field: "category",
-      headerName: "category",
-      minWidth: 120,
-      flex: 1,
-      valueGetter: ({ value }) => {
-        return value.name;
-      },
-    },
-    {
-      field: "name",
-      headerName: "name",
-      minWidth: 200,
-      flex: 1,
-    },
-  ];
-
-  const defaultSort: GridSortingInitialState = {
-    sortModel: [{ field: "category", sort: "asc" }],
   };
 
   const CustomToolbar = () => {
@@ -86,13 +58,6 @@ const ItemList = () => {
       </Box>
     );
   };
-
-  const CardContentNoPadding = styled(CardContent)(`
-    padding: 16px;
-    &:last-child {
-      padding-bottom: 16px;
-    }
-  `);
 
   useEffect(() => {
     const access_api = async () => {
@@ -117,6 +82,9 @@ const ItemList = () => {
               usedInTasks{
                 id
                 name
+                trader{
+                  name
+                }
               }
               properties{
                 __typename
@@ -273,7 +241,12 @@ const ItemList = () => {
                       <List>
                         {currentItem.usedInTasks.map((task) => (
                           <ListItem key={task?.id} disablePadding>
-                            <ListItemButton disableGutters>
+                            <ListItemButton
+                              disableGutters
+                              component={RouterLink}
+                              to={`/task/${task?.trader.name}`}
+                              state={{ taskId: task?.id }}
+                            >
                               <ListItemText
                                 primaryTypographyProps={{
                                   fontSize: "0.8rem",
@@ -317,7 +290,7 @@ const ItemList = () => {
   };
 
   return (
-    <>
+    <Container sx={{ height: "100%" }}>
       <Box sx={{ margin: 1, height: "90vh" }}>
         <DataGrid
           columns={cols}
@@ -349,7 +322,7 @@ const ItemList = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-    </>
+    </Container>
   );
 };
 
