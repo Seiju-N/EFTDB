@@ -237,7 +237,7 @@ const TopBar = (props: Props) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Join our discord server.">
               <IconButton href="https://discord.gg/cjUhFptaxM">
-                <Discord height={22} />
+                <Discord height={24} />
               </IconButton>
             </Tooltip>
           </Box>
