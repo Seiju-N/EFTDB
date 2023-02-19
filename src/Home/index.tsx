@@ -22,6 +22,7 @@ import DoubleArrow from "@mui/icons-material/DoubleArrow";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import StorageIcon from "@mui/icons-material/Storage";
+import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Unstable_Grid2";
 import { TradersContext } from "../App";
 import { ReactComponent as Discord } from "../img/discord.svg";
@@ -55,13 +56,24 @@ const Home = () => {
   const Menu = () => {
     const traders = useContext(TradersContext);
     return (
-      <Grid container spacing={2}>
-        <Grid xs={12} md={6}>
-          <Card variant="outlined">
+      <Grid container>
+        <Grid
+          xs={12}
+          md={6}
+          sx={{
+            mb: { xs: 2, md: 0 },
+            pl: { xs: 0, md: 1 },
+            pr: { xs: 0, md: 1 },
+          }}
+        >
+          <Card>
             <CardContent>
-              <Typography variant="h5" color="text.secondary">
-                Want to search for items?
-              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <SearchIcon fontSize="large" />
+                <Typography variant="h5" pl={1}>
+                  Want to search for items?
+                </Typography>
+              </Box>
             </CardContent>
             <CardActions>
               <Button component={RouterLink} to={`item/`}>
@@ -71,12 +83,23 @@ const Home = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid xs={12} md={6}>
-          <Card variant="outlined">
+        <Grid
+          xs={12}
+          md={6}
+          sx={{
+            mb: { xs: 2, md: 0 },
+            pl: { xs: 0, md: 1 },
+            pr: { xs: 0, md: 1 },
+          }}
+        >
+          <Card>
             <CardContent>
-              <Typography variant="h5" color="text.secondary">
-                Want to search for tasks?
-              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <SearchIcon fontSize="large" />
+                <Typography variant="h5" pl={1}>
+                  Want to search for tasks?
+                </Typography>
+              </Box>
             </CardContent>
             <List component="div" disablePadding>
               {traders.map((trader) => (
@@ -105,7 +128,6 @@ const Home = () => {
       </Grid>
     );
   };
-
   const ServerStatus = () => {
     return (
       <Paper sx={{ display: "flex", flexDirection: "column" }}>
@@ -118,11 +140,9 @@ const Home = () => {
 
         <List>
           {serverStatus.currentStatuses?.map((status, index) => (
-            <Grid container key={index}>
+            <Grid container key={index} p={2}>
               <Grid xs={10}>
-                <Typography variant="h6" paddingLeft={2}>
-                  {status?.name}
-                </Typography>
+                <Typography variant="h6">{status?.name}</Typography>
               </Grid>
               <Grid xs={2}>
                 {status?.status === 0 ? (
@@ -131,11 +151,13 @@ const Home = () => {
                   <CancelIcon fontSize="large" color="error" />
                 )}
               </Grid>
-              <Grid xs={12}>
-                <Typography variant="subtitle2" pl={2} pb={2}>
-                  {status?.message}
-                </Typography>
-              </Grid>
+              {status?.message ? (
+                <Grid xs={12}>
+                  <Typography variant="subtitle2" pl={2} pb={1}>
+                    {status?.message}
+                  </Typography>
+                </Grid>
+              ) : null}
             </Grid>
           ))}
         </List>
@@ -183,24 +205,40 @@ const Home = () => {
   return (
     <Container>
       <Box m={2}>
-        <Box sx={{ display: "flex", alignItems: "baseline" }}>
-          <TypographySx />
-          <Typography variant="h3" pl={1}>
-            EFTDB.
-          </Typography>
-        </Box>
-
-        <Button startIcon={<Discord height={22} />}>
-          <Typography
-            variant="h5"
-            color="text.secondary"
-            textTransform={"none"}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+            }}
           >
-            Join our Discord server.
-          </Typography>
-        </Button>
+            <TypographySx />
+            <Typography variant="h3" pl={1}>
+              EFTDB.
+            </Typography>
+          </Box>
+          <Button
+            startIcon={<Discord height={18} />}
+            href="https://discord.gg/cjUhFptaxM"
+          >
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              textTransform={"none"}
+            >
+              Join our Discord server.
+            </Typography>
+          </Button>
+        </Box>
       </Box>
-      <Grid container spacing={2}>
+      <Grid container columnSpacing={1}>
         <Grid xs={12} md={9}>
           <Menu />
         </Grid>

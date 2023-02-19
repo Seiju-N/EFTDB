@@ -69,6 +69,7 @@ const TopBar = (props: Props) => {
   const handleLangClick = (lang: string) => {
     handleCloseLangMenu();
     setLanguage(lang);
+    localStorage.setItem("lang", lang);
   };
 
   const traders = useContext(TradersContext);
@@ -81,7 +82,8 @@ const TopBar = (props: Props) => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
+            component={RouterLink}
+            to={""}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -168,6 +170,8 @@ const TopBar = (props: Props) => {
           <Typography
             variant="h5"
             noWrap
+            component={RouterLink}
+            to={""}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -232,8 +236,8 @@ const TopBar = (props: Props) => {
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Join our discord server.">
-              <IconButton>
-                <Discord height={26} />
+              <IconButton href="https://discord.gg/cjUhFptaxM">
+                <Discord height={22} />
               </IconButton>
             </Tooltip>
           </Box>

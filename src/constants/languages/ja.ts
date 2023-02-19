@@ -1,3 +1,23 @@
+export const HOME_SENTENCE ={
+  welcome_msg:"ようこそ",
+  discord_server:"Discordサーバーに参加",
+  search_item:"アイテムを検索",
+  search_task:"タスクを検索",
+  server_status:{
+    title:"サーバーステータス",
+    forum:"フォーラム",
+    authentication:"ログイン認証",
+    launcher:"ランチャー",
+    group_lobby:"グループロビー",
+    trading:"取引",
+    match_making:"マッチメイキング",
+    friend_and_msg:"フレンド/メッセージ",
+    inventory_operations:"インベントリ",
+    global:"グローバル",
+  },
+
+}
+
 export const ARMOR_MATERIAL = [
   {
     name: "超高分子量ポリエチレン",

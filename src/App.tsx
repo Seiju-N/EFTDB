@@ -71,14 +71,16 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <TradersContext.Provider value={traders}>
-        <TopBar setLanguage={setLanguage} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/task/:traderName/" element={<TaskList />} />
-          <Route path="/item/" element={<ItemList />} />
-        </Routes>
-      </TradersContext.Provider>
+      <LanguageDictContext.Provider value={language}>
+        <TradersContext.Provider value={traders}>
+          <TopBar setLanguage={setLanguage} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/task/:traderName/" element={<TaskList />} />
+            <Route path="/item/" element={<ItemList />} />
+          </Routes>
+        </TradersContext.Provider>
+      </LanguageDictContext.Provider>
     </ThemeProvider>
   );
 };
