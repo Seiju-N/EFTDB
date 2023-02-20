@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
   CardContent,
   Container,
   List,
@@ -18,7 +17,6 @@ import {
 import { useContext, useEffect, useState } from "react";
 
 import { Link as RouterLink } from "react-router-dom";
-import DoubleArrow from "@mui/icons-material/DoubleArrow";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import StorageIcon from "@mui/icons-material/Storage";
@@ -30,7 +28,13 @@ import { useHooks } from "./hooks";
 
 const Home = () => {
   const [serverStatus, setServerStatus] = useState<ServerStatusType>({});
-  const { CategoryAmmo, CategoryWeapon, langDict, fetchParams } = useHooks();
+  const {
+    CategoryAmmo,
+    CategoryWeapon,
+    CategoryWeaponMod,
+    langDict,
+    fetchParams,
+  } = useHooks();
 
   const TypographySx = () => {
     return (
@@ -72,15 +76,10 @@ const Home = () => {
               </Box>
             </CardContent>
             <List component="div" disablePadding>
-              <CategoryWeapon />
               <CategoryAmmo />
+              <CategoryWeaponMod />
+              <CategoryWeapon />
             </List>
-            <CardActions>
-              <Button component={RouterLink} to={`item/`}>
-                <DoubleArrow fontSize="large" />
-                <Typography variant="h4">ITEM</Typography>
-              </Button>
-            </CardActions>
           </Card>
         </Grid>
         <Grid
@@ -132,7 +131,7 @@ const Home = () => {
     return (
       <Paper sx={{ display: "flex", flexDirection: "column" }}>
         <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
-          <StorageIcon fontSize="large" />
+          <StorageIcon fontSize="medium" />
           <Typography variant="h5" pl={1}>
             {langDict.HOME_SENTENCE.server_status.title}
           </Typography>
@@ -141,7 +140,7 @@ const Home = () => {
         <List>
           {serverStatus.currentStatuses?.map((status, index) =>
             status ? (
-              <Grid container key={index} p={2}>
+              <Grid container key={index} p={1} pl={2}>
                 <Grid xs={10}>
                   <Typography variant="h6">
                     {langDict.HOME_SENTENCE.server_status[status.name]}
@@ -212,14 +211,13 @@ const Home = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: { xs: "center", md: "space-between" },
             alignItems: "baseline",
           }}
         >
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
               alignItems: "baseline",
             }}
           >
@@ -231,6 +229,7 @@ const Home = () => {
           <Button
             startIcon={<Discord height={18} />}
             href="https://discord.gg/cjUhFptaxM"
+            sx={{ display: { xs: "none", md: "flex" } }}
           >
             <Typography
               variant="h6"

@@ -115,16 +115,7 @@ const ItemList = () => {
     }, []);
     if (!currentItem) return null;
     return (
-      <Dialog
-        PaperProps={{
-          sx: {
-            height: "90vh",
-          },
-        }}
-        open={dialogOpen}
-        onClose={handleDialogClose}
-        fullWidth
-      >
+      <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth>
         <Grid container>
           <Grid xs={10}>
             <DialogTitle>{currentItem.name}</DialogTitle>

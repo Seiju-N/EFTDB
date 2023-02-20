@@ -75,130 +75,155 @@ const TopBar = (props: Props) => {
 
   const traders = useContext(TradersContext);
 
+  const Title = () => {
+    return (
+      <>
+        <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+        <Typography
+          variant="h6"
+          noWrap
+          component={RouterLink}
+          to={""}
+          sx={{
+            mr: 2,
+            display: { xs: "none", md: "flex" },
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            color: "inherit",
+            textDecoration: "none",
+          }}
+        >
+          {SITE_NAME}
+        </Typography>
+
+        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+            sx={{
+              display: { xs: "block", md: "none" },
+            }}
+          >
+            <List>
+              <ListItemButton onClick={handleClick}>
+                <ListItemText
+                  secondary={langDict.MENU_SENTENCE.task}
+                  sx={{ pr: 10 }}
+                />
+                {open ? (
+                  <ExpandLess fontSize="large" />
+                ) : (
+                  <ExpandMore fontSize="large" />
+                )}
+              </ListItemButton>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {traders.map((trader) => (
+                    <ListItem
+                      alignItems="flex-start"
+                      key={trader.name}
+                      disablePadding
+                    >
+                      <ListItemButton
+                        component={RouterLink}
+                        to={`task/${trader.name}`}
+                      >
+                        <ListItemAvatar>
+                          <Avatar
+                            alt={trader.name}
+                            src={trader.imageLink || ""}
+                          />
+                        </ListItemAvatar>
+                        <ListItemText primary={trader.name} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+              <ListItemButton component={RouterLink} to={"item"}>
+                <ListItemText
+                  secondary={langDict.MENU_SENTENCE.item}
+                ></ListItemText>
+              </ListItemButton>
+            </List>
+          </Menu>
+        </Box>
+        <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+        <Typography
+          variant="h5"
+          noWrap
+          component={RouterLink}
+          to={""}
+          sx={{
+            mr: 2,
+            display: { xs: "flex", md: "none" },
+            flexGrow: 1,
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            color: "inherit",
+            textDecoration: "none",
+          }}
+        >
+          {SITE_NAME}
+        </Typography>
+      </>
+    );
+  };
+
+  const DiscordButton = () => {
+    return (
+      <Box sx={{ flexGrow: 0 }}>
+        <Tooltip title={langDict.HOME_SENTENCE.discord_server}>
+          <IconButton href="https://discord.gg/cjUhFptaxM">
+            <Discord height={24} />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    );
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component={RouterLink}
-            to={""}
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {SITE_NAME}
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              <List>
-                <ListItemButton onClick={handleClick}>
-                  <ListItemText secondary="TASK" sx={{ pr: 10 }} />
-                  {open ? (
-                    <ExpandLess fontSize="large" />
-                  ) : (
-                    <ExpandMore fontSize="large" />
-                  )}
-                </ListItemButton>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {traders.map((trader) => (
-                      <ListItem
-                        alignItems="flex-start"
-                        key={trader.name}
-                        disablePadding
-                      >
-                        <ListItemButton
-                          component={RouterLink}
-                          to={`task/${trader.name}`}
-                        >
-                          <ListItemAvatar>
-                            <Avatar
-                              alt={trader.name}
-                              src={trader.imageLink || ""}
-                            />
-                          </ListItemAvatar>
-                          <ListItemText primary={trader.name} />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
-                <ListItemButton component={RouterLink} to={"item"}>
-                  <ListItemText secondary="ITEM"></ListItemText>
-                </ListItemButton>
-              </List>
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component={RouterLink}
-            to={""}
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {SITE_NAME}
-          </Typography>
+          <Title />
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               sx={{ my: 2, color: "white", display: "block" }}
               onClick={handleOpenTaskMenu}
             >
-              task
+              {langDict.MENU_SENTENCE.task}
             </Button>
             <Button
               component={RouterLink}
               to={"item"}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              item
+              {langDict.MENU_SENTENCE.item}
             </Button>
             <Menu
               sx={{ mt: "45px" }}
@@ -235,13 +260,7 @@ const TopBar = (props: Props) => {
               ))}
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title={langDict.HOME_SENTENCE.discord_server}>
-              <IconButton href="https://discord.gg/cjUhFptaxM">
-                <Discord height={24} />
-              </IconButton>
-            </Tooltip>
-          </Box>
+          <DiscordButton />
           <IconButton id="simple-menu" onClick={handleOpenLangMenu}>
             <Language />
           </IconButton>

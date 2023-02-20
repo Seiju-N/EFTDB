@@ -65,5 +65,85 @@ export const useHooks = () => {
       </>
     );
   };
-  return { CategoryAmmo, CategoryWeapon, langDict, fetchParams };
+
+  const CategoryWeaponMod = () => {
+    const [open, setOpen] = useState<boolean>(false);
+
+    const handleClick = () => {
+      setOpen(!open);
+    };
+
+    const filterByParentCategory = (parentCategory: string): ItemCategory[] => {
+      return categories.filter(
+        (category) => category.parent?.name === parentCategory
+      );
+    };
+
+    type props = {
+      category: ItemCategory;
+    };
+    const NestedList = ({ category }: props) => {
+      const [openDeep, setOpenDeep] = useState<boolean>(false);
+      const handleClickDeep = () => {
+        setOpenDeep(!openDeep);
+      };
+
+      return (
+        <>
+          <ListItem
+            key={category.name}
+            secondaryAction={
+              <ListItemButton onClick={handleClickDeep}>
+                {openDeep ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+            }
+          >
+            <ListItemButton
+              component={RouterLink}
+              to={`item/${toPascalCase(category.normalizedName)}`}
+            >
+              <ListItemText>{category.name}</ListItemText>
+            </ListItemButton>
+          </ListItem>
+          <Collapse in={openDeep} timeout="auto" unmountOnExit>
+            <List>
+              {filterByParentCategory(category.name).map((category) => (
+                <ListItem>
+                  <ListItemButton
+                    component={RouterLink}
+                    to={`item/${toPascalCase(category.normalizedName)}`}
+                  >
+                    <ListItemText inset>{category.name}</ListItemText>
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
+        </>
+      );
+    };
+
+    return (
+      <>
+        <ListItemButton onClick={handleClick}>
+          <ListItemText primary="Weapon mod" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List>
+            {filterByParentCategory("Weapon mod").map((category) => (
+              <NestedList category={category} />
+            ))}
+          </List>
+        </Collapse>
+      </>
+    );
+  };
+  return {
+    CategoryAmmo,
+    CategoryWeapon,
+    CategoryWeaponMod,
+    langDict,
+    fetchParams,
+  };
 };
