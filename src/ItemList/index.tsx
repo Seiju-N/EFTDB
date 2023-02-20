@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 
 import ItemProperties from "./ItemProperties";
 import { fetchParams } from "./utils";
@@ -37,6 +37,7 @@ const ItemList = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<Item>();
 
+  const param = useParams();
   const handleDialogOpen = (value: Item) => {
     setCurrentItem(value);
     setDialogOpen(true);
@@ -60,12 +61,15 @@ const ItemList = () => {
   };
 
   useEffect(() => {
+    const params = param.categoryName
+      ? `(categoryNames:[${param.categoryName}])`
+      : null;
     const access_api = async () => {
       await fetch("https://api.tarkov.dev/graphql", {
         ...fetchParams,
         body: JSON.stringify({
           query: `{
-            items{
+            items${params}{
               id
               name
               normalizedName
@@ -99,7 +103,7 @@ const ItemList = () => {
         });
     };
     access_api();
-  }, []);
+  }, [param.categoryName]);
 
   const DetailDialog = () => {
     const verticalCenter = { display: "flex", justifyContent: "center" };

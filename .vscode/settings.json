@@ -2,12 +2,24 @@
     "editor.formatOnSave": true,
     "cSpell.words": [
         "EFTDB",
+        "Flashhider",
+        "Foregrip",
+        "Foregrips",
+        "Handguard",
+        "Headwear",
+        "Ironsight",
         "lightkeeper",
+        "Machinegun",
+        "Medikit",
         "MEDKIT",
+        "Meds",
         "normalise",
+        "Observ",
         "Prapor",
+        "Stackable",
         "Stim",
-        "Tarkov"
+        "Tarkov",
+        "UBGL"
     ],
     "editor.tabSize": 2
 }

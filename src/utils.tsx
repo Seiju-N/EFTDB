@@ -56,3 +56,10 @@ export const normalise = (
 ) => {
   return ((value - MIN) * 100) / (MAX - MIN);
 };
+
+export const toPascalCase = (str: string) => {
+  return str
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("");
+};

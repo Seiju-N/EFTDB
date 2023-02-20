@@ -1,267 +1,422 @@
-export const ARMOR_MATERIAL = [
-  {
-    name: "Ultra High Molecular Weight Polyethylene",
-    id: "UHMWPE",
+import { DictType } from "./types";
+
+const EN_DICT:DictType = {
+  HOME_SENTENCE: {
+    welcome_msg: "Welcome to",
+    discord_server: "Join our Discord server",
+    search_item: "Want to search items?",
+    search_task: "Want to search tasks?",
+    server_status: {
+      title: "Server status",
+      "Website": "Web",
+      "Forum": "Forum",
+      "Authentication": "Authentication",
+      "Launcher": "Launcher",
+      "Group lobby": "Group lobby",
+      "Trading": "Trading",
+      "Matchmaking": "Match making",
+      "Friends and msg.": "Friend and message",
+      "Inventory operations": "Inventory",
+      "Global": "Global",
+    },
   },
-  {
-    name: "Aramid",
-    id: "Aramid",
+  MENU_SENTENCE:{
+    task:"Tasks",
+    item:"Items",
   },
-  {
-    name: "Composite",
-    id: "Combined",
+  ARMOR_MATERIAL: [
+    {
+      name: "Ultra High Molecular Weight Polyethylene",
+      id: "UHMWPE",
+    },
+    {
+      name: "Aramid",
+      id: "Aramid",
+    },
+    {
+      name: "Composite",
+      id: "Combined",
+    },
+    {
+      name: "Titanium",
+      id: "Titan",
+    },
+    {
+      name: "Aluminum",
+      id: "Aluminium",
+    },
+    {
+      name: "Steel",
+      id: "ArmoredSteel",
+    },
+    {
+      name: "Ceramic",
+      id: "Ceramic",
+    },
+    {
+      name: "Glass",
+      id: "Glass",
+    },
+  ],
+
+  ITEM_PROPERTIES: {
+    name: "Name",
+    basePrice: "Base price",
+    usedInTasks: "Used in tasks",
+    width: "Width",
+    height: "Height",
+    avg24hPrice: "Average price (24h)",
   },
-  {
-    name: "Titanium",
-    id: "Titan",
+
+  ITEM_PROPERTIES_AMMO: {
+    damage: "Damage",
+    armorDamage: "Armor damage",
+    fragmentationChance: "Fragmentation chance",
+    ricochetChance: "Ricochet chance",
+    penetrationChance: "Penetration chance",
+    penetrationPower: "Penetration power",
+    accuracyModifier: "Accuracy",
+    recoilModifier: "Recoil",
+    initialSpeed: "Initial speed",
+    lightBleedModifier: "Light bleeding chance",
+    heavyBleedModifier: "Heavy bleeding chance",
+    durabilityBurnFactor: "Durability burn rate",
+    heatFactor: "HEAT",
   },
-  {
-    name: "Aluminum",
-    id: "Aluminium",
+
+  ITEM_PROPERTIES_ARMOR: {
+    class: "Armor class",
+    durability: "Durability",
+    ergoPenalty: "Ergonomics penalty",
+    material: "Material",
+    repairCost: "Repair cost",
+    speedPenalty: "Movement speed penalty",
+    turnPenalty: "Turning speed penalty",
   },
-  {
-    name: "Steel",
-    id: "ArmoredSteel",
+
+  ITEM_PROPERTIES_ARMOR_ATTACHMENT: {
+    blindnessProtection: "Flash protection",
+    class: "Armor class",
+    durability: "Durability",
+    ergoPenalty: "Ergonomics penalty",
+    headZones: "Protected zones",
+    material: "Material",
+    repairCost: "Repair cost",
+    speedPenalty: "Movement speed penalty",
+    turnPenalty: "Turning speed penalty",
   },
-  {
-    name: "Ceramic",
-    id: "Ceramic",
+
+  ITEM_PROPERTIES_BACKPACK: {
+    capacity: "Capacity",
+    grid: "Grid",
   },
-  {
-    name: "Glass",
-    id: "Glass",
+
+  ITEM_PROPERTIES_BARREL: {
+    centerOfImpact: "Center of impact",
+    deviationCurve: "Deviation curve",
+    deviationMax: "Max deviation",
+    ergonomics: "Ergonomics",
+    recoilModifier: "Recoil",
   },
-];
 
-export const ITEM_PROPERTIES = {
-  name: "Name",
-  basePrice: "Base price",
-  usedInTasks: "Used in tasks",
-  width: "Width",
-  height: "Height",
-  avg24hPrice: "Average price (24h)",
-};
+  ITEM_PROPERTIES_CHEST_RIG: {
+    capacity: "Capacity",
+    class: "Armor class",
+    durability: "Durability",
+    ergoPenalty: "Ergonomics penalty",
+    material: "Material",
+    repairCost: "Repair cost",
+    speedPenalty: "Movement speed penalty",
+    turnPenalty: "Turning speed penalty",
+  },
 
-export const ITEM_PROPERTIES_AMMO = {
-  damage: "Damage",
-  armorDamage: "Armor damage",
-  fragmentationChance: "Fragmentation chance",
-  ricochetChance: "Ricochet chance",
-  penetrationChance: "Penetration chance",
-  penetrationPower: "Penetration power",
-  accuracyModifier: "Accuracy",
-  recoilModifier: "Recoil",
-  initialSpeed: "Initial speed",
-  lightBleedModifier: "Light bleeding chance",
-  heavyBleedModifier: "Heavy bleeding chance",
-  durabilityBurnFactor: "Durability burn rate",
-  heatFactor: "HEAT",
-};
+  ITEM_PROPERTIES_CONTAINER: {
+    capacity: "Capacity",
+    grid: "Grid",
+  },
 
-export const ITEM_PROPERTIES_ARMOR = {
-  class: "Armor class",
-  durability: "Durability",
-  ergoPenalty: "Ergonomics penalty",
-  material: "Material",
-  repairCost: "Repair cost",
-  speedPenalty: "Movement speed penalty",
-  turnPenalty: "Turning speed penalty",
-};
+  ITEM_PROPERTIES_FOOD_DRINK: {
+    energy: "Energy",
+    hydration: "Hydration",
+    units: "Units",
+  },
 
-export const ITEM_PROPERTIES_ARMOR_ATTACHMENT = {
-  blindnessProtection: "Flash protection",
-  class: "Armor class",
-  durability: "Durability",
-  ergoPenalty: "Ergonomics penalty",
-  headZones: "Protected zones",
-  material: "Material",
-  repairCost: "Repair cost",
-  speedPenalty: "Movement speed penalty",
-  turnPenalty: "Turning speed penalty",
-};
+  ITEM_PROPERTIES_GLASSES: {
+    blindnessProtection: "Flash protection",
+    class: "Armor class",
+    durability: "Durability",
+    material: "Material",
+    repairCost: "Repair cost",
+  },
 
-export const ITEM_PROPERTIES_BACKPACK = {
-  capacity: "Capacity",
-  grid: "Grid",
-};
+  ITEM_PROPERTIES_GRENADE: {
+    contusionRadius: "Damage radius",
+    fragments: "Fragments",
+    fuse: "Fuse",
+    maxExplosionDistance: "Max explosion distance",
+    minExplosionDistance: "Min explosion distance",
+    type: "Type",
+  },
 
-export const ITEM_PROPERTIES_BARREL = {
-  centerOfImpact: "Center of impact",
-  deviationCurve: "Deviation curve",
-  deviationMax: "Max deviation",
-  ergonomics: "Ergonomics",
-  recoilModifier: "Recoil",
-};
+  ITEM_PROPERTIES_HELMET: {
+    blindnessProtection: "Flash protection",
+    blocksHeadset: "Blocks headset",
+    class: "Armor class",
+    deafening: "Deafening",
+    durability: "Durability",
+    ergoPenalty: "Ergonomics penalty",
+    headZones: "Protection zones",
+    material: "Material",
+    repairCost: "Repair cost",
+    ricochetX: "Ricochet X",
+    ricochetY: "Ricochet Y",
+    ricochetZ: "Ricochet Z",
+    slots: "Slots",
+    speedPenalty: "Movement speed penalty",
+    turnPenalty: "Turning speed penalty",
+  },
 
-export const ITEM_PROPERTIES_CHEST_RIG = {
-  capacity: "Capacity",
-  class: "Armor class",
-  durability: "Durability",
-  ergoPenalty: "Ergonomics penalty",
-  material: "Material",
-  repairCost: "Repair cost",
-  speedPenalty: "Movement speed penalty",
-  turnPenalty: "Turning speed penalty",
-};
+  ITEM_PROPERTIES_KEY: {
+    uses: "Uses",
+  },
 
-export const ITEM_PROPERTIES_CONTAINER = {
-  capacity: "Capacity",
-  grid: "Grid",
-};
+  ITEM_PROPERTIES_MAGAZINE: {
+    allowedAmmo: "Allowed ammo",
+    ammoCheckModifier: "Check speed",
+    capacity: "Capacity",
+    ergonomics: "Ergonomics",
+    loadModifier: "Load speed",
+    malfunctionChance: "Malfunction chance",
+    recoilModifier: "Recoil",
+    slots: "Slots",
+  },
 
-export const ITEM_PROPERTIES_FOOD_DRINK = {
-  energy: "Energy",
-  hydration: "Hydration",
-  units: "Units",
-};
+  ITEM_PROPERTIES_MEDKIT: {
+    cures: "Cures",
+    hitpoints: "HP",
+    hpCostHeavyBleeding: "Heavy bleeding cost",
+    hpCostLightBleeding: "Light bleeding cost",
+    maxHealPerUse: "Max heal per use",
+    useTime: "Use time",
+  },
 
-export const ITEM_PROPERTIES_GLASSES = {
-  blindnessProtection: "Flash protection",
-  class: "Armor class",
-  durability: "Durability",
-  material: "Material",
-  repairCost: "Repair cost",
-};
+  ITEM_PROPERTIES_MEDICAL_ITEM: {
+    cures: "Cures",
+    useTime: "Use time",
+    uses: "Uses",
+  },
 
-export const ITEM_PROPERTIES_GRENADE = {
-  contusionRadius: "Damage radius",
-  fragments: "Fragments",
-  fuse: "Fuse",
-  maxExplosionDistance: "Max explosion distance",
-  minExplosionDistance: "Min explosion distance",
-  type: "Type",
-};
+  ITEM_PROPERTIES_MELEE: {
+    hitRadius: "Attack radius",
+    slashDamage: "Slash damage",
+    stabDamage: "Stab damage",
+  },
 
-export const ITEM_PROPERTIES_HELMET = {
-  blindnessProtection: "Flash protection",
-  blocksHeadset: "Blocks headset",
-  class: "Armor class",
-  deafening: "Deafening",
-  durability: "Durability",
-  ergoPenalty: "Ergonomics penalty",
-  headZones: "Protection zones",
-  material: "Material",
-  repairCost: "Repair cost",
-  ricochetX: "Ricochet X",
-  ricochetY: "Ricochet Y",
-  ricochetZ: "Ricochet Z",
-  slots: "Slots",
-  speedPenalty: "Movement speed penalty",
-  turnPenalty: "Turning speed penalty",
-};
+  ITEM_PROPERTIES_NIGHT_VISION: {
+    diffuseIntensity: "Diffuse intensity",
+    intensity: "Intensity",
+    noiseIntensity: "Noise intensity",
+    noiseScale: "Noise scale",
+  },
 
-export const ITEM_PROPERTIES_KEY = {
-  uses: "Uses",
-};
+  ITEM_PROPERTIES_PAINKILLER: {
+    cures: "Cures",
+    energyImpact: "Energy impact",
+    hydrationImpact: "Hydration impact",
+    painkillerDuration: "Duration",
+    useTime: "Use time",
+    uses: "Uses",
+  },
 
-export const ITEM_PROPERTIES_MAGAZINE = {
-  allowedAmmo: "Allowed ammo",
-  ammoCheckModifier: "Check speed",
-  capacity: "Capacity",
-  ergonomics: "Ergonomics",
-  loadModifier: "Load speed",
-  malfunctionChance: "Malfunction chance",
-  recoilModifier: "Recoil",
-  slots: "Slots",
-};
+  ITEM_PROPERTIES_PRESET: {
+    baseItem: "Base item",
+    ergonomics: "Ergonomics",
+    moa: "MOA",
+    recoilHorizontal: "Horizontal recoil",
+    recoilVertical: "Vertical recoil",
+  },
 
-export const ITEM_PROPERTIES_MEDKIT = {
-  cures: "Cures",
-  hitpoints: "HP",
-  hpCostHeavyBleeding: "Heavy bleeding cost",
-  hpCostLightBleeding: "Light bleeding cost",
-  maxHealPerUse: "Max heal per use",
-  useTime: "Use time",
-};
+  ITEM_PROPERTIES_SCOPE: {
+    ergonomics: "Ergonomics",
+    recoilModifier: "Recoil",
+    sightModes: "Sight modes",
+    sightingRange: "Sighting range",
+    slots: "Slots",
+    zoomLevels: "Zoom levels",
+  },
 
-export const ITEM_PROPERTIES_MEDICAL_ITEM = {
-  cures: "Cures",
-  useTime: "Use time",
-  uses: "Uses",
-};
+  ITEM_PROPERTIES_STIM: {
+    cures: "Cures",
+    stimEffects: "Stim effects",
+    useTime: "Use time",
+  },
 
-export const ITEM_PROPERTIES_MELEE = {
-  hitRadius: "Attack radius",
-  slashDamage: "Slash damage",
-  stabDamage: "Stab damage",
-};
+  ITEM_PROPERTIES_SURGICAL_KIT: {
+    cures: "Cures",
+    maxLimbHealth: "Max limb health",
+    minLimbHealth: "Min limb health",
+    useTime: "Use time",
+    uses: "Uses",
+  },
 
-export const ITEM_PROPERTIES_NIGHT_VISION = {
-  diffuseIntensity: "Diffuse intensity",
-  intensity: "Intensity",
-  noiseIntensity: "Noise intensity",
-  noiseScale: "Noise scale",
-};
+  ITEM_PROPERTIES_WEAPON: {
+    allowedAmmo: "Allowed Ammo",
+    caliber: "Caliber",
+    centerOfImpact: "Center of Impact",
+    defaultAmmo: "Default Ammo",
+    defaultErgonomics: "Default Ergonomics",
+    defaultHeight: "Default Height",
+    defaultPreset: "Default Preset",
+    defaultRecoilHorizontal: "Default Horizontal Recoil",
+    defaultRecoilVertical: "Default Vertical Recoil",
+    defaultWeight: "Default Weight",
+    defaultWidth: "Default Width",
+    deviationCurve: "Deviation Curve",
+    deviationMax: "Deviation Max",
+    effectiveDistance: "Effective Distance",
+    ergonomics: "Ergonomics",
+    fireModes: "Fire Modes",
+    fireRate: "Fire Rate",
+    maxDurability: "Max Durability",
+    presets: "Presets",
+    recoilHorizontal: "Horizontal Recoil",
+    recoilVertical: "Vertical Recoil",
+    repairCost: "Repair Cost",
+    sightingRange: "Sighting Range",
+    slots: "Slots",
+  },
 
-export const ITEM_PROPERTIES_PAINKILLER = {
-  cures: "Cures",
-  energyImpact: "Energy impact",
-  hydrationImpact: "Hydration impact",
-  painkillerDuration: "Duration",
-  useTime: "Use time",
-  uses: "Uses",
-};
-
-export const ITEM_PROPERTIES_PRESET = {
-  baseItem: "Base item",
-  ergonomics: "Ergonomics",
-  moa: "MOA",
-  recoilHorizontal: "Horizontal recoil",
-  recoilVertical: "Vertical recoil",
-};
-
-export const ITEM_PROPERTIES_SCOPE = {
-  ergonomics: "Ergonomics",
-  recoilModifier: "Recoil",
-  sightModes: "Sight modes",
-  sightingRange: "Sighting range",
-  slots: "Slots",
-  zoomLevels: "Zoom levels",
-};
-
-export const ITEM_PROPERTIES_STIM = {
-  cures: "Cures",
-  stimEffects: "Stim effects",
-  useTime: "Use time",
-};
-
-export const ITEM_PROPERTIES_SURGICAL_KIT = {
-  cures: "Cures",
-  maxLimbHealth: "Max limb health",
-  minLimbHealth: "Min limb health",
-  useTime: "Use time",
-  uses: "Uses",
-};
-
-export const ITEM_PROPERTIES_WEAPON = {
-  allowedAmmo: "Allowed Ammo",
-  caliber: "Caliber",
-  centerOfImpact: "Center of Impact",
-  defaultAmmo: "Default Ammo",
-  defaultErgonomics: "Default Ergonomics",
-  defaultHeight: "Default Height",
-  defaultPreset: "Default Preset",
-  defaultRecoilHorizontal: "Default Horizontal Recoil",
-  defaultRecoilVertical: "Default Vertical Recoil",
-  defaultWeight: "Default Weight",
-  defaultWidth: "Default Width",
-  deviationCurve: "Deviation Curve",
-  deviationMax: "Deviation Max",
-  effectiveDistance: "Effective Distance",
-  ergonomics: "Ergonomics",
-  fireModes: "Fire Modes",
-  fireRate: "Fire Rate",
-  maxDurability: "Max Durability",
-  presets: "Presets",
-  recoilHorizontal: "Horizontal Recoil",
-  recoilVertical: "Vertical Recoil",
-  repairCost: "Repair Cost",
-  sightingRange: "Sighting Range",
-  slots: "Slots",
-};
+  ITEM_PROPERTIES_WEAPON_MOD: {
+    accuracyModifier: "Accuracy Modifier",
+    ergonomics: "Ergonomics",
+    recoilModifier: "Recoil Modifier",
+  },
+  ITEM_TYPE : {
+    Ammo : 'Ammo',
+    AmmoBox : 'AmmoBox',
+    Any : 'Any',
+    Armor : 'Armor',
+    Backpack : 'Backpack',
+    Barter : 'Barter',
+    Container : 'Container',
+    Glasses : 'Glasses',
+    Grenade : 'Grenade',
+    Gun : 'Gun',
+    Headphones : 'Headphones',
+    Helmet : 'Helmet',
+    Injectors : 'Injectors',
+    Keys : 'Keys',
+    MarkedOnly : 'MarkedOnly',
+    Meds : 'Meds',
+    Mods : 'Mods',
+    NoFlea : '取引不可アイテム',
+    PistolGrip : 'ピストルグリップ',
+    Preset : '武器プリセット',
+    Provisions : '食料品',
+    Rig : 'リグ',
+    Suppressor : 'サプレッサー',
+    Wearable : '衣料品'
+  },
   
-export const ITEM_PROPERTIES_WEAPON_MOD = {
-  accuracyModifier: "Accuracy Modifier",
-  ergonomics: "Ergonomics",
-  recoilModifier: "Recoil Modifier",
-};
+  ITEM_CATEGORY_NAME : {
+    Ammo : '弾薬',
+    AmmoContainer : '弾薬パック',
+    ArmBand : 'アームバンド',
+    Armor : 'アーマー',
+    ArmoredEquipment : 'オプション装備',
+    AssaultCarbine : 'アサルトカービン',
+    AssaultRifle : 'アサルトライフル',
+    AssaultScope : 'アサルトスコープ',
+    AuxiliaryMod : '補助パーツ',
+    Backpack : 'バックパック',
+    Barrel : 'バレル',
+    BarterItem : '取引アイテム',
+    Battery : 'バッテリー',
+    Bipod : 'バイポッド',
+    BuildingMaterial : '建築材料',
+    ChargingHandle : 'チャージングハンドル',
+    ChestRig : 'チェストリグ',
+    CombMuzzleDevice : 'コンボマズルデバイス',
+    CombTactDevice : 'コンボタクティカルデバイス',
+    CommonContainer : 'コンテナ',
+    CompactReflexSight : 'コンパクトリフレックスサイト',
+    Compass : 'コンパス',
+    CompoundItem : 'CompoundItem',
+    CylinderMagazine : 'シリンダーマガジン',
+    Drink : '飲み物',
+    Drug : '薬品',
+    Electronics : '電子機器',
+    Equipment : '装備品',
+    EssentialMod : '必須モジュール',
+    FaceCover : 'フェイスカバー',
+    Flashhider : 'フラッシュハイダー',
+    Flashlight : 'フラッシュライト',
+    Food : '食べ物',
+    FoodAndDrink : '飲食物',
+    Foregrip : 'フォアグリップ',
+    Fuel : '燃料',
+    FunctionalMod : '機能性パーツ',
+    GasBlock : 'ガスブロック',
+    GearMod : 'ギアモッド',
+    GrenadeLauncher : 'グレネードランチャー',
+    Handguard : 'ハンドガード',
+    Handgun : 'ハンドガン',
+    Headphones : 'ヘッドフォン',
+    Headwear : 'ヘッドウェア',
+    HouseholdGoods : '生活用品',
+    Info : '情報',
+    Ironsight : 'アイアンサイト',
+    Item : 'アイテム',
+    Jewelry : '宝飾品',
+    Key : '鍵',
+    KeyMechanical : 'KeyMechanical',
+    Keycard : 'キーカード',
+    Knife : 'ナイフ',
+    LockingContainer : '施錠可能なコンテナ',
+    Lubricant : '潤滑油',
+    Machinegun : 'マシンガン',
+    Magazine : 'マガジン',
+    Map : '地図',
+    MarksmanRifle : 'マークスマンライフル',
+    MedicalItem : '医療アイテム',
+    MedicalSupplies : '医療用品',
+    Medikit : 'メディキット',
+    Meds : '薬剤',
+    Money : 'お金',
+    Mount : 'マウント',
+    MuzzleDevice : 'マズルデバイス',
+    NightVision : 'ナイトビジョン',
+    Other : 'その他',
+    PistolGrip : 'ピストルグリップ',
+    PortContainer : '携帯コンテナ',
+    PortableRangeFinder : '携帯レンジファインダー',
+    RadioTransmitter : 'ラジオトランスミッター',
+    RandomLootContainer : 'RandomLootContainer',
+    Receiver : 'レシーバー',
+    ReflexSight : 'リフレックスサイト',
+    RepairKits : 'リペアキット',
+    Revolver : 'リボルバー',
+    Smg : 'サブマシンガン',
+    Scope : 'スコープ',
+    SearchableItem : '探索可能アイテム',
+    Shotgun : 'ショットガン',
+    Sights : 'サイト',
+    Silencer : 'サイレンサー',
+    SniperRifle : 'スナイパーライフル',
+    SpecialItem : '特殊アイテム',
+    SpecialScope : '特殊スコープ',
+    SpringDrivenCylinder : 'スプリングドリブンシリンダー',
+    StackableItem : 'スタック可能アイテム',
+    Stimulant : '注射器',
+    Stock : 'ストック',
+    ThermalVision : 'サーマルビジョン',
+    ThrowableWeapon : '投擲武器',
+    Tool : 'ツール',
+    Ubgl : 'アンダーバレルグレネードランチャー',
+    VisObservDevice : 'サングラス類',
+    Weapon : '武器',
+    WeaponMod : '武器パーツ'
+  }
+}
+
+export default EN_DICT;

@@ -25,7 +25,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { SITE_NAME, SUPPORTED_LANG } from "./constants/CONST_VALUES";
-import { TradersContext } from "./App";
+import { LanguageDictContext, TradersContext } from "./App";
 import { ReactComponent as Discord } from "./img/discord.svg";
 import Language from "@mui/icons-material/Language";
 
@@ -39,6 +39,7 @@ const TopBar = (props: Props) => {
   const [anchorElTask, setAnchorElTask] = useState<null | HTMLElement>(null);
   const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
   const [open, setOpen] = useState(true);
+  const langDict = useContext(LanguageDictContext);
 
   const handleClick = () => {
     setOpen(!open);
@@ -235,7 +236,7 @@ const TopBar = (props: Props) => {
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Join our discord server.">
+            <Tooltip title={langDict.HOME_SENTENCE.discord_server}>
               <IconButton href="https://discord.gg/cjUhFptaxM">
                 <Discord height={24} />
               </IconButton>

@@ -1,8 +1,8 @@
 import { CardContent, styled } from "@mui/material";
-import { GridColDef, GridSortingInitialState, jaJP } from "@mui/x-data-grid";
+import { enUS, GridColDef, GridSortingInitialState,  } from "@mui/x-data-grid";
 
 export const useHooks = () => {
-    const localeText = jaJP.components.MuiDataGrid.defaultProps.localeText;
+    const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
 
     const cols: GridColDef[] = [
         {

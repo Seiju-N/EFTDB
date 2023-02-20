@@ -26,16 +26,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Unstable_Grid2";
 import { TradersContext } from "../App";
 import { ReactComponent as Discord } from "../img/discord.svg";
+import { useHooks } from "./hooks";
 
 const Home = () => {
   const [serverStatus, setServerStatus] = useState<ServerStatusType>({});
-  const fetchParams = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  };
+  const { CategoryAmmo, CategoryWeapon, langDict, fetchParams } = useHooks();
 
   const TypographySx = () => {
     return (
@@ -48,13 +43,14 @@ const Home = () => {
         }}
         color="text.secondary"
       >
-        Welcome to
+        {langDict.HOME_SENTENCE.welcome_msg}
       </Typography>
     );
   };
 
   const Menu = () => {
     const traders = useContext(TradersContext);
+
     return (
       <Grid container>
         <Grid
@@ -71,10 +67,14 @@ const Home = () => {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <SearchIcon fontSize="large" />
                 <Typography variant="h5" pl={1}>
-                  Want to search for items?
+                  {langDict.HOME_SENTENCE.search_item}
                 </Typography>
               </Box>
             </CardContent>
+            <List component="div" disablePadding>
+              <CategoryWeapon />
+              <CategoryAmmo />
+            </List>
             <CardActions>
               <Button component={RouterLink} to={`item/`}>
                 <DoubleArrow fontSize="large" />
@@ -97,7 +97,7 @@ const Home = () => {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <SearchIcon fontSize="large" />
                 <Typography variant="h5" pl={1}>
-                  Want to search for tasks?
+                  {langDict.HOME_SENTENCE.search_task}
                 </Typography>
               </Box>
             </CardContent>
@@ -134,32 +134,36 @@ const Home = () => {
         <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
           <StorageIcon fontSize="large" />
           <Typography variant="h5" pl={1}>
-            Server Status
+            {langDict.HOME_SENTENCE.server_status.title}
           </Typography>
         </Box>
 
         <List>
-          {serverStatus.currentStatuses?.map((status, index) => (
-            <Grid container key={index} p={2}>
-              <Grid xs={10}>
-                <Typography variant="h6">{status?.name}</Typography>
-              </Grid>
-              <Grid xs={2}>
-                {status?.status === 0 ? (
-                  <CheckCircleIcon fontSize="large" color="success" />
-                ) : (
-                  <CancelIcon fontSize="large" color="error" />
-                )}
-              </Grid>
-              {status?.message ? (
-                <Grid xs={12}>
-                  <Typography variant="subtitle2" pl={2} pb={1}>
-                    {status?.message}
+          {serverStatus.currentStatuses?.map((status, index) =>
+            status ? (
+              <Grid container key={index} p={2}>
+                <Grid xs={10}>
+                  <Typography variant="h6">
+                    {langDict.HOME_SENTENCE.server_status[status.name]}
                   </Typography>
                 </Grid>
-              ) : null}
-            </Grid>
-          ))}
+                <Grid xs={2}>
+                  {status.status === 0 ? (
+                    <CheckCircleIcon fontSize="large" color="success" />
+                  ) : (
+                    <CancelIcon fontSize="large" color="error" />
+                  )}
+                </Grid>
+                {status.message ? (
+                  <Grid xs={12}>
+                    <Typography variant="subtitle2" pl={2} pb={1}>
+                      {status?.message}
+                    </Typography>
+                  </Grid>
+                ) : null}
+              </Grid>
+            ) : null
+          )}
         </List>
       </Paper>
     );
@@ -233,7 +237,7 @@ const Home = () => {
               color="text.secondary"
               textTransform={"none"}
             >
-              Join our Discord server.
+              {langDict.HOME_SENTENCE.discord_server}
             </Typography>
           </Button>
         </Box>

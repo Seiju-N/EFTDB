@@ -1,6 +1,6 @@
 import  { useCallback, useState } from "react";
 
-import {  GridColDef, GridFilterModel, GridSortingInitialState, jaJP } from "@mui/x-data-grid";
+import {  enUS, GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 
 import { Task } from "@/graphql/generated";
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -84,7 +84,7 @@ const fetchParams = {
     sortModel: [{ field: "name", sort: "asc" }],
   };
 
-  const localeText = jaJP.components.MuiDataGrid.defaultProps.localeText;
+  const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
 
   const isAllArrayElementsEmpty = useCallback((obj: any) => {
     return Object.values(obj).every((val: any) => val.length === 0);
