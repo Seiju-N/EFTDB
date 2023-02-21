@@ -24,28 +24,38 @@ export const useHooks = () => {
   };
   const categories = useContext(CategoryContext);
 
-  const CategoryAmmo = () => {
+  // TODO:日本語化対応する
+  type nestedCategoryProps = {
+    categoryName: string;
+  };
+  const FlatCategory = ({ categoryName }: nestedCategoryProps) => {
+    const parsedCategory: ItemCategory | undefined = categories.find(
+      (category) => category.name === categoryName
+    );
+    if (!parsedCategory) return null;
     return (
       <>
-        <ListItemButton component={RouterLink} to={`item/Ammo`}>
-          <ListItemText primary="Ammo" />
+        <ListItemButton
+          component={RouterLink}
+          to={`item/${toPascalCase(parsedCategory?.normalizedName)}`}
+        >
+          <ListItemText primary={categoryName} />
         </ListItemButton>
       </>
     );
   };
-
-  const CategoryWeapon = () => {
+  const NestedCategory = ({ categoryName }: nestedCategoryProps) => {
     const [open, setOpen] = useState<boolean>(false);
     const handleClick = () => {
       setOpen(!open);
     };
     const parsedCategories: ItemCategory[] = categories.filter(
-      (category) => category.parent?.name === "Weapon"
+      (category) => category.parent?.name === categoryName
     );
     return (
       <>
         <ListItemButton onClick={handleClick}>
-          <ListItemText primary="Weapon" />
+          <ListItemText primary={categoryName} />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -65,20 +75,16 @@ export const useHooks = () => {
       </>
     );
   };
-
-  const CategoryWeaponMod = () => {
+  const NestedSubcategory = ({ categoryName }: nestedCategoryProps) => {
     const [open, setOpen] = useState<boolean>(false);
-
     const handleClick = () => {
       setOpen(!open);
     };
-
     const filterByParentCategory = (parentCategory: string): ItemCategory[] => {
       return categories.filter(
         (category) => category.parent?.name === parentCategory
       );
     };
-
     type props = {
       category: ItemCategory;
     };
@@ -108,7 +114,7 @@ export const useHooks = () => {
           <Collapse in={openDeep} timeout="auto" unmountOnExit>
             <List>
               {filterByParentCategory(category.name).map((category) => (
-                <ListItem>
+                <ListItem key={`NestedList_${category.name}`}>
                   <ListItemButton
                     component={RouterLink}
                     to={`item/${toPascalCase(category.normalizedName)}`}
@@ -126,23 +132,24 @@ export const useHooks = () => {
     return (
       <>
         <ListItemButton onClick={handleClick}>
-          <ListItemText primary="Weapon mod" />
+          <ListItemText primary={categoryName} />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List>
-            {filterByParentCategory("Weapon mod").map((category) => (
-              <NestedList category={category} />
+            {filterByParentCategory(categoryName).map((category) => (
+              <NestedList category={category} key={category.name} />
             ))}
           </List>
         </Collapse>
       </>
     );
   };
+
   return {
-    CategoryAmmo,
-    CategoryWeapon,
-    CategoryWeaponMod,
+    FlatCategory,
+    NestedCategory,
+    NestedSubcategory,
     langDict,
     fetchParams,
   };

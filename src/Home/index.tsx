@@ -29,9 +29,9 @@ import { useHooks } from "./hooks";
 const Home = () => {
   const [serverStatus, setServerStatus] = useState<ServerStatusType>({});
   const {
-    CategoryAmmo,
-    CategoryWeapon,
-    CategoryWeaponMod,
+    FlatCategory,
+    NestedCategory,
+    NestedSubcategory,
     langDict,
     fetchParams,
   } = useHooks();
@@ -55,6 +55,23 @@ const Home = () => {
   const Menu = () => {
     const traders = useContext(TradersContext);
 
+    type menuTitleProps = {
+      titleStr: string;
+    };
+
+    const MenuTitle = ({ titleStr }: menuTitleProps) => {
+      return (
+        <CardContent>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <SearchIcon fontSize="large" />
+            <Typography variant="h5" pl={1}>
+              {titleStr}
+            </Typography>
+          </Box>
+        </CardContent>
+      );
+    };
+
     return (
       <Grid container>
         <Grid
@@ -67,18 +84,19 @@ const Home = () => {
           }}
         >
           <Card>
-            <CardContent>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <SearchIcon fontSize="large" />
-                <Typography variant="h5" pl={1}>
-                  {langDict.HOME_SENTENCE.search_item}
-                </Typography>
-              </Box>
-            </CardContent>
+            <MenuTitle titleStr={langDict.HOME_SENTENCE.search_item} />
             <List component="div" disablePadding>
-              <CategoryAmmo />
-              <CategoryWeaponMod />
-              <CategoryWeapon />
+              <FlatCategory categoryName="Ammo" />
+              <NestedCategory categoryName="Barter item" />
+              <FlatCategory categoryName="Common container" />
+              <NestedCategory categoryName="Food and drink" />
+              <NestedCategory categoryName="Key" />
+              <FlatCategory categoryName="Knife" />
+              <NestedCategory categoryName="Meds" />
+              <NestedCategory categoryName="Stackable item" />
+              <FlatCategory categoryName="Throwable weapon" />
+              <NestedSubcategory categoryName="Weapon mod" />
+              <NestedCategory categoryName="Weapon" />
             </List>
           </Card>
         </Grid>
@@ -92,14 +110,7 @@ const Home = () => {
           }}
         >
           <Card>
-            <CardContent>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <SearchIcon fontSize="large" />
-                <Typography variant="h5" pl={1}>
-                  {langDict.HOME_SENTENCE.search_task}
-                </Typography>
-              </Box>
-            </CardContent>
+            <MenuTitle titleStr={langDict.HOME_SENTENCE.search_task} />
             <List component="div" disablePadding>
               {traders.map((trader) => (
                 <ListItem
