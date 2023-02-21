@@ -32,7 +32,8 @@ import { Item, Maybe } from "../graphql/generated";
 import { useHooks } from "./hooks";
 
 const ItemList = () => {
-  const { localeText, cols, defaultSort, CardContentNoPadding } = useHooks();
+  const { langDict, localeText, cols, defaultSort, CardContentNoPadding } =
+    useHooks();
   const [items, setItems] = useState<Item[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<Item>();
@@ -63,7 +64,7 @@ const ItemList = () => {
   useEffect(() => {
     const params = param.categoryName
       ? `(categoryNames:[${param.categoryName}])`
-      : null;
+      : "";
     const access_api = async () => {
       await fetch("https://api.tarkov.dev/graphql", {
         ...fetchParams,
@@ -150,7 +151,7 @@ const ItemList = () => {
                       color="text.secondary"
                       component="div"
                     >
-                      サイズ
+                      {langDict.ITEM_DETAIL_DIALOG.SIZE}
                     </Typography>
                   </Grid>
                   <Grid xs={6}>
@@ -159,7 +160,7 @@ const ItemList = () => {
                       color="text.primary"
                       component="div"
                     >
-                      {`幅: ${currentItem.width}   高さ: ${currentItem.height}`}
+                      {`${langDict.ITEM_DETAIL_DIALOG.WIDTH}: ${currentItem.width}   ${langDict.ITEM_DETAIL_DIALOG.HEIGHT}: ${currentItem.height}`}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -274,7 +275,9 @@ const ItemList = () => {
                     ItemId={currentItem.id}
                   />
                 ) : (
-                  <Typography>詳細はありません</Typography>
+                  <Typography>
+                    {langDict.ITEM_DETAIL_DIALOG.NO_DETAIL}
+                  </Typography>
                 )}
               </CardContentNoPadding>
             </Box>

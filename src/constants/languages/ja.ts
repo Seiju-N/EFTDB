@@ -1,13 +1,11 @@
-import { DictType } from "./types";
-
-const JA_DICT:DictType = {
+const JA_DICT = {
   HOME_SENTENCE: {
     welcome_msg: "Welcome to",
     discord_server: "Discordサーバーに参加",
     search_item: "アイテムを検索",
     search_task: "タスクを検索",
     server_status: {
-      title: "サーバーステータス",
+      "title": "サーバーステータス",
       "Website": "ウェブサイト",
       "Forum": "フォーラム",
       "Authentication": "ログイン認証",
@@ -19,6 +17,13 @@ const JA_DICT:DictType = {
       "Inventory operations": "インベントリ",
       "Global": "グローバル",
     },
+  },
+
+  ITEM_DETAIL_DIALOG:{
+    SIZE: "サイズ",
+    NO_DETAIL: "詳細はありません。",
+    WIDTH:"幅",
+    HEIGHT:"高さ"
   },
 
   MENU_SENTENCE:{
@@ -421,5 +426,7 @@ const JA_DICT:DictType = {
     recoilModifier: "リコイル",
   },
 };
+
+export type typeJaDict = typeof JA_DICT;
 
 export default JA_DICT

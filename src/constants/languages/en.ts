@@ -1,13 +1,11 @@
-import { DictType } from "./types";
-
-const EN_DICT:DictType = {
+const EN_DICT = {
   HOME_SENTENCE: {
     welcome_msg: "Welcome to",
     discord_server: "Join our Discord server",
     search_item: "Want to search items?",
     search_task: "Want to search tasks?",
     server_status: {
-      title: "Server status",
+      "title": "Server status",
       "Website": "Web",
       "Forum": "Forum",
       "Authentication": "Authentication",
@@ -20,6 +18,14 @@ const EN_DICT:DictType = {
       "Global": "Global",
     },
   },
+
+  ITEM_DETAIL_DIALOG:{
+    SIZE: "Size",
+    NO_DETAIL: "No detail info.",
+    WIDTH:"width",
+    HEIGHT:"he"
+  },
+
   MENU_SENTENCE:{
     task:"Tasks",
     item:"Items",
@@ -418,5 +424,7 @@ const EN_DICT:DictType = {
     WeaponMod : '武器パーツ'
   }
 }
+
+export type typeEnDict = typeof EN_DICT;
 
 export default EN_DICT;

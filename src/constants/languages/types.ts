@@ -1,3 +1,5 @@
+// TODO:この型定義なくす
+
 type ServerStatus = {
   [key: string]: string;
 }
@@ -15,6 +17,10 @@ type HomeSentence = {
   server_status: ServerStatus;
 }
 
+type ItemDetailDialog ={
+  [key: string]: string;
+}
+
 type MenuSentence = {
   task: string;
   item: string;
@@ -30,6 +36,8 @@ type ItemCategoryName = {
 type ItemProperties = {
   [key: string]: string;
 }
+
+
 
 export type DictType = {
   HOME_SENTENCE: HomeSentence;
@@ -62,6 +70,7 @@ export type DictType = {
   ITEM_PROPERTIES_SURGICAL_KIT:ItemProperties;
   ITEM_PROPERTIES_WEAPON:ItemProperties;
   ITEM_PROPERTIES_WEAPON_MOD:ItemProperties;
+  ITEM_DETAIL_DIALOG:ItemDetailDialog;
 }
 
  

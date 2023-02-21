@@ -1,7 +1,10 @@
+import { LanguageDictContext } from "../App";
 import { CardContent, styled } from "@mui/material";
 import { enUS, GridColDef, GridSortingInitialState,  } from "@mui/x-data-grid";
+import { useContext } from "react";
 
 export const useHooks = () => {
+  const langDict = useContext(LanguageDictContext);
     const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
 
     const cols: GridColDef[] = [
@@ -33,5 +36,5 @@ export const useHooks = () => {
     }
   `);
 
-    return {localeText,cols,defaultSort,CardContentNoPadding}
+    return {langDict,localeText,cols,defaultSort,CardContentNoPadding}
 }
