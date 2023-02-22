@@ -58,7 +58,6 @@ export const normalise = (
 };
 
 export const toPascalCase = (str: string) => {
-  if (str === "keymechanical") return "KeyMechanical";
   return str
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
