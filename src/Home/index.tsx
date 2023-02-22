@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
   Container,
+  LinearProgress,
   List,
   ListItem,
   ListItemAvatar,
@@ -14,7 +15,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 
 import { Link as RouterLink } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -34,6 +35,7 @@ const Home = () => {
     NestedSubcategory,
     langDict,
     fetchParams,
+    categories,
   } = useHooks();
 
   const TypographySx = () => {
@@ -57,9 +59,10 @@ const Home = () => {
 
     type menuTitleProps = {
       titleStr: string;
+      isLoading: boolean;
     };
 
-    const MenuTitle = ({ titleStr }: menuTitleProps) => {
+    const MenuTitle = memo(({ titleStr, isLoading }: menuTitleProps) => {
       return (
         <CardContent>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -68,9 +71,10 @@ const Home = () => {
               {titleStr}
             </Typography>
           </Box>
+          {isLoading && <LinearProgress color="inherit" />}
         </CardContent>
       );
-    };
+    });
 
     return (
       <Grid container>
@@ -84,7 +88,10 @@ const Home = () => {
           }}
         >
           <Card>
-            <MenuTitle titleStr={langDict.HOME_SENTENCE.search_item} />
+            <MenuTitle
+              titleStr={langDict.HOME_SENTENCE.search_item}
+              isLoading={categories.length === 0}
+            />
             <List component="div" disablePadding>
               <FlatCategory categoryName="Ammo" />
               <NestedCategory categoryName="Barter item" />
@@ -110,7 +117,10 @@ const Home = () => {
           }}
         >
           <Card>
-            <MenuTitle titleStr={langDict.HOME_SENTENCE.search_task} />
+            <MenuTitle
+              titleStr={langDict.HOME_SENTENCE.search_task}
+              isLoading={traders.length === 0}
+            />
             <List component="div" disablePadding>
               {traders.map((trader) => (
                 <ListItem

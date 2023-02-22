@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 
 import CurrencyRuble from "@mui/icons-material/CurrencyRuble";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -115,8 +115,9 @@ const ItemList = () => {
       window.open(link);
     }, []);
     if (!currentItem) return null;
-    return (
-      <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth>
+
+    const DetailDialogTitle = memo(() => {
+      return (
         <Grid container>
           <Grid xs={10}>
             <DialogTitle>{currentItem.name}</DialogTitle>
@@ -127,6 +128,12 @@ const ItemList = () => {
             </IconButton>
           </Grid>
         </Grid>
+      );
+    });
+
+    return (
+      <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth>
+        <DetailDialogTitle />
         {currentItem.image512pxLink ? (
           <Grid sx={verticalCenter}>
             <img

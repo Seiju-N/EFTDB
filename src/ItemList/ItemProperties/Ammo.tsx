@@ -1,6 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 
-import { Typography } from "@mui/material";
+import {
+  Box,
+  LinearProgress,
+  LinearProgressProps,
+  Typography,
+} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import { ITEM_PROPERTIES_AMMO } from "../../constants/LANG_VALUES";
@@ -13,6 +18,22 @@ type Props = {
 };
 
 const Ammo = ({ ItemId }: Props) => {
+  const LinearProgressWithLabel = (
+    props: LinearProgressProps & { value: number }
+  ) => {
+    return (
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ width: "100%", mr: 1 }}>
+          <LinearProgress variant="determinate" {...props} />
+        </Box>
+        <Box sx={{ minWidth: 35 }}>
+          <Typography variant="body2" color="text.secondary">{`${Math.round(
+            props.value
+          )}`}</Typography>
+        </Box>
+      </Box>
+    );
+  };
   const [itemPropertyData, setItemPropertyData] =
     useState<ItemPropertiesAmmo>();
   useEffect(() => {
@@ -25,18 +46,18 @@ const Ammo = ({ ItemId }: Props) => {
               properties {
               ... on ItemPropertiesAmmo 
                 {
+                  damage
+                  armorDamage
+                  penetrationPower
                   caliber
                   stackMaxSize
                   tracer
                   tracerColor
                   ammoType
                   projectileCount
-                  damage
-                  armorDamage
                   fragmentationChance
                   ricochetChance
                   penetrationChance
-                  penetrationPower
                   accuracyModifier
                   recoilModifier
                   initialSpeed
@@ -62,20 +83,44 @@ const Ammo = ({ ItemId }: Props) => {
     keyword: string;
   };
 
-  const DetailGrid = ({ keyword }: detailGridType) => {
+  const DetailInfoBarGrid = ({ keyword }: detailGridType) => {
+    return (
+      <>
+        <Grid xs={3}>
+          {ITEM_PROPERTIES_AMMO[keyword as keyof typeof ITEM_PROPERTIES_AMMO]}
+        </Grid>
+        <Grid xs={9}>
+          <LinearProgressWithLabel
+            value={itemPropertyData![keyword as keyof typeof itemPropertyData]}
+          />
+        </Grid>
+      </>
+    );
+  };
+  const DetailInfoGrid = ({ keyword }: detailGridType) => {
     if (keyword.includes("Modifier")) {
       return (
-        <Grid xs={2}>
-          {convertPercent(
-            itemPropertyData![keyword as keyof typeof itemPropertyData]
-          )}
-        </Grid>
+        <>
+          <Grid xs={4} color="text.secondary">
+            {ITEM_PROPERTIES_AMMO[keyword as keyof typeof ITEM_PROPERTIES_AMMO]}
+          </Grid>
+          <Grid xs={2}>
+            {convertPercent(
+              itemPropertyData![keyword as keyof typeof itemPropertyData]
+            )}
+          </Grid>
+        </>
       );
     } else {
       return (
-        <Grid xs={2}>
-          {itemPropertyData![keyword as keyof typeof itemPropertyData]}
-        </Grid>
+        <>
+          <Grid xs={4} color="text.secondary">
+            {ITEM_PROPERTIES_AMMO[keyword as keyof typeof ITEM_PROPERTIES_AMMO]}
+          </Grid>
+          <Grid xs={2}>
+            {itemPropertyData![keyword as keyof typeof itemPropertyData]}
+          </Grid>
+        </>
       );
     }
   };
@@ -95,16 +140,24 @@ const Ammo = ({ ItemId }: Props) => {
             sx={{ height: 144, minHeight: "100%", fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
-              itemPropertyData![key as keyof typeof itemPropertyData] ? (
+              itemPropertyData![key as keyof typeof itemPropertyData] &&
+              (key === "damage" ||
+                key === "armorDamage" ||
+                key === "penetrationPower") ? (
                 <Fragment key={idx}>
-                  <Grid xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_AMMO[
-                        key as keyof typeof ITEM_PROPERTIES_AMMO
-                      ]
-                    }
-                  </Grid>
-                  <DetailGrid keyword={key} />
+                  <DetailInfoBarGrid keyword={key} />
+                </Fragment>
+              ) : null
+            )}
+            {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
+              itemPropertyData![key as keyof typeof itemPropertyData] &&
+              !(
+                key === "damage" ||
+                key === "armorDamage" ||
+                key === "penetrationPower"
+              ) ? (
+                <Fragment key={idx}>
+                  <DetailInfoGrid keyword={key} />
                 </Fragment>
               ) : null
             )}

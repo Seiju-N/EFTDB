@@ -23,7 +23,21 @@ import {
 
 import FilterAlt from "@mui/icons-material/FilterAlt";
 
-import { Task } from "../graphql/generated";
+import {
+  Task,
+  TaskObjectiveBasic,
+  TaskObjectiveBuildItem,
+  TaskObjectiveExperience,
+  TaskObjectiveExtract,
+  TaskObjectiveItem,
+  TaskObjectiveMark,
+  TaskObjectivePlayerLevel,
+  TaskObjectiveQuestItem,
+  TaskObjectiveShoot,
+  TaskObjectiveSkill,
+  TaskObjectiveTaskStatus,
+  TaskObjectiveTraderLevel,
+} from "../graphql/generated";
 import { DataGrid } from "@mui/x-data-grid";
 import { useHooks } from "./hooks";
 import { useLocation, useParams } from "react-router-dom";
@@ -44,21 +58,36 @@ const TaskList = () => {
     fetchParams,
   } = useHooks();
 
+  type taskObjectiveType =
+    | TaskObjectiveBasic[]
+    | TaskObjectiveBuildItem[]
+    | TaskObjectiveExperience[]
+    | TaskObjectiveExtract[]
+    | TaskObjectiveItem[]
+    | TaskObjectiveMark[]
+    | TaskObjectivePlayerLevel[]
+    | TaskObjectiveQuestItem[]
+    | TaskObjectiveShoot[]
+    | TaskObjectiveSkill[]
+    | TaskObjectiveTaskStatus[]
+    | TaskObjectiveTraderLevel[];
   const [tasks, setTasks] = useState<Task[]>([]);
   const param = useParams();
   const CustomDialog = () => {
     const TaskObjectives = () => {
       if (!currentTask) return null;
+      const objectives = currentTask.objectives as taskObjectiveType;
       return (
         <Card variant="outlined">
           <ListSubheader sx={{ lineHeight: "24px" }}>
             Task objectives
           </ListSubheader>
-          {currentTask.objectives.map((data, idx) => (
+          {objectives.map((data, idx) => (
             <ListItem sx={{ pl: 4 }} divider key={`${data?.id}_${idx}`}>
               <ListItemText>
                 {data?.optional ? "(Optional):" : ""}
                 {data?.description}
+                {"count" in data ? `( x ${data?.count} )` : ""}
               </ListItemText>
             </ListItem>
           ))}
@@ -129,64 +158,56 @@ const TaskList = () => {
       );
     };
 
-    const DetailDialog = () => {
-      return (
-        <Dialog
-          scroll="paper"
-          open={dialogOpen}
-          onClose={handleDialogClose}
-          fullWidth
-        >
-          <DialogTitle>{currentTask?.name}</DialogTitle>
-          <DialogContent>
-            <List dense sx={{ bgcolor: "background.paper", pb: 0, pt: 0 }}>
-              <Card variant="outlined">
-                <ListSubheader sx={{ lineHeight: "24px" }}>
-                  Task unlock requirements
-                </ListSubheader>
-                {currentTask?.minPlayerLevel ||
-                currentTask?.traderLevelRequirements.length !== 0 ? (
-                  <>
-                    {currentTask?.minPlayerLevel ? (
-                      <ListItem sx={{ pl: 4 }} divider>
-                        <ListItemText>{`PMC Lv.${currentTask.minPlayerLevel}`}</ListItemText>
-                      </ListItem>
-                    ) : null}
-                    {currentTask?.traderLevelRequirements.map((data, idx) => (
-                      <ListItem
-                        sx={{ pl: 4 }}
-                        divider
-                        key={`${data?.id}_${idx}`}
-                      >
-                        <ListItemText>{`${data?.trader.name}:Lv.${data?.level}`}</ListItemText>
-                      </ListItem>
-                    ))}
-                    {currentTask?.taskRequirements.map((data, idx) => (
-                      <ListItem
-                        sx={{ pl: 4 }}
-                        divider
-                        key={`${data?.task.id}_${idx}`}
-                      >
-                        <ListItemText>{`${data?.task.name} -> ${data?.status}`}</ListItemText>
-                      </ListItem>
-                    ))}
-                  </>
-                ) : (
-                  <Typography sx={{ pl: 4 }} color="action.disabled">
-                    No requirements to unlock
-                  </Typography>
-                )}
-              </Card>
-              <TaskObjectives />
-              <StartRewards />
-              <FinishRewards />
-            </List>
-          </DialogContent>
-        </Dialog>
-      );
-    };
-
-    return <DetailDialog />;
+    return (
+      <Dialog
+        scroll="paper"
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        fullWidth
+      >
+        <DialogTitle>{currentTask?.name}</DialogTitle>
+        <DialogContent>
+          <List dense sx={{ bgcolor: "background.paper", pb: 0, pt: 0 }}>
+            <Card variant="outlined">
+              <ListSubheader sx={{ lineHeight: "24px" }}>
+                Task unlock requirements
+              </ListSubheader>
+              {currentTask?.minPlayerLevel ||
+              currentTask?.traderLevelRequirements.length !== 0 ? (
+                <>
+                  {currentTask?.minPlayerLevel ? (
+                    <ListItem sx={{ pl: 4 }} divider>
+                      <ListItemText>{`PMC Lv.${currentTask.minPlayerLevel}`}</ListItemText>
+                    </ListItem>
+                  ) : null}
+                  {currentTask?.traderLevelRequirements.map((data, idx) => (
+                    <ListItem sx={{ pl: 4 }} divider key={`${data?.id}_${idx}`}>
+                      <ListItemText>{`${data?.trader.name}:Lv.${data?.level}`}</ListItemText>
+                    </ListItem>
+                  ))}
+                  {currentTask?.taskRequirements.map((data, idx) => (
+                    <ListItem
+                      sx={{ pl: 4 }}
+                      divider
+                      key={`${data?.task.id}_${idx}`}
+                    >
+                      <ListItemText>{`${data?.task.name} -> ${data?.status}`}</ListItemText>
+                    </ListItem>
+                  ))}
+                </>
+              ) : (
+                <Typography sx={{ pl: 4 }} color="action.disabled">
+                  No requirements to unlock
+                </Typography>
+              )}
+            </Card>
+            <TaskObjectives />
+            <StartRewards />
+            <FinishRewards />
+          </List>
+        </DialogContent>
+      </Dialog>
+    );
   };
 
   const location = useLocation();
@@ -235,12 +256,114 @@ const TaskList = () => {
               }
               factionName
               objectives{
-                id
-                type
-                description
-                optional
-                maps{
-                  name
+                ... on TaskObjectiveBasic{
+                  description
+                }
+                ... on TaskObjectiveBuildItem{
+                  attributes{
+                    name
+                  }
+                  containsAll{
+                    name
+                  }
+                  containsCategory{
+                    name
+                  }
+                  description
+                  item{
+                    name
+                  }
+                  maps{
+                    name
+                  }
+                  optional
+                }
+                ... on TaskObjectiveExperience{
+                  description
+                  maps{
+                    name
+                  }
+                  optional
+                }
+                ... on TaskObjectiveExtract{
+                  description
+                  maps{
+                    name
+                  }
+                  optional
+                }
+                ... on TaskObjectiveItem{
+                  count
+                  description
+                  dogTagLevel
+                  foundInRaid
+                  item{
+                    name
+                  }
+                  maps{
+                    name
+                  }
+                  maxDurability
+                  minDurability
+                  optional
+                }
+                ... on TaskObjectiveMark{
+                  description
+                  maps{
+                    name
+                  }
+                  markerItem{
+                    name
+                  }
+                  optional
+                }
+                ... on TaskObjectivePlayerLevel{
+                  description
+                  maps{
+                    name
+                  }
+                  optional
+                  playerLevel
+                }
+                ... on TaskObjectiveShoot{
+                  count
+                  description
+                  distance{
+                    compareMethod
+                    value
+                  }
+                }
+                ... on TaskObjectiveSkill{
+                  description
+                  maps{
+                    name
+                  }
+                  optional
+                  skillLevel{
+                    name
+                    level
+                  }
+                }
+                ... on TaskObjectiveTaskStatus{
+                  description
+                  maps{
+                    name
+                  }
+                  optional
+                  task{
+                    name
+                  }
+                }
+                ... on TaskObjectiveTraderLevel{
+                  description
+                  level
+                  maps{
+                    name
+                  }
+                  optional
+                  trader{
+                    name
+                  }
                 }
               }
               startRewards{

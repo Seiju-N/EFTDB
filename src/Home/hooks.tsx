@@ -35,12 +35,14 @@ export const useHooks = () => {
     if (!parsedCategory) return null;
     return (
       <>
-        <ListItemButton
-          component={RouterLink}
-          to={`item/${toPascalCase(parsedCategory?.normalizedName)}`}
-        >
-          <ListItemText primary={categoryName} />
-        </ListItemButton>
+        <ListItem>
+          <ListItemButton
+            component={RouterLink}
+            to={`item/${toPascalCase(parsedCategory?.normalizedName)}`}
+          >
+            <ListItemText primary={categoryName} />
+          </ListItemButton>
+        </ListItem>
       </>
     );
   };
@@ -52,12 +54,23 @@ export const useHooks = () => {
     const parsedCategories: ItemCategory[] = categories.filter(
       (category) => category.parent?.name === categoryName
     );
+    if (!parsedCategories || parsedCategories.length === 0) return null;
     return (
       <>
-        <ListItemButton onClick={handleClick}>
-          <ListItemText primary={categoryName} />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
+        <ListItem
+          secondaryAction={
+            <ListItemButton onClick={handleClick}>
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          }
+        >
+          <ListItemButton
+            component={RouterLink}
+            to={`item/${toPascalCase(categoryName)}`}
+          >
+            <ListItemText primary={categoryName} />
+          </ListItemButton>
+        </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List>
             {parsedCategories.map((category) => (
@@ -80,11 +93,11 @@ export const useHooks = () => {
     const handleClick = () => {
       setOpen(!open);
     };
-    const filterByParentCategory = (parentCategory: string): ItemCategory[] => {
-      return categories.filter(
-        (category) => category.parent?.name === parentCategory
-      );
-    };
+
+    const filterByParentCategory = categories.filter(
+      (category) => category.parent?.name === categoryName
+    );
+
     type props = {
       category: ItemCategory;
     };
@@ -93,7 +106,9 @@ export const useHooks = () => {
       const handleClickDeep = () => {
         setOpenDeep(!openDeep);
       };
-
+      const filterByParentCategory = categories.filter(
+        (category) => category.parent?.name === category.name
+      );
       return (
         <>
           <ListItem
@@ -113,7 +128,7 @@ export const useHooks = () => {
           </ListItem>
           <Collapse in={openDeep} timeout="auto" unmountOnExit>
             <List>
-              {filterByParentCategory(category.name).map((category) => (
+              {filterByParentCategory.map((category) => (
                 <ListItem key={`NestedList_${category.name}`}>
                   <ListItemButton
                     component={RouterLink}
@@ -131,13 +146,23 @@ export const useHooks = () => {
 
     return (
       <>
-        <ListItemButton onClick={handleClick}>
-          <ListItemText primary={categoryName} />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
+        <ListItem
+          secondaryAction={
+            <ListItemButton onClick={handleClick}>
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          }
+        >
+          <ListItemButton
+            component={RouterLink}
+            to={`item/${toPascalCase(categoryName)}`}
+          >
+            <ListItemText primary={categoryName} />
+          </ListItemButton>
+        </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List>
-            {filterByParentCategory(categoryName).map((category) => (
+            {filterByParentCategory.map((category) => (
               <NestedList category={category} key={category.name} />
             ))}
           </List>
@@ -152,5 +177,6 @@ export const useHooks = () => {
     NestedSubcategory,
     langDict,
     fetchParams,
+    categories,
   };
 };

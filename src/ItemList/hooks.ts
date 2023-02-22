@@ -1,6 +1,6 @@
 import { LanguageDictContext } from "../App";
 import { CardContent, styled } from "@mui/material";
-import { enUS, GridColDef, GridSortingInitialState,  } from "@mui/x-data-grid";
+import { enUS, GridColDef, GridSortingInitialState } from "@mui/x-data-grid";
 import { useContext } from "react";
 
 export const useHooks = () => {

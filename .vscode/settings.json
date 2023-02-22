@@ -2,6 +2,7 @@
     "editor.formatOnSave": true,
     "cSpell.words": [
         "EFTDB",
+        "Eyewear",
         "Flashhider",
         "Foregrip",
         "Foregrips",
@@ -20,7 +21,9 @@
         "Stackable",
         "Stim",
         "Tarkov",
-        "UBGL"
+        "UBGL",
+        "UHMWPE",
+        "Underbarrel"
     ],
     "editor.tabSize": 2
 }
