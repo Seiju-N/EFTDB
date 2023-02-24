@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/EFTDB/static/css/main.e6c13ad2.css",
-    "main.js": "/EFTDB/static/js/main.79628929.js",
+    "main.js": "/EFTDB/static/js/main.10ca1a47.js",
     "static/media/discord.svg": "/EFTDB/static/media/discord.472d4a510cf2e950c9fc5221f35e8471.svg",
     "index.html": "/EFTDB/index.html",
     "main.e6c13ad2.css.map": "/EFTDB/static/css/main.e6c13ad2.css.map",
-    "main.79628929.js.map": "/EFTDB/static/js/main.79628929.js.map"
+    "main.10ca1a47.js.map": "/EFTDB/static/js/main.10ca1a47.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.79628929.js"
+    "static/js/main.10ca1a47.js"
   ]
 }
