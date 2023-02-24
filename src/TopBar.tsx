@@ -157,7 +157,7 @@ const TopBar = (props: Props) => {
   });
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <LogoMd />

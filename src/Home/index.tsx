@@ -11,6 +11,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Paper,
   Typography,
@@ -19,6 +20,7 @@ import { memo, useContext, useEffect, useState } from "react";
 
 import { Link as RouterLink } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import CancelIcon from "@mui/icons-material/Cancel";
 import StorageIcon from "@mui/icons-material/Storage";
 import SearchIcon from "@mui/icons-material/Search";
@@ -56,10 +58,44 @@ const Home = () => {
 
   const TopSubtitle = memo(() => {
     return (
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Typography variant="h5" pl={1}>
-          {langDict.HOME_SENTENCE.subtitle.subtitle1}
-        </Typography>
+      <Box p={3}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography variant="h5" pl={2}>
+            {langDict.HOME_SENTENCE.subtitle.subtitle1}
+          </Typography>
+        </Box>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <FiberManualRecordIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={langDict.HOME_SENTENCE.subtitle.simple}
+              primaryTypographyProps={{ variant: "body1" }}
+              secondary={langDict.HOME_SENTENCE.subtitle.simple_secondary}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <FiberManualRecordIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={langDict.HOME_SENTENCE.subtitle.accurate}
+              primaryTypographyProps={{ variant: "body1" }}
+              secondary={langDict.HOME_SENTENCE.subtitle.accurate_secondary}
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <FiberManualRecordIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={langDict.HOME_SENTENCE.subtitle.fast}
+              primaryTypographyProps={{ variant: "body1" }}
+              secondary={langDict.HOME_SENTENCE.subtitle.fast_secondary}
+            />
+          </ListItem>
+        </List>
       </Box>
     );
   });
