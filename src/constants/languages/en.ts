@@ -325,8 +325,8 @@ const EN_DICT = {
   },
   
   ITEM_CATEGORY_NAME: {
-    Ammo: 'Ammunition',
-    AmmoContainer: 'Ammunition Container',
+    Ammo: 'Ammo',
+    AmmoContainer: 'Ammo Container',
     ArmBand: 'Arm Band',
     Armor: 'Armor',
     ArmoredEquipment: 'Armored Equipment',

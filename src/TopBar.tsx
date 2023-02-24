@@ -25,9 +25,10 @@ import {
   Tooltip,
 } from "@mui/material";
 import { SITE_NAME, SUPPORTED_LANG } from "./constants/CONST_VALUES";
-import { LanguageDictContext, TradersContext } from "./App";
+import { CategoryContext, LanguageDictContext, TradersContext } from "./App";
 import { ReactComponent as Discord } from "./img/discord.svg";
 import Language from "@mui/icons-material/Language";
+import { toPascalCase } from "./utils";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
@@ -37,13 +38,14 @@ const TopBar = (props: Props) => {
   const { setLanguage } = props;
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElTask, setAnchorElTask] = useState<null | HTMLElement>(null);
+  const [anchorElItem, setAnchorElItem] = useState<null | HTMLElement>(null);
   const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const langDict = useContext(LanguageDictContext);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setOpen(!open);
-  };
+  }, [open]);
 
   const handleOpenNavMenu = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -55,6 +57,13 @@ const TopBar = (props: Props) => {
   const handleOpenTaskMenu = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       setAnchorElTask(event.currentTarget);
+    },
+    []
+  );
+
+  const handleOpenItemMenu = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorElItem(event.currentTarget);
     },
     []
   );
@@ -74,6 +83,10 @@ const TopBar = (props: Props) => {
     setAnchorElTask(null);
   }, []);
 
+  const handleCloseItemMenu = useCallback(() => {
+    setAnchorElItem(null);
+  }, []);
+
   const handleCloseLangMenu = useCallback(() => {
     setAnchorElLang(null);
   }, []);
@@ -87,7 +100,49 @@ const TopBar = (props: Props) => {
     [setLanguage, handleCloseLangMenu]
   );
 
+  const LogoMd = memo(() => {
+    return (
+      <>
+        <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+        <Typography
+          variant="h6"
+          noWrap
+          component={RouterLink}
+          to={""}
+          sx={{
+            mr: 2,
+            display: { xs: "none", md: "flex" },
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: ".3rem",
+            color: "inherit",
+            textDecoration: "none",
+          }}
+        >
+          {SITE_NAME}
+        </Typography>
+      </>
+    );
+  });
   const traders = useContext(TradersContext);
+  const itemCategories = useContext(CategoryContext)
+    .filter(
+      (category) =>
+        category.name === "Ammo" ||
+        category.name === "Barter item" ||
+        category.name === "Common container" ||
+        category.name === "Food and drink" ||
+        category.name === "Key" ||
+        category.name === "Knife" ||
+        category.name === "Meds" ||
+        category.name === "Stackable item" ||
+        category.name === "Throwable weapon" ||
+        category.name === "Weapon mod" ||
+        category.name === "Weapon"
+    )
+    .sort((a, b) => {
+      return a.name < b.name ? -1 : 1;
+    });
 
   const DiscordButton = memo(() => {
     return (
@@ -105,25 +160,7 @@ const TopBar = (props: Props) => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component={RouterLink}
-            to={""}
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {SITE_NAME}
-          </Typography>
-
+          <LogoMd />
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -225,8 +262,7 @@ const TopBar = (props: Props) => {
               {langDict.MENU_SENTENCE.task}
             </Button>
             <Button
-              component={RouterLink}
-              to={"item"}
+              onClick={handleOpenItemMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
               {langDict.MENU_SENTENCE.item}
@@ -237,12 +273,12 @@ const TopBar = (props: Props) => {
               anchorEl={anchorElTask}
               anchorOrigin={{
                 vertical: "bottom",
-                horizontal: "right",
+                horizontal: "center",
               }}
               keepMounted
               transformOrigin={{
                 vertical: "bottom",
-                horizontal: "right",
+                horizontal: "center",
               }}
               open={Boolean(anchorElTask)}
               onClose={handleCloseTaskMenu}
@@ -256,11 +292,50 @@ const TopBar = (props: Props) => {
                   <ListItemButton
                     component={RouterLink}
                     to={`task/${trader.name}`}
+                    onClick={handleCloseTaskMenu}
                   >
                     <ListItemAvatar>
                       <Avatar alt={trader.name} src={trader.imageLink || ""} />
                     </ListItemAvatar>
                     <ListItemText primary={trader.name} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </Menu>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElItem}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              open={Boolean(anchorElItem)}
+              onClose={handleCloseItemMenu}
+            >
+              {itemCategories.map((itemCategory, idx) => (
+                <ListItem
+                  alignItems="flex-start"
+                  key={`${itemCategory.id}_${idx}`}
+                  disablePadding
+                >
+                  <ListItemButton
+                    component={RouterLink}
+                    to={`item/${toPascalCase(itemCategory.name)}`}
+                    onClick={handleCloseItemMenu}
+                  >
+                    <ListItemText
+                      primary={
+                        langDict.ITEM_CATEGORY_NAME[
+                          toPascalCase(itemCategory.name)
+                        ]
+                      }
+                    />
                   </ListItemButton>
                 </ListItem>
               ))}
