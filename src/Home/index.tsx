@@ -54,7 +54,7 @@ const Home = () => {
     );
   };
 
-  const Menu = () => {
+  const Menu = memo(() => {
     const traders = useContext(TradersContext);
 
     type menuTitleProps = {
@@ -147,7 +147,7 @@ const Home = () => {
         </Grid>
       </Grid>
     );
-  };
+  });
   const ServerStatus = () => {
     return (
       <Paper sx={{ display: "flex", flexDirection: "column" }}>

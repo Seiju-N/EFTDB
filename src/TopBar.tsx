@@ -38,7 +38,7 @@ const TopBar = (props: Props) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElTask, setAnchorElTask] = useState<null | HTMLElement>(null);
   const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const langDict = useContext(LanguageDictContext);
 
   const handleClick = () => {
