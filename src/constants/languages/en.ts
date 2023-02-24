@@ -375,7 +375,7 @@ const EN_DICT = {
     Item: 'Item',
     Jewelry: 'Jewelry',
     Key: 'Key',
-    KeyMechanical: 'Key Mechanical',
+    MechanicalKey: 'Mechanical Key',
     Keycard: 'Keycard',
     Knife: 'Knife',
     LockingContainer: 'Lockable Container',

@@ -1,5 +1,5 @@
 import { CategoryContext, LanguageDictContext } from "../App";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { ItemCategory } from "@/graphql/generated";
 import { toPascalCase } from "../utils";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -24,7 +24,6 @@ export const useHooks = () => {
   };
   const categories = useContext(CategoryContext);
 
-  // TODO:日本語化対応する
   type nestedCategoryProps = {
     categoryName: string;
   };
@@ -40,7 +39,13 @@ export const useHooks = () => {
             component={RouterLink}
             to={`item/${toPascalCase(parsedCategory?.normalizedName)}`}
           >
-            <ListItemText primary={categoryName} />
+            <ListItemText
+              primary={
+                langDict.ITEM_CATEGORY_NAME[
+                  toPascalCase(parsedCategory?.normalizedName)
+                ]
+              }
+            />
           </ListItemButton>
         </ListItem>
       </>
@@ -48,13 +53,14 @@ export const useHooks = () => {
   };
   const NestedCategory = ({ categoryName }: nestedCategoryProps) => {
     const [open, setOpen] = useState<boolean>(false);
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
       setOpen(!open);
-    };
+    }, [open]);
     const parsedCategories: ItemCategory[] = categories.filter(
       (category) => category.parent?.name === categoryName
     );
     if (!parsedCategories || parsedCategories.length === 0) return null;
+    console.log(parsedCategories);
     return (
       <>
         <ListItem
@@ -68,7 +74,9 @@ export const useHooks = () => {
             component={RouterLink}
             to={`item/${toPascalCase(categoryName)}`}
           >
-            <ListItemText primary={categoryName} />
+            <ListItemText
+              primary={langDict.ITEM_CATEGORY_NAME[toPascalCase(categoryName)]}
+            />
           </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -79,7 +87,13 @@ export const useHooks = () => {
                   component={RouterLink}
                   to={`item/${toPascalCase(category.normalizedName)}`}
                 >
-                  <ListItemText>{category.name}</ListItemText>
+                  <ListItemText sx={{ pl: 2 }}>
+                    {
+                      langDict.ITEM_CATEGORY_NAME[
+                        toPascalCase(category.normalizedName)
+                      ]
+                    }
+                  </ListItemText>
                 </ListItemButton>
               </ListItem>
             ))}
@@ -90,9 +104,9 @@ export const useHooks = () => {
   };
   const NestedSubcategory = ({ categoryName }: nestedCategoryProps) => {
     const [open, setOpen] = useState<boolean>(false);
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
       setOpen(!open);
-    };
+    }, [open]);
 
     const filterByParentCategory = categories.filter(
       (category) => category.parent?.name === categoryName
@@ -103,11 +117,11 @@ export const useHooks = () => {
     };
     const NestedList = ({ category }: props) => {
       const [openDeep, setOpenDeep] = useState<boolean>(false);
-      const handleClickDeep = () => {
+      const handleClickDeep = useCallback(() => {
         setOpenDeep(!openDeep);
-      };
+      }, [openDeep]);
       const filterByParentCategory = categories.filter(
-        (category) => category.parent?.name === category.name
+        (category_child) => category_child.parent?.name === category.name
       );
       return (
         <>
@@ -123,7 +137,13 @@ export const useHooks = () => {
               component={RouterLink}
               to={`item/${toPascalCase(category.normalizedName)}`}
             >
-              <ListItemText>{category.name}</ListItemText>
+              <ListItemText sx={{ pl: 2 }}>
+                {
+                  langDict.ITEM_CATEGORY_NAME[
+                    toPascalCase(category.normalizedName)
+                  ]
+                }
+              </ListItemText>
             </ListItemButton>
           </ListItem>
           <Collapse in={openDeep} timeout="auto" unmountOnExit>
@@ -134,7 +154,7 @@ export const useHooks = () => {
                     component={RouterLink}
                     to={`item/${toPascalCase(category.normalizedName)}`}
                   >
-                    <ListItemText inset>{category.name}</ListItemText>
+                    <ListItemText sx={{ pl: 4 }}>{category.name}</ListItemText>
                   </ListItemButton>
                 </ListItem>
               ))}

@@ -58,8 +58,15 @@ export const normalise = (
 };
 
 export const toPascalCase = (str: string) => {
-  return str
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join("");
+  if (str.includes(" ")) {
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("");
+  } else {
+    return str
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("");
+  }
 };

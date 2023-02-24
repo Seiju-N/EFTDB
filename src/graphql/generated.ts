@@ -461,7 +461,6 @@ export enum ItemCategoryName {
   Item = 'Item',
   Jewelry = 'Jewelry',
   Key = 'Key',
-  KeyMechanical = 'KeyMechanical',
   Keycard = 'Keycard',
   Knife = 'Knife',
   LockingContainer = 'LockingContainer',
@@ -470,6 +469,7 @@ export enum ItemCategoryName {
   Magazine = 'Magazine',
   Map = 'Map',
   MarksmanRifle = 'MarksmanRifle',
+  MechanicalKey = 'MechanicalKey',
   MedicalItem = 'MedicalItem',
   MedicalSupplies = 'MedicalSupplies',
   Medikit = 'Medikit',
@@ -501,7 +501,7 @@ export enum ItemCategoryName {
   StackableItem = 'StackableItem',
   Stimulant = 'Stimulant',
   Stock = 'Stock',
-  ThermalVision = 'ThermalVision',
+  TermalVision = 'TermalVision',
   ThrowableWeapon = 'ThrowableWeapon',
   Tool = 'Tool',
   Ubgl = 'UBGL',
@@ -1258,9 +1258,13 @@ export type RequirementTask = {
 
 export type RequirementTrader = {
   __typename?: 'RequirementTrader';
+  compareMethod: Scalars['String'];
   id?: Maybe<Scalars['ID']>;
-  level: Scalars['Int'];
+  /** @deprecated Use requirement instead. */
+  level?: Maybe<Scalars['Int']>;
+  requirementType: Scalars['String'];
   trader: Trader;
+  value: Scalars['Int'];
 };
 
 export enum RequirementType {
@@ -1323,7 +1327,9 @@ export type Task = {
   descriptionMessageId?: Maybe<Scalars['String']>;
   experience: Scalars['Int'];
   factionName?: Maybe<Scalars['String']>;
+  failConditions: Array<Maybe<TaskObjective>>;
   failMessageId?: Maybe<Scalars['String']>;
+  failureOutcome?: Maybe<TaskRewards>;
   finishRewards?: Maybe<TaskRewards>;
   id?: Maybe<Scalars['ID']>;
   kappaRequired?: Maybe<Scalars['Boolean']>;
@@ -1334,13 +1340,16 @@ export type Task = {
   neededKeys?: Maybe<Array<Maybe<TaskKey>>>;
   normalizedName: Scalars['String'];
   objectives: Array<Maybe<TaskObjective>>;
+  restartable?: Maybe<Scalars['Boolean']>;
   startMessageId?: Maybe<Scalars['String']>;
   startRewards?: Maybe<TaskRewards>;
   successMessageId?: Maybe<Scalars['String']>;
   tarkovDataId?: Maybe<Scalars['Int']>;
   taskRequirements: Array<Maybe<TaskStatusRequirement>>;
   trader: Trader;
+  /** @deprecated Use traderRequirements instead. */
   traderLevelRequirements: Array<Maybe<RequirementTrader>>;
+  traderRequirements: Array<Maybe<RequirementTrader>>;
   wikiLink?: Maybe<Scalars['String']>;
 };
 
@@ -1503,6 +1512,31 @@ export type TaskObjectiveTraderLevel = TaskObjective & {
   type: Scalars['String'];
 };
 
+export type TaskObjectiveTraderStanding = TaskObjective & {
+  __typename?: 'TaskObjectiveTraderStanding';
+  compareMethod: Scalars['String'];
+  description: Scalars['String'];
+  id?: Maybe<Scalars['ID']>;
+  maps: Array<Maybe<Map>>;
+  optional: Scalars['Boolean'];
+  trader: Trader;
+  type: Scalars['String'];
+  value: Scalars['Int'];
+};
+
+export type TaskObjectiveUseItem = TaskObjective & {
+  __typename?: 'TaskObjectiveUseItem';
+  compareMethod: Scalars['String'];
+  count: Scalars['Int'];
+  description: Scalars['String'];
+  id?: Maybe<Scalars['ID']>;
+  maps: Array<Maybe<Map>>;
+  optional: Scalars['Boolean'];
+  type: Scalars['String'];
+  useAny: Array<Maybe<Item>>;
+  zoneNames: Array<Maybe<Scalars['String']>>;
+};
+
 export type TaskRewards = {
   __typename?: 'TaskRewards';
   craftUnlock: Array<Maybe<Craft>>;
@@ -1568,7 +1602,6 @@ export type TraderLevel = {
 export enum TraderName {
   Fence = 'fence',
   Jaeger = 'jaeger',
-  Lightkeeper = 'lightkeeper',
   Mechanic = 'mechanic',
   Peacekeeper = 'peacekeeper',
   Prapor = 'prapor',
