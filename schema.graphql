@@ -404,7 +404,6 @@ enum ItemCategoryName {
   Item
   Jewelry
   Key
-  KeyMechanical
   Keycard
   Knife
   LockingContainer
@@ -413,6 +412,7 @@ enum ItemCategoryName {
   Magazine
   Map
   MarksmanRifle
+  MechanicalKey
   MedicalItem
   MedicalSupplies
   Medikit
@@ -444,7 +444,7 @@ enum ItemCategoryName {
   StackableItem
   Stimulant
   Stock
-  ThermalVision
+  TermalVision
   ThrowableWeapon
   Tool
   UBGL
@@ -963,7 +963,10 @@ type RequirementTask {
 type RequirementTrader {
   id: ID
   trader: Trader!
-  level: Int!
+  requirementType: String!
+  compareMethod: String!
+  value: Int!
+  level: Int @deprecated(reason: "Use requirement instead.")
 }
 
 enum RequirementType {
@@ -1027,10 +1030,13 @@ type Task {
   wikiLink: String
   minPlayerLevel: Int
   taskRequirements: [TaskStatusRequirement]!
-  traderLevelRequirements: [RequirementTrader]!
+  traderRequirements: [RequirementTrader]!
   objectives: [TaskObjective]!
   startRewards: TaskRewards
   finishRewards: TaskRewards
+  failConditions: [TaskObjective]!
+  failureOutcome: TaskRewards
+  restartable: Boolean
   factionName: String
   neededKeys: [TaskKey]
   kappaRequired: Boolean
@@ -1039,6 +1045,7 @@ type Task {
   startMessageId: String
   successMessageId: String
   failMessageId: String
+  traderLevelRequirements: [RequirementTrader]! @deprecated(reason: "Use traderRequirements instead.")
 }
 
 type TaskKey {
@@ -1186,6 +1193,29 @@ type TaskObjectiveTraderLevel implements TaskObjective {
   level: Int!
 }
 
+type TaskObjectiveTraderStanding implements TaskObjective {
+  id: ID
+  type: String!
+  description: String!
+  maps: [Map]!
+  optional: Boolean!
+  trader: Trader!
+  compareMethod: String!
+  value: Int!
+}
+
+type TaskObjectiveUseItem implements TaskObjective {
+  id: ID
+  type: String!
+  description: String!
+  maps: [Map]!
+  optional: Boolean!
+  useAny: [Item]!
+  compareMethod: String!
+  count: Int!
+  zoneNames: [String]!
+}
+
 type TaskRewards {
   traderStanding: [TraderStanding]!
   items: [ContainedItem]!
@@ -1254,7 +1284,6 @@ enum TraderName {
   mechanic
   ragman
   jaeger
-  lightkeeper
 }
 
 type TraderOffer implements Vendor {
