@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 
 import CurrencyRuble from "@mui/icons-material/CurrencyRuble";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -26,15 +26,14 @@ import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
 import { Link as RouterLink, useParams } from "react-router-dom";
 
 import ItemProperties from "./ItemProperties";
-import { fetchParams } from "./utils";
 import { ITEM_PROPERTIES } from "../constants/LANG_VALUES";
 import { Item, Maybe } from "../graphql/generated";
 import { useHooks } from "./hooks";
+import { gql, useQuery } from "@apollo/client";
 
 const ItemList = () => {
   const { langDict, localeText, cols, defaultSort, CardContentNoPadding } =
     useHooks();
-  const [items, setItems] = useState<Item[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<Item>();
 
@@ -61,50 +60,84 @@ const ItemList = () => {
     );
   };
 
-  useEffect(() => {
-    const params = param.categoryName
-      ? `(categoryNames:[${param.categoryName}])`
-      : "";
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            items${params}{
-              id
-              name
-              normalizedName
-              shortName
-              category{
-                name
-              }
-              basePrice
-              width
-              height
-              types
-              image512pxLink
-              wikiLink
-              usedInTasks{
-                id
-                name
-                trader{
-                  name
-                }
-              }
-              properties{
-                __typename
-              }
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setItems(data.items);
-        });
-    };
-    access_api();
-  }, [param.categoryName]);
+  const ITEMS = gql`
+    query GetItems(
+      $categoryNames: [ItemCategoryName]
+      $skipCategoryNames: Boolean!
+    ) {
+      itemsWithCategories: items(categoryNames: $categoryNames)
+        @include(if: $skipCategoryNames) {
+        id
+        name
+        normalizedName
+        shortName
+        category {
+          name
+        }
+        basePrice
+        width
+        height
+        types
+        image512pxLink
+        wikiLink
+        usedInTasks {
+          id
+          name
+          trader {
+            name
+          }
+        }
+        properties {
+          __typename
+        }
+      }
+      itemsWithoutCategories: items {
+        id
+        name
+        normalizedName
+        shortName
+        category {
+          name
+        }
+        basePrice
+        width
+        height
+        types
+        image512pxLink
+        wikiLink
+        usedInTasks {
+          id
+          name
+          trader {
+            name
+          }
+        }
+        properties {
+          __typename
+        }
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(ITEMS, {
+    variables: {
+      categoryNames: [param.categoryName],
+      skipCategoryNames: Boolean(param.categoryName),
+    },
+  });
+  const items = data?.itemsWithCategories || data?.itemsWithoutCategories || [];
+  if (loading || error)
+    return (
+      <Box
+        sx={{
+          height: "90vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
 
   const DetailDialog = () => {
     const verticalCenter = { display: "flex", justifyContent: "center" };

@@ -17,6 +17,12 @@ const JA_DICT = {
       "Inventory operations": "インベントリ",
       "Global": "グローバル",
     },
+    subtitle:{
+      "subtitle1":"EFTDBは以下を提供します。",
+      "simple":"シンプルさ",
+      "accurate":"正確さ",
+      "fast":"素早さ",
+    }
   },
 
   ITEM_DETAIL_DIALOG:{

@@ -1,8 +1,5 @@
 // TODO:この型定義なくす
 
-type ServerStatus = {
-  [key: string]: string;
-}
 
 type ArmorMaterial = {
   name:string,
@@ -14,7 +11,8 @@ type HomeSentence = {
   discord_server: string;
   search_item: string;
   search_task: string;
-  server_status: ServerStatus;
+  server_status: {[key: string]: string};
+  subtitle: {[key: string]: string};
 }
 
 type ItemDetailDialog ={

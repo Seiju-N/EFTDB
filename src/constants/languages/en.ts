@@ -17,6 +17,12 @@ const EN_DICT = {
       "Inventory operations": "Inventory",
       "Global": "Global",
     },
+    subtitle:{
+      "subtitle1":"EFTDB provides the following features.",
+      "simple":"Simplicity",
+      "accurate":"Accuracy",
+      "fast":"Real time",
+    }
   },
 
   ITEM_DETAIL_DIALOG:{

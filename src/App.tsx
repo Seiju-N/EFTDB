@@ -3,6 +3,9 @@ import {
   ThemeProvider,
   CssBaseline,
   darkScrollbar,
+  Backdrop,
+  CircularProgress,
+  Typography,
 } from "@mui/material";
 import { jaJP } from "@mui/material/locale";
 
@@ -15,10 +18,10 @@ import { Routes, Route } from "react-router-dom";
 
 import { ItemCategory, LanguageCode, Trader } from "./graphql/generated";
 import { createContext, useEffect, useState } from "react";
-import { fetchParams } from "./ItemList/utils";
 import EN_DICT from "./constants/languages/en";
 import JA_DICT from "./constants/languages/ja";
 import { DictType } from "./constants/languages/types";
+import { gql, useQuery } from "@apollo/client";
 
 const darkTheme = createTheme(
   {
@@ -42,58 +45,47 @@ const darkTheme = createTheme(
 export const TradersContext = createContext<Trader[]>([]);
 export const LanguageDictContext = createContext<DictType>(EN_DICT);
 export const CategoryContext = createContext<ItemCategory[]>([]);
+const TRADERS = gql`
+  query traders {
+    traders {
+      id
+      name
+      imageLink
+    }
+  }
+`;
+const ITEM_CATEGORIES = gql`
+  query itemCategories {
+    itemCategories {
+      name
+      normalizedName
+      children {
+        name
+        normalizedName
+      }
+      parent {
+        name
+        normalizedName
+      }
+    }
+  }
+`;
 
 const App = () => {
-  const [traders, setTraders] = useState<Trader[]>([]);
   const [language, setLanguage] = useState("");
   const [languageDict, setLanguageDict] = useState<DictType>(EN_DICT);
-  const [category, setCategory] = useState<ItemCategory[]>([]);
+  const {
+    loading: tradersIsLoading,
+    error: tradersError,
+    data: tradersData,
+  } = useQuery(TRADERS);
+  const {
+    loading: categoryIsLoading,
+    error: categoryError,
+    data: categoryData,
+  } = useQuery(ITEM_CATEGORIES);
+
   useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            traders{
-              id
-              name
-              imageLink
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setTraders(data.traders);
-        });
-    };
-    const get_category = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            itemCategories{
-              name
-              normalizedName
-              children{
-                name
-                normalizedName
-              }
-              parent{
-                name
-                normalizedName
-              }
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setCategory(data.itemCategories);
-        });
-    };
-    access_api();
-    get_category();
     const storageLang = localStorage.getItem("lang");
     storageLang ? setLanguage(storageLang) : setLanguage("en");
   }, []);
@@ -111,13 +103,19 @@ const App = () => {
         break;
     }
   }, [language]);
-
+  if (tradersIsLoading || tradersError || categoryIsLoading || categoryError)
+    return (
+      <Backdrop open={true}>
+        <CircularProgress color="inherit" />
+        <Typography variant="h4">Loading...</Typography>
+      </Backdrop>
+    );
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <CategoryContext.Provider value={category}>
+      <CategoryContext.Provider value={categoryData.itemCategories}>
         <LanguageDictContext.Provider value={languageDict}>
-          <TradersContext.Provider value={traders}>
+          <TradersContext.Provider value={tradersData.traders}>
             <TopBar setLanguage={setLanguage} />
             <Routes>
               <Route path="/" element={<Home />} />

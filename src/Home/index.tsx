@@ -38,7 +38,7 @@ const Home = () => {
     categories,
   } = useHooks();
 
-  const TypographySx = () => {
+  const TopTitle = () => {
     return (
       <Typography
         sx={{
@@ -53,6 +53,16 @@ const Home = () => {
       </Typography>
     );
   };
+
+  const TopSubtitle = memo(() => {
+    return (
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Typography variant="h5" pl={1}>
+          {langDict.HOME_SENTENCE.subtitle.subtitle1}
+        </Typography>
+      </Box>
+    );
+  });
 
   const Menu = memo(() => {
     const traders = useContext(TradersContext);
@@ -242,7 +252,7 @@ const Home = () => {
               alignItems: "baseline",
             }}
           >
-            <TypographySx />
+            <TopTitle />
             <Typography variant="h3" pl={1}>
               EFTDB.
             </Typography>
@@ -261,6 +271,7 @@ const Home = () => {
             </Typography>
           </Button>
         </Box>
+        <TopSubtitle />
       </Box>
       <Grid container columnSpacing={1}>
         <Grid xs={12} md={9}>
