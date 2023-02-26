@@ -1,10 +1,10 @@
-import { ServerStatus as ServerStatusType } from "@/graphql/generated";
+import { Query } from "@/graphql/generated";
 import {
   Avatar,
   Box,
-  Button,
   Card,
   CardContent,
+  CardMedia,
   Container,
   LinearProgress,
   List,
@@ -16,7 +16,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useContext } from "react";
 
 import { Link as RouterLink } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -26,17 +26,15 @@ import StorageIcon from "@mui/icons-material/Storage";
 import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Unstable_Grid2";
 import { TradersContext } from "../App";
-import { ReactComponent as Discord } from "../img/discord.svg";
 import { useHooks } from "./hooks";
+import { gql, useQuery } from "@apollo/client";
 
 const Home = () => {
-  const [serverStatus, setServerStatus] = useState<ServerStatusType>({});
   const {
     FlatCategory,
     NestedCategory,
     NestedSubcategory,
     langDict,
-    fetchParams,
     categories,
   } = useHooks();
 
@@ -171,18 +169,21 @@ const Home = () => {
               {traders.map((trader) => (
                 <ListItem
                   alignItems="flex-start"
-                  key={trader.name}
+                  key={trader?.name}
                   disablePadding
                 >
                   <ListItemButton
                     component={RouterLink}
-                    to={`task/${trader.name}`}
+                    to={`task/${trader?.name}`}
                   >
                     <ListItemAvatar>
-                      <Avatar alt={trader.name} src={trader.imageLink || ""} />
+                      <Avatar
+                        alt={trader?.name}
+                        src={trader?.imageLink || ""}
+                      />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={trader.name}
+                      primary={trader?.name}
                       primaryTypographyProps={{ fontSize: "1.4rem" }}
                     />
                   </ListItemButton>
@@ -194,7 +195,36 @@ const Home = () => {
       </Grid>
     );
   });
+
+  const SERVER_STATUS = gql`
+    query getServerStatus {
+      status {
+        currentStatuses {
+          message
+          name
+          status
+          statusCode
+        }
+        generalStatus {
+          message
+          name
+          status
+          statusCode
+        }
+        messages {
+          content
+          solveTime
+          statusCode
+          time
+          type
+        }
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery<Query>(SERVER_STATUS);
+  console.log(data);
   const ServerStatus = () => {
+    if (loading || error || !data) return null;
     return (
       <Paper sx={{ display: "flex", flexDirection: "column" }}>
         <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
@@ -205,9 +235,9 @@ const Home = () => {
         </Box>
 
         <List>
-          {serverStatus.currentStatuses?.map((status, index) =>
+          {data.status.currentStatuses?.map((status, index) =>
             status ? (
-              <Grid container key={index} p={1} pl={2}>
+              <Grid container key={index} p={1} pl={2} pr={2}>
                 <Grid xs={10}>
                   <Typography variant="h6">
                     {langDict.HOME_SENTENCE.server_status[status.name]}
@@ -234,58 +264,16 @@ const Home = () => {
       </Paper>
     );
   };
-  useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            status{
-              currentStatuses{
-                message
-                name
-                status
-                statusCode
-              }
-              generalStatus{
-                message
-                name
-                status
-                statusCode
-              }
-              messages{
-                content
-                solveTime
-                statusCode
-                time
-                type
-              }
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setServerStatus(data.status);
-        });
-    };
-    access_api();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   return (
     <Container>
-      <Box m={2}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: { xs: "center", md: "space-between" },
-            alignItems: "baseline",
-          }}
-        >
+      <Grid container>
+        <Grid xs={12} md={9}>
           <Box
             sx={{
               display: "flex",
               alignItems: "baseline",
+              m: 2,
             }}
           >
             <TopTitle />
@@ -293,7 +281,7 @@ const Home = () => {
               EFTDB.
             </Typography>
           </Box>
-          <Button
+          {/* <Button
             startIcon={<Discord height={18} />}
             href="https://discord.gg/cjUhFptaxM"
             sx={{ display: { xs: "none", md: "flex" } }}
@@ -305,10 +293,25 @@ const Home = () => {
             >
               {langDict.HOME_SENTENCE.discord_server}
             </Typography>
-          </Button>
-        </Box>
-        <TopSubtitle />
-      </Box>
+          </Button> */}
+          <TopSubtitle />
+        </Grid>
+
+        <Grid
+          md={3}
+          pt={2}
+          pb={2}
+          pl={1}
+          sx={{ display: { xs: "none", md: "block" } }}
+        >
+          <CardMedia
+            component="iframe"
+            height={400}
+            frameBorder={0}
+            src="https://discord.com/widget?id=944262508208877569&theme=dark"
+          ></CardMedia>
+        </Grid>
+      </Grid>
       <Grid container columnSpacing={1}>
         <Grid xs={12} md={9}>
           <Menu />

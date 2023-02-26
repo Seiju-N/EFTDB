@@ -16,7 +16,13 @@ import Home from "./Home";
 
 import { Routes, Route } from "react-router-dom";
 
-import { ItemCategory, LanguageCode, Trader } from "./graphql/generated";
+import {
+  ItemCategory,
+  LanguageCode,
+  Maybe,
+  Query,
+  Trader,
+} from "./graphql/generated";
 import { createContext, useEffect, useState } from "react";
 import EN_DICT from "./constants/languages/en";
 import JA_DICT from "./constants/languages/ja";
@@ -42,9 +48,9 @@ const darkTheme = createTheme(
   jaJP
 );
 
-export const TradersContext = createContext<Trader[]>([]);
+export const TradersContext = createContext<Maybe<Trader>[]>([]);
 export const LanguageDictContext = createContext<DictType>(EN_DICT);
-export const CategoryContext = createContext<ItemCategory[]>([]);
+export const CategoryContext = createContext<Maybe<ItemCategory>[]>([]);
 const TRADERS = gql`
   query traders {
     traders {
@@ -78,16 +84,16 @@ const App = () => {
     loading: tradersIsLoading,
     error: tradersError,
     data: tradersData,
-  } = useQuery(TRADERS);
+  } = useQuery<Query>(TRADERS);
   const {
     loading: categoryIsLoading,
     error: categoryError,
     data: categoryData,
-  } = useQuery(ITEM_CATEGORIES);
+  } = useQuery<Query>(ITEM_CATEGORIES);
 
   useEffect(() => {
     const storageLang = localStorage.getItem("lang");
-    storageLang ? setLanguage(storageLang) : setLanguage("en");
+    storageLang ? setLanguage(storageLang) : setLanguage(navigator.language);
   }, []);
 
   useEffect(() => {
@@ -103,7 +109,14 @@ const App = () => {
         break;
     }
   }, [language]);
-  if (tradersIsLoading || tradersError || categoryIsLoading || categoryError)
+  if (
+    tradersIsLoading ||
+    tradersError ||
+    !tradersData ||
+    categoryIsLoading ||
+    categoryError ||
+    !categoryData
+  )
     return (
       <Backdrop open={true}>
         <CircularProgress color="inherit" />

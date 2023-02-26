@@ -1,6 +1,6 @@
 import { CategoryContext, LanguageDictContext } from "../App";
 import { useCallback, useContext, useState } from "react";
-import { ItemCategory } from "@/graphql/generated";
+import { ItemCategory, Maybe } from "@/graphql/generated";
 import { toPascalCase } from "../utils";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -28,8 +28,8 @@ export const useHooks = () => {
     categoryName: string;
   };
   const FlatCategory = ({ categoryName }: nestedCategoryProps) => {
-    const parsedCategory: ItemCategory | undefined = categories.find(
-      (category) => category.name === categoryName
+    const parsedCategory: Maybe<ItemCategory> | undefined = categories.find(
+      (category) => category?.name === categoryName
     );
     if (!parsedCategory) return null;
     return (
@@ -56,11 +56,10 @@ export const useHooks = () => {
     const handleClick = useCallback(() => {
       setOpen(!open);
     }, [open]);
-    const parsedCategories: ItemCategory[] = categories.filter(
-      (category) => category.parent?.name === categoryName
+    const parsedCategories: Maybe<ItemCategory>[] = categories.filter(
+      (category) => category?.parent?.name === categoryName
     );
     if (!parsedCategories || parsedCategories.length === 0) return null;
-    console.log(parsedCategories);
     return (
       <>
         <ListItem
@@ -82,15 +81,15 @@ export const useHooks = () => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List>
             {parsedCategories.map((category) => (
-              <ListItem key={category.name}>
+              <ListItem key={category?.name}>
                 <ListItemButton
                   component={RouterLink}
-                  to={`item/${toPascalCase(category.normalizedName)}`}
+                  to={`item/${toPascalCase(category?.normalizedName)}`}
                 >
                   <ListItemText sx={{ pl: 2 }}>
                     {
                       langDict.ITEM_CATEGORY_NAME[
-                        toPascalCase(category.normalizedName)
+                        toPascalCase(category?.normalizedName)
                       ]
                     }
                   </ListItemText>
@@ -109,11 +108,11 @@ export const useHooks = () => {
     }, [open]);
 
     const filterByParentCategory = categories.filter(
-      (category) => category.parent?.name === categoryName
+      (category) => category?.parent?.name === categoryName
     );
 
     type props = {
-      category: ItemCategory;
+      category: Maybe<ItemCategory>;
     };
     const NestedList = ({ category }: props) => {
       const [openDeep, setOpenDeep] = useState<boolean>(false);
@@ -121,12 +120,12 @@ export const useHooks = () => {
         setOpenDeep(!openDeep);
       }, [openDeep]);
       const filterByParentCategory = categories.filter(
-        (category_child) => category_child.parent?.name === category.name
+        (category_child) => category_child?.parent?.name === category?.name
       );
       return (
         <>
           <ListItem
-            key={category.name}
+            key={category?.name}
             secondaryAction={
               <ListItemButton onClick={handleClickDeep}>
                 {openDeep ? <ExpandLess /> : <ExpandMore />}
@@ -135,12 +134,12 @@ export const useHooks = () => {
           >
             <ListItemButton
               component={RouterLink}
-              to={`item/${toPascalCase(category.normalizedName)}`}
+              to={`item/${toPascalCase(category?.normalizedName)}`}
             >
               <ListItemText sx={{ pl: 2 }}>
                 {
                   langDict.ITEM_CATEGORY_NAME[
-                    toPascalCase(category.normalizedName)
+                    toPascalCase(category?.normalizedName)
                   ]
                 }
               </ListItemText>
@@ -149,12 +148,18 @@ export const useHooks = () => {
           <Collapse in={openDeep} timeout="auto" unmountOnExit>
             <List>
               {filterByParentCategory.map((category) => (
-                <ListItem key={`NestedList_${category.name}`}>
+                <ListItem key={`NestedList_${category?.name}`}>
                   <ListItemButton
                     component={RouterLink}
-                    to={`item/${toPascalCase(category.normalizedName)}`}
+                    to={`item/${toPascalCase(category?.normalizedName)}`}
                   >
-                    <ListItemText sx={{ pl: 4 }}>{category.name}</ListItemText>
+                    <ListItemText sx={{ pl: 4 }}>
+                      {
+                        langDict.ITEM_CATEGORY_NAME[
+                          toPascalCase(category?.normalizedName)
+                        ]
+                      }
+                    </ListItemText>
                   </ListItemButton>
                 </ListItem>
               ))}
@@ -177,13 +182,15 @@ export const useHooks = () => {
             component={RouterLink}
             to={`item/${toPascalCase(categoryName)}`}
           >
-            <ListItemText primary={categoryName} />
+            <ListItemText
+              primary={langDict.ITEM_CATEGORY_NAME[toPascalCase(categoryName)]}
+            />
           </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List>
             {filterByParentCategory.map((category) => (
-              <NestedList category={category} key={category.name} />
+              <NestedList category={category} key={category?.name} />
             ))}
           </List>
         </Collapse>

@@ -57,7 +57,8 @@ export const normalise = (
   return ((value - MIN) * 100) / (MAX - MIN);
 };
 
-export const toPascalCase = (str: string) => {
+export const toPascalCase = (str: string | undefined) => {
+  if (!str) return "";
   if (str.includes(" ")) {
     return str
       .split(" ")

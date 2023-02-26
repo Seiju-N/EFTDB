@@ -29,6 +29,7 @@ import { CategoryContext, LanguageDictContext, TradersContext } from "./App";
 import { ReactComponent as Discord } from "./img/discord.svg";
 import Language from "@mui/icons-material/Language";
 import { toPascalCase } from "./utils";
+import { ItemCategory, Maybe } from "./graphql/generated";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
@@ -125,22 +126,23 @@ const TopBar = (props: Props) => {
     );
   });
   const traders = useContext(TradersContext);
-  const itemCategories = useContext(CategoryContext)
+  const itemCategories = useContext<Maybe<ItemCategory>[]>(CategoryContext)
     .filter(
       (category) =>
-        category.name === "Ammo" ||
-        category.name === "Barter item" ||
-        category.name === "Common container" ||
-        category.name === "Food and drink" ||
-        category.name === "Key" ||
-        category.name === "Knife" ||
-        category.name === "Meds" ||
-        category.name === "Stackable item" ||
-        category.name === "Throwable weapon" ||
-        category.name === "Weapon mod" ||
-        category.name === "Weapon"
+        category?.name === "Ammo" ||
+        category?.name === "Barter item" ||
+        category?.name === "Common container" ||
+        category?.name === "Food and drink" ||
+        category?.name === "Key" ||
+        category?.name === "Knife" ||
+        category?.name === "Meds" ||
+        category?.name === "Stackable item" ||
+        category?.name === "Throwable weapon" ||
+        category?.name === "Weapon mod" ||
+        category?.name === "Weapon"
     )
     .sort((a, b) => {
+      if (!a || !b) return 0;
       return a.name < b.name ? -1 : 1;
     });
 
@@ -208,20 +210,20 @@ const TopBar = (props: Props) => {
                     {traders.map((trader) => (
                       <ListItem
                         alignItems="flex-start"
-                        key={trader.name}
+                        key={trader?.name}
                         disablePadding
                       >
                         <ListItemButton
                           component={RouterLink}
-                          to={`task/${trader.name}`}
+                          to={`task/${trader?.name}`}
                         >
                           <ListItemAvatar>
                             <Avatar
-                              alt={trader.name}
-                              src={trader.imageLink || ""}
+                              alt={trader?.name}
+                              src={trader?.imageLink || ""}
                             />
                           </ListItemAvatar>
-                          <ListItemText primary={trader.name} />
+                          <ListItemText primary={trader?.name} />
                         </ListItemButton>
                       </ListItem>
                     ))}
@@ -286,18 +288,21 @@ const TopBar = (props: Props) => {
               {traders.map((trader) => (
                 <ListItem
                   alignItems="flex-start"
-                  key={trader.id}
+                  key={trader?.id}
                   disablePadding
                 >
                   <ListItemButton
                     component={RouterLink}
-                    to={`task/${trader.name}`}
+                    to={`task/${trader?.name}`}
                     onClick={handleCloseTaskMenu}
                   >
                     <ListItemAvatar>
-                      <Avatar alt={trader.name} src={trader.imageLink || ""} />
+                      <Avatar
+                        alt={trader?.name}
+                        src={trader?.imageLink || ""}
+                      />
                     </ListItemAvatar>
-                    <ListItemText primary={trader.name} />
+                    <ListItemText primary={trader?.name} />
                   </ListItemButton>
                 </ListItem>
               ))}
@@ -321,18 +326,18 @@ const TopBar = (props: Props) => {
               {itemCategories.map((itemCategory, idx) => (
                 <ListItem
                   alignItems="flex-start"
-                  key={`${itemCategory.id}_${idx}`}
+                  key={`${itemCategory?.id}_${idx}`}
                   disablePadding
                 >
                   <ListItemButton
                     component={RouterLink}
-                    to={`item/${toPascalCase(itemCategory.name)}`}
+                    to={`item/${toPascalCase(itemCategory?.name)}`}
                     onClick={handleCloseItemMenu}
                   >
                     <ListItemText
                       primary={
                         langDict.ITEM_CATEGORY_NAME[
-                          toPascalCase(itemCategory.name)
+                          toPascalCase(itemCategory?.name)
                         ]
                       }
                     />
