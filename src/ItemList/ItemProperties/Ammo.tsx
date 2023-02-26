@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 
 import {
   Box,
@@ -9,12 +9,12 @@ import {
 import Grid from "@mui/material/Unstable_Grid2";
 
 import { ITEM_PROPERTIES_AMMO } from "../../constants/LANG_VALUES";
-import { convertPercent, CustomSkelton, fetchParams } from "../utils";
-
-import { ItemPropertiesAmmo } from "@/graphql/generated";
+import { convertPercent, CustomSkelton } from "../utils";
+import { gql, useQuery } from "@apollo/client";
+import { Scalars } from "@/graphql/generated";
 
 type Props = {
-  ItemId: string;
+  ItemId: Scalars["ID"];
 };
 
 const Ammo = ({ ItemId }: Props) => {
@@ -34,51 +34,42 @@ const Ammo = ({ ItemId }: Props) => {
       </Box>
     );
   };
-  const [itemPropertyData, setItemPropertyData] =
-    useState<ItemPropertiesAmmo>();
-  useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            item(id: "${ItemId}") {
-              properties {
-              ... on ItemPropertiesAmmo 
-                {
-                  damage
-                  armorDamage
-                  penetrationPower
-                  caliber
-                  stackMaxSize
-                  tracer
-                  tracerColor
-                  ammoType
-                  projectileCount
-                  fragmentationChance
-                  ricochetChance
-                  penetrationChance
-                  accuracyModifier
-                  recoilModifier
-                  initialSpeed
-                  lightBleedModifier
-                  heavyBleedModifier
-                  durabilityBurnFactor
-                  heatFactor
-                }
-              }
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setItemPropertyData(data.item.properties);
-        });
-    };
-    access_api();
-  }, [ItemId]);
+  const GET_ITEM_PROPERTIES_QUERY = gql`
+    query getItemProperties($itemId: ID) {
+      item(id: $itemId) {
+        properties {
+          ... on ItemPropertiesAmmo {
+            damage
+            armorDamage
+            penetrationPower
+            caliber
+            stackMaxSize
+            tracer
+            tracerColor
+            ammoType
+            projectileCount
+            fragmentationChance
+            ricochetChance
+            penetrationChance
+            accuracyModifier
+            recoilModifier
+            initialSpeed
+            lightBleedModifier
+            heavyBleedModifier
+            durabilityBurnFactor
+            heatFactor
+          }
+        }
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
+    variables: {
+      itemId: ItemId,
+    },
+  });
 
+  if (loading || error) return null;
   type detailGridType = {
     keyword: string;
   };
@@ -91,7 +82,9 @@ const Ammo = ({ ItemId }: Props) => {
         </Grid>
         <Grid xs={9}>
           <LinearProgressWithLabel
-            value={itemPropertyData![keyword as keyof typeof itemPropertyData]}
+            value={
+              data.item.properties[keyword as keyof typeof data.item.properties]
+            }
           />
         </Grid>
       </>
@@ -106,7 +99,9 @@ const Ammo = ({ ItemId }: Props) => {
           </Grid>
           <Grid xs={2}>
             {convertPercent(
-              itemPropertyData![keyword as keyof typeof itemPropertyData]
+              data.item.properties![
+                keyword as keyof typeof data.item.properties
+              ]
             )}
           </Grid>
         </>
@@ -118,7 +113,11 @@ const Ammo = ({ ItemId }: Props) => {
             {ITEM_PROPERTIES_AMMO[keyword as keyof typeof ITEM_PROPERTIES_AMMO]}
           </Grid>
           <Grid xs={2}>
-            {itemPropertyData![keyword as keyof typeof itemPropertyData]}
+            {
+              data.item.properties![
+                keyword as keyof typeof data.item.properties
+              ]
+            }
           </Grid>
         </>
       );
@@ -127,7 +126,7 @@ const Ammo = ({ ItemId }: Props) => {
 
   return (
     <>
-      {!itemPropertyData ? (
+      {!data.item.properties ? (
         <CustomSkelton />
       ) : (
         <>
@@ -140,7 +139,7 @@ const Ammo = ({ ItemId }: Props) => {
             sx={{ height: 144, minHeight: "100%", fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
-              itemPropertyData![key as keyof typeof itemPropertyData] &&
+              data.item.properties![key as keyof typeof data.item.properties] &&
               (key === "damage" ||
                 key === "armorDamage" ||
                 key === "penetrationPower") ? (
@@ -150,7 +149,7 @@ const Ammo = ({ ItemId }: Props) => {
               ) : null
             )}
             {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
-              itemPropertyData![key as keyof typeof itemPropertyData] &&
+              data.item.properties![key as keyof typeof data.item.properties] &&
               !(
                 key === "damage" ||
                 key === "armorDamage" ||

@@ -60,7 +60,7 @@ const ItemList = () => {
     );
   };
 
-  const ITEMS = gql`
+  const GET_ITEMS_QUEERY = gql`
     query GetItems(
       $categoryNames: [ItemCategoryName]
       $skipCategoryNames: Boolean!
@@ -118,7 +118,7 @@ const ItemList = () => {
       }
     }
   `;
-  const { loading, error, data } = useQuery(ITEMS, {
+  const { loading, error, data } = useQuery(GET_ITEMS_QUEERY, {
     variables: {
       categoryNames: [param.categoryName],
       skipCategoryNames: Boolean(param.categoryName),

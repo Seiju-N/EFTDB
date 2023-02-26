@@ -32,7 +32,7 @@ const EN_DICT = {
     SIZE: "Size",
     NO_DETAIL: "No detail info.",
     WIDTH:"width",
-    HEIGHT:"he"
+    HEIGHT:"height"
   },
 
   MENU_SENTENCE:{

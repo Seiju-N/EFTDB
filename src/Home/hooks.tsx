@@ -15,13 +15,6 @@ import {
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
-  const fetchParams = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  };
   const categories = useContext(CategoryContext);
 
   type nestedCategoryProps = {
@@ -203,7 +196,6 @@ export const useHooks = () => {
     NestedCategory,
     NestedSubcategory,
     langDict,
-    fetchParams,
     categories,
   };
 };

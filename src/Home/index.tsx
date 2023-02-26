@@ -196,34 +196,33 @@ const Home = () => {
     );
   });
 
-  const SERVER_STATUS = gql`
-    query getServerStatus {
-      status {
-        currentStatuses {
-          message
-          name
-          status
-          statusCode
-        }
-        generalStatus {
-          message
-          name
-          status
-          statusCode
-        }
-        messages {
-          content
-          solveTime
-          statusCode
-          time
-          type
+  const ServerStatus = () => {
+    const SERVER_STATUS_QUERY = gql`
+      query getServerStatus {
+        status {
+          currentStatuses {
+            message
+            name
+            status
+            statusCode
+          }
+          generalStatus {
+            message
+            name
+            status
+            statusCode
+          }
+          messages {
+            content
+            solveTime
+            statusCode
+            time
+            type
+          }
         }
       }
-    }
-  `;
-  const { loading, error, data } = useQuery<Query>(SERVER_STATUS);
-  console.log(data);
-  const ServerStatus = () => {
+    `;
+    const { loading, error, data } = useQuery<Query>(SERVER_STATUS_QUERY);
     if (loading || error || !data) return null;
     return (
       <Paper sx={{ display: "flex", flexDirection: "column" }}>
