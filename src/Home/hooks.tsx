@@ -115,49 +115,69 @@ export const useHooks = () => {
       const filterByParentCategory = categories.filter(
         (category_child) => category_child?.parent?.name === category?.name
       );
+      console.log(filterByParentCategory.length);
       return (
         <>
-          <ListItem
-            key={category?.name}
-            secondaryAction={
-              <ListItemButton onClick={handleClickDeep}>
-                {openDeep ? <ExpandLess /> : <ExpandMore />}
+          {filterByParentCategory.length === 0 ? (
+            <ListItem key={category?.name}>
+              <ListItemButton
+                component={RouterLink}
+                to={`item/${toPascalCase(category?.normalizedName)}`}
+              >
+                <ListItemText sx={{ pl: 2 }}>
+                  {
+                    langDict.ITEM_CATEGORY_NAME[
+                      toPascalCase(category?.normalizedName)
+                    ]
+                  }
+                </ListItemText>
               </ListItemButton>
-            }
-          >
-            <ListItemButton
-              component={RouterLink}
-              to={`item/${toPascalCase(category?.normalizedName)}`}
-            >
-              <ListItemText sx={{ pl: 2 }}>
-                {
-                  langDict.ITEM_CATEGORY_NAME[
-                    toPascalCase(category?.normalizedName)
-                  ]
-                }
-              </ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <Collapse in={openDeep} timeout="auto" unmountOnExit>
-            <List>
-              {filterByParentCategory.map((category) => (
-                <ListItem key={`NestedList_${category?.name}`}>
-                  <ListItemButton
-                    component={RouterLink}
-                    to={`item/${toPascalCase(category?.normalizedName)}`}
-                  >
-                    <ListItemText sx={{ pl: 4 }}>
-                      {
-                        langDict.ITEM_CATEGORY_NAME[
-                          toPascalCase(category?.normalizedName)
-                        ]
-                      }
-                    </ListItemText>
+            </ListItem>
+          ) : (
+            <>
+              <ListItem
+                key={category?.name}
+                secondaryAction={
+                  <ListItemButton onClick={handleClickDeep}>
+                    {openDeep ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Collapse>
+                }
+              >
+                <ListItemButton
+                  component={RouterLink}
+                  to={`item/${toPascalCase(category?.normalizedName)}`}
+                >
+                  <ListItemText sx={{ pl: 2 }}>
+                    {
+                      langDict.ITEM_CATEGORY_NAME[
+                        toPascalCase(category?.normalizedName)
+                      ]
+                    }
+                  </ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <Collapse in={openDeep} timeout="auto" unmountOnExit>
+                <List>
+                  {filterByParentCategory.map((category) => (
+                    <ListItem key={`NestedList_${category?.name}`}>
+                      <ListItemButton
+                        component={RouterLink}
+                        to={`item/${toPascalCase(category?.normalizedName)}`}
+                      >
+                        <ListItemText sx={{ pl: 4 }}>
+                          {
+                            langDict.ITEM_CATEGORY_NAME[
+                              toPascalCase(category?.normalizedName)
+                            ]
+                          }
+                        </ListItemText>
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            </>
+          )}
         </>
       );
     };

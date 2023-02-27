@@ -1,4 +1,3 @@
-import { Query } from "@/graphql/generated";
 import {
   Avatar,
   Box,
@@ -13,21 +12,17 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Paper,
   Typography,
 } from "@mui/material";
 import { memo, useContext } from "react";
 
 import { Link as RouterLink } from "react-router-dom";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import CancelIcon from "@mui/icons-material/Cancel";
-import StorageIcon from "@mui/icons-material/Storage";
 import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Unstable_Grid2";
 import { TradersContext } from "../App";
 import { useHooks } from "./hooks";
-import { gql, useQuery } from "@apollo/client";
+import { ServerStatus } from "./ServerStatus";
 
 const Home = () => {
   const {
@@ -140,6 +135,7 @@ const Home = () => {
               <FlatCategory categoryName="Ammo" />
               <NestedCategory categoryName="Barter item" />
               <FlatCategory categoryName="Common container" />
+              <NestedSubcategory categoryName="Equipment" />
               <NestedCategory categoryName="Food and drink" />
               <NestedCategory categoryName="Key" />
               <FlatCategory categoryName="Knife" />
@@ -196,74 +192,6 @@ const Home = () => {
     );
   });
 
-  const ServerStatus = () => {
-    const SERVER_STATUS_QUERY = gql`
-      query getServerStatus {
-        status {
-          currentStatuses {
-            message
-            name
-            status
-            statusCode
-          }
-          generalStatus {
-            message
-            name
-            status
-            statusCode
-          }
-          messages {
-            content
-            solveTime
-            statusCode
-            time
-            type
-          }
-        }
-      }
-    `;
-    const { loading, error, data } = useQuery<Query>(SERVER_STATUS_QUERY);
-    if (loading || error || !data) return null;
-    return (
-      <Paper sx={{ display: "flex", flexDirection: "column" }}>
-        <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
-          <StorageIcon fontSize="medium" />
-          <Typography variant="h5" pl={1}>
-            {langDict.HOME_SENTENCE.server_status.title}
-          </Typography>
-        </Box>
-
-        <List>
-          {data.status.currentStatuses?.map((status, index) =>
-            status ? (
-              <Grid container key={index} p={1} pl={2} pr={2}>
-                <Grid xs={10}>
-                  <Typography variant="h6">
-                    {langDict.HOME_SENTENCE.server_status[status.name]}
-                  </Typography>
-                </Grid>
-                <Grid xs={2}>
-                  {status.status === 0 ? (
-                    <CheckCircleIcon fontSize="large" color="success" />
-                  ) : (
-                    <CancelIcon fontSize="large" color="error" />
-                  )}
-                </Grid>
-                {status.message ? (
-                  <Grid xs={12}>
-                    <Typography variant="subtitle2" pl={2} pb={1}>
-                      {status?.message}
-                    </Typography>
-                  </Grid>
-                ) : null}
-              </Grid>
-            ) : null
-          )}
-        </List>
-      </Paper>
-    );
-  };
-
   return (
     <Container>
       <Grid container>
@@ -280,19 +208,6 @@ const Home = () => {
               EFTDB.
             </Typography>
           </Box>
-          {/* <Button
-            startIcon={<Discord height={18} />}
-            href="https://discord.gg/cjUhFptaxM"
-            sx={{ display: { xs: "none", md: "flex" } }}
-          >
-            <Typography
-              variant="h6"
-              color="text.secondary"
-              textTransform={"none"}
-            >
-              {langDict.HOME_SENTENCE.discord_server}
-            </Typography>
-          </Button> */}
           <TopSubtitle />
         </Grid>
 

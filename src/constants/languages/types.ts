@@ -1,4 +1,4 @@
-// TODO:この型定義なくす
+// TODO:この型定義なくしたい。
 
 
 type ArmorMaterial = {

@@ -72,7 +72,7 @@ const JA_DICT = {
     AmmoContainer: "弾薬パック",
     ArmBand: "アームバンド",
     Armor: "アーマー",
-    ArmoredEquipment: "オプション装備",
+    ArmoredEquipment: "アーマー類",
     AssaultCarbine: "アサルトカービン",
     AssaultRifle: "アサルトライフル",
     AssaultScope: "アサルトスコープ",

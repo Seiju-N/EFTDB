@@ -17,6 +17,36 @@ type Props = {
   ItemId: Scalars["ID"];
 };
 
+const GET_ITEM_PROPERTIES_QUERY = gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId) {
+      properties {
+        ... on ItemPropertiesAmmo {
+          damage
+          armorDamage
+          penetrationPower
+          caliber
+          stackMaxSize
+          tracer
+          tracerColor
+          ammoType
+          projectileCount
+          fragmentationChance
+          ricochetChance
+          penetrationChance
+          accuracyModifier
+          recoilModifier
+          initialSpeed
+          lightBleedModifier
+          heavyBleedModifier
+          durabilityBurnFactor
+          heatFactor
+        }
+      }
+    }
+  }
+`;
+
 const Ammo = ({ ItemId }: Props) => {
   const LinearProgressWithLabel = (
     props: LinearProgressProps & { value: number }
@@ -34,35 +64,7 @@ const Ammo = ({ ItemId }: Props) => {
       </Box>
     );
   };
-  const GET_ITEM_PROPERTIES_QUERY = gql`
-    query getItemProperties($itemId: ID) {
-      item(id: $itemId) {
-        properties {
-          ... on ItemPropertiesAmmo {
-            damage
-            armorDamage
-            penetrationPower
-            caliber
-            stackMaxSize
-            tracer
-            tracerColor
-            ammoType
-            projectileCount
-            fragmentationChance
-            ricochetChance
-            penetrationChance
-            accuracyModifier
-            recoilModifier
-            initialSpeed
-            lightBleedModifier
-            heavyBleedModifier
-            durabilityBurnFactor
-            heatFactor
-          }
-        }
-      }
-    }
-  `;
+
   const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
     variables: {
       itemId: ItemId,
