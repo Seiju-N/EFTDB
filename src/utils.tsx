@@ -1,7 +1,7 @@
-import { formatDistance, format } from "date-fns";
+import { format, formatDistance } from "date-fns";
 import { ja } from "date-fns/locale";
 
-import { Task, Trader } from "./graphql/generated";
+import type { Task, Trader } from "./graphql/generated";
 
 export const formatDate = (date: string) => {
   const formattedDate = formatDistance(new Date(), Date.parse(date), {
@@ -51,8 +51,8 @@ export const parseData = (dataArr?: Task[]) => {
 
 export const normalise = (
   value: number,
-  MIN: number = 0,
-  MAX: number = 100
+  MIN = 0,
+  MAX = 100
 ) => {
   return ((value - MIN) * 100) / (MAX - MIN);
 };

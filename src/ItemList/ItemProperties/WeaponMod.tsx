@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
 
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import React, { useEffect, useState } from "react";
+
+import type { ItemPropertiesWeapon } from "@/graphql/generated";
 
 import { ITEM_PROPERTIES_WEAPON_MOD } from "../../constants/LANG_VALUES";
 import { convertPercent, CustomSkelton, fetchParams } from "../utils";
 
-import { ItemPropertiesWeapon } from "@/graphql/generated";
 
 type Props = {
   ItemId: string;

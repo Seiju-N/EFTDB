@@ -1,9 +1,10 @@
+import type { SelectChangeEvent } from "@mui/material/Select";
+import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
+import {  enUS } from "@mui/x-data-grid";
 import  { useCallback, useState } from "react";
 
-import {  enUS, GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 
-import { Task } from "@/graphql/generated";
-import { SelectChangeEvent } from "@mui/material/Select";
+import type { Task } from "@/graphql/generated";
 
 export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);

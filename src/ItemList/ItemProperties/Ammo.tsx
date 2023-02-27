@@ -1,17 +1,18 @@
-import React, { Fragment } from "react";
-
+import { gql, useQuery } from "@apollo/client";
+import type {
+  LinearProgressProps} from "@mui/material";
 import {
   Box,
   LinearProgress,
-  LinearProgressProps,
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import React, { Fragment } from "react";
+
+import type { Scalars } from "@/graphql/generated";
 
 import { ITEM_PROPERTIES_AMMO } from "../../constants/LANG_VALUES";
 import { convertPercent, CustomSkelton } from "../utils";
-import { gql, useQuery } from "@apollo/client";
-import { Scalars } from "@/graphql/generated";
 
 type Props = {
   ItemId: Scalars["ID"];
@@ -65,6 +66,10 @@ const Ammo = ({ ItemId }: Props) => {
     );
   };
 
+  type detailGridType = {
+    keyword: string;
+  };
+
   const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
     variables: {
       itemId: ItemId,
@@ -72,9 +77,6 @@ const Ammo = ({ ItemId }: Props) => {
   });
 
   if (loading || error) return null;
-  type detailGridType = {
-    keyword: string;
-  };
 
   const DetailInfoBarGrid = ({ keyword }: detailGridType) => {
     return (

@@ -1,3 +1,5 @@
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Avatar,
   Box,
@@ -14,15 +16,13 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { memo, useContext } from "react";
-
-import { Link as RouterLink } from "react-router-dom";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import SearchIcon from "@mui/icons-material/Search";
 import Grid from "@mui/material/Unstable_Grid2";
-import { TradersContext } from "../App";
+import { memo, useContext } from "react";
+import { Link as RouterLink } from "react-router-dom";
+
 import { useHooks } from "./hooks";
 import { ServerStatus } from "./ServerStatus";
+import { TradersContext } from "../App";
 
 const Home = () => {
   const {

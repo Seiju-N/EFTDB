@@ -1,35 +1,34 @@
-import React, { memo, useCallback, useState } from "react";
-
+import { gql, useQuery } from "@apollo/client";
 import CurrencyRuble from "@mui/icons-material/CurrencyRuble";
 import LanguageIcon from "@mui/icons-material/Language";
 import QueryStats from "@mui/icons-material/QueryStats";
 import ZoomOutMap from "@mui/icons-material/ZoomOutMap";
 import {
   Backdrop,
-  CircularProgress,
   Box,
-  Dialog,
-  DialogTitle,
-  DialogContent,
   Card,
-  Typography,
-  Tooltip,
+  CircularProgress,
+  Container,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   IconButton,
   List,
   ListItem,
-  ListItemText,
   ListItemButton,
-  Container,
+  ListItemText,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
+import React, { memo, useCallback, useState } from "react";
 import { Link as RouterLink, useParams } from "react-router-dom";
 
+import { useHooks } from "./hooks";
 import ItemProperties from "./ItemProperties";
 import { ITEM_PROPERTIES } from "../constants/LANG_VALUES";
-import { Item, Maybe } from "../graphql/generated";
-import { useHooks } from "./hooks";
-import { gql, useQuery } from "@apollo/client";
+import type { Item, Maybe } from "../graphql/generated";
 
 const ItemList = () => {
   const { langDict, localeText, cols, defaultSort, CardContentNoPadding } =

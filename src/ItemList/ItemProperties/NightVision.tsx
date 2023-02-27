@@ -1,12 +1,13 @@
-import React, { Fragment, useEffect, useState } from "react";
 
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import React, { Fragment, useEffect, useState } from "react";
+
+import type { ItemPropertiesNightVision } from "@/graphql/generated";
 
 import { ITEM_PROPERTIES_NIGHT_VISION } from "../../constants/LANG_VALUES";
 import { CustomSkelton, fetchParams } from "../utils";
 
-import { ItemPropertiesNightVision } from "@/graphql/generated";
 
 type Props = {
   ItemId: string;

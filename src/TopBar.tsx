@@ -1,18 +1,8 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link as RouterLink } from "react-router-dom";
-import { memo, useCallback, useContext, useState } from "react";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import Language from "@mui/icons-material/Language";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   Avatar,
   Collapse,
@@ -24,12 +14,23 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
-import { SITE_NAME, SUPPORTED_LANG } from "./constants/CONST_VALUES";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { memo, useCallback, useContext, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+
 import { CategoryContext, LanguageDictContext, TradersContext } from "./App";
+import { SITE_NAME, SUPPORTED_LANG } from "./constants/CONST_VALUES";
+import type { ItemCategory, Maybe } from "./graphql/generated";
 import { ReactComponent as Discord } from "./img/discord.svg";
-import Language from "@mui/icons-material/Language";
 import { toPascalCase } from "./utils";
-import { ItemCategory, Maybe } from "./graphql/generated";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
@@ -132,6 +133,7 @@ const TopBar = (props: Props) => {
         category?.name === "Ammo" ||
         category?.name === "Barter item" ||
         category?.name === "Common container" ||
+        category?.name === "Equipment" ||
         category?.name === "Food and drink" ||
         category?.name === "Key" ||
         category?.name === "Knife" ||

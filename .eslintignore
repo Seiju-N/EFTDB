@@ -1,0 +1,6 @@
+node_modules
+docs
+config
+public
+scripts
+src/graphql

@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
-
+import { gql, useQuery } from "@apollo/client";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import React, { Fragment } from "react";
+
 
 import { ITEM_PROPERTIES_ARMOR } from "../../constants/LANG_VALUES";
 import { CustomSkelton, translateMaterialName } from "../utils";
 
-import { gql, useQuery } from "@apollo/client";
 
 type Props = {
   ItemId: string;

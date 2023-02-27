@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import App from "./App";
+
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
   uri: "https://api.tarkov.dev/graphql",

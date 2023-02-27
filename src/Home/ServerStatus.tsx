@@ -1,11 +1,13 @@
-import { Query } from "@/graphql/generated";
 import { gql, useQuery } from "@apollo/client";
-import { Paper, Box, Typography, List } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
-import { useHooks } from "./hooks";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import StorageIcon from "@mui/icons-material/Storage";
+import { Box, List, Paper, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+
+import type { Query } from "@/graphql/generated";
+
+import { useHooks } from "./hooks";
 
 export const ServerStatus = () => {
   const { langDict } = useHooks();

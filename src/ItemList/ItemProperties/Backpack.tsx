@@ -1,66 +1,56 @@
-import React, { useEffect, useState, Fragment } from "react";
-
+import { gql, useQuery } from "@apollo/client";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import React, { Fragment } from "react";
 
 import { ITEM_PROPERTIES_BACKPACK } from "../../constants/LANG_VALUES";
-import { CustomSkelton, fetchParams } from "../utils";
-
-import { ItemPropertiesBackpack } from "@/graphql/generated";
+import { CustomSkelton } from "../utils";
 
 type Props = {
   ItemId: string;
 };
 
-const Backpack = ({ ItemId }: Props) => {
-  const [itemPropertyData, setItemPropertyData] =
-    useState<ItemPropertiesBackpack>();
-  useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            item(id: "${ItemId}") {
-              properties {
-              ... on ItemPropertiesBackpack
-                {
-                  capacity
-                  grids{
-                    filters{
-                      allowedCategories{
-                        name
-                      }
-                      allowedItems{
-                        name
-                      }
-                      excludedCategories{
-                        name
-                      }
-                      excludedItems{
-                        name
-                      }
-                    }
-                    height
-                    width
-                  }
-                }
+const GET_ITEM_PROPERTIES_QUERY = gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId) {
+      properties {
+        ... on ItemPropertiesBackpack {
+          capacity
+          grids {
+            filters {
+              allowedCategories {
+                name
+              }
+              allowedItems {
+                name
+              }
+              excludedCategories {
+                name
+              }
+              excludedItems {
+                name
               }
             }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setItemPropertyData(data.item.properties);
-        });
-    };
-    access_api();
-  }, [ItemId]);
+            height
+            width
+          }
+        }
+      }
+    }
+  }
+`;
 
+const Backpack = ({ ItemId }: Props) => {
+  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
+    variables: {
+      itemId: ItemId,
+    },
+  });
+
+  if (loading || error) return null;
   return (
     <>
-      {!itemPropertyData ? (
+      {!data.item.properties ? (
         <CustomSkelton />
       ) : (
         <>
@@ -74,7 +64,9 @@ const Backpack = ({ ItemId }: Props) => {
           >
             {/* TODO: 構造(Gridの表示)  */}
             {Object.keys(ITEM_PROPERTIES_BACKPACK).map((key, idx) =>
-              itemPropertyData![key as keyof typeof itemPropertyData] ? (
+              data.item.properties![
+                key as keyof typeof data.item.properties
+              ] ? (
                 <Fragment key={idx}>
                   <Grid xs={4} color="text.secondary">
                     {
@@ -85,7 +77,11 @@ const Backpack = ({ ItemId }: Props) => {
                   </Grid>
                   <Grid xs={2}>
                     <>
-                      {itemPropertyData![key as keyof typeof itemPropertyData]}
+                      {
+                        data.item.properties![
+                          key as keyof typeof data.item.properties
+                        ]
+                      }
                     </>
                   </Grid>
                 </Fragment>

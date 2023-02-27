@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from "react";
-
+import FilterAlt from "@mui/icons-material/FilterAlt";
 import {
-  Box,
   Backdrop,
+  Box,
+  Card,
   CircularProgress,
   Container,
-  Select,
-  FormControl,
-  MenuItem,
-  InputLabel,
-  Card,
-  ListSubheader,
   Dialog,
   DialogContent,
   DialogTitle,
+  FormControl,
+  Icon,
+  InputLabel,
   List,
   ListItem,
   ListItemText,
+  ListSubheader,
+  MenuItem,
+  Select,
   Typography,
-  Icon,
 } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
-import FilterAlt from "@mui/icons-material/FilterAlt";
-
-import {
+import { useHooks } from "./hooks";
+import type {
   Task,
   TaskObjectiveBasic,
   TaskObjectiveBuildItem,
@@ -38,9 +39,6 @@ import {
   TaskObjectiveTaskStatus,
   TaskObjectiveTraderLevel,
 } from "../graphql/generated";
-import { DataGrid } from "@mui/x-data-grid";
-import { useHooks } from "./hooks";
-import { useLocation, useParams } from "react-router-dom";
 
 const TaskList = () => {
   const {

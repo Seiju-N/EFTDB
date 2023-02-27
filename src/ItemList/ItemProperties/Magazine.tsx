@@ -1,12 +1,13 @@
-import React, { Fragment, useEffect, useState } from "react";
 
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import React, { Fragment, useEffect, useState } from "react";
+
+import type { ItemPropertiesMagazine } from "@/graphql/generated";
 
 import { ITEM_PROPERTIES_MAGAZINE } from "../../constants/LANG_VALUES";
 import { convertPercent, CustomSkelton, fetchParams } from "../utils";
 
-import { ItemPropertiesMagazine } from "@/graphql/generated";
 
 type Props = {
   ItemId: string;

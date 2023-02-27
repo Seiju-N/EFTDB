@@ -1,17 +1,19 @@
-import { CategoryContext, LanguageDictContext } from "../App";
-import { useCallback, useContext, useState } from "react";
-import { ItemCategory, Maybe } from "@/graphql/generated";
-import { toPascalCase } from "../utils";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { Link as RouterLink } from "react-router-dom";
 import {
-  ListItemButton,
-  ListItemText,
   Collapse,
   List,
   ListItem,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
+import { useCallback, useContext, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+
+import type { ItemCategory, Maybe } from "@/graphql/generated";
+
+import { CategoryContext, LanguageDictContext } from "../App";
+import { toPascalCase } from "../utils";
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);

@@ -1,33 +1,34 @@
+import { gql, useQuery } from "@apollo/client";
 import {
-  createTheme,
-  ThemeProvider,
-  CssBaseline,
-  darkScrollbar,
   Backdrop,
   CircularProgress,
+  createTheme,
+  CssBaseline,
+  darkScrollbar,
+  ThemeProvider,
   Typography,
 } from "@mui/material";
 import { jaJP } from "@mui/material/locale";
+import { createContext, useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
+import EN_DICT from "./constants/languages/en";
+import JA_DICT from "./constants/languages/ja";
+import type { DictType } from "./constants/languages/types";
+import type {
+  ItemCategory,
+  Maybe,
+  Query,
+  Trader} from "./graphql/generated";
+import {
+  LanguageCode
+} from "./graphql/generated";
+import Home from "./Home";
 import ItemList from "./ItemList";
 import TaskList from "./TaskList";
 import TopBar from "./TopBar";
-import Home from "./Home";
 
-import { Routes, Route } from "react-router-dom";
 
-import {
-  ItemCategory,
-  LanguageCode,
-  Maybe,
-  Query,
-  Trader,
-} from "./graphql/generated";
-import { createContext, useEffect, useState } from "react";
-import EN_DICT from "./constants/languages/en";
-import JA_DICT from "./constants/languages/ja";
-import { DictType } from "./constants/languages/types";
-import { gql, useQuery } from "@apollo/client";
 
 const darkTheme = createTheme(
   {
