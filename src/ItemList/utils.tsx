@@ -33,7 +33,7 @@ export const fetchParams = {
   },
 };
 
-export const convertPercent = (num: any) => {
+export const convertPercent = (num: number) => {
   if (isNaN(num)) {
     return num;
   } else {

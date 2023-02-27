@@ -15,20 +15,12 @@ import { Route, Routes } from "react-router-dom";
 import EN_DICT from "./constants/languages/en";
 import JA_DICT from "./constants/languages/ja";
 import type { DictType } from "./constants/languages/types";
-import type {
-  ItemCategory,
-  Maybe,
-  Query,
-  Trader} from "./graphql/generated";
-import {
-  LanguageCode
-} from "./graphql/generated";
-import Home from "./Home";
+import type { ItemCategory, Maybe, Query, Trader } from "./graphql/generated";
+import { LanguageCode } from "./graphql/generated";
+import { Home } from "./Home";
 import ItemList from "./ItemList";
 import TaskList from "./TaskList";
-import TopBar from "./TopBar";
-
-
+import { TopBar } from "./TopBar";
 
 const darkTheme = createTheme(
   {

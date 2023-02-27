@@ -24,7 +24,7 @@ import { useHooks } from "./hooks";
 import { ServerStatus } from "./ServerStatus";
 import { TradersContext } from "../App";
 
-const Home = () => {
+export const Home = () => {
   const {
     FlatCategory,
     NestedCategory,
@@ -237,5 +237,3 @@ const Home = () => {
     </Container>
   );
 };
-
-export default Home;

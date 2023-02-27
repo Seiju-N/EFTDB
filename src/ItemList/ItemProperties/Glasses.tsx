@@ -1,68 +1,58 @@
-
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment, useEffect, useState } from "react";
-
-import type { ItemPropertiesGlasses } from "@/graphql/generated";
+import React, { Fragment } from "react";
 
 import { ITEM_PROPERTIES_GLASSES } from "../../constants/LANG_VALUES";
-import { CustomSkelton, fetchParams, translateMaterialName } from "../utils";
-
+import { CustomSkelton, translateMaterialName } from "../utils";
+import { gql, useQuery } from "@apollo/client";
 
 type Props = {
   ItemId: string;
 };
 
-const Glasses = ({ ItemId }: Props) => {
-  const [itemPropertyData, setItemPropertyData] =
-    useState<ItemPropertiesGlasses>();
-  useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            item(id: "${ItemId}") {
-              properties {
-              ... on ItemPropertiesGlasses
-                {
-                  blindnessProtection
-                  class
-                  durability
-                  material{
-                    name
-                  }
-                  repairCost
-                }
-              }
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setItemPropertyData(data.item.properties);
-        });
-    };
-    access_api();
-  }, [ItemId]);
+const GET_ITEM_PROPERTIES_QUERY = gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId) {
+      properties {
+        ... on ItemPropertiesGlasses {
+          blindnessProtection
+          class
+          durability
+          material {
+            name
+          }
+          repairCost
+        }
+      }
+    }
+  }
+`;
 
+const Glasses = ({ ItemId }: Props) => {
   type detailGridType = {
     keyword: string;
   };
 
+  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
+    variables: {
+      itemId: ItemId,
+    },
+  });
+
+  if (loading || error) return null;
+
   const DetailGrid = ({ keyword }: detailGridType) => {
     if (keyword === "material") {
-      if (!itemPropertyData?.material) return null;
+      if (!data.item.properties?.material) return null;
       return (
         <Grid xs={2}>
-          {translateMaterialName(itemPropertyData.material.id!)}
+          {translateMaterialName(data.item.properties.material.id)}
         </Grid>
       );
     } else {
       return (
         <Grid xs={2}>
-          {itemPropertyData![keyword as keyof typeof itemPropertyData]}
+          {data.item.properties[keyword as keyof typeof data.item.properties]}
         </Grid>
       );
     }
@@ -70,7 +60,7 @@ const Glasses = ({ ItemId }: Props) => {
 
   return (
     <>
-      {!itemPropertyData ? (
+      {!data.item.properties ? (
         <CustomSkelton />
       ) : (
         <>
@@ -83,7 +73,7 @@ const Glasses = ({ ItemId }: Props) => {
             sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_GLASSES).map((key, idx) =>
-              itemPropertyData![key as keyof typeof itemPropertyData] ? (
+              data.item.properties[key as keyof typeof data.item.properties] ? (
                 <Fragment key={idx}>
                   <Grid xs={4} color="text.secondary">
                     {

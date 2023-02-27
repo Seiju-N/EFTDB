@@ -1,11 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
-import type {
-  LinearProgressProps} from "@mui/material";
-import {
-  Box,
-  LinearProgress,
-  Typography,
-} from "@mui/material";
+import type { LinearProgressProps } from "@mui/material";
+import { Box, LinearProgress, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { Fragment } from "react";
 
@@ -103,9 +98,7 @@ const Ammo = ({ ItemId }: Props) => {
           </Grid>
           <Grid xs={2}>
             {convertPercent(
-              data.item.properties![
-                keyword as keyof typeof data.item.properties
-              ]
+              data.item.properties[keyword as keyof typeof data.item.properties]
             )}
           </Grid>
         </>
@@ -117,11 +110,7 @@ const Ammo = ({ ItemId }: Props) => {
             {ITEM_PROPERTIES_AMMO[keyword as keyof typeof ITEM_PROPERTIES_AMMO]}
           </Grid>
           <Grid xs={2}>
-            {
-              data.item.properties![
-                keyword as keyof typeof data.item.properties
-              ]
-            }
+            {data.item.properties[keyword as keyof typeof data.item.properties]}
           </Grid>
         </>
       );
@@ -143,7 +132,7 @@ const Ammo = ({ ItemId }: Props) => {
             sx={{ height: 144, minHeight: "100%", fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
-              data.item.properties![key as keyof typeof data.item.properties] &&
+              data.item.properties[key as keyof typeof data.item.properties] &&
               (key === "damage" ||
                 key === "armorDamage" ||
                 key === "penetrationPower") ? (
@@ -153,7 +142,7 @@ const Ammo = ({ ItemId }: Props) => {
               ) : null
             )}
             {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
-              data.item.properties![key as keyof typeof data.item.properties] &&
+              data.item.properties[key as keyof typeof data.item.properties] &&
               !(
                 key === "damage" ||
                 key === "armorDamage" ||

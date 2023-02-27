@@ -21,42 +21,24 @@
     "plugins": [
         "react",
         "@typescript-eslint",
-        "import"
+        "import",
+        "unused-imports"
     ],
     "rules": {
         "sort-imports":  [
             "error",
             { "ignoreCase": true, "ignoreDeclarationSort": true }
         ],
-        "import/order": [
-            "error",
-            {
-              "groups": [
-                "builtin",
-                "external",
-                "internal",
-                ["sibling", "parent"],
-                "object"
-              ],
-              "pathGroups": [
-                {
-                  "pattern": "@/**",
-                  "group": "external",
-                  "position": "after"
-                }
-              ],
-              "alphabetize": {
-                "order": "asc",
-                "caseInsensitive": true
-              },
-              "newlines-between": "always"
-            }
-        ],
-        "@typescript-eslint/consistent-type-imports": [
-            "error",
-            { "prefer": "type-imports" }
-        ],
-        "import/no-duplicates": "error"
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "no-redeclare": "off",
+        "no-restricted-imports": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+            "warn",
+            { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+        ]
     },
     "settings": {
         "import/resolver": {

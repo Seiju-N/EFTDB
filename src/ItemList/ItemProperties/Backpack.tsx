@@ -50,9 +50,7 @@ const Backpack = ({ ItemId }: Props) => {
   if (loading || error) return null;
   return (
     <>
-      {!data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {data.item.properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
             詳細
@@ -78,7 +76,7 @@ const Backpack = ({ ItemId }: Props) => {
                   <Grid xs={2}>
                     <>
                       {
-                        data.item.properties![
+                        data.item.properties[
                           key as keyof typeof data.item.properties
                         ]
                       }
@@ -89,6 +87,8 @@ const Backpack = ({ ItemId }: Props) => {
             )}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );

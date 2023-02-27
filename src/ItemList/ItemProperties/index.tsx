@@ -28,6 +28,8 @@ type Props = {
   ItemId: string;
 };
 
+// TODO: 各コンポーネントexport default廃止
+// TODO: 各コンポーネントuseQueryで取得するdataの型定義する
 const ItemDetail = ({ typeName, ItemId }: Props) => {
   switch (typeName) {
     case "ItemPropertiesAmmo":

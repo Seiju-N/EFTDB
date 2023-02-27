@@ -9,6 +9,7 @@
         "Foregrips",
         "Handguard",
         "Headwear",
+        "hitpoints",
         "Ironsight",
         "keymechanical",
         "lightkeeper",
@@ -33,7 +34,4 @@
         "typescript",
         "typescriptreact"
     ],
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    }
 }

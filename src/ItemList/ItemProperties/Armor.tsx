@@ -3,10 +3,8 @@ import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { Fragment } from "react";
 
-
 import { ITEM_PROPERTIES_ARMOR } from "../../constants/LANG_VALUES";
 import { CustomSkelton, translateMaterialName } from "../utils";
-
 
 type Props = {
   ItemId: string;
@@ -54,7 +52,7 @@ const Armor = ({ ItemId }: Props) => {
     }
     return (
       <Grid xs={2}>
-        {data.item.properties![keyword as keyof typeof data.item.properties]}
+        {data.item.properties[keyword as keyof typeof data.item.properties]}
       </Grid>
     );
   };
@@ -74,9 +72,7 @@ const Armor = ({ ItemId }: Props) => {
             sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_ARMOR).map((key, idx) =>
-              data.item.properties![
-                key as keyof typeof data.item.properties
-              ] ? (
+              data.item.properties[key as keyof typeof data.item.properties] ? (
                 <Fragment key={idx}>
                   <Grid xs={4} key={`_${idx}`} color="text.secondary">
                     {

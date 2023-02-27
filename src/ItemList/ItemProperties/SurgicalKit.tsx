@@ -1,49 +1,37 @@
-
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment, useEffect, useState } from "react";
-
-import type { ItemPropertiesSurgicalKit } from "@/graphql/generated";
+import React, { Fragment } from "react";
 
 import { ITEM_PROPERTIES_SURGICAL_KIT } from "../../constants/LANG_VALUES";
-import { CustomSkelton, fetchParams } from "../utils";
-
+import { CustomSkelton } from "../utils";
+import { gql, useQuery } from "@apollo/client";
 
 type Props = {
   ItemId: string;
 };
-
+const GET_ITEM_PROPERTIES_QUERY = gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId) {
+      properties {
+        ... on ItemPropertiesSurgicalKit {
+          cures
+          maxLimbHealth
+          minLimbHealth
+          useTime
+          uses
+        }
+      }
+    }
+  }
+`;
 const SurgicalKit = ({ ItemId }: Props) => {
-  const [itemPropertyData, setItemPropertyData] =
-    useState<ItemPropertiesSurgicalKit>();
-  useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            item(id: "${ItemId}") {
-              properties {
-              ... on ItemPropertiesSurgicalKit
-                {
-                  cures
-                  maxLimbHealth
-                  minLimbHealth
-                  useTime
-                  uses
-                }
-              }
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setItemPropertyData(data.item.properties);
-        });
-    };
-    access_api();
-  }, [ItemId]);
+  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
+    variables: {
+      itemId: ItemId,
+    },
+  });
+
+  if (loading || error) return null;
 
   type detailGridType = {
     keyword: string;
@@ -53,28 +41,32 @@ const SurgicalKit = ({ ItemId }: Props) => {
     if (keyword.includes("uses")) {
       return (
         <Grid xs={2}>
-          {`${itemPropertyData![keyword as keyof typeof itemPropertyData]}/${
-            itemPropertyData![keyword as keyof typeof itemPropertyData]
+          {`${
+            data.item.properties[keyword as keyof typeof data.item.properties]
+          }/${
+            data.item.properties[keyword as keyof typeof data.item.properties]
           }`}
         </Grid>
       );
     } else if (keyword.includes("useTime")) {
       return (
         <Grid xs={2}>
-          {`${itemPropertyData![keyword as keyof typeof itemPropertyData]}sec`}
+          {`${
+            data.item.properties[keyword as keyof typeof data.item.properties]
+          }sec`}
         </Grid>
       );
     } else {
       return (
         <Grid xs={2}>
-          {itemPropertyData![keyword as keyof typeof itemPropertyData]}
+          {data.item.properties[keyword as keyof typeof data.item.properties]}
         </Grid>
       );
     }
   };
   return (
     <>
-      {!itemPropertyData ? (
+      {!data.item.properties ? (
         <CustomSkelton />
       ) : (
         <>
@@ -87,7 +79,7 @@ const SurgicalKit = ({ ItemId }: Props) => {
             sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_SURGICAL_KIT).map((key, idx) =>
-              itemPropertyData![key as keyof typeof itemPropertyData] ? (
+              data.item.properties[key as keyof typeof data.item.properties] ? (
                 <Fragment key={idx}>
                   <Grid xs={4} color="text.secondary">
                     {

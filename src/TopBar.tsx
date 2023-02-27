@@ -23,7 +23,7 @@ import Menu from "@mui/material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { memo, useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { CategoryContext, LanguageDictContext, TradersContext } from "./App";
@@ -36,7 +36,7 @@ type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const TopBar = (props: Props) => {
+export const TopBar = (props: Props) => {
   const { setLanguage } = props;
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElTask, setAnchorElTask] = useState<null | HTMLElement>(null);
@@ -102,7 +102,7 @@ const TopBar = (props: Props) => {
     [setLanguage, handleCloseLangMenu]
   );
 
-  const LogoMd = memo(() => {
+  const LogoMd = () => {
     return (
       <>
         <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -125,7 +125,7 @@ const TopBar = (props: Props) => {
         </Typography>
       </>
     );
-  });
+  };
   const traders = useContext(TradersContext);
   const itemCategories = useContext<Maybe<ItemCategory>[]>(CategoryContext)
     .filter(
@@ -148,7 +148,7 @@ const TopBar = (props: Props) => {
       return a.name < b.name ? -1 : 1;
     });
 
-  const DiscordButton = memo(() => {
+  const DiscordButton = () => {
     return (
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title={langDict.HOME_SENTENCE.discord_server}>
@@ -158,7 +158,7 @@ const TopBar = (props: Props) => {
         </Tooltip>
       </Box>
     );
-  });
+  };
 
   return (
     <AppBar position="sticky">
@@ -371,4 +371,3 @@ const TopBar = (props: Props) => {
     </AppBar>
   );
 };
-export default TopBar;

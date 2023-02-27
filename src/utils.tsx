@@ -49,11 +49,7 @@ export const parseData = (dataArr?: Task[]) => {
   return result;
 };
 
-export const normalise = (
-  value: number,
-  MIN = 0,
-  MAX = 100
-) => {
+export const normalise = (value: number, MIN = 0, MAX = 100) => {
   return ((value - MIN) * 100) / (MAX - MIN);
 };
 

@@ -1,49 +1,39 @@
-
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment, useEffect, useState } from "react";
-
-import type { ItemPropertiesStim } from "@/graphql/generated";
+import React, { Fragment } from "react";
 
 import { ITEM_PROPERTIES_STIM } from "../../constants/LANG_VALUES";
-import { CustomSkelton, fetchParams } from "../utils";
-
+import { CustomSkelton } from "../utils";
+import { gql, useQuery } from "@apollo/client";
 
 type Props = {
   ItemId: string;
 };
 
+const GET_ITEM_PROPERTIES_QUERY = gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId) {
+      properties {
+        ... on ItemPropertiesStim {
+          cures
+          stimEffects {
+            skillName
+          }
+          useTime
+        }
+      }
+    }
+  }
+`;
+
 const Stim = ({ ItemId }: Props) => {
-  const [itemPropertyData, setItemPropertyData] =
-    useState<ItemPropertiesStim>();
-  useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            item(id: "${ItemId}") {
-              properties {
-              ... on ItemPropertiesStim
-                {
-                  cures
-                  stimEffects{
-                    skillName
-                  }
-                  useTime
-                }
-              }
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          setItemPropertyData(data.item.properties);
-        });
-    };
-    access_api();
-  }, [ItemId]);
+  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
+    variables: {
+      itemId: ItemId,
+    },
+  });
+
+  if (loading || error) return null;
 
   type detailGridType = {
     keyword: string;
@@ -53,13 +43,15 @@ const Stim = ({ ItemId }: Props) => {
     if (keyword.includes("useTime")) {
       return (
         <Grid xs={2}>
-          {`${itemPropertyData![keyword as keyof typeof itemPropertyData]}sec`}
+          {`${
+            data.item.properties[keyword as keyof typeof data.item.properties]
+          }sec`}
         </Grid>
       );
     } else {
       return (
         <Grid xs={2}>
-          {itemPropertyData![keyword as keyof typeof itemPropertyData]}
+          {data.item.properties[keyword as keyof typeof data.item.properties]}
         </Grid>
       );
     }
@@ -67,7 +59,7 @@ const Stim = ({ ItemId }: Props) => {
 
   return (
     <>
-      {!itemPropertyData ? (
+      {!data.item.properties ? (
         <CustomSkelton />
       ) : (
         <>
@@ -80,7 +72,7 @@ const Stim = ({ ItemId }: Props) => {
             sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_STIM).map((key, idx) =>
-              itemPropertyData![key as keyof typeof itemPropertyData] ? (
+              data.item.properties[key as keyof typeof data.item.properties] ? (
                 <Fragment key={idx}>
                   <Grid xs={4} color="text.secondary">
                     {
