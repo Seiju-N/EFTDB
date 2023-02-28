@@ -43,6 +43,7 @@ const darkTheme = createTheme(
 
 export const TradersContext = createContext<Maybe<Trader>[]>([]);
 export const LanguageDictContext = createContext<DictType>(EN_DICT);
+export const LanguageContext = createContext<string>("");
 export const CategoryContext = createContext<Maybe<ItemCategory>[]>([]);
 const TRADERS = gql`
   query traders {
@@ -120,17 +121,19 @@ const App = () => {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <CategoryContext.Provider value={categoryData.itemCategories}>
-        <LanguageDictContext.Provider value={languageDict}>
-          <TradersContext.Provider value={tradersData.traders}>
-            <TopBar setLanguage={setLanguage} />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/task/:traderName/" element={<TaskList />} />
-              <Route path="/item/" element={<ItemList />} />
-              <Route path="/item/:categoryName" element={<ItemList />} />
-            </Routes>
-          </TradersContext.Provider>
-        </LanguageDictContext.Provider>
+        <LanguageContext.Provider value={language}>
+          <LanguageDictContext.Provider value={languageDict}>
+            <TradersContext.Provider value={tradersData.traders}>
+              <TopBar setLanguage={setLanguage} />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/task/:traderName/" element={<TaskList />} />
+                <Route path="/item/" element={<ItemList />} />
+                <Route path="/item/:categoryName" element={<ItemList />} />
+              </Routes>
+            </TradersContext.Provider>
+          </LanguageDictContext.Provider>
+        </LanguageContext.Provider>
       </CategoryContext.Provider>
     </ThemeProvider>
   );

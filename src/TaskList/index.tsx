@@ -20,12 +20,11 @@ import {
   Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import { useHooks } from "./hooks";
 import type {
-  Task,
   TaskObjectiveBasic,
   TaskObjectiveBuildItem,
   TaskObjectiveExperience,
@@ -39,6 +38,8 @@ import type {
   TaskObjectiveTaskStatus,
   TaskObjectiveTraderLevel,
 } from "../graphql/generated";
+import { useQuery } from "@apollo/client";
+import { LanguageContext } from "../App";
 
 const TaskList = () => {
   const {
@@ -53,7 +54,7 @@ const TaskList = () => {
     cols,
     localeText,
     defaultSort,
-    fetchParams,
+    GET_TASKS_QUERY,
   } = useHooks();
 
   type taskObjectiveType =
@@ -69,8 +70,7 @@ const TaskList = () => {
     | TaskObjectiveSkill[]
     | TaskObjectiveTaskStatus[]
     | TaskObjectiveTraderLevel[];
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const param = useParams();
+  const language = useContext(LanguageContext);
   const CustomDialog = () => {
     const TaskObjectives = () => {
       if (!currentTask) return null;
@@ -209,273 +209,28 @@ const TaskList = () => {
   };
 
   const location = useLocation();
-
+  const { loading, error, data } = useQuery(GET_TASKS_QUERY, {
+    variables: {
+      lang: language,
+    },
+  });
   useEffect(() => {
     if (!location.state || !location.state.taskId) return;
-    const temp = tasks.find((task) => task.id === location.state.taskId);
+    const temp = data.tasks.find(
+      (task: { id: any }) => task.id === location.state.taskId
+    );
     if (!temp) return;
     handleDialogOpen(temp);
     window.history.replaceState({}, document.title);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, tasks]);
-
-  useEffect(() => {
-    const access_api = async () => {
-      await fetch("https://api.tarkov.dev/graphql", {
-        ...fetchParams,
-        body: JSON.stringify({
-          query: `{
-            tasks(lang:ja){
-              id
-              name
-              normalizedName
-              experience
-              minPlayerLevel
-              traderLevelRequirements{
-                trader{
-                  name
-                }
-                level
-              }
-              taskRequirements{
-                task{
-                  name
-                }
-                status
-              }
-              kappaRequired
-              lightkeeperRequired
-              map{
-                name
-              }
-              trader{
-                id
-                name
-              }
-              factionName
-              objectives{
-                ... on TaskObjectiveBasic{
-                  description
-                }
-                ... on TaskObjectiveBuildItem{
-                  attributes{
-                    name
-                  }
-                  containsAll{
-                    name
-                  }
-                  containsCategory{
-                    name
-                  }
-                  description
-                  item{
-                    name
-                  }
-                  maps{
-                    name
-                  }
-                  optional
-                }
-                ... on TaskObjectiveExperience{
-                  description
-                  maps{
-                    name
-                  }
-                  optional
-                }
-                ... on TaskObjectiveExtract{
-                  description
-                  maps{
-                    name
-                  }
-                  optional
-                }
-                ... on TaskObjectiveItem{
-                  count
-                  description
-                  dogTagLevel
-                  foundInRaid
-                  item{
-                    name
-                  }
-                  maps{
-                    name
-                  }
-                  maxDurability
-                  minDurability
-                  optional
-                }
-                ... on TaskObjectiveMark{
-                  description
-                  maps{
-                    name
-                  }
-                  markerItem{
-                    name
-                  }
-                  optional
-                }
-                ... on TaskObjectivePlayerLevel{
-                  description
-                  maps{
-                    name
-                  }
-                  optional
-                  playerLevel
-                }
-                ... on TaskObjectiveShoot{
-                  count
-                  description
-                  distance{
-                    compareMethod
-                    value
-                  }
-                }
-                ... on TaskObjectiveSkill{
-                  description
-                  maps{
-                    name
-                  }
-                  optional
-                  skillLevel{
-                    name
-                    level
-                  }
-                }
-                ... on TaskObjectiveTaskStatus{
-                  description
-                  maps{
-                    name
-                  }
-                  optional
-                  task{
-                    name
-                  }
-                }
-                ... on TaskObjectiveTraderLevel{
-                  description
-                  level
-                  maps{
-                    name
-                  }
-                  optional
-                  trader{
-                    name
-                  }
-                }
-              }
-              startRewards{
-                traderStanding{
-                  trader{
-                    name
-                  }
-                  standing
-                }
-                items{
-                  item{
-                    id
-                    name
-                  }
-                  count
-                  quantity
-                  attributes{
-                    type
-                    name
-                    value
-                  }
-                }
-                offerUnlock{
-                  trader{
-                    name
-                  }
-                  level
-                  item{
-                    id
-                    name
-                  }
-                }
-                skillLevelReward{
-                  name
-                  level
-                }
-                traderUnlock{
-                  name
-                }
-                craftUnlock{
-                  station{
-                    name
-                  }
-                  level
-                  taskUnlock{
-                    name
-                  }
-                }
-              }
-              finishRewards{
-                traderStanding{
-                  trader{
-                    name
-                  }
-                  standing
-                }
-                items{
-                  item{
-                    id
-                    name
-                  }
-                  count
-                  quantity
-                  attributes{
-                    type
-                    name
-                    value
-                  }
-                }
-                offerUnlock{
-                  trader{
-                    name
-                  }
-                  level
-                  item{
-                    id
-                    name
-                  }
-                }
-                skillLevelReward{
-                  name
-                  level
-                }
-                traderUnlock{
-                  name
-                }
-              }
-            }
-          }`,
-        }),
-      })
-        .then((r) => r.json())
-        .then(({ data }) => {
-          const formatted =
-            param.traderName === "all"
-              ? data.tasks
-              : data.tasks.filter((task: Task) => {
-                  if (task.trader.name === param.traderName) {
-                    return task;
-                  }
-                  return null;
-                });
-          setTasks(formatted);
-        });
-    };
-    access_api();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [param.traderName]);
+  }, [location, data]);
+  if (loading || error) return null;
 
   return (
     <>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={tasks.length === 0}
+        open={data.tasks.length === 0}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -505,7 +260,7 @@ const TaskList = () => {
           <Box height={"84vh"}>
             <DataGrid
               columns={cols}
-              rows={tasks}
+              rows={data.tasks}
               sx={{ cursor: "pointer" }}
               density="compact"
               localeText={localeText}
