@@ -20,8 +20,7 @@ type ItemDetailDialog ={
 }
 
 type MenuSentence = {
-  task: string;
-  item: string;
+  [key: string]: string;
 }
 
 type ItemType = {

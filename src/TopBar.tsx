@@ -276,6 +276,13 @@ export const TopBar = (props: Props) => {
             >
               {langDict.MENU_SENTENCE.item}
             </Button>
+            <Button
+              component={RouterLink}
+              to={`taskMarker`}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {langDict.MENU_SENTENCE.taskMarker}
+            </Button>
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

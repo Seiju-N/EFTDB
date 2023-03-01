@@ -38,6 +38,7 @@ const JA_DICT = {
   MENU_SENTENCE:{
     task:"タスク",
     item:"アイテム",
+    taskMarker:"タスクマーカー",
   },
 
   ITEM_TYPE: {

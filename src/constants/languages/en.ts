@@ -38,6 +38,7 @@ const EN_DICT = {
   MENU_SENTENCE:{
     task:"Tasks",
     item:"Items",
+    taskMarker:"Task markers",
   },
   ARMOR_MATERIAL: [
     {

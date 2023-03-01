@@ -19,12 +19,13 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useHooks } from "./hooks";
 import type {
+  Task,
   TaskObjectiveBasic,
   TaskObjectiveBuildItem,
   TaskObjectiveExperience,
@@ -217,7 +218,7 @@ const TaskList = () => {
   useEffect(() => {
     if (!location.state || !location.state.taskId) return;
     const temp = data.tasks.find(
-      (task: { id: any }) => task.id === location.state.taskId
+      (task: { id: string }) => task.id === location.state.taskId
     );
     if (!temp) return;
     handleDialogOpen(temp);
@@ -273,7 +274,9 @@ const TaskList = () => {
                 sorting: defaultSort,
               }}
               filterModel={taskFilter}
-              onCellClick={(event: any) => handleDialogOpen(event.row)}
+              onCellClick={(params: GridCellParams) =>
+                handleDialogOpen(params.row as Task)
+              }
             />
           </Box>
         </Container>

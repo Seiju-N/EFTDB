@@ -2819,6 +2819,14 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-signature-canvas@^1.0.2":
+  "integrity" "sha512-uDHDoo2JM/9qYS+U7PRKDLBgOnQOOUEkDdXjCxBvI19fWtOLqXisrjiquPu+enu5iu2oWIfU7cVhn1QJZPkLTg=="
+  "resolved" "https://registry.npmjs.org/@types/react-signature-canvas/-/react-signature-canvas-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "@types/react" "*"
+    "@types/signature_pad" "*"
+
 "@types/react-transition-group@^4.4.5":
   "integrity" "sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA=="
   "resolved" "https://registry.npmjs.org/@types/react-transition-group/-/react-transition-group-4.4.5.tgz"
@@ -2871,6 +2879,11 @@
   dependencies:
     "@types/mime" "*"
     "@types/node" "*"
+
+"@types/signature_pad@*":
+  "integrity" "sha512-dDfWIgRcdzAaeVOpLRmLHIumGwc5inSD4Dj2Duis3yUEoSADZECLJHKkUQphbaANQ7kSC2bkf1JzyBPSmTlrPQ=="
+  "resolved" "https://registry.npmjs.org/@types/signature_pad/-/signature_pad-2.3.2.tgz"
+  "version" "2.3.2"
 
 "@types/sockjs@^0.3.33":
   "integrity" "sha512-f0KEEe05NvUnat+boPTZ0dgaLZ4SfSouXUgv5noUiefG2ajgKjmETo9ZJyuqsl7dfl2aHlLJUiki6B4ZYldiiw=="

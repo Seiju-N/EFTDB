@@ -48,7 +48,7 @@ const Armor = ({ ItemId }: Props) => {
       if (!data.item.properties?.material) return null;
       return (
         <Grid xs={2}>
-          {translateMaterialName(data.item.properties.material.id!)}
+          {translateMaterialName(data.item.properties.material.id)}
         </Grid>
       );
     }

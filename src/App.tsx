@@ -20,6 +20,7 @@ import { LanguageCode } from "./graphql/generated";
 import { Home } from "./Home";
 import ItemList from "./ItemList";
 import TaskList from "./TaskList";
+import { TaskMarker } from "./TaskMarker";
 import { TopBar } from "./TopBar";
 
 const darkTheme = createTheme(
@@ -130,6 +131,7 @@ const App = () => {
                 <Route path="/task/:traderName/" element={<TaskList />} />
                 <Route path="/item/" element={<ItemList />} />
                 <Route path="/item/:categoryName" element={<ItemList />} />
+                <Route path="/TaskMarker" element={<TaskMarker />} />
               </Routes>
             </TradersContext.Provider>
           </LanguageDictContext.Provider>
