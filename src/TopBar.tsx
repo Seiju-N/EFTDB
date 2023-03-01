@@ -131,14 +131,19 @@ export const TopBar = (props: Props) => {
     .filter(
       (category) =>
         category?.name === "Ammo" ||
+        category?.name === "Armor" ||
+        category?.name === "Arm Band" ||
         category?.name === "Barter item" ||
+        category?.name === "Backpack" ||
+        category?.name === "Chest rig" ||
         category?.name === "Common container" ||
-        category?.name === "Equipment" ||
         category?.name === "Food and drink" ||
+        category?.name === "Glasses" ||
+        category?.name === "Headphones" ||
+        category?.name === "Helmet" ||
         category?.name === "Key" ||
         category?.name === "Knife" ||
         category?.name === "Meds" ||
-        category?.name === "Stackable item" ||
         category?.name === "Throwable weapon" ||
         category?.name === "Weapon mod" ||
         category?.name === "Weapon"

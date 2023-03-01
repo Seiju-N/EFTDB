@@ -590,9 +590,12 @@ export type ItemPropertiesArmorAttachment = {
 export type ItemPropertiesBackpack = {
   __typename?: 'ItemPropertiesBackpack';
   capacity?: Maybe<Scalars['Int']>;
+  ergoPenalty?: Maybe<Scalars['Int']>;
   grids?: Maybe<Array<Maybe<ItemStorageGrid>>>;
   /** @deprecated Use grids instead. */
   pouches?: Maybe<Array<Maybe<ItemStorageGrid>>>;
+  speedPenalty?: Maybe<Scalars['Float']>;
+  turnPenalty?: Maybe<Scalars['Float']>;
 };
 
 export type ItemPropertiesBarrel = {
@@ -782,6 +785,8 @@ export type ItemPropertiesWeapon = {
   __typename?: 'ItemPropertiesWeapon';
   allowedAmmo?: Maybe<Array<Maybe<Item>>>;
   caliber?: Maybe<Scalars['String']>;
+  cameraRecoil?: Maybe<Scalars['Float']>;
+  cameraSnap?: Maybe<Scalars['Float']>;
   centerOfImpact?: Maybe<Scalars['Float']>;
   defaultAmmo?: Maybe<Item>;
   defaultErgonomics?: Maybe<Scalars['Float']>;
@@ -799,6 +804,7 @@ export type ItemPropertiesWeapon = {
   fireRate?: Maybe<Scalars['Int']>;
   maxDurability?: Maybe<Scalars['Int']>;
   presets?: Maybe<Array<Maybe<Item>>>;
+  recoilDispersion?: Maybe<Scalars['Int']>;
   recoilHorizontal?: Maybe<Scalars['Int']>;
   recoilVertical?: Maybe<Scalars['Int']>;
   repairCost?: Maybe<Scalars['Int']>;

@@ -5,6 +5,7 @@ import React, { Fragment } from "react";
 
 import { ITEM_PROPERTIES_BACKPACK } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
+import { Loading } from "./Loading";
 
 type Props = {
   ItemId: string;
@@ -47,7 +48,8 @@ const Backpack = ({ ItemId }: Props) => {
     },
   });
 
-  if (loading || error) return null;
+  if (error) return null;
+  if (loading) return <Loading />;
   return (
     <>
       {data.item.properties ? (
@@ -58,13 +60,11 @@ const Backpack = ({ ItemId }: Props) => {
           <Grid
             container
             rowSpacing={1}
-            sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
+            sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
             {/* TODO: 構造(Gridの表示)  */}
             {Object.keys(ITEM_PROPERTIES_BACKPACK).map((key, idx) =>
-              data.item.properties![
-                key as keyof typeof data.item.properties
-              ] ? (
+              data.item.properties[key as keyof typeof data.item.properties] ? (
                 <Fragment key={idx}>
                   <Grid xs={4} color="text.secondary">
                     {

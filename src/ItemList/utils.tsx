@@ -25,7 +25,8 @@ export const CustomSkelton = () => {
   );
 };
 
-export const convertPercent = (num: number) => {
+export const convertPercent = (num: number | undefined) => {
+  if (!num) return null;
   if (isNaN(num)) {
     return num;
   } else {

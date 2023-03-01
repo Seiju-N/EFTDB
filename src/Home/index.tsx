@@ -133,14 +133,20 @@ export const Home = () => {
             />
             <List component="div" disablePadding>
               <FlatCategory categoryName="Ammo" />
+              <FlatCategory categoryName="Armor" />
+              <FlatCategory categoryName="Arm band" />
+              <FlatCategory categoryName="Backpack" />
               <NestedCategory categoryName="Barter item" />
+              <FlatCategory categoryName="Chest rig" />
               <FlatCategory categoryName="Common container" />
-              <NestedSubcategory categoryName="Equipment" />
+              <FlatCategory categoryName="Face Cover" />
               <NestedCategory categoryName="Food and drink" />
+              <FlatCategory categoryName="Glasses" />
+              <FlatCategory categoryName="Headphones" />
+              <FlatCategory categoryName="Helmet" />
               <NestedCategory categoryName="Key" />
               <FlatCategory categoryName="Knife" />
               <NestedCategory categoryName="Meds" />
-              <NestedCategory categoryName="Stackable item" />
               <FlatCategory categoryName="Throwable weapon" />
               <NestedSubcategory categoryName="Weapon mod" />
               <NestedCategory categoryName="Weapon" />

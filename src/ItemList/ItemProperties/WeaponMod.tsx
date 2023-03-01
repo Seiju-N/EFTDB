@@ -4,6 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { ITEM_PROPERTIES_WEAPON_MOD } from "../../constants/LANG_VALUES";
 import { convertPercent, CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
+import { Loading } from "./Loading";
 
 type Props = {
   ItemId: string;
@@ -29,7 +30,8 @@ const WeaponMod = ({ ItemId }: Props) => {
     },
   });
 
-  if (loading || error) return null;
+  if (error) return null;
+  if (loading) return <Loading />;
   type detailGridType = {
     keyword: string;
   };
@@ -60,7 +62,7 @@ const WeaponMod = ({ ItemId }: Props) => {
           <Grid
             container
             rowSpacing={1}
-            sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
+            sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_WEAPON_MOD).map((key) =>
               data.item.properties[key as keyof typeof data.item.properties] ? (

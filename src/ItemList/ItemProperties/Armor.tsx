@@ -5,6 +5,7 @@ import React, { Fragment } from "react";
 
 import { ITEM_PROPERTIES_ARMOR } from "../../constants/LANG_VALUES";
 import { CustomSkelton, translateMaterialName } from "../utils";
+import { Loading } from "./Loading";
 
 type Props = {
   ItemId: string;
@@ -36,7 +37,8 @@ const Armor = ({ ItemId }: Props) => {
       itemId: ItemId,
     },
   });
-  if (loading || error) return null;
+  if (error) return null;
+  if (loading) return <Loading />;
   type detailGridType = {
     keyword: string;
   };
@@ -69,7 +71,7 @@ const Armor = ({ ItemId }: Props) => {
           <Grid
             container
             rowSpacing={1}
-            sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
+            sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_ARMOR).map((key, idx) =>
               data.item.properties[key as keyof typeof data.item.properties] ? (

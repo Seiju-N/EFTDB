@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import type { LinearProgressProps } from "@mui/material";
+import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { Fragment } from "react";
@@ -8,6 +8,7 @@ import type { Scalars } from "@/graphql/generated";
 
 import { ITEM_PROPERTIES_AMMO } from "../../constants/LANG_VALUES";
 import { convertPercent, CustomSkelton } from "../utils";
+import { Loading } from "./Loading";
 
 type Props = {
   ItemId: Scalars["ID"];
@@ -71,7 +72,8 @@ const Ammo = ({ ItemId }: Props) => {
     },
   });
 
-  if (loading || error) return null;
+  if (error) return null;
+  if (loading) return <Loading />;
 
   const DetailInfoBarGrid = ({ keyword }: detailGridType) => {
     return (
@@ -122,14 +124,14 @@ const Ammo = ({ ItemId }: Props) => {
       {!data.item.properties ? (
         <CustomSkelton />
       ) : (
-        <>
+        <Box pb={2}>
           <Typography gutterBottom variant="subtitle1">
             詳細
           </Typography>
           <Grid
             container
             rowSpacing={1}
-            sx={{ height: 144, minHeight: "100%", fontSize: "0.7rem" }}
+            sx={{ minHeight: "100%", fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
               data.item.properties[key as keyof typeof data.item.properties] &&
@@ -154,7 +156,7 @@ const Ammo = ({ ItemId }: Props) => {
               ) : null
             )}
           </Grid>
-        </>
+        </Box>
       )}
     </>
   );

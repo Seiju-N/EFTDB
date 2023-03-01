@@ -44,10 +44,7 @@ const Grenade = ({ ItemId }: Props) => {
           <Typography gutterBottom variant="subtitle1">
             詳細
           </Typography>
-          <Grid
-            container
-            sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
-          >
+          <Grid container sx={{ minHeight: 80, fontSize: "0.7rem" }}>
             {Object.keys(ITEM_PROPERTIES_GRENADE).map((key, idx) =>
               data.item?.properties[
                 key as keyof typeof data.item.properties

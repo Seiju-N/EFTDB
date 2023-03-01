@@ -5,6 +5,7 @@ import React, { Fragment } from "react";
 import { ITEM_PROPERTIES_CONTAINER } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
+import { Loading } from "./Loading";
 
 type Props = {
   ItemId: string;
@@ -47,7 +48,8 @@ const Container = ({ ItemId }: Props) => {
     },
   });
 
-  if (loading || error) return null;
+  if (error) return null;
+  if (loading) return <Loading />;
 
   return (
     <>
@@ -61,7 +63,7 @@ const Container = ({ ItemId }: Props) => {
           <Grid
             container
             rowSpacing={1}
-            sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
+            sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_CONTAINER).map((key, idx) =>
               data.item.properties[key as keyof typeof data.item.properties] ? (

@@ -5,6 +5,7 @@ import React, { Fragment } from "react";
 import { ITEM_PROPERTIES_MEDICAL_ITEM } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
+import { Loading } from "./Loading";
 
 type Props = {
   ItemId: string;
@@ -33,7 +34,8 @@ const MedicalItem = ({ ItemId }: Props) => {
     },
   });
 
-  if (loading || error) return null;
+  if (error) return null;
+  if (loading) return <Loading />;
 
   const DetailGrid = ({ keyword }: detailGridType) => {
     if (keyword.includes("uses")) {
@@ -75,7 +77,7 @@ const MedicalItem = ({ ItemId }: Props) => {
           <Grid
             container
             rowSpacing={1}
-            sx={{ maxHeight: 144, minHeight: 80, fontSize: "0.7rem" }}
+            sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
             {Object.keys(ITEM_PROPERTIES_MEDICAL_ITEM).map((key, idx) =>
               data.item.properties[key as keyof typeof data.item.properties] ? (
