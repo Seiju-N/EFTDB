@@ -25,14 +25,6 @@ export const CustomSkelton = () => {
   );
 };
 
-export const fetchParams = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-};
-
 export const convertPercent = (num: number) => {
   if (isNaN(num)) {
     return num;
