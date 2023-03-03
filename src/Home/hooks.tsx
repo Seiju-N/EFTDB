@@ -29,7 +29,7 @@ export const useHooks = () => {
     if (!parsedCategory) return null;
     return (
       <>
-        <ListItem>
+        <ListItem sx={{ py: 0 }}>
           <ListItemButton
             component={RouterLink}
             to={`item/${toPascalCase(parsedCategory?.normalizedName)}`}
@@ -58,6 +58,7 @@ export const useHooks = () => {
     return (
       <>
         <ListItem
+          sx={{ py: 0 }}
           secondaryAction={
             <ListItemButton onClick={handleClick}>
               {open ? <ExpandLess /> : <ExpandMore />}
@@ -121,7 +122,7 @@ export const useHooks = () => {
       return (
         <>
           {filterByParentCategory.length === 0 ? (
-            <ListItem key={category?.name}>
+            <ListItem key={category?.name} sx={{ py: 0 }}>
               <ListItemButton
                 component={RouterLink}
                 to={`item/${toPascalCase(category?.normalizedName)}`}
@@ -138,6 +139,7 @@ export const useHooks = () => {
           ) : (
             <>
               <ListItem
+                sx={{ py: 0 }}
                 key={category?.name}
                 secondaryAction={
                   <ListItemButton onClick={handleClickDeep}>
@@ -161,7 +163,10 @@ export const useHooks = () => {
               <Collapse in={openDeep} timeout="auto" unmountOnExit>
                 <List>
                   {filterByParentCategory.map((category) => (
-                    <ListItem key={`NestedList_${category?.name}`}>
+                    <ListItem
+                      sx={{ py: 0 }}
+                      key={`NestedList_${category?.name}`}
+                    >
                       <ListItemButton
                         component={RouterLink}
                         to={`item/${toPascalCase(category?.normalizedName)}`}
@@ -187,6 +192,7 @@ export const useHooks = () => {
     return (
       <>
         <ListItem
+          sx={{ py: 0 }}
           secondaryAction={
             <ListItemButton onClick={handleClick}>
               {open ? <ExpandLess /> : <ExpandMore />}

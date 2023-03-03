@@ -51,16 +51,16 @@ export const ServerStatus = () => {
         {data.status.currentStatuses?.map((status, index) =>
           status ? (
             <Grid container key={index} p={1}>
-              <Grid xs={10} pl={4}>
-                <Typography variant="h6">
+              <Grid xs={10} pl={2}>
+                <Typography variant="inherit">
                   {langDict.HOME_SENTENCE.server_status[status.name]}
                 </Typography>
               </Grid>
               <Grid xs={2} pr={2}>
                 {status.status === 0 ? (
-                  <CheckCircleIcon fontSize="large" color="success" />
+                  <CheckCircleIcon fontSize="medium" color="success" />
                 ) : (
-                  <CancelIcon fontSize="large" color="error" />
+                  <CancelIcon fontSize="medium" color="error" />
                 )}
               </Grid>
               {status.message ? (

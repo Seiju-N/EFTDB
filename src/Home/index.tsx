@@ -131,7 +131,7 @@ export const Home = () => {
               titleStr={langDict.HOME_SENTENCE.search_item}
               isLoading={categories.length === 0}
             />
-            <List component="div" disablePadding>
+            <List component="div">
               <FlatCategory categoryName="Ammo" />
               <FlatCategory categoryName="Armor" />
               <FlatCategory categoryName="Arm band" />
@@ -167,13 +167,9 @@ export const Home = () => {
               titleStr={langDict.HOME_SENTENCE.search_task}
               isLoading={traders.length === 0}
             />
-            <List component="div" disablePadding>
+            <List component="div">
               {traders.map((trader) => (
-                <ListItem
-                  alignItems="flex-start"
-                  key={trader?.name}
-                  disablePadding
-                >
+                <ListItem alignItems="flex-start" key={trader?.name}>
                   <ListItemButton
                     component={RouterLink}
                     to={`task/${trader?.name}`}
