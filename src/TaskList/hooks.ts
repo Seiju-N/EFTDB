@@ -76,15 +76,12 @@ export const useHooks = () => {
     sortModel: [{ field: "name", sort: "asc" }],
   };
 
-  const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
-
   const isAllArrayElementsEmpty = useCallback((obj: any) => {
     const { __typename, ...newObj } = obj
     return Object.values(newObj).every((val: any) => val.length === 0);
   }, []);
 
   const convertObject = useCallback((name: string) => {
-    console.log(name);
     return {
       items: [
         { columnField: name, operatorValue: "is", value: "true" },
@@ -342,7 +339,6 @@ export const useHooks = () => {
     filter,
     taskFilter,
     cols,
-    localeText,
     defaultSort,
     taskData,
     loading

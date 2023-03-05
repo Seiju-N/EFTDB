@@ -56,7 +56,6 @@ const TaskList = () => {
     filter,
     taskFilter,
     cols,
-    localeText,
     defaultSort,
     taskData,
     loading,
@@ -219,6 +218,9 @@ const TaskList = () => {
         }}
       >
         <CircularProgress />
+        <Typography variant="h4" pl={2}>
+          Loading...
+        </Typography>
       </Box>
     );
   }
@@ -269,7 +271,6 @@ const TaskList = () => {
               rows={formatted}
               sx={{ cursor: "pointer" }}
               density="compact"
-              localeText={localeText}
               disableSelectionOnClick
               disableColumnFilter
               initialState={{

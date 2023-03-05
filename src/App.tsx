@@ -22,24 +22,21 @@ import ItemList from "./ItemList";
 import TaskList from "./TaskList";
 import { TopBar } from "./TopBar";
 
-const darkTheme = createTheme(
-  {
-    palette: {
-      mode: "dark",
-    },
-    components: {
-      MuiCssBaseline: {
-        styleOverrides: {
-          body: {
-            ...darkScrollbar(),
-            height: "100%",
-          },
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          ...darkScrollbar(),
+          height: "100%",
         },
       },
     },
   },
-  jaJP
-);
+});
 
 export const TradersContext = createContext<Maybe<Trader>[]>([]);
 export const LanguageDictContext = createContext<DictType>(EN_DICT);

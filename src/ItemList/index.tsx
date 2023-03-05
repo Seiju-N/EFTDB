@@ -108,6 +108,9 @@ const ItemList = () => {
         }}
       >
         <CircularProgress />
+        <Typography variant="h4" pl={2}>
+          Loading...
+        </Typography>
       </Box>
     );
 
