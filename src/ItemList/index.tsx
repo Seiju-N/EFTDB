@@ -1,4 +1,3 @@
-import { gql, useQuery } from "@apollo/client";
 import CurrencyRuble from "@mui/icons-material/CurrencyRuble";
 import LanguageIcon from "@mui/icons-material/Language";
 import QueryStats from "@mui/icons-material/QueryStats";
@@ -12,39 +11,50 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  FormControl,
+  Icon,
   IconButton,
+  InputLabel,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
+  MenuItem,
+  Select,
   Tooltip,
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
-import React, { memo, useCallback, useState } from "react";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import React, { memo, useCallback } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 import { useHooks } from "./hooks";
 import ItemProperties from "./ItemProperties";
 import { ITEM_PROPERTIES } from "../constants/LANG_VALUES";
-import type { Item, Maybe } from "../graphql/generated";
+import type { Maybe } from "../graphql/generated";
+import FilterAlt from "@mui/icons-material/FilterAlt";
+import { CALIBERS } from "@/constants/CALIBER";
 
 const ItemList = () => {
-  const { langDict, localeText, cols, defaultSort, CardContentNoPadding } =
-    useHooks();
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [currentItem, setCurrentItem] = useState<Item>();
-
-  const param = useParams();
-  const handleDialogOpen = (value: Item) => {
-    setCurrentItem(value);
-    setDialogOpen(true);
-  };
-
-  const handleDialogClose = () => {
-    setDialogOpen(false);
-  };
+  const {
+    langDict,
+    localeText,
+    cols,
+    defaultSort,
+    CardContentNoPadding,
+    dialogOpen,
+    currentItem,
+    param,
+    filter,
+    ammoTypeFilter,
+    handleChange,
+    handleDialogOpen,
+    handleDialogClose,
+    loading,
+    error,
+    data,
+  } = useHooks();
 
   const CustomToolbar = () => {
     return (
@@ -54,75 +64,38 @@ const ItemList = () => {
           pb: 0,
         }}
       >
-        <GridToolbarQuickFilter />
+        {param.categoryName === "Ammo" ? (
+          <>
+            <FormControl
+              sx={{ m: 1, minWidth: 120, height: "100%" }}
+              size="small"
+            >
+              <InputLabel shrink id="select-trader">
+                Filter
+              </InputLabel>
+              <Select
+                id="select-trader"
+                displayEmpty
+                value={filter}
+                onChange={handleChange}
+              >
+                <MenuItem value={""}>None</MenuItem>
+                {CALIBERS.map((caliber) => (
+                  <MenuItem
+                    value={caliber.caliberName}
+                    key={caliber.caliberName}
+                  >
+                    {caliber.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </>
+        ) : null}
       </Box>
     );
   };
 
-  const GET_ITEMS_QUEERY = gql`
-    query GetItems(
-      $categoryNames: [ItemCategoryName]
-      $skipCategoryNames: Boolean!
-    ) {
-      itemsWithCategories: items(categoryNames: $categoryNames)
-        @include(if: $skipCategoryNames) {
-        id
-        name
-        normalizedName
-        shortName
-        category {
-          name
-        }
-        basePrice
-        width
-        height
-        types
-        image512pxLink
-        wikiLink
-        usedInTasks {
-          id
-          name
-          trader {
-            name
-          }
-        }
-        properties {
-          __typename
-        }
-      }
-      itemsWithoutCategories: items {
-        id
-        name
-        normalizedName
-        shortName
-        category {
-          name
-        }
-        basePrice
-        width
-        height
-        types
-        image512pxLink
-        wikiLink
-        usedInTasks {
-          id
-          name
-          trader {
-            name
-          }
-        }
-        properties {
-          __typename
-        }
-      }
-    }
-  `;
-  const { loading, error, data } = useQuery(GET_ITEMS_QUEERY, {
-    variables: {
-      categoryNames: [param.categoryName],
-      skipCategoryNames: Boolean(param.categoryName),
-    },
-  });
   const items = data?.itemsWithCategories || data?.itemsWithoutCategories || [];
   if (loading || error)
     return (
@@ -325,7 +298,6 @@ const ItemList = () => {
       </Dialog>
     );
   };
-
   return (
     <Container sx={{ height: "100%" }}>
       <Box sx={{ margin: 1, height: "90vh" }}>
@@ -333,6 +305,9 @@ const ItemList = () => {
           columns={cols}
           rows={items}
           sx={{ cursor: "pointer" }}
+          columnVisibilityModel={{
+            properties: false,
+          }}
           density="compact"
           disableColumnFilter
           disableColumnSelector
@@ -350,6 +325,7 @@ const ItemList = () => {
             },
           }}
           onCellClick={(event) => handleDialogOpen(event.row)}
+          filterModel={ammoTypeFilter}
         />
       </Box>
       <DetailDialog />

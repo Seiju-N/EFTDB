@@ -1,4 +1,5 @@
-import FilterAlt from "@mui/icons-material/FilterAlt";
+import React, { SyntheticEvent, useEffect, useState } from "react";
+
 import {
   Backdrop,
   Box,
@@ -17,14 +18,14 @@ import {
   ListSubheader,
   MenuItem,
   Select,
+  Tab,
+  Tabs,
   Typography,
 } from "@mui/material";
-import { DataGrid, GridCellParams } from "@mui/x-data-grid";
-import React, { useContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
-import { useHooks } from "./hooks";
-import type {
+import FilterAlt from "@mui/icons-material/FilterAlt";
+
+import {
   Task,
   TaskObjectiveBasic,
   TaskObjectiveBuildItem,
@@ -39,8 +40,10 @@ import type {
   TaskObjectiveTaskStatus,
   TaskObjectiveTraderLevel,
 } from "../graphql/generated";
-import { useQuery } from "@apollo/client";
-import { LanguageContext } from "../App";
+import { DataGrid } from "@mui/x-data-grid";
+import { useHooks } from "./hooks";
+import { useLocation, useParams } from "react-router-dom";
+import { TabPanel } from "@/components/TabPanel";
 
 const TaskList = () => {
   const {
@@ -55,7 +58,8 @@ const TaskList = () => {
     cols,
     localeText,
     defaultSort,
-    GET_TASKS_QUERY,
+    taskData,
+    loading,
   } = useHooks();
 
   type taskObjectiveType =
@@ -71,16 +75,30 @@ const TaskList = () => {
     | TaskObjectiveSkill[]
     | TaskObjectiveTaskStatus[]
     | TaskObjectiveTraderLevel[];
-  const language = useContext(LanguageContext);
-  const CustomDialog = () => {
+  const param = useParams();
+
+  const TaskDialog = () => {
+    const [value, setValue] = useState(0);
+
+    const handleChange = (event: SyntheticEvent, newValue: number) => {
+      setValue(newValue);
+    };
+
+    const NoInfo = () => {
+      return (
+        <Card variant="outlined">
+          <ListItem sx={{ pl: 4 }} divider>
+            <ListItemText>Nothing</ListItemText>
+          </ListItem>
+        </Card>
+      );
+    };
+
     const TaskObjectives = () => {
-      if (!currentTask) return null;
+      if (!currentTask || !currentTask.objectives) return <NoInfo />;
       const objectives = currentTask.objectives as taskObjectiveType;
       return (
         <Card variant="outlined">
-          <ListSubheader sx={{ lineHeight: "24px" }}>
-            Task objectives
-          </ListSubheader>
           {objectives.map((data, idx) => (
             <ListItem sx={{ pl: 4 }} divider key={`${data?.id}_${idx}`}>
               <ListItemText>
@@ -100,12 +118,9 @@ const TaskList = () => {
         !currentTask.startRewards ||
         isAllArrayElementsEmpty(currentTask.startRewards)
       )
-        return null;
+        return <NoInfo />;
       return (
         <Card variant="outlined">
-          <ListSubheader sx={{ lineHeight: "24px" }}>
-            Task start rewards
-          </ListSubheader>
           {currentTask.startRewards.traderStanding.map((data, idx) => (
             <ListItem
               sx={{ pl: 4 }}
@@ -121,9 +136,6 @@ const TaskList = () => {
       return (
         <Card variant="outlined">
           <>
-            <ListSubheader sx={{ lineHeight: "24px" }}>
-              Task finish rewards
-            </ListSubheader>
             {currentTask.finishRewards.traderUnlock.map((data, idx) => (
               <ListItem
                 sx={{ pl: 4 }}
@@ -156,7 +168,6 @@ const TaskList = () => {
         </Card>
       );
     };
-
     return (
       <Dialog
         scroll="paper"
@@ -165,73 +176,67 @@ const TaskList = () => {
         fullWidth
       >
         <DialogTitle>{currentTask?.name}</DialogTitle>
-        <DialogContent>
-          <List dense sx={{ bgcolor: "background.paper", pb: 0, pt: 0 }}>
-            <Card variant="outlined">
-              <ListSubheader sx={{ lineHeight: "24px" }}>
-                Task unlock requirements
-              </ListSubheader>
-              {currentTask?.minPlayerLevel ||
-              currentTask?.traderLevelRequirements.length !== 0 ? (
-                <>
-                  {currentTask?.minPlayerLevel ? (
-                    <ListItem sx={{ pl: 4 }} divider>
-                      <ListItemText>{`PMC Lv.${currentTask.minPlayerLevel}`}</ListItemText>
-                    </ListItem>
-                  ) : null}
-                  {currentTask?.traderLevelRequirements.map((data, idx) => (
-                    <ListItem sx={{ pl: 4 }} divider key={`${data?.id}_${idx}`}>
-                      <ListItemText>{`${data?.trader.name}:Lv.${data?.level}`}</ListItemText>
-                    </ListItem>
-                  ))}
-                  {currentTask?.taskRequirements.map((data, idx) => (
-                    <ListItem
-                      sx={{ pl: 4 }}
-                      divider
-                      key={`${data?.task.id}_${idx}`}
-                    >
-                      <ListItemText>{`${data?.task.name} -> ${data?.status}`}</ListItemText>
-                    </ListItem>
-                  ))}
-                </>
-              ) : (
-                <Typography sx={{ pl: 4 }} color="action.disabled">
-                  No requirements to unlock
-                </Typography>
-              )}
-            </Card>
+        <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+          <Tabs value={value} onChange={handleChange} centered>
+            <Tab label="Task objectives" />
+            <Tab label="Task start rewards" />
+            <Tab label="Task finish rewards" />
+          </Tabs>
+          <TabPanel value={value} index={0}>
             <TaskObjectives />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
             <StartRewards />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
             <FinishRewards />
-          </List>
-        </DialogContent>
+          </TabPanel>
+        </Box>
       </Dialog>
     );
   };
-
   const location = useLocation();
-  const { loading, error, data } = useQuery(GET_TASKS_QUERY, {
-    variables: {
-      lang: language,
-    },
-  });
+
   useEffect(() => {
-    if (!location.state || !location.state.taskId) return;
-    const temp = data.tasks.find(
-      (task: { id: string }) => task.id === location.state.taskId
+    if (!location.state || !location.state.taskId || !taskData) return;
+    const temp = taskData.tasks.find(
+      (task: Task) => task.id === location.state.taskId
     );
     if (!temp) return;
     handleDialogOpen(temp);
     window.history.replaceState({}, document.title);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, data]);
-  if (loading || error) return null;
+  }, [location, taskData]);
 
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          height: "90vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  const formatted =
+    param.traderName === "all"
+      ? taskData.tasks
+      : taskData.tasks.filter((task: Task) => {
+          if (task.trader.name === param.traderName) {
+            return task;
+          }
+          return null;
+        });
   return (
     <>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={data.tasks.length === 0}
+        open={formatted.length === 0}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -261,7 +266,7 @@ const TaskList = () => {
           <Box height={"84vh"}>
             <DataGrid
               columns={cols}
-              rows={data.tasks}
+              rows={formatted}
               sx={{ cursor: "pointer" }}
               density="compact"
               localeText={localeText}
@@ -274,13 +279,11 @@ const TaskList = () => {
                 sorting: defaultSort,
               }}
               filterModel={taskFilter}
-              onCellClick={(params: GridCellParams) =>
-                handleDialogOpen(params.row as Task)
-              }
+              onCellClick={(event: any) => handleDialogOpen(event.row)}
             />
           </Box>
         </Container>
-        <CustomDialog />
+        <TaskDialog />
       </Box>
     </>
   );

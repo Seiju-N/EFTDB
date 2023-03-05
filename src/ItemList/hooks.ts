@@ -1,42 +1,159 @@
-import { CardContent, styled } from "@mui/material";
-import type { GridColDef, GridSortingInitialState } from "@mui/x-data-grid";
+import { Item } from "@/graphql/generated";
+import { gql, useQuery } from "@apollo/client";
+import { CardContent, SelectChangeEvent, styled } from "@mui/material";
+import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 import { enUS } from "@mui/x-data-grid";
-import { useContext } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import { LanguageDictContext } from "../App";
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
-    const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
-
-    const cols: GridColDef[] = [
-        {
-        field: "category",
-        headerName: "category",
-        minWidth: 120,
-        flex: 1,
-        valueGetter: ({ value }) => {
-            return value.name;
-        },
-        },
-        {
-        field: "name",
-        headerName: "name",
-        minWidth: 200,
-        flex: 1,
-        },
-    ];
-
-    const defaultSort: GridSortingInitialState = {
-        sortModel: [{ field: "category", sort: "asc" }],
+  const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
+  const param = useParams();
+  const [filter, setFilter] = useState<string>("");
+  const [ammoTypeFilter, setAmmoTypeFilter] = useState<GridFilterModel>({
+    items: [],
+  });
+  const convertObject = useCallback((ammoType: string) => {
+    return {
+      items: [
+        { columnField: "properties", operatorValue: "equals", value: ammoType },
+      ],
     };
+  }, []);
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    const value: string = event.target.value as string;
+    setFilter(value);
+    setAmmoTypeFilter(convertObject(value));
+  };
 
-    const CardContentNoPadding = styled(CardContent)(`
+  useEffect(() => {
+    setFilter("")
+    setAmmoTypeFilter({ items: [] })
+  }, [param.categoryName]);
+
+  const GET_ITEMS_QUEERY = gql`
+    query GetItems(
+      $categoryNames: [ItemCategoryName]
+      $skipCategoryNames: Boolean!,
+    ) {
+      itemsWithCategories: items(categoryNames: $categoryNames)
+        @include(if: $skipCategoryNames) {
+          id
+          name
+          normalizedName
+          shortName
+          category {
+            name
+          }
+          basePrice
+          width
+          height
+          types
+          image512pxLink
+          wikiLink
+          usedInTasks {
+            id
+            name
+            trader {
+              name
+            }
+          }
+          properties {
+            ... on ItemPropertiesAmmo {
+              ammoType
+              caliber
+            }
+          }
+        }
+        itemsWithoutCategories: items {
+          id
+          name
+          normalizedName
+          shortName
+          category {
+            name
+          }
+          basePrice
+          width
+          height
+          types
+          image512pxLink
+          wikiLink
+          usedInTasks {
+            id
+            name
+            trader {
+              name
+            }
+          }
+          properties {
+            __typename
+          }
+        }
+      }
+    `;
+  const cols: GridColDef[] = [
+    {
+      field: "category",
+      headerName: "category",
+      minWidth: 120,
+      flex: 1,
+      valueGetter: ({ value }) => {
+        return value.name;
+      },
+    },
+    {
+      field: "name",
+      headerName: "name",
+      minWidth: 200,
+      flex: 1,
+    },
+    {
+      field: "properties",
+      headerName: "caliber",
+      minWidth: 200,
+      flex: 1,
+      valueGetter: ({ value }) => {
+        if (value) {
+          return value.caliber;
+        } else {
+          return "";
+        }
+      },
+    }
+  ];
+
+  const defaultSort: GridSortingInitialState = {
+    sortModel: [{ field: "category", sort: "asc" }],
+  };
+
+  const CardContentNoPadding = styled(CardContent)(`
     padding: 16px;
     &:last-child {
       padding-bottom: 16px;
     }
   `);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [currentItem, setCurrentItem] = useState<Item>();
 
-    return {langDict,localeText,cols,defaultSort,CardContentNoPadding}
+  const handleDialogOpen = useCallback((value: Item) => {
+    setCurrentItem(value);
+    setDialogOpen(true);
+  }, []);
+
+  const handleDialogClose = useCallback(() => {
+    setDialogOpen(false);
+  }, []);
+
+
+  const { loading, error, data } = useQuery(GET_ITEMS_QUEERY, {
+    variables: {
+      categoryNames: [param.categoryName],
+      skipCategoryNames: Boolean(param.categoryName),
+    },
+  });
+  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading }
 }
