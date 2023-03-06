@@ -1,4 +1,3 @@
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Avatar,
@@ -23,6 +22,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useHooks } from "./hooks";
 import { ServerStatus } from "./ServerStatus";
 import { TradersContext } from "../App";
+import { TopSubtitle } from "./TopSubtitle";
 
 export const Home = () => {
   const {
@@ -48,50 +48,6 @@ export const Home = () => {
       </Typography>
     );
   };
-
-  const TopSubtitle = memo(() => {
-    return (
-      <Box p={3}>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography variant="h5" pl={2}>
-            {langDict.HOME_SENTENCE.subtitle.subtitle1}
-          </Typography>
-        </Box>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <FiberManualRecordIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={langDict.HOME_SENTENCE.subtitle.simple}
-              primaryTypographyProps={{ variant: "body1" }}
-              secondary={langDict.HOME_SENTENCE.subtitle.simple_secondary}
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <FiberManualRecordIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={langDict.HOME_SENTENCE.subtitle.accurate}
-              primaryTypographyProps={{ variant: "body1" }}
-              secondary={langDict.HOME_SENTENCE.subtitle.accurate_secondary}
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <FiberManualRecordIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={langDict.HOME_SENTENCE.subtitle.fast}
-              primaryTypographyProps={{ variant: "body1" }}
-              secondary={langDict.HOME_SENTENCE.subtitle.fast_secondary}
-            />
-          </ListItem>
-        </List>
-      </Box>
-    );
-  });
 
   const Menu = memo(() => {
     const traders = useContext(TradersContext);

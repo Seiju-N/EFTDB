@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 import { enUS, GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 
-import { Task } from "@/graphql/generated";
+import { Task, TaskRewards } from "@/graphql/generated";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { gql, useQuery } from "@apollo/client";
 
@@ -76,9 +76,9 @@ export const useHooks = () => {
     sortModel: [{ field: "name", sort: "asc" }],
   };
 
-  const isAllArrayElementsEmpty = useCallback((obj: any) => {
+  const isAllArrayElementsEmpty = useCallback((obj: TaskRewards) => {
     const { __typename, ...newObj } = obj
-    return Object.values(newObj).every((val: any) => val.length === 0);
+    return Object.values(newObj).every((val) => val.length === 0);
   }, []);
 
   const convertObject = useCallback((name: string) => {

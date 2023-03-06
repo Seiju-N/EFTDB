@@ -18,13 +18,19 @@ const JA_DICT = {
       "Global": "グローバル",
     },
     subtitle:{
-      "subtitle1":"EFTDBは以下を提供します。",
-      "simple":"シンプルさ",
-      "simple_secondary":"余分な情報は排除します。",
-      "accurate":"正確さ",
-      "accurate_secondary":"正確な情報を提供します。",
-      "fast":"素早さ",
-      "fast_secondary":"フレッシュな情報を提供します。",
+      subtitle1:"EFTDBは以下を提供します。",
+      simple:{
+        primary:"シンプルさ",
+        secondary:"余分な情報は排除します。",
+      },
+      accurate:{
+        primary:"正確さ",
+        secondary:"正確な情報を提供します。",
+      },
+      fast:{
+        primary:"素早さ",
+        secondary:"フレッシュな情報を提供します。",
+      }
     }
   },
 

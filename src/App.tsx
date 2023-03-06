@@ -14,7 +14,7 @@ import { Route, Routes } from "react-router-dom";
 
 import EN_DICT from "./constants/languages/en";
 import JA_DICT from "./constants/languages/ja";
-import type { DictType } from "./constants/languages/types";
+import type { dictType } from "./constants/languages/types";
 import type { ItemCategory, Maybe, Query, Trader } from "./graphql/generated";
 import { LanguageCode } from "./graphql/generated";
 import { Home } from "./Home";
@@ -38,10 +38,12 @@ const darkTheme = createTheme({
   },
 });
 
-export const TradersContext = createContext<Maybe<Trader>[]>([]);
-export const LanguageDictContext = createContext<DictType>(EN_DICT);
+export const TradersContext = createContext<readonly Maybe<Trader>[]>([]);
+export const LanguageDictContext = createContext<dictType>(EN_DICT);
 export const LanguageContext = createContext<string>("");
-export const CategoryContext = createContext<Maybe<ItemCategory>[]>([]);
+export const CategoryContext = createContext<readonly Maybe<ItemCategory>[]>(
+  []
+);
 const TRADERS = gql`
   query traders {
     traders {
@@ -70,7 +72,7 @@ const ITEM_CATEGORIES = gql`
 
 const App = () => {
   const [language, setLanguage] = useState("");
-  const [languageDict, setLanguageDict] = useState<DictType>(EN_DICT);
+  const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const {
     loading: tradersIsLoading,
     error: tradersError,

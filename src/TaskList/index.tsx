@@ -40,7 +40,7 @@ import {
   TaskObjectiveTaskStatus,
   TaskObjectiveTraderLevel,
 } from "../graphql/generated";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 import { useHooks } from "./hooks";
 import { useLocation, useParams } from "react-router-dom";
 import { TabPanel } from "@/components/TabPanel";
@@ -280,7 +280,9 @@ const TaskList = () => {
                 sorting: defaultSort,
               }}
               filterModel={taskFilter}
-              onCellClick={(event: any) => handleDialogOpen(event.row)}
+              onCellClick={(event: GridCellParams) =>
+                handleDialogOpen(event.row)
+              }
             />
           </Box>
         </Container>

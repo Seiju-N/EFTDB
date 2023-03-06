@@ -19,12 +19,18 @@ const EN_DICT = {
     },
     subtitle:{
       "subtitle1":"EFTDB provides the following features.",
-      "simple":"Simplicity",
-      "simple_secondary":"No extra information.",
-      "accurate":"Accuracy",
-      "accurate_secondary":"Accurate information.",
-      "fast":"Real time",
-      "fast_secondary":"Fresh information."
+      "simple":{
+        "primary":"Simplicity",
+        "secondary":"No extra information."
+      },
+      "accurate":{
+        "primary":"Accuracy",
+        "secondary":"Accurate information."
+      },
+      "fast":{
+        "primary":"Speed",
+        "secondary":"Fresh information."
+      }
     }
   },
 
@@ -434,7 +440,5 @@ const EN_DICT = {
     WeaponMod: 'Weapon Part'
   }
 }
-
-export type typeEnDict = typeof EN_DICT;
 
 export default EN_DICT;

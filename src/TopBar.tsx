@@ -127,7 +127,9 @@ export const TopBar = (props: Props) => {
     );
   };
   const traders = useContext(TradersContext);
-  const itemCategories = useContext<Maybe<ItemCategory>[]>(CategoryContext)
+  const itemCategories = useContext<readonly Maybe<ItemCategory>[]>(
+    CategoryContext
+  )
     .filter(
       (category) =>
         category?.name === "Ammo" ||
