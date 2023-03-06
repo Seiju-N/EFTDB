@@ -1,10 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 
-import { enUS, GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
+import { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 
 import { Task, TaskRewards } from "@/graphql/generated";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { gql, useQuery } from "@apollo/client";
+import { LanguageContext } from "@/App";
 
 export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -13,6 +14,7 @@ export const useHooks = () => {
   const [taskFilter, setTaskFilter] = useState<GridFilterModel>({
     items: [],
   });
+  const lang = useContext(LanguageContext);
 
   const cols: GridColDef[] = [
     {
@@ -63,14 +65,14 @@ export const useHooks = () => {
   ];
 
 
-  const handleDialogOpen = (value: Task) => {
+  const handleDialogOpen = useCallback((value: Task) => {
     setCurrentTask(value);
     setDialogOpen(true);
-  };
+  },[])
 
-  const handleDialogClose = () => {
+  const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
-  };
+  },[]);
 
   const defaultSort: GridSortingInitialState = {
     sortModel: [{ field: "name", sort: "asc" }],
@@ -88,11 +90,11 @@ export const useHooks = () => {
       ],
     };
   }, []);
-  const handleChange = (event: SelectChangeEvent<string>) => {
+  const handleChange = useCallback((event: SelectChangeEvent<string>) => {
     const value: string = event.target.value as string;
     setFilter(value);
     setTaskFilter(convertObject(value));
-  };
+  },[]);
 
   const GET_TASKS = gql`
     query GetTasks($lang: LanguageCode) {
@@ -325,7 +327,7 @@ export const useHooks = () => {
   `;
 
   const { data: taskData, loading } = useQuery(GET_TASKS, {
-    variables: { lang: "en" },
+    variables: { lang },
   });
 
   return {

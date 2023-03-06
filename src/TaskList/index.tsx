@@ -204,7 +204,6 @@ const TaskList = () => {
     if (!temp) return;
     handleDialogOpen(temp);
     window.history.replaceState({}, document.title);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, taskData]);
 
   if (loading) {

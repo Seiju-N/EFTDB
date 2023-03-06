@@ -12,7 +12,6 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  Icon,
   IconButton,
   InputLabel,
   List,
@@ -25,7 +24,7 @@ import {
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import React, { memo, useCallback } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -33,7 +32,6 @@ import { useHooks } from "./hooks";
 import ItemProperties from "./ItemProperties";
 import { ITEM_PROPERTIES } from "../constants/LANG_VALUES";
 import type { Maybe } from "../graphql/generated";
-import FilterAlt from "@mui/icons-material/FilterAlt";
 import { CALIBERS } from "@/constants/CALIBER";
 
 const ItemList = () => {

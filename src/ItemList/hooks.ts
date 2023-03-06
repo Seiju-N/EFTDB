@@ -8,14 +8,79 @@ import { useParams } from "react-router-dom";
 
 import { LanguageDictContext } from "../App";
 
+const GET_ITEMS_QUERY = gql`
+  query GetItems(
+    $categoryNames: [ItemCategoryName]
+    $skipCategoryNames: Boolean!,
+  ) {
+    itemsWithCategories: items(categoryNames: $categoryNames)
+      @include(if: $skipCategoryNames) {
+        id
+        name
+        normalizedName
+        shortName
+        category {
+          name
+        }
+        basePrice
+        width
+        height
+        types
+        image512pxLink
+        wikiLink
+        usedInTasks {
+          id
+          name
+          trader {
+            name
+          }
+        }
+        properties {
+          ... on ItemPropertiesAmmo {
+            ammoType
+            caliber
+          }
+        }
+      }
+      itemsWithoutCategories: items {
+        id
+        name
+        normalizedName
+        shortName
+        category {
+          name
+        }
+        basePrice
+        width
+        height
+        types
+        image512pxLink
+        wikiLink
+        usedInTasks {
+          id
+          name
+          trader {
+            name
+          }
+        }
+        properties {
+          __typename
+        }
+      }
+    }
+  `;
+
 export const useHooks = () => {
-  const langDict = useContext(LanguageDictContext);
-  const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
-  const param = useParams();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [currentItem, setCurrentItem] = useState<Item>();
   const [filter, setFilter] = useState<string>("");
   const [ammoTypeFilter, setAmmoTypeFilter] = useState<GridFilterModel>({
     items: [],
   });
+  const langDict = useContext(LanguageDictContext);
+  const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
+  const param = useParams();
+  
   const convertObject = useCallback((ammoType: string) => {
     return {
       items: [
@@ -23,78 +88,26 @@ export const useHooks = () => {
       ],
     };
   }, []);
-  const handleChange = (event: SelectChangeEvent<string>) => {
+  const handleChange = useCallback((event: SelectChangeEvent<string>) => {
     const value: string = event.target.value as string;
     setFilter(value);
     setAmmoTypeFilter(convertObject(value));
-  };
+  },[]);
 
   useEffect(() => {
     setFilter("")
     setAmmoTypeFilter({ items: [] })
   }, [param.categoryName]);
 
-  const GET_ITEMS_QUEERY = gql`
-    query GetItems(
-      $categoryNames: [ItemCategoryName]
-      $skipCategoryNames: Boolean!,
-    ) {
-      itemsWithCategories: items(categoryNames: $categoryNames)
-        @include(if: $skipCategoryNames) {
-          id
-          name
-          normalizedName
-          shortName
-          category {
-            name
-          }
-          basePrice
-          width
-          height
-          types
-          image512pxLink
-          wikiLink
-          usedInTasks {
-            id
-            name
-            trader {
-              name
-            }
-          }
-          properties {
-            ... on ItemPropertiesAmmo {
-              ammoType
-              caliber
-            }
-          }
-        }
-        itemsWithoutCategories: items {
-          id
-          name
-          normalizedName
-          shortName
-          category {
-            name
-          }
-          basePrice
-          width
-          height
-          types
-          image512pxLink
-          wikiLink
-          usedInTasks {
-            id
-            name
-            trader {
-              name
-            }
-          }
-          properties {
-            __typename
-          }
-        }
-      }
-    `;
+  const handleDialogOpen = useCallback((value: Item) => {
+    setCurrentItem(value);
+    setDialogOpen(true);
+  }, []);
+
+  const handleDialogClose = useCallback(() => {
+    setDialogOpen(false);
+  }, []);
+  
   const cols: GridColDef[] = [
     {
       field: "category",
@@ -136,20 +149,8 @@ export const useHooks = () => {
       padding-bottom: 16px;
     }
   `);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [currentItem, setCurrentItem] = useState<Item>();
 
-  const handleDialogOpen = useCallback((value: Item) => {
-    setCurrentItem(value);
-    setDialogOpen(true);
-  }, []);
-
-  const handleDialogClose = useCallback(() => {
-    setDialogOpen(false);
-  }, []);
-
-
-  const { loading, error, data } = useQuery(GET_ITEMS_QUEERY, {
+  const { loading, error, data } = useQuery(GET_ITEMS_QUERY, {
     variables: {
       categoryNames: [param.categoryName],
       skipCategoryNames: Boolean(param.categoryName),

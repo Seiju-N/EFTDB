@@ -113,7 +113,9 @@ const App = () => {
     return (
       <Backdrop open={true}>
         <CircularProgress color="inherit" />
-        <Typography variant="h4">Loading...</Typography>
+        <Typography variant="h4" pl={2}>
+          Loading...
+        </Typography>
       </Backdrop>
     );
   return (

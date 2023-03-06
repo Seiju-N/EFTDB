@@ -1,23 +1,29 @@
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {
+  Box,
+  CardContent,
   Collapse,
+  LinearProgress,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
+  Typography,
 } from "@mui/material";
-import { useCallback, useContext, useState } from "react";
+import { memo, useCallback, useContext, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import type { ItemCategory, Maybe } from "@/graphql/generated";
 
-import { CategoryContext, LanguageDictContext } from "../App";
+import { CategoryContext, LanguageDictContext, TradersContext } from "../App";
 import { toPascalCase } from "../utils";
+import SearchIcon from "@mui/icons-material/Search";
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
   const categories = useContext(CategoryContext);
+  const traders = useContext(TradersContext);
 
   type nestedCategoryProps = {
     categoryName: string;
@@ -219,11 +225,32 @@ export const useHooks = () => {
     );
   };
 
+  type menuTitleProps = {
+    titleStr: string;
+    isLoading: boolean;
+  };
+
+  const MenuTitle = memo(({ titleStr, isLoading }: menuTitleProps) => {
+    return (
+      <CardContent>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <SearchIcon fontSize="large" />
+          <Typography variant="h5" pl={1}>
+            {titleStr}
+          </Typography>
+        </Box>
+        {isLoading && <LinearProgress color="inherit" />}
+      </CardContent>
+    );
+  });
+
   return {
     FlatCategory,
     NestedCategory,
     NestedSubcategory,
     langDict,
     categories,
+    traders,
+    MenuTitle,
   };
 };
