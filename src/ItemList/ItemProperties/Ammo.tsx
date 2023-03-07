@@ -92,7 +92,7 @@ const Ammo = ({ ItemId }: Props) => {
     );
   };
   const DetailInfoGrid = ({ keyword }: detailGridType) => {
-    if (keyword.includes("Modifier")) {
+    if (keyword.includes("Modifier") || keyword.includes("Chance")) {
       return (
         <>
           <Grid xs={4} color="text.secondary">

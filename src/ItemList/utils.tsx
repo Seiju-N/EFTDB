@@ -30,8 +30,8 @@ export const convertPercent = (num: number | undefined) => {
   if (isNaN(num)) {
     return num;
   } else {
-    let str = (num * 100).toString();
-    str.toString().includes("-") ? (str = `${str}%`) : (str = `+${str}%`);
+    let str = (Math.round(num * 1000) / 10).toString();
+    str.toString().includes("-") ? (str = `${str}%`) : (str = `${str}%`);
     return str;
   }
 };

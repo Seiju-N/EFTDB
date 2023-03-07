@@ -97,7 +97,7 @@ const TaskList = () => {
       if (!currentTask || !currentTask.objectives) return <NoInfo />;
       const objectives = currentTask.objectives as taskObjectiveType;
       return (
-        <Card variant="outlined">
+        <>
           {objectives.map((data, idx) => (
             <ListItem sx={{ pl: 4 }} divider key={`${data?.id}_${idx}`}>
               <ListItemText>
@@ -107,7 +107,7 @@ const TaskList = () => {
               </ListItemText>
             </ListItem>
           ))}
-        </Card>
+        </>
       );
     };
 
@@ -173,6 +173,7 @@ const TaskList = () => {
         open={dialogOpen}
         onClose={handleDialogClose}
         fullWidth
+        sx={{ minHeight: "500px" }}
       >
         <DialogTitle>{currentTask?.name}</DialogTitle>
         <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
