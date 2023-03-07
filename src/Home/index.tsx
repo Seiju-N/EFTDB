@@ -10,7 +10,6 @@ import { TaskTraderList } from "./TaskTraderList";
 
 export const Home = () => {
   const { langDict } = useHooks();
-
   const TopTitle = () => {
     return (
       <Typography
