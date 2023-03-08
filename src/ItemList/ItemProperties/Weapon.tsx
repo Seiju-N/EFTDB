@@ -24,9 +24,6 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
         ... on ItemPropertiesWeapon {
           caliber
           centerOfImpact
-          defaultAmmo {
-            name
-          }
           defaultErgonomics
           defaultHeight
           defaultRecoilHorizontal
@@ -60,30 +57,17 @@ const Weapon = ({ ItemId }: Props) => {
     }
   );
 
-  if (!data || error) return null;
+  if (!data || !data.item || error) return null;
   if (loading) return <Loading />;
-  type detailGridType = {
-    keyword: string;
-  };
 
-  const DetailGrid = ({ keyword }: detailGridType) => {
-    if (keyword === "defaultAmmo") {
-      return (
-        <>
-          <Grid item xs={2}>
-            null
-          </Grid>
-        </>
-      );
-    } else {
-      return (
-        <Grid item xs={2}>
-          null
-        </Grid>
-      );
-    }
+  const DetailGrid = () => {
+    return (
+      <Grid item xs={2}>
+        <Typography>null</Typography>
+      </Grid>
+    );
   };
-
+  console.log(data);
   return (
     <>
       {data.item.properties ? (
@@ -98,7 +82,7 @@ const Weapon = ({ ItemId }: Props) => {
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {Object.keys(ITEM_PROPERTIES_WEAPON).map((key, idx) =>
+            {Object.keys(data.item.properties).map((key, idx) =>
               data.item.properties[key as keyof ItemPropertiesWeapon] ? (
                 <Fragment key={idx}>
                   <Grid item xs={4} color="text.secondary">
@@ -108,7 +92,7 @@ const Weapon = ({ ItemId }: Props) => {
                       ]
                     }
                   </Grid>
-                  <DetailGrid keyword={key} />
+                  <DetailGrid />
                 </Fragment>
               ) : null
             )}

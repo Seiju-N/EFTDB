@@ -16,9 +16,6 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
     item(id: $itemId) {
       properties {
         ... on ItemPropertiesPreset {
-          baseItem {
-            name
-          }
           ergonomics
           moa
           recoilHorizontal

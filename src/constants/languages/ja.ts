@@ -17,34 +17,34 @@ const JA_DICT = {
       "Inventory operations": "インベントリ",
       "Global": "グローバル",
     },
-    subtitle:{
-      subtitle1:"EFTDBは以下を提供します。",
-      simple:{
-        primary:"シンプルさ",
-        secondary:"余分な情報は排除します。",
+    subtitle: {
+      subtitle1: "EFTDBは以下を提供します。",
+      simple: {
+        primary: "シンプルさ",
+        secondary: "余分な情報は排除します。",
       },
-      accurate:{
-        primary:"正確さ",
-        secondary:"正確な情報を提供します。",
+      accurate: {
+        primary: "正確さ",
+        secondary: "正確な情報を提供します。",
       },
-      fast:{
-        primary:"素早さ",
-        secondary:"フレッシュな情報を提供します。",
+      fast: {
+        primary: "素早さ",
+        secondary: "フレッシュな情報を提供します。",
       }
     }
   },
 
-  ITEM_DETAIL_DIALOG:{
+  ITEM_DETAIL_DIALOG: {
     SIZE: "サイズ",
     NO_DETAIL: "詳細はありません。",
-    WIDTH:"幅",
-    HEIGHT:"高さ"
+    WIDTH: "幅",
+    HEIGHT: "高さ"
   },
 
-  MENU_SENTENCE:{
-    task:"タスク",
-    item:"アイテム",
-    taskMarker:"タスクマーカー",
+  MENU_SENTENCE: {
+    task: "タスク",
+    item: "アイテム",
+    taskMarker: "タスクマーカー",
   },
 
   ITEM_TYPE: {
@@ -221,6 +221,8 @@ const JA_DICT = {
   ITEM_PROPERTIES_AMMO: {
     damage: "ダメージ",
     armorDamage: "アーマーダメージ",
+    caliber: "口径",
+    tracer: "トレーサー",
     fragmentationChance: "破砕率",
     ricochetChance: "跳弾率",
     penetrationChance: "貫通率",
@@ -342,7 +344,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_MEDKIT: {
-    cures: "cures",
+    cures: "治療種類",
     hitpoints: "HP",
     hpCostHeavyBleeding: "止血コスト(重度)",
     hpCostLightBleeding: "止血コスト(軽度)",
@@ -351,7 +353,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_MEDICAL_ITEM: {
-    cures: "cures",
+    cures: "治療種類",
     useTime: "使用時間",
     uses: "使用可能回数",
   },
@@ -370,7 +372,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_PAINKILLER: {
-    cures: "cures",
+    cures: "治療種類",
     energyImpact: "エネルギー消費",
     hydrationImpact: "水分消費",
     painkillerDuration: "持続時間",
@@ -396,13 +398,13 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_STIM: {
-    cures: "cures",
+    cures: "治療種類",
     stimEffects: "使用効果",
     useTime: "使用時間",
   },
 
   ITEM_PROPERTIES_SURGICAL_KIT: {
-    cures: "cures",
+    cures: "治療種類",
     maxLimbHealth: "部位最大HP",
     minLimbHealth: "部位最小HP",
     useTime: "使用時間",

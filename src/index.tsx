@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <Router basename="https://eftdb.info">
+      <Router basename={process.env.PUBLIC_URL}>
         <App />
       </Router>
     </ApolloProvider>

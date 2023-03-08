@@ -1,11 +1,12 @@
-import { Typography } from "@mui/material";
+import { List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 
-import { ITEM_PROPERTIES_STIM } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
+import { ItemPropertiesStim } from "@/graphql/generated";
+import { LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
@@ -27,43 +28,29 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
+type QueryType = {
+  item: {
+    properties: ItemPropertiesStim | null;
+  };
+};
+
 const Stim = ({ ItemId }: Props) => {
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
-
-  if (error) return null;
-  if (loading) return <Loading />;
-
-  type detailGridType = {
-    keyword: string;
-  };
-
-  const DetailGrid = ({ keyword }: detailGridType) => {
-    if (keyword.includes("useTime")) {
-      return (
-        <Grid xs={2}>
-          {`${
-            data.item.properties[keyword as keyof typeof data.item.properties]
-          }sec`}
-        </Grid>
-      );
-    } else {
-      return (
-        <Grid xs={2}>
-          {data.item.properties[keyword as keyof typeof data.item.properties]}
-        </Grid>
-      );
+  const { ITEM_PROPERTIES_STIM } = useContext(LanguageDictContext);
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+      },
     }
-  };
+  );
+  if (loading) return <Loading />;
+  if (!data || error) return null;
+  if (!data.item.properties) return null;
 
   return (
     <>
-      {!data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {data.item.properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
             詳細
@@ -73,22 +60,38 @@ const Stim = ({ ItemId }: Props) => {
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {Object.keys(ITEM_PROPERTIES_STIM).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] ? (
-                <Fragment key={idx}>
-                  <Grid xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_STIM[
-                        key as keyof typeof ITEM_PROPERTIES_STIM
-                      ]
-                    }
-                  </Grid>
-                  <DetailGrid keyword={key} />
-                </Fragment>
-              ) : null
-            )}
+            <Grid xs={3} color="text.secondary">
+              {ITEM_PROPERTIES_STIM.cures}
+            </Grid>
+            <Grid xs={3}>
+              <List>
+                {data.item.properties.cures?.map((cure, idx) => {
+                  return <ListItem key={`${cure}_${idx}`}>{cure}</ListItem>;
+                })}
+              </List>
+            </Grid>
+            <Grid xs={3} color="text.secondary">
+              {ITEM_PROPERTIES_STIM.stimEffects}
+            </Grid>
+            <Grid xs={3}>
+              <List>
+                {data.item.properties.stimEffects.map((stimEffect) => {
+                  return (
+                    <ListItem key={stimEffect?.skillName}>
+                      {stimEffect?.skillName}
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </Grid>
+            <Grid xs={3} color="text.secondary">
+              {ITEM_PROPERTIES_STIM.useTime}
+            </Grid>
+            <Grid xs={3}>{data.item.properties.useTime}</Grid>
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );

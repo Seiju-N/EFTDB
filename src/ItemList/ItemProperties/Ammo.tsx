@@ -2,13 +2,14 @@ import { gql, useQuery } from "@apollo/client";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 
-import type { Scalars } from "@/graphql/generated";
+import type { ItemPropertiesAmmo, Scalars } from "@/graphql/generated";
 
-import { ITEM_PROPERTIES_AMMO } from "../../constants/LANG_VALUES";
 import { convertPercent, CustomSkelton } from "../utils";
 import { Loading } from "./Loading";
+import { LanguageDictContext } from "@/App";
+import { normalise } from "@/utils";
 
 type Props = {
   ItemId: Scalars["ID"];
@@ -26,8 +27,6 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
           stackMaxSize
           tracer
           tracerColor
-          ammoType
-          projectileCount
           fragmentationChance
           ricochetChance
           penetrationChance
@@ -45,13 +44,17 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
 `;
 
 const Ammo = ({ ItemId }: Props) => {
+  const { ITEM_PROPERTIES_AMMO } = useContext(LanguageDictContext);
   const LinearProgressWithLabel = (
-    props: LinearProgressProps & { value: number }
+    props: LinearProgressProps & { value: number; maxValue?: number }
   ) => {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Box sx={{ width: "100%", mr: 1 }}>
-          <LinearProgress variant="determinate" {...props} />
+          <LinearProgress
+            variant="determinate"
+            value={normalise(props.value, 0, props.maxValue)}
+          />
         </Box>
         <Box sx={{ minWidth: 35 }}>
           <Typography variant="body2" color="text.secondary">{`${Math.round(
@@ -61,67 +64,26 @@ const Ammo = ({ ItemId }: Props) => {
       </Box>
     );
   };
-
-  type detailGridType = {
-    keyword: string;
+  type QueryType = {
+    item: {
+      properties: ItemPropertiesAmmo | null;
+    };
   };
-
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
-
-  if (error) return null;
-  if (loading) return <Loading />;
-
-  const DetailInfoBarGrid = ({ keyword }: detailGridType) => {
-    return (
-      <>
-        <Grid xs={3}>
-          {ITEM_PROPERTIES_AMMO[keyword as keyof typeof ITEM_PROPERTIES_AMMO]}
-        </Grid>
-        <Grid xs={9}>
-          <LinearProgressWithLabel
-            value={
-              data.item.properties[keyword as keyof typeof data.item.properties]
-            }
-          />
-        </Grid>
-      </>
-    );
-  };
-  const DetailInfoGrid = ({ keyword }: detailGridType) => {
-    if (keyword.includes("Modifier") || keyword.includes("Chance")) {
-      return (
-        <>
-          <Grid xs={4} color="text.secondary">
-            {ITEM_PROPERTIES_AMMO[keyword as keyof typeof ITEM_PROPERTIES_AMMO]}
-          </Grid>
-          <Grid xs={2}>
-            {convertPercent(
-              data.item.properties[keyword as keyof typeof data.item.properties]
-            )}
-          </Grid>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Grid xs={4} color="text.secondary">
-            {ITEM_PROPERTIES_AMMO[keyword as keyof typeof ITEM_PROPERTIES_AMMO]}
-          </Grid>
-          <Grid xs={2}>
-            {data.item.properties[keyword as keyof typeof data.item.properties]}
-          </Grid>
-        </>
-      );
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+      },
     }
-  };
+  );
+  if (loading) return <Loading />;
+  if (!data || error) return null;
 
+  const properties = data.item.properties;
   return (
     <>
-      {!data.item.properties ? (
+      {!properties ? (
         <CustomSkelton />
       ) : (
         <Box pb={2}>
@@ -133,28 +95,149 @@ const Ammo = ({ ItemId }: Props) => {
             rowSpacing={1}
             sx={{ minHeight: "100%", fontSize: "0.7rem" }}
           >
-            {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] &&
-              (key === "damage" ||
-                key === "armorDamage" ||
-                key === "penetrationPower") ? (
-                <Fragment key={idx}>
-                  <DetailInfoBarGrid keyword={key} />
-                </Fragment>
-              ) : null
-            )}
-            {Object.keys(ITEM_PROPERTIES_AMMO).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] &&
-              !(
-                key === "damage" ||
-                key === "armorDamage" ||
-                key === "penetrationPower"
-              ) ? (
-                <Fragment key={idx}>
-                  <DetailInfoGrid keyword={key} />
-                </Fragment>
-              ) : null
-            )}
+            {properties.damage ? (
+              <>
+                <Grid xs={3}>{ITEM_PROPERTIES_AMMO.damage}</Grid>
+                <Grid xs={9}>
+                  <LinearProgressWithLabel
+                    value={normalise(properties.damage, 0, 200)}
+                    maxValue={200}
+                  />
+                </Grid>
+              </>
+            ) : null}
+            {properties.armorDamage ? (
+              <>
+                <Grid xs={3}>{ITEM_PROPERTIES_AMMO.armorDamage}</Grid>
+                <Grid xs={9}>
+                  <LinearProgressWithLabel value={properties.armorDamage} />
+                </Grid>
+              </>
+            ) : null}
+            {properties.penetrationPower ? (
+              <>
+                <Grid xs={3}>{ITEM_PROPERTIES_AMMO.penetrationPower}</Grid>
+                <Grid xs={9}>
+                  <LinearProgressWithLabel
+                    value={properties.penetrationPower}
+                  />
+                </Grid>
+              </>
+            ) : null}
+            {properties.initialSpeed ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.initialSpeed}
+                </Grid>
+                <Grid xs={3}>{`${properties.initialSpeed} m/sec`}</Grid>
+              </>
+            ) : null}
+            {properties.penetrationPower ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.penetrationPower}
+                </Grid>
+                <Grid xs={3}>{properties.penetrationPower}</Grid>
+              </>
+            ) : null}
+            {properties.caliber ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.caliber}
+                </Grid>
+                <Grid xs={3}>{properties.caliber}</Grid>
+              </>
+            ) : null}
+            {properties.tracer ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.tracer}
+                </Grid>
+                <Grid xs={3}>{properties.tracerColor}</Grid>
+              </>
+            ) : null}
+            {properties.fragmentationChance ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.fragmentationChance}
+                </Grid>
+                <Grid xs={3}>
+                  {convertPercent(properties.fragmentationChance)}
+                </Grid>
+              </>
+            ) : null}
+            {properties.ricochetChance ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.ricochetChance}
+                </Grid>
+                <Grid xs={3}>{convertPercent(properties.ricochetChance)}</Grid>
+              </>
+            ) : null}
+            {properties.penetrationChance ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.penetrationChance}
+                </Grid>
+                <Grid xs={3}>
+                  {convertPercent(properties.penetrationChance)}
+                </Grid>
+              </>
+            ) : null}
+            {properties.accuracyModifier ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.accuracyModifier}
+                </Grid>
+                <Grid xs={3}>
+                  {convertPercent(properties.accuracyModifier)}
+                </Grid>
+              </>
+            ) : null}
+            {properties.recoilModifier ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.recoilModifier}
+                </Grid>
+                <Grid xs={3}>{convertPercent(properties.recoilModifier)}</Grid>
+              </>
+            ) : null}
+            {properties.lightBleedModifier ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.lightBleedModifier}
+                </Grid>
+                <Grid xs={3}>
+                  {convertPercent(properties.lightBleedModifier)}
+                </Grid>
+              </>
+            ) : null}
+            {properties.heavyBleedModifier ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.heavyBleedModifier}
+                </Grid>
+                <Grid xs={3}>
+                  {convertPercent(properties.heavyBleedModifier)}
+                </Grid>
+              </>
+            ) : null}
+            {properties.durabilityBurnFactor ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.durabilityBurnFactor}
+                </Grid>
+                <Grid xs={3}>{properties.durabilityBurnFactor}</Grid>
+              </>
+            ) : null}
+            {properties.heatFactor ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_AMMO.heatFactor}
+                </Grid>
+                <Grid xs={3}>{properties.heatFactor}</Grid>
+              </>
+            ) : null}
           </Grid>
         </Box>
       )}
