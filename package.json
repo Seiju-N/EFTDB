@@ -78,10 +78,11 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
+    "add-domain": "echo \"myAwesomeDomain.org\" > build/CNAME",
     "start": "graphql-codegen && node scripts/start.js",
     "build": "graphql-codegen && node scripts/build.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d docs",
+    "deploy": "npm run add-domain && gh-pages -d docs",
     "test": "node scripts/test.js",
     "lint": "eslint --ext .js,.ts,.tsx \"./src/**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint --ext .js,.ts,.tsx \"./src/**/*.{js,ts,tsx}\" --fix"

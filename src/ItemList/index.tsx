@@ -153,7 +153,7 @@ const ItemList = () => {
           <Card variant="outlined">
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <CardContentNoPadding>
-                {/* // TODO: 以下コンポーネント切り出し */}
+                {/* TODO: 以下コンポーネント切り出し */}
                 <Grid container spacing={2}>
                   <Grid xs={6} sx={flexCenter}>
                     <Tooltip title="Size">

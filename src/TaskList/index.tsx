@@ -93,6 +93,7 @@ const TaskList = () => {
       );
     };
 
+    // const Requirements =
     const TaskObjectives = () => {
       if (!currentTask || !currentTask.objectives) return <NoInfo />;
       const objectives = currentTask.objectives as taskObjectiveType;
