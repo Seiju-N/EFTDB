@@ -291,6 +291,12 @@ const JA_DICT = {
     energy: "エネルギー",
     hydration: "水分",
     units: "units",
+    chance: "確率",
+    delay: "遅延",
+    duration: "持続時間",
+    percent: "確率",
+    skillName: "効果名",
+    value: "値"
   },
 
   ITEM_PROPERTIES_GLASSES: {

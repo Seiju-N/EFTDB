@@ -29,7 +29,7 @@ export const ItemCategoryList = memo(() => {
         <NestedCategory categoryName="Food and drink" />
         <FlatCategory categoryName="Glasses" />
         <FlatCategory categoryName="Headphones" />
-        <FlatCategory categoryName="Helmet" />
+        <FlatCategory categoryName="Headwear" />
         <NestedCategory categoryName="Key" />
         <FlatCategory categoryName="Knife" />
         <NestedCategory categoryName="Meds" />

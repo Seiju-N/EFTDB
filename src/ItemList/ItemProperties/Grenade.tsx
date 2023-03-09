@@ -1,13 +1,21 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 
-import { ITEM_PROPERTIES_GRENADE } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
+import { Loading } from "./Loading";
+import { LanguageDictContext } from "@/App";
+import { ItemPropertiesGrenade } from "@/graphql/generated";
 
 type Props = {
   ItemId: string;
+};
+
+type QueryType = {
+  item: {
+    properties: ItemPropertiesGrenade | null;
+  };
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
@@ -28,47 +36,80 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
 `;
 
 const Grenade = ({ ItemId }: Props) => {
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
+  const { ITEM_PROPERTIES_GRENADE } = useContext(LanguageDictContext);
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+      },
+    }
+  );
 
-  if (loading || error || !data) return null;
+  if (loading) return <Loading />;
+  if (!data || error) return null;
+  const properties = data.item.properties;
+
   return (
     <>
-      {!data.item?.properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
             詳細
           </Typography>
           <Grid container sx={{ minHeight: 80, fontSize: "0.7rem" }}>
-            {Object.keys(ITEM_PROPERTIES_GRENADE).map((key, idx) =>
-              data.item?.properties[
-                key as keyof typeof data.item.properties
-              ] ? (
-                <Fragment key={idx}>
-                  <Grid xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_GRENADE[
-                        key as keyof typeof ITEM_PROPERTIES_GRENADE
-                      ]
-                    }
-                  </Grid>
-                  <Grid xs={2}>
-                    {
-                      data.item.properties[
-                        key as keyof typeof data.item.properties
-                      ]
-                    }
-                  </Grid>
-                </Fragment>
-              ) : null
-            )}
+            {properties.type ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_GRENADE.type}
+                </Grid>
+                <Grid xs={3}>{properties.type}</Grid>
+              </>
+            ) : null}
+            {properties.contusionRadius ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_GRENADE.contusionRadius}
+                </Grid>
+                <Grid xs={3}>{properties.contusionRadius}</Grid>
+              </>
+            ) : null}
+            {properties.fragments ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_GRENADE.fragments}
+                </Grid>
+                <Grid xs={3}>{properties.fragments}</Grid>
+              </>
+            ) : null}
+            {properties.fuse ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_GRENADE.fuse}
+                </Grid>
+                <Grid xs={3}>{properties.fuse}</Grid>
+              </>
+            ) : null}
+            {properties.minExplosionDistance ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_GRENADE.minExplosionDistance}
+                </Grid>
+                <Grid xs={3}>{properties.minExplosionDistance}</Grid>
+              </>
+            ) : null}
+            {properties.maxExplosionDistance ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_GRENADE.maxExplosionDistance}
+                </Grid>
+                <Grid xs={3}>{properties.maxExplosionDistance}</Grid>
+              </>
+            ) : null}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );

@@ -1,7 +1,7 @@
+import { LanguageDictContext } from "@/App";
 import { Skeleton, Stack } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-
-import { ARMOR_MATERIAL } from "../constants/LANG_VALUES";
+import { useContext } from "react";
 
 export const CustomSkelton = () => {
   return (
@@ -36,7 +36,10 @@ export const convertPercent = (num: number | undefined) => {
   }
 };
 
-export const translateMaterialName = (id: string) => {
-  const material = ARMOR_MATERIAL.find((material) => material.id === id);
+export const translateMaterialName = (
+  id: string,
+  materials: Record<string, string>[]
+) => {
+  const material = materials.find((material) => material.id === id);
   return material ? material.name : "";
 };

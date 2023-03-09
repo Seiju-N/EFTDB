@@ -29,6 +29,7 @@ export const useHooks = () => {
     categoryName: string;
   };
   const FlatCategory = ({ categoryName }: nestedCategoryProps) => {
+    console.log(categories);
     const parsedCategory: Maybe<ItemCategory> | undefined = categories.find(
       (category) => category?.name === categoryName
     );

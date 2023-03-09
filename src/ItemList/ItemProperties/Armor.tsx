@@ -1,14 +1,21 @@
+import { LanguageDictContext } from "@/App";
+import { ItemPropertiesArmor } from "@/graphql/generated";
 import { gql, useQuery } from "@apollo/client";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 
-import { ITEM_PROPERTIES_ARMOR } from "../../constants/LANG_VALUES";
 import { CustomSkelton, translateMaterialName } from "../utils";
 import { Loading } from "./Loading";
 
 type Props = {
   ItemId: string;
+};
+
+type QueryType = {
+  item: {
+    properties: ItemPropertiesArmor | null;
+  };
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
@@ -32,38 +39,23 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
 `;
 
 const Armor = ({ ItemId }: Props) => {
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
-  if (error) return null;
-  if (loading) return <Loading />;
-  type detailGridType = {
-    keyword: string;
-  };
-
-  const DetailGrid = ({ keyword }: detailGridType) => {
-    if (keyword === "material") {
-      if (!data.item.properties?.material) return null;
-      return (
-        <Grid xs={2}>
-          {translateMaterialName(data.item.properties.material.id)}
-        </Grid>
-      );
+  const { ITEM_PROPERTIES_ARMOR, ARMOR_MATERIAL } =
+    useContext(LanguageDictContext);
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+      },
     }
-    return (
-      <Grid xs={2}>
-        {data.item.properties[keyword as keyof typeof data.item.properties]}
-      </Grid>
-    );
-  };
+  );
+  if (loading) return <Loading />;
+  if (!data || error) return null;
+  const properties = data.item.properties;
 
   return (
     <>
-      {!data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
             詳細
@@ -73,22 +65,71 @@ const Armor = ({ ItemId }: Props) => {
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {Object.keys(ITEM_PROPERTIES_ARMOR).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] ? (
-                <Fragment key={idx}>
-                  <Grid xs={4} key={`_${idx}`} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_ARMOR[
-                        key as keyof typeof ITEM_PROPERTIES_ARMOR
-                      ]
-                    }
-                  </Grid>
-                  <DetailGrid keyword={key} key={idx} />
-                </Fragment>
-              ) : null
-            )}
+            {properties.class ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR.class}
+                </Grid>
+                <Grid xs={3}>{properties.class}</Grid>
+              </>
+            ) : null}
+            {properties.durability ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR.durability}
+                </Grid>
+                <Grid xs={3}>{properties.durability}</Grid>
+              </>
+            ) : null}
+            {properties.material?.id ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR.material}
+                </Grid>
+                <Grid xs={3}>
+                  {translateMaterialName(
+                    properties.material.id,
+                    ARMOR_MATERIAL
+                  )}
+                </Grid>
+              </>
+            ) : null}
+            {properties.repairCost ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR.repairCost}
+                </Grid>
+                <Grid xs={3}>{properties.repairCost}</Grid>
+              </>
+            ) : null}
+            {properties.ergoPenalty ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR.ergoPenalty}
+                </Grid>
+                <Grid xs={3}>{properties.ergoPenalty}</Grid>
+              </>
+            ) : null}
+            {properties.speedPenalty ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR.speedPenalty}
+                </Grid>
+                <Grid xs={3}>{properties.speedPenalty}</Grid>
+              </>
+            ) : null}
+            {properties.turnPenalty ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR.turnPenalty}
+                </Grid>
+                <Grid xs={3}>{properties.turnPenalty}</Grid>
+              </>
+            ) : null}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );

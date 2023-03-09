@@ -1,14 +1,21 @@
-import { Typography } from "@mui/material";
+import { List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 
-import { ITEM_PROPERTIES_HELMET } from "../../constants/LANG_VALUES";
 import { CustomSkelton, translateMaterialName } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
+import { ItemPropertiesHelmet } from "@/graphql/generated";
+import { LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
+};
+
+type QueryType = {
+  item: {
+    properties: ItemPropertiesHelmet | null;
+  };
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
@@ -36,61 +43,94 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
 `;
 
 const Helmet = ({ ItemId }: Props) => {
-  type detailGridType = {
-    keyword: string;
-  };
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
-
-  if (error) return null;
-  if (loading) return <Loading />;
-
-  const DetailGrid = ({ keyword }: detailGridType) => {
-    if (keyword === "material") {
-      if (!data.item.properties?.material) return null;
-      return (
-        <Grid xs={2}>
-          {translateMaterialName(data.item.properties.material.id)}
-        </Grid>
-      );
-    } else {
-      return (
-        <Grid xs={2}>
-          {data.item.properties[keyword as keyof typeof data.item.properties]}
-        </Grid>
-      );
+  const { ITEM_PROPERTIES_HELMET, ARMOR_MATERIAL } =
+    useContext(LanguageDictContext);
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+      },
     }
-  };
+  );
+
+  if (loading) return <Loading />;
+  if (!data || error) return null;
+  const properties = data.item.properties;
 
   return (
     <>
-      {!data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
             詳細
           </Typography>
           <Grid container sx={{ minHeight: 80, fontSize: "0.7rem" }}>
-            {Object.keys(ITEM_PROPERTIES_HELMET).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] ? (
-                <Fragment key={idx}>
-                  <Grid xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_HELMET[
-                        key as keyof typeof ITEM_PROPERTIES_HELMET
-                      ]
-                    }
-                  </Grid>
-                  <DetailGrid keyword={key} />
-                </Fragment>
-              ) : null
-            )}
+            {properties.class ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_HELMET.class}
+                </Grid>
+                <Grid xs={3}>{properties.class}</Grid>
+              </>
+            ) : null}
+            {properties.blindnessProtection ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_HELMET.blindnessProtection}
+                </Grid>
+                <Grid xs={3}>{properties.blindnessProtection}</Grid>
+              </>
+            ) : null}
+            {properties.blocksHeadset ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_HELMET.blocksHeadset}
+                </Grid>
+                <Grid xs={3}>{properties.blocksHeadset}</Grid>
+              </>
+            ) : null}
+            {properties.deafening ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_HELMET.deafening}
+                </Grid>
+                <Grid xs={3}>{properties.deafening}</Grid>
+              </>
+            ) : null}
+            {properties.material?.id ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_HELMET.material}
+                </Grid>
+                <Grid xs={3}>
+                  {translateMaterialName(
+                    properties.material.id,
+                    ARMOR_MATERIAL
+                  )}
+                </Grid>
+              </>
+            ) : null}
+            {properties.headZones ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_HELMET.headZones}
+                </Grid>
+                <Grid xs={3}>
+                  <List disablePadding>
+                    {properties.headZones.map((zone) => (
+                      <ListItem disablePadding disableGutters key={zone}>
+                        {zone}
+                      </ListItem>
+                    ))}
+                  </List>
+                </Grid>
+              </>
+            ) : null}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );

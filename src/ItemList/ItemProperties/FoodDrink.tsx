@@ -1,14 +1,21 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 
-import { ITEM_PROPERTIES_FOOD_DRINK } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
+import { ItemPropertiesFoodDrink } from "@/graphql/generated";
+import { LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
+};
+
+type QueryType = {
+  item: {
+    properties: ItemPropertiesFoodDrink | null;
+  };
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
@@ -35,19 +42,23 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
 `;
 
 const FoodDrink = ({ ItemId }: Props) => {
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
+  const { ITEM_PROPERTIES_FOOD_DRINK } = useContext(LanguageDictContext);
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+      },
+    }
+  );
 
+  if (!data || loading) return <Loading />;
   if (error) return null;
-  if (loading) return <Loading />;
+  const properties = data.item.properties;
+
   return (
     <>
-      {!data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
             詳細
@@ -57,30 +68,42 @@ const FoodDrink = ({ ItemId }: Props) => {
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {Object.keys(ITEM_PROPERTIES_FOOD_DRINK).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] ? (
-                <Fragment key={idx}>
-                  <Grid xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_FOOD_DRINK[
-                        key as keyof typeof ITEM_PROPERTIES_FOOD_DRINK
-                      ]
-                    }
-                  </Grid>
-                  <Grid xs={2}>
-                    <>
-                      {
-                        data.item.properties[
-                          key as keyof typeof data.item.properties
-                        ]
-                      }
-                    </>
-                  </Grid>
-                </Fragment>
-              ) : null
-            )}
+            {properties.energy ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_FOOD_DRINK.energy}
+                </Grid>
+                <Grid xs={3}>{properties.energy}</Grid>
+              </>
+            ) : null}
+            {properties.hydration ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_FOOD_DRINK.hydration}
+                </Grid>
+                <Grid xs={3}>{properties.hydration}</Grid>
+              </>
+            ) : null}
+            {properties.stimEffects ? (
+              <>
+                <Typography>StimEffects</Typography>
+                {properties.stimEffects.map((effect) => (
+                  <>
+                    <Grid xs={3} color="text.secondary">
+                      {ITEM_PROPERTIES_FOOD_DRINK.skillName}
+                    </Grid>
+                    <Grid
+                      xs={3}
+                    >{`${effect?.chance}%  ${effect?.duration}sec`}</Grid>
+                    s
+                  </>
+                ))}
+              </>
+            ) : null}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );

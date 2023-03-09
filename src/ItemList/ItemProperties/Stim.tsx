@@ -12,6 +12,12 @@ type Props = {
   ItemId: string;
 };
 
+type QueryType = {
+  item: {
+    properties: ItemPropertiesStim | null;
+  };
+};
+
 const GET_ITEM_PROPERTIES_QUERY = gql`
   query getItemProperties($itemId: ID) {
     item(id: $itemId) {
@@ -28,12 +34,6 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-type QueryType = {
-  item: {
-    properties: ItemPropertiesStim | null;
-  };
-};
-
 const Stim = ({ ItemId }: Props) => {
   const { ITEM_PROPERTIES_STIM } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
@@ -47,10 +47,10 @@ const Stim = ({ ItemId }: Props) => {
   if (loading) return <Loading />;
   if (!data || error) return null;
   if (!data.item.properties) return null;
-
+  const properties = data.item.properties;
   return (
     <>
-      {data.item.properties ? (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
             詳細
@@ -65,7 +65,7 @@ const Stim = ({ ItemId }: Props) => {
             </Grid>
             <Grid xs={3}>
               <List>
-                {data.item.properties.cures?.map((cure, idx) => {
+                {properties.cures?.map((cure, idx) => {
                   return <ListItem key={`${cure}_${idx}`}>{cure}</ListItem>;
                 })}
               </List>
@@ -75,7 +75,7 @@ const Stim = ({ ItemId }: Props) => {
             </Grid>
             <Grid xs={3}>
               <List>
-                {data.item.properties.stimEffects.map((stimEffect) => {
+                {properties.stimEffects.map((stimEffect) => {
                   return (
                     <ListItem key={stimEffect?.skillName}>
                       {stimEffect?.skillName}
@@ -87,7 +87,7 @@ const Stim = ({ ItemId }: Props) => {
             <Grid xs={3} color="text.secondary">
               {ITEM_PROPERTIES_STIM.useTime}
             </Grid>
-            <Grid xs={3}>{data.item.properties.useTime}</Grid>
+            <Grid xs={3}>{properties.useTime}</Grid>
           </Grid>
         </>
       ) : (

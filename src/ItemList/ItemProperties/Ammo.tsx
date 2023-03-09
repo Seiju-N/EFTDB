@@ -15,6 +15,12 @@ type Props = {
   ItemId: Scalars["ID"];
 };
 
+type QueryType = {
+  item: {
+    properties: ItemPropertiesAmmo | null;
+  };
+};
+
 const GET_ITEM_PROPERTIES_QUERY = gql`
   query getItemProperties($itemId: ID) {
     item(id: $itemId) {
@@ -43,32 +49,28 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
+const LinearProgressWithLabel = (
+  props: LinearProgressProps & { value: number; maxValue?: number }
+) => {
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ width: "100%", mr: 1 }}>
+        <LinearProgress
+          variant="determinate"
+          value={normalise(props.value, 0, props.maxValue)}
+        />
+      </Box>
+      <Box sx={{ minWidth: 35 }}>
+        <Typography variant="body2" color="text.secondary">{`${Math.round(
+          props.value
+        )}`}</Typography>
+      </Box>
+    </Box>
+  );
+};
+
 const Ammo = ({ ItemId }: Props) => {
   const { ITEM_PROPERTIES_AMMO } = useContext(LanguageDictContext);
-  const LinearProgressWithLabel = (
-    props: LinearProgressProps & { value: number; maxValue?: number }
-  ) => {
-    return (
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Box sx={{ width: "100%", mr: 1 }}>
-          <LinearProgress
-            variant="determinate"
-            value={normalise(props.value, 0, props.maxValue)}
-          />
-        </Box>
-        <Box sx={{ minWidth: 35 }}>
-          <Typography variant="body2" color="text.secondary">{`${Math.round(
-            props.value
-          )}`}</Typography>
-        </Box>
-      </Box>
-    );
-  };
-  type QueryType = {
-    item: {
-      properties: ItemPropertiesAmmo | null;
-    };
-  };
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_QUERY,
     {
@@ -79,13 +81,10 @@ const Ammo = ({ ItemId }: Props) => {
   );
   if (loading) return <Loading />;
   if (!data || error) return null;
-
   const properties = data.item.properties;
   return (
     <>
-      {!properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <Box pb={2}>
           <Typography gutterBottom variant="subtitle1">
             詳細
@@ -240,6 +239,8 @@ const Ammo = ({ ItemId }: Props) => {
             ) : null}
           </Grid>
         </Box>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );
