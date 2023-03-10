@@ -8,7 +8,7 @@ import type { ItemPropertiesAmmo, Scalars } from "@/graphql/generated";
 
 import { convertPercent, CustomSkelton } from "../utils";
 import { Loading } from "./Loading";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 import { normalise } from "@/utils";
 
 type Props = {
@@ -22,8 +22,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesAmmo {
           damage
@@ -69,13 +69,15 @@ const LinearProgressWithLabel = (
   );
 };
 
-const Ammo = ({ ItemId }: Props) => {
+export const Ammo = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_AMMO } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_QUERY,
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -87,7 +89,7 @@ const Ammo = ({ ItemId }: Props) => {
       {properties ? (
         <Box pb={2}>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_AMMO.title}
           </Typography>
           <Grid
             container
@@ -245,5 +247,3 @@ const Ammo = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default Ammo;

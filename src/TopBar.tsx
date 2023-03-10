@@ -1,4 +1,3 @@
-import AdbIcon from "@mui/icons-material/Adb";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Language from "@mui/icons-material/Language";
@@ -105,7 +104,6 @@ export const TopBar = (props: Props) => {
   const LogoMd = () => {
     return (
       <>
-        <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
         <Typography
           variant="h6"
           noWrap
@@ -246,7 +244,6 @@ export const TopBar = (props: Props) => {
               </List>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap

@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesGrenade } from "@/graphql/generated";
 
 type Props = {
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesGrenade {
           contusionRadius
@@ -35,13 +35,15 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Grenade = ({ ItemId }: Props) => {
+export const Grenade = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_GRENADE } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_QUERY,
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -55,7 +57,7 @@ const Grenade = ({ ItemId }: Props) => {
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_GRENADE.title}
           </Typography>
           <Grid container sx={{ minHeight: 80, fontSize: "0.7rem" }}>
             {properties.type ? (
@@ -114,5 +116,3 @@ const Grenade = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default Grenade;

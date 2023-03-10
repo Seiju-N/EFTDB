@@ -1,12 +1,12 @@
 import { List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 
 import { CustomSkelton, translateMaterialName } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesHelmet } from "@/graphql/generated";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesHelmet {
           blindnessProtection
@@ -42,7 +42,8 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Helmet = ({ ItemId }: Props) => {
+export const Helmet = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_HELMET, ARMOR_MATERIAL } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
@@ -50,6 +51,7 @@ const Helmet = ({ ItemId }: Props) => {
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -63,7 +65,7 @@ const Helmet = ({ ItemId }: Props) => {
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_HELMET.title}
           </Typography>
           <Grid container sx={{ minHeight: 80, fontSize: "0.7rem" }}>
             {properties.class ? (
@@ -135,5 +137,3 @@ const Helmet = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default Helmet;

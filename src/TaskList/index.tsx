@@ -42,7 +42,7 @@ import { useHooks } from "./hooks";
 import { useLocation, useParams } from "react-router-dom";
 import { TabPanel } from "@/components/TabPanel";
 
-const TaskList = () => {
+export const TaskList = () => {
   const {
     handleChange,
     handleDialogOpen,
@@ -82,10 +82,12 @@ const TaskList = () => {
 
     const NoInfo = () => {
       return (
-        <Card variant="outlined">
-          <ListItem sx={{ pl: 4 }} divider>
-            <ListItemText>Nothing</ListItemText>
-          </ListItem>
+        <Card sx={{ minHeight: "30vh" }} variant="outlined">
+          <List component="div">
+            <ListItem sx={{ pl: 4 }} divider>
+              <ListItemText>Nothing</ListItemText>
+            </ListItem>
+          </List>
         </Card>
       );
     };
@@ -94,17 +96,19 @@ const TaskList = () => {
       if (!currentTask || !currentTask.objectives) return <NoInfo />;
       const objectives = currentTask.objectives as taskObjectiveType;
       return (
-        <>
-          {objectives.map((data, idx) => (
-            <ListItem sx={{ pl: 4 }} divider key={`${data?.id}_${idx}`}>
-              <ListItemText>
-                {data?.optional ? "(Optional):" : ""}
-                {data?.description}
-                {"count" in data ? `( x ${data?.count} )` : ""}
-              </ListItemText>
-            </ListItem>
-          ))}
-        </>
+        <Card sx={{ minHeight: "30vh" }} variant="outlined">
+          <List component="div">
+            {objectives.map((data, idx) => (
+              <ListItem sx={{ pl: 4 }} key={`${data?.id}_${idx}`}>
+                <ListItemText>
+                  {data?.optional ? "(Optional):" : ""}
+                  {data?.description}
+                  {"count" in data ? `( x ${data?.count} )` : ""}
+                </ListItemText>
+              </ListItem>
+            ))}
+          </List>
+        </Card>
       );
     };
 
@@ -116,13 +120,15 @@ const TaskList = () => {
       )
         return <NoInfo />;
       return (
-        <Card variant="outlined">
-          {currentTask.startRewards.traderStanding.map((data, idx) => (
-            <ListItem
-              sx={{ pl: 4 }}
-              key={`${data?.trader.id}_${idx}`}
-            >{`${data?.trader.name}:${data?.standing}`}</ListItem>
-          ))}
+        <Card sx={{ minHeight: "30vh" }} variant="outlined">
+          <List>
+            {currentTask.startRewards.traderStanding.map((data, idx) => (
+              <ListItem
+                sx={{ pl: 4 }}
+                key={`${data?.trader.id}_${idx}`}
+              >{`${data?.trader.name}:${data?.standing}`}</ListItem>
+            ))}
+          </List>
         </Card>
       );
     };
@@ -130,8 +136,8 @@ const TaskList = () => {
     const FinishRewards = () => {
       if (!currentTask || !currentTask.finishRewards) return null;
       return (
-        <Card variant="outlined">
-          <>
+        <Card sx={{ minHeight: "30vh" }} variant="outlined">
+          <List>
             {currentTask.finishRewards.traderUnlock.map((data, idx) => (
               <ListItem
                 sx={{ pl: 4 }}
@@ -160,7 +166,7 @@ const TaskList = () => {
                 <ListItemText>{`Unlock offer ${data?.item.name} at ${data?.trader.name}.`}</ListItemText>
               </ListItem>
             ))}
-          </>
+          </List>
         </Card>
       );
     };
@@ -170,25 +176,29 @@ const TaskList = () => {
         open={dialogOpen}
         onClose={handleDialogClose}
         fullWidth
-        sx={{ minHeight: "500px" }}
+        sx={{ minHeight: "70vh" }}
+        aria-label="task dialog"
       >
         <DialogTitle>{currentTask?.name}</DialogTitle>
-        <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+        <Box
+          sx={{ width: "100%", bgcolor: "background.paper" }}
+          component="div"
+        >
           <Tabs value={value} onChange={handleChange} centered>
             <Tab label="Task objectives" />
             <Tab label="Task start rewards" />
             <Tab label="Task finish rewards" />
           </Tabs>
-          <TabPanel value={value} index={0}>
-            <TaskObjectives />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <StartRewards />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <FinishRewards />
-          </TabPanel>
         </Box>
+        <TabPanel value={value} index={0}>
+          <TaskObjectives />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <StartRewards />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <FinishRewards />
+        </TabPanel>
       </Dialog>
     );
   };
@@ -288,5 +298,3 @@ const TaskList = () => {
     </>
   );
 };
-
-export default TaskList;

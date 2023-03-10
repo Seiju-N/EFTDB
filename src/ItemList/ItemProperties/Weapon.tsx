@@ -1,11 +1,12 @@
-import { Grid, Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import { Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import React, { useContext } from "react";
 
-import { ITEM_PROPERTIES_WEAPON } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { Item, ItemPropertiesWeapon } from "@/graphql/generated";
+import { ItemPropertiesWeapon } from "@/graphql/generated";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
@@ -13,30 +14,23 @@ type Props = {
 
 type QueryType = {
   item: {
-    properties: ItemPropertiesWeapon;
+    properties: ItemPropertiesWeapon | null;
   };
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesWeapon {
           caliber
           centerOfImpact
-          defaultErgonomics
-          defaultHeight
-          defaultRecoilHorizontal
-          defaultRecoilVertical
-          defaultWeight
-          defaultWidth
           deviationCurve
           deviationMax
           effectiveDistance
           ergonomics
           fireModes
           fireRate
-          maxDurability
           recoilHorizontal
           recoilVertical
           repairCost
@@ -47,59 +41,120 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Weapon = ({ ItemId }: Props) => {
+export const Weapon = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
+  const { ITEM_PROPERTIES_WEAPON } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_QUERY,
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
 
-  if (!data || !data.item || error) return null;
-  if (loading) return <Loading />;
+  if (!data || loading) return <Loading />;
+  if (error) return null;
+  const properties = data.item.properties;
 
-  const DetailGrid = () => {
-    return (
-      <Grid item xs={2}>
-        <Typography>null</Typography>
-      </Grid>
-    );
-  };
   return (
     <>
-      {data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_WEAPON.title}
           </Typography>
           <Grid
             container
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {Object.keys(data.item.properties).map((key, idx) =>
-              data.item.properties[key as keyof ItemPropertiesWeapon] ? (
-                <Fragment key={idx}>
-                  <Grid item xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_WEAPON[
-                        key as keyof typeof ITEM_PROPERTIES_WEAPON
-                      ]
-                    }
-                  </Grid>
-                  <DetailGrid />
-                </Fragment>
-              ) : null
-            )}
+            {properties.caliber ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.caliber}
+                </Grid>
+                <Grid xs={3}>{properties.caliber}</Grid>
+              </>
+            ) : null}
+            {properties.centerOfImpact ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.centerOfImpact}
+                </Grid>
+                <Grid xs={3}>{properties.centerOfImpact}</Grid>
+              </>
+            ) : null}
+            {properties.effectiveDistance ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.effectiveDistance}
+                </Grid>
+                <Grid xs={3}>{`${properties.effectiveDistance} m`}</Grid>
+              </>
+            ) : null}
+            {properties.ergonomics ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.ergonomics}
+                </Grid>
+                <Grid xs={3}>{properties.ergonomics}</Grid>
+              </>
+            ) : null}
+            {properties.fireModes ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.fireModes}
+                </Grid>
+                <Grid xs={3}>{properties.fireModes.join(", ")}</Grid>
+              </>
+            ) : null}
+            {properties.fireRate ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.fireRate}
+                </Grid>
+                <Grid xs={3}>{properties.fireRate}</Grid>
+              </>
+            ) : null}
+            {properties.fireRate ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.fireRate}
+                </Grid>
+                <Grid xs={3}>{properties.fireRate}</Grid>
+              </>
+            ) : null}
+            {properties.recoilHorizontal ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.recoilHorizontal}
+                </Grid>
+                <Grid xs={3}>{properties.recoilHorizontal}</Grid>
+              </>
+            ) : null}
+            {properties.recoilVertical ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.recoilVertical}
+                </Grid>
+                <Grid xs={3}>{properties.recoilVertical}</Grid>
+              </>
+            ) : null}
+            {properties.sightingRange ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_WEAPON.sightingRange}
+                </Grid>
+                <Grid xs={3}>{properties.sightingRange}</Grid>
+              </>
+            ) : null}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );
 };
-
-export default Weapon;

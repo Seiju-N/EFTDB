@@ -208,7 +208,6 @@ const JA_DICT = {
       id: "Glass",
     },
   ],
-
   ITEM_PROPERTIES: {
     name: "アイテム名",
     basePrice: "基準価格",
@@ -219,6 +218,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_AMMO: {
+    title:"詳細",
     damage: "ダメージ",
     armorDamage: "アーマーダメージ",
     caliber: "口径",
@@ -237,6 +237,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_ARMOR: {
+    title:"詳細",
     class: "アーマークラス",
     durability: "耐久",
     ergoPenalty: "エルゴペナルティ",
@@ -247,6 +248,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_ARMOR_ATTACHMENT: {
+    title:"詳細",
     blindnessProtection: "フラッシュ耐性",
     class: "アーマークラス",
     durability: "耐久",
@@ -259,11 +261,13 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_BACKPACK: {
+    title:"詳細",
     capacity: "容量",
     grid: "構造",
   },
 
   ITEM_PROPERTIES_BARREL: {
+    title:"詳細",
     centerOfImpact: "集弾姓",
     deviationCurve: "deviationCurve",
     deviationMax: "deviationMax",
@@ -272,6 +276,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_CHEST_RIG: {
+    title:"詳細",
     capacity: "容量",
     class: "アーマークラス",
     durability: "耐久",
@@ -283,11 +288,14 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_CONTAINER: {
+    title:"詳細",
     capacity: "容量",
     grid: "構造",
   },
 
   ITEM_PROPERTIES_FOOD_DRINK: {
+    title:"詳細",
+    stimEffects:"効果",
     energy: "エネルギー",
     hydration: "水分",
     units: "units",
@@ -300,6 +308,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_GLASSES: {
+    title:"詳細",
     blindnessProtection: "フラッシュ耐性",
     class: "アーマークラス",
     durability: "耐久",
@@ -308,6 +317,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_GRENADE: {
+    title:"詳細",
     contusionRadius: "ダメージ半径",
     fragments: "破片",
     fuse: "遅延",
@@ -317,6 +327,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_HELMET: {
+    title:"詳細",
     blindnessProtection: "フラッシュ耐性",
     blocksHeadset: "ヘッドセット",
     class: "アーマークラス",
@@ -335,10 +346,12 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_KEY: {
+    title:"詳細",
     uses: "使用可能回数",
   },
 
   ITEM_PROPERTIES_MAGAZINE: {
+    title:"詳細",
     allowedAmmo: "使用可能弾薬",
     ammoCheckModifier: "チェック速度",
     capacity: "容量",
@@ -350,6 +363,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_MEDKIT: {
+    title:"詳細",
     cures: "治療種類",
     hitpoints: "HP",
     hpCostHeavyBleeding: "止血コスト(重度)",
@@ -359,18 +373,21 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_MEDICAL_ITEM: {
+    title:"詳細",
     cures: "治療種類",
     useTime: "使用時間",
     uses: "使用可能回数",
   },
 
   ITEM_PROPERTIES_MELEE: {
+    title:"詳細",
     hitRadius: "攻撃可能半径",
     slashDamage: "斬撃ダメージ",
     stabDamage: "刺突ダメージ",
   },
 
   ITEM_PROPERTIES_NIGHT_VISION: {
+    title:"詳細",
     diffuseIntensity: "diffuseIntensity",
     intensity: "intensity",
     noiseIntensity: "noiseIntensity",
@@ -378,6 +395,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_PAINKILLER: {
+    title:"詳細",
     cures: "治療種類",
     energyImpact: "エネルギー消費",
     hydrationImpact: "水分消費",
@@ -387,6 +405,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_PRESET: {
+    title:"詳細",
     baseItem: "ベースアイテム",
     ergonomics: "エルゴノミクス",
     moa: "MOA",
@@ -395,6 +414,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_SCOPE: {
+    title:"詳細",
     ergonomics: "エルゴノミクス",
     recoilModifier: "リコイル",
     sightModes: "照準モード",
@@ -404,12 +424,14 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_STIM: {
+    title:"詳細",
     cures: "治療種類",
     stimEffects: "使用効果",
     useTime: "使用時間",
   },
 
   ITEM_PROPERTIES_SURGICAL_KIT: {
+    title:"詳細",
     cures: "治療種類",
     maxLimbHealth: "部位最大HP",
     minLimbHealth: "部位最小HP",
@@ -418,6 +440,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_WEAPON: {
+    title:"詳細",
     allowedAmmo: "使用可能弾薬",
     caliber: "口径",
     centerOfImpact: "集弾姓",
@@ -445,6 +468,7 @@ const JA_DICT = {
   },
 
   ITEM_PROPERTIES_WEAPON_MOD: {
+    title:"詳細",
     accuracyModifier: "精度",
     ergonomics: "エルゴノミクス",
     recoilModifier: "リコイル",

@@ -1,9 +1,10 @@
+import { LanguageContext, LanguageDictContext } from "@/App";
+import { ItemPropertiesScope } from "@/graphql/generated";
 import { gql, useQuery } from "@apollo/client";
-import { Typography } from "@mui/material";
+import { Box, List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 
-import { ITEM_PROPERTIES_SCOPE } from "../../constants/LANG_VALUES";
 import { convertPercent, CustomSkelton } from "../utils";
 import { Loading } from "./Loading";
 
@@ -11,16 +12,21 @@ type Props = {
   ItemId: string;
 };
 
+type QueryType = {
+  item: {
+    properties: ItemPropertiesScope | null;
+  };
+};
+
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesScope {
           ergonomics
           recoilModifier
           sightModes
           sightingRange
-          slots
           zoomLevels
         }
       }
@@ -28,71 +34,98 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Scope = ({ ItemId }: Props) => {
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
-
-  if (error) return null;
-  if (loading) return <Loading />;
-
-  type detailGridType = {
-    keyword: string;
-  };
-
-  const DetailGrid = ({ keyword }: detailGridType) => {
-    if (keyword.includes("Modifier")) {
-      return (
-        <Grid xs={2}>
-          {convertPercent(
-            data.item.properties[keyword as keyof typeof data.item.properties]
-          )}
-        </Grid>
-      );
-    } else {
-      return (
-        <Grid xs={2}>
-          {data.item.properties[keyword as keyof typeof data.item.properties]}
-        </Grid>
-      );
+export const Scope = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
+  const { ITEM_PROPERTIES_SCOPE } = useContext(LanguageDictContext);
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+        lang,
+      },
     }
-  };
+  );
+
+  if (loading) return <Loading />;
+  if (!data || error) return null;
+  const properties = data.item.properties;
 
   return (
     <>
-      {!data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_SCOPE.title}
           </Typography>
           <Grid
             container
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {Object.keys(ITEM_PROPERTIES_SCOPE).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] ? (
-                <Fragment key={idx}>
-                  <Grid xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_SCOPE[
-                        key as keyof typeof ITEM_PROPERTIES_SCOPE
-                      ]
-                    }
-                  </Grid>
-                  <DetailGrid keyword={key} />
-                </Fragment>
-              ) : null
-            )}
+            {properties.ergonomics ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_SCOPE.ergonomics}
+                </Grid>
+                <Grid xs={3}>{properties.ergonomics}</Grid>
+              </>
+            ) : null}
+            {properties.recoilModifier ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_SCOPE.recoilModifier}
+                </Grid>
+                <Grid xs={3}>{convertPercent(properties.recoilModifier)}</Grid>
+              </>
+            ) : null}
+            {properties.sightingRange ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_SCOPE.sightingRange}
+                </Grid>
+                <Grid xs={3}>{`${properties.sightingRange} m`}</Grid>
+              </>
+            ) : null}
+            {properties.sightModes?.length !== 0 ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_SCOPE.sightModes}
+                </Grid>
+                <Grid xs={3} display={"flex"}>
+                  {properties.sightModes?.map((sightMode) => (
+                    <Box pr={2} key={sightMode}>{`x${sightMode}`}</Box>
+                  ))}
+                </Grid>
+              </>
+            ) : null}
+            {properties.zoomLevels?.length !== 0 ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_SCOPE.zoomLevels}
+                </Grid>
+                <Grid xs={3}>
+                  <List disablePadding>
+                    {properties.zoomLevels?.map((zoomLevels, idx) => (
+                      <ListItem
+                        disableGutters
+                        disablePadding
+                        key={`${zoomLevels}_${idx}`}
+                      >
+                        {zoomLevels
+                          ?.map((zoomLevel) => `x${zoomLevel}`)
+                          .join(", ")}
+                      </ListItem>
+                    ))}
+                  </List>
+                </Grid>
+              </>
+            ) : null}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );
 };
-
-export default Scope;

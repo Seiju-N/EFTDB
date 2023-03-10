@@ -27,23 +27,11 @@ export type dictType = {
   ITEM_PROPERTIES: {
     [key: string]: string;
   },
-  ITEM_PROPERTIES_AMMO: {
-    [key: string]: string;
-  },
-  ITEM_PROPERTIES_ARMOR: {
-    [key: string]: string;
-  },
-  ITEM_PROPERTIES_ARMOR_ATTACHMENT: {
-    [key: string]: string;
-  },
+  ITEM_PROPERTIES_AMMO:Record<string, string>,
+  ITEM_PROPERTIES_ARMOR: Record<string, string>,
+  ITEM_PROPERTIES_ARMOR_ATTACHMENT: Record<string, string>,
   ITEM_PROPERTIES_BACKPACK:Record<string, string>,
-  ITEM_PROPERTIES_BARREL: {
-    centerOfImpact: string;
-    deviationCurve: string;
-    deviationMax: string;
-    ergonomics: string;
-    recoilModifier: string;
-  },
+  ITEM_PROPERTIES_BARREL: Record<string, string>,
   ITEM_PROPERTIES_CHEST_RIG: Record<string, string>,
   ITEM_PROPERTIES_CONTAINER:Record<string, string>,
   ITEM_PROPERTIES_FOOD_DRINK: Record<string, string>,

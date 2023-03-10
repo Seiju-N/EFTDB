@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 
 import { convertPercent, CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesBarrel } from "@/graphql/generated";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesBarrel {
           centerOfImpact
@@ -34,13 +34,15 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Barrel = ({ ItemId }: Props) => {
+export const Barrel = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_BARREL } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_QUERY,
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -54,7 +56,7 @@ const Barrel = ({ ItemId }: Props) => {
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_BARREL.title}
           </Typography>
           <Grid
             container
@@ -109,5 +111,3 @@ const Barrel = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default Barrel;

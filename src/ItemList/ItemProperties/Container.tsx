@@ -6,7 +6,7 @@ import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesContainer } from "@/graphql/generated";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesContainer {
           capacity
@@ -48,13 +48,15 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Container = ({ ItemId }: Props) => {
+export const Container = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_CONTAINER } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_QUERY,
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -68,7 +70,7 @@ const Container = ({ ItemId }: Props) => {
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_CONTAINER.title}
           </Typography>
           <Grid
             container
@@ -91,5 +93,3 @@ const Container = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default Container;

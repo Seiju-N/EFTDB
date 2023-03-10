@@ -1,4 +1,4 @@
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesArmorAttachment } from "@/graphql/generated";
 import { gql, useQuery } from "@apollo/client";
 import { Typography } from "@mui/material";
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesArmorAttachment {
           blindnessProtection
@@ -40,7 +40,8 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const ArmorAttachment = ({ ItemId }: Props) => {
+export const ArmorAttachment = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_ARMOR_ATTACHMENT, ARMOR_MATERIAL } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
@@ -48,6 +49,7 @@ const ArmorAttachment = ({ ItemId }: Props) => {
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -60,7 +62,7 @@ const ArmorAttachment = ({ ItemId }: Props) => {
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_ARMOR_ATTACHMENT.title}
           </Typography>
           <Grid
             container
@@ -144,5 +146,3 @@ const ArmorAttachment = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default ArmorAttachment;

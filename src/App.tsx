@@ -8,18 +8,18 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import { jaJP } from "@mui/material/locale";
 import { createContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import EN_DICT from "./constants/languages/en";
 import JA_DICT from "./constants/languages/ja";
 import type { dictType } from "./constants/languages/types";
+import { Footer } from "./Footer";
 import type { ItemCategory, Maybe, Query, Trader } from "./graphql/generated";
 import { LanguageCode } from "./graphql/generated";
 import { Home } from "./Home";
-import ItemList from "./ItemList";
-import TaskList from "./TaskList";
+import { ItemList } from "./ItemList";
+import { TaskList } from "./TaskList";
 import { TopBar } from "./TopBar";
 
 const darkTheme = createTheme({
@@ -132,6 +132,7 @@ const App = () => {
                 <Route path="/item/" element={<ItemList />} />
                 <Route path="/item/:categoryName" element={<ItemList />} />
               </Routes>
+              <Footer />
             </TradersContext.Provider>
           </LanguageDictContext.Provider>
         </LanguageContext.Provider>
