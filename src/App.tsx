@@ -40,7 +40,7 @@ const darkTheme = createTheme({
 
 export const TradersContext = createContext<readonly Maybe<Trader>[]>([]);
 export const LanguageDictContext = createContext<dictType>(EN_DICT);
-export const LanguageContext = createContext<string>("");
+export const LanguageContext = createContext<LanguageCode | string>("en");
 export const CategoryContext = createContext<readonly Maybe<ItemCategory>[]>(
   []
 );
@@ -71,7 +71,7 @@ const ITEM_CATEGORIES = gql`
 `;
 
 const App = () => {
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState<LanguageCode | string>("en");
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const {
     loading: tradersIsLoading,
@@ -99,6 +99,7 @@ const App = () => {
         break;
       default:
         setLanguageDict(EN_DICT);
+        setLanguage("en");
         break;
     }
   }, [language]);

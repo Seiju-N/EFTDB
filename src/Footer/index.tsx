@@ -13,6 +13,7 @@ export const Footer = () => {
         backgroundColor: "#1a1a1a",
         color: "#ffffff",
         fontSize: 12,
+        mt: 2,
       }}
     >
       <Box>{"© 2023 EFTDB. All rights reserved."}</Box>

@@ -5,7 +5,7 @@ import { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-dat
 import { Task, TaskRewards } from "@/graphql/generated";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { gql, useQuery } from "@apollo/client";
-import { LanguageContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -15,17 +15,18 @@ export const useHooks = () => {
     items: [],
   });
   const lang = useContext(LanguageContext);
+  const langDict = useContext(LanguageDictContext);
 
   const cols: GridColDef[] = [
     {
       field: "name",
-      headerName: "名",
+      headerName: langDict.TASK_COLUMN.Name,
       minWidth: 160,
       flex: 1,
     },
     {
       field: "map",
-      headerName: "マップ",
+      headerName: langDict.TASK_COLUMN.Map,
       minWidth: 120,
       flex: 0.6,
       valueGetter: ({ value }) => {
@@ -34,13 +35,13 @@ export const useHooks = () => {
     },
     {
       field: "experience",
-      headerName: "経験値",
+      headerName: langDict.TASK_COLUMN.Experience,
       minWidth: 120,
       flex: 0.4,
     },
     {
       field: "trader",
-      headerName: "trader name",
+      headerName: langDict.TASK_COLUMN.TraderName,
       minWidth: 160,
       flex: 1,
       type: "string",
@@ -50,14 +51,14 @@ export const useHooks = () => {
     },
     {
       field: "kappaRequired",
-      headerName: "Kappa",
+      headerName: langDict.TASK_COLUMN.KappaRequired,
       minWidth: 40,
       flex: 0.3,
       type: "boolean",
     },
     {
       field: "lightkeeperRequired",
-      headerName: "Lightkeeper",
+      headerName: langDict.TASK_COLUMN.LightkeeperRequired,
       minWidth: 40,
       flex: 0.3,
       type: "boolean",
@@ -68,11 +69,11 @@ export const useHooks = () => {
   const handleDialogOpen = useCallback((value: Task) => {
     setCurrentTask(value);
     setDialogOpen(true);
-  },[])
+  }, [])
 
   const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
-  },[]);
+  }, []);
 
   const defaultSort: GridSortingInitialState = {
     sortModel: [{ field: "name", sort: "asc" }],
@@ -94,7 +95,7 @@ export const useHooks = () => {
     const value: string = event.target.value as string;
     setFilter(value);
     setTaskFilter(convertObject(value));
-  },[]);
+  }, []);
 
   const GET_TASKS = gql`
     query GetTasks($lang: LanguageCode) {

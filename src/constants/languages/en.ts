@@ -17,34 +17,43 @@ const EN_DICT = {
       "Inventory operations": "Inventory",
       "Global": "Global",
     },
-    subtitle:{
-      "subtitle1":"EFTDB provides the following features.",
-      "simple":{
-        "primary":"Simplicity",
-        "secondary":"No extra information."
+    subtitle: {
+      "subtitle1": "EFTDB provides the following features.",
+      "simple": {
+        "primary": "Simplicity",
+        "secondary": "No extra information."
       },
-      "accurate":{
-        "primary":"Accuracy",
-        "secondary":"Accurate information."
+      "accurate": {
+        "primary": "Accuracy",
+        "secondary": "Accurate information."
       },
-      "fast":{
-        "primary":"Speed",
-        "secondary":"Fresh information."
+      "fast": {
+        "primary": "Speed",
+        "secondary": "Fresh information."
       }
     }
   },
 
-  ITEM_DETAIL_DIALOG:{
-    SIZE: "Size",
-    NO_DETAIL: "No detail info.",
-    WIDTH:"width",
-    HEIGHT:"height"
+  TASK_COLUMN: {
+    Name: "Task name",
+    Experience: "Experience",
+    Map: "Map",
+    TraderName: "Trader name",
+    KappaRequired: "kappaRequired",
+    LightkeeperRequired: "lightkeeperRequired",
   },
 
-  MENU_SENTENCE:{
-    task:"Tasks",
-    item:"Items",
-    taskMarker:"Task markers",
+  ITEM_DETAIL_DIALOG: {
+    SIZE: "Size",
+    NO_DETAIL: "No detail info.",
+    WIDTH: "width",
+    HEIGHT: "height"
+  },
+
+  MENU_SENTENCE: {
+    task: "Tasks",
+    item: "Items",
+    taskMarker: "Task markers",
   },
   ARMOR_MATERIAL: [
     {
@@ -91,7 +100,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_AMMO: {
-    title:"Detail Information",
+    title: "Detail Information",
     damage: "Damage",
     armorDamage: "Armor damage",
     fragmentationChance: "Fragmentation chance",
@@ -108,7 +117,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_ARMOR: {
-    title:"Detail Information",
+    title: "Detail Information",
     class: "Armor class",
     durability: "Durability",
     ergoPenalty: "Ergonomics penalty",
@@ -119,7 +128,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_ARMOR_ATTACHMENT: {
-    title:"Detail Information",
+    title: "Detail Information",
     blindnessProtection: "Flash protection",
     class: "Armor class",
     durability: "Durability",
@@ -132,13 +141,13 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_BACKPACK: {
-    title:"Detail Information",
+    title: "Detail Information",
     capacity: "Capacity",
     grid: "Grid",
   },
 
   ITEM_PROPERTIES_BARREL: {
-    title:"Detail Information",
+    title: "Detail Information",
     centerOfImpact: "Center of impact",
     deviationCurve: "Deviation curve",
     deviationMax: "Max deviation",
@@ -147,7 +156,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_CHEST_RIG: {
-    title:"Detail Information",
+    title: "Detail Information",
     capacity: "Capacity",
     class: "Armor class",
     durability: "Durability",
@@ -159,21 +168,21 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_CONTAINER: {
-    title:"Detail Information",
+    title: "Detail Information",
     capacity: "Capacity",
     grid: "Grid",
   },
 
   ITEM_PROPERTIES_FOOD_DRINK: {
-    title:"Detail Information",
-    stimEffects:"Stim effects",
+    title: "Detail Information",
+    stimEffects: "Stim effects",
     energy: "Energy",
     hydration: "Hydration",
     units: "Units",
   },
 
   ITEM_PROPERTIES_GLASSES: {
-    title:"Detail Information",
+    title: "Detail Information",
     blindnessProtection: "Flash protection",
     class: "Armor class",
     durability: "Durability",
@@ -182,7 +191,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_GRENADE: {
-    title:"Detail Information",
+    title: "Detail Information",
     contusionRadius: "Damage radius",
     fragments: "Fragments",
     fuse: "Fuse",
@@ -192,7 +201,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_HELMET: {
-    title:"Detail Information",
+    title: "Detail Information",
     blindnessProtection: "Flash protection",
     blocksHeadset: "Blocks headset",
     class: "Armor class",
@@ -211,12 +220,12 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_KEY: {
-    title:"Detail Information",
+    title: "Detail Information",
     uses: "Uses",
   },
 
   ITEM_PROPERTIES_MAGAZINE: {
-    title:"Detail Information",
+    title: "Detail Information",
     allowedAmmo: "Allowed ammo",
     ammoCheckModifier: "Check speed",
     capacity: "Capacity",
@@ -228,7 +237,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_MEDKIT: {
-    title:"Detail Information",
+    title: "Detail Information",
     cures: "Cures",
     hitpoints: "HP",
     hpCostHeavyBleeding: "Heavy bleeding cost",
@@ -238,21 +247,21 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_MEDICAL_ITEM: {
-    title:"Detail Information",
+    title: "Detail Information",
     cures: "Cures",
     useTime: "Use time",
     uses: "Uses",
   },
 
   ITEM_PROPERTIES_MELEE: {
-    title:"Detail Information",
+    title: "Detail Information",
     hitRadius: "Attack radius",
     slashDamage: "Slash damage",
     stabDamage: "Stab damage",
   },
 
   ITEM_PROPERTIES_NIGHT_VISION: {
-    title:"Detail Information",
+    title: "Detail Information",
     diffuseIntensity: "Diffuse intensity",
     intensity: "Intensity",
     noiseIntensity: "Noise intensity",
@@ -260,7 +269,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_PAINKILLER: {
-    title:"Detail Information",
+    title: "Detail Information",
     cures: "Cures",
     energyImpact: "Energy impact",
     hydrationImpact: "Hydration impact",
@@ -270,7 +279,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_PRESET: {
-    title:"Detail Information",
+    title: "Detail Information",
     baseItem: "Base item",
     ergonomics: "Ergonomics",
     moa: "MOA",
@@ -279,7 +288,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_SCOPE: {
-    title:"Detail Information",
+    title: "Detail Information",
     ergonomics: "Ergonomics",
     recoilModifier: "Recoil",
     sightModes: "Sight modes",
@@ -289,14 +298,14 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_STIM: {
-    title:"Detail Information",
+    title: "Detail Information",
     cures: "Cures",
     stimEffects: "Stim effects",
     useTime: "Use time",
   },
 
   ITEM_PROPERTIES_SURGICAL_KIT: {
-    title:"Detail Information",
+    title: "Detail Information",
     cures: "Cures",
     maxLimbHealth: "Max limb health",
     minLimbHealth: "Min limb health",
@@ -305,7 +314,7 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_WEAPON: {
-    title:"Detail Information",
+    title: "Detail Information",
     allowedAmmo: "Allowed Ammo",
     caliber: "Caliber",
     centerOfImpact: "Center of Impact",
@@ -333,38 +342,38 @@ const EN_DICT = {
   },
 
   ITEM_PROPERTIES_WEAPON_MOD: {
-    title:"Detail Information",
+    title: "Detail Information",
     accuracyModifier: "Accuracy Modifier",
     ergonomics: "Ergonomics",
     recoilModifier: "Recoil Modifier",
   },
-  ITEM_TYPE : {
-    Ammo : 'Ammo',
-    AmmoBox : 'AmmoBox',
-    Any : 'Any',
-    Armor : 'Armor',
-    Backpack : 'Backpack',
-    Barter : 'Barter',
-    Container : 'Container',
-    Glasses : 'Glasses',
-    Grenade : 'Grenade',
-    Gun : 'Gun',
-    Headphones : 'Headphones',
-    Helmet : 'Helmet',
-    Injectors : 'Injectors',
-    Keys : 'Keys',
-    MarkedOnly : 'MarkedOnly',
-    Meds : 'Meds',
-    Mods : 'Mods',
-    NoFlea : 'NoFlea',
-    PistolGrip : 'PistolGrip',
-    Preset : 'Preset',
-    Provisions : 'Provisions',
-    Rig : 'Rig',
-    Suppressor : 'Suppressor',
-    Wearable : 'Wearable'
+  ITEM_TYPE: {
+    Ammo: 'Ammo',
+    AmmoBox: 'AmmoBox',
+    Any: 'Any',
+    Armor: 'Armor',
+    Backpack: 'Backpack',
+    Barter: 'Barter',
+    Container: 'Container',
+    Glasses: 'Glasses',
+    Grenade: 'Grenade',
+    Gun: 'Gun',
+    Headphones: 'Headphones',
+    Helmet: 'Helmet',
+    Injectors: 'Injectors',
+    Keys: 'Keys',
+    MarkedOnly: 'MarkedOnly',
+    Meds: 'Meds',
+    Mods: 'Mods',
+    NoFlea: 'NoFlea',
+    PistolGrip: 'PistolGrip',
+    Preset: 'Preset',
+    Provisions: 'Provisions',
+    Rig: 'Rig',
+    Suppressor: 'Suppressor',
+    Wearable: 'Wearable'
   },
-  
+
   ITEM_CATEGORY_NAME: {
     Ammo: 'Ammo',
     AmmoContainer: 'Ammo Container',
