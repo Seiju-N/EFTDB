@@ -29,7 +29,6 @@ export const useHooks = () => {
     categoryName: string;
   };
   const FlatCategory = ({ categoryName }: nestedCategoryProps) => {
-    console.log(categories);
     const parsedCategory: Maybe<ItemCategory> | undefined = categories.find(
       (category) => category?.name === categoryName
     );
@@ -125,7 +124,6 @@ export const useHooks = () => {
       const filterByParentCategory = categories.filter(
         (category_child) => category_child?.parent?.name === category?.name
       );
-      console.log(filterByParentCategory.length);
       return (
         <>
           {filterByParentCategory.length === 0 ? (

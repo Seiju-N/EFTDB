@@ -67,7 +67,6 @@ const Weapon = ({ ItemId }: Props) => {
       </Grid>
     );
   };
-  console.log(data);
   return (
     <>
       {data.item.properties ? (

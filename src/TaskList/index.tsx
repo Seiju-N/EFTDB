@@ -7,15 +7,12 @@ import {
   CircularProgress,
   Container,
   Dialog,
-  DialogContent,
   DialogTitle,
   FormControl,
   Icon,
   InputLabel,
-  List,
   ListItem,
   ListItemText,
-  ListSubheader,
   MenuItem,
   Select,
   Tab,
@@ -93,7 +90,6 @@ const TaskList = () => {
       );
     };
 
-    // const Requirements =
     const TaskObjectives = () => {
       if (!currentTask || !currentTask.objectives) return <NoInfo />;
       const objectives = currentTask.objectives as taskObjectiveType;
@@ -199,7 +195,7 @@ const TaskList = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (!location.state || !location.state.taskId || !taskData) return;
+    if (!location.state || !location.state.taskId || !taskData.tasks) return;
     const temp = taskData.tasks.find(
       (task: Task) => task.id === location.state.taskId
     );
@@ -208,7 +204,7 @@ const TaskList = () => {
     window.history.replaceState({}, document.title);
   }, [location, taskData]);
 
-  if (loading) {
+  if (!taskData || loading) {
     return (
       <Box
         sx={{
