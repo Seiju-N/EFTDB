@@ -1,12 +1,12 @@
-import { List, ListItem, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 
-import { CustomSkelton } from "../utils";
+import { convertPercent, CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesStim } from "@/graphql/generated";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesStim {
           cures
@@ -34,60 +34,66 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Stim = ({ ItemId }: Props) => {
+export const Stim = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_STIM } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_QUERY,
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
-  if (loading) return <Loading />;
-  if (!data || error) return null;
-  if (!data.item.properties) return null;
+  if (!data || loading) return <Loading />;
+  if (error) return null;
   const properties = data.item.properties;
   return (
     <>
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_STIM.title}
           </Typography>
           <Grid
             container
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            <Grid xs={3} color="text.secondary">
-              {ITEM_PROPERTIES_STIM.cures}
-            </Grid>
-            <Grid xs={3}>
-              <List>
-                {properties.cures?.map((cure, idx) => {
-                  return <ListItem key={`${cure}_${idx}`}>{cure}</ListItem>;
-                })}
-              </List>
-            </Grid>
-            <Grid xs={3} color="text.secondary">
-              {ITEM_PROPERTIES_STIM.stimEffects}
-            </Grid>
-            <Grid xs={3}>
-              <List>
-                {properties.stimEffects.map((stimEffect) => {
-                  return (
-                    <ListItem key={stimEffect?.skillName}>
-                      {stimEffect?.skillName}
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Grid>
-            <Grid xs={3} color="text.secondary">
-              {ITEM_PROPERTIES_STIM.useTime}
-            </Grid>
-            <Grid xs={3}>{properties.useTime}</Grid>
+            {properties.cures ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_STIM.cures}
+                </Grid>
+                <Grid xs={3}>{properties.cures.join(", ")}</Grid>
+              </>
+            ) : null}
+            {properties.stimEffects.length !== 0 ? (
+              <>
+                <Grid xs={12}>
+                  <Typography>{ITEM_PROPERTIES_STIM.stimEffects}</Typography>
+                </Grid>
+                {properties.stimEffects.map((effect) => (
+                  <Fragment key={effect?.skillName}>
+                    <Grid xs={3} color="text.secondary">
+                      {effect?.skillName ? effect?.skillName : effect?.type}
+                    </Grid>
+                    <Grid xs={3}>{`${convertPercent(effect?.chance)}  ${
+                      effect?.duration
+                    }sec`}</Grid>
+                  </Fragment>
+                ))}
+              </>
+            ) : null}
+            {properties.useTime ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_STIM.useTime}
+                </Grid>
+                <Grid xs={3}>{`${properties.useTime} sec`}</Grid>
+              </>
+            ) : null}
           </Grid>
         </>
       ) : (
@@ -96,5 +102,3 @@ const Stim = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default Stim;

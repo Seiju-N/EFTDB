@@ -196,6 +196,17 @@ export const useHooks = () => {
             optional
             playerLevel
           }
+          ... on TaskObjectiveQuestItem {
+            count
+            description
+            maps {
+              name
+            }
+            optional
+            questItem {
+              name
+            }
+          }
           ... on TaskObjectiveShoot {
             count
             description

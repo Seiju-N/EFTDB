@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
@@ -6,7 +6,7 @@ import { convertPercent, CustomSkelton, translateMaterialName } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesChestRig } from "@/graphql/generated";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesChestRig {
           capacity
@@ -40,7 +40,8 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const ChestRig = ({ ItemId }: Props) => {
+export const ChestRig = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_CHEST_RIG, ARMOR_MATERIAL } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
@@ -48,6 +49,7 @@ const ChestRig = ({ ItemId }: Props) => {
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -60,7 +62,7 @@ const ChestRig = ({ ItemId }: Props) => {
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_CHEST_RIG.title}
           </Typography>
           <Grid
             container
@@ -73,6 +75,22 @@ const ChestRig = ({ ItemId }: Props) => {
                   {ITEM_PROPERTIES_CHEST_RIG.capacity}
                 </Grid>
                 <Grid xs={3}>{properties.class}</Grid>
+              </>
+            ) : null}
+            {properties.zones ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_CHEST_RIG.zones}
+                </Grid>
+                <Grid xs={3}>
+                  <List disablePadding>
+                    {properties.zones.map((zone) => (
+                      <ListItem disableGutters disablePadding key={zone}>
+                        {zone}
+                      </ListItem>
+                    ))}
+                  </List>
+                </Grid>
               </>
             ) : null}
             {properties.durability ? (
@@ -136,5 +154,3 @@ const ChestRig = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default ChestRig;

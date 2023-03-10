@@ -1,34 +1,34 @@
-import Ammo from "./Ammo";
-import Armor from "./Armor";
-import ArmorAttachment from "./ArmorAttachment";
-import Backpack from "./Backpack";
-import Barrel from "./Barrel";
-import ChestRig from "./ChestRig";
-import Container from "./Container";
-import FoodDrink from "./FoodDrink";
-import Glasses from "./Glasses";
-import Grenade from "./Grenade";
-import Helmet from "./Helmet";
-import Key from "./Key";
-import Magazine from "./Magazine";
-import MedicalItem from "./MedicalItem";
-import MedKit from "./MedKit";
-import Melee from "./Melee";
-import NightVision from "./NightVision";
-import Painkiller from "./Painkiller";
-import Preset from "./Preset";
-import Scope from "./Scope";
-import Stim from "./Stim";
-import SurgicalKit from "./SurgicalKit";
-import Weapon from "./Weapon";
-import WeaponMod from "./WeaponMod";
+import { Ammo } from "./Ammo";
+import { Armor } from "./Armor";
+import { ArmorAttachment } from "./ArmorAttachment";
+import { Backpack } from "./Backpack";
+import { Barrel } from "./Barrel";
+import { ChestRig } from "./ChestRig";
+import { Container } from "./Container";
+import { FoodDrink } from "./FoodDrink";
+import { Glasses } from "./Glasses";
+import { Grenade } from "./Grenade";
+import { Helmet } from "./Helmet";
+import { Key } from "./Key";
+import { Magazine } from "./Magazine";
+import { MedicalItem } from "./MedicalItem";
+import { MedKit } from "./MedKit";
+import { Melee } from "./Melee";
+import { NightVision } from "./NightVision";
+import { Painkiller } from "./Painkiller";
+import { Preset } from "./Preset";
+import { Scope } from "./Scope";
+import { Stim } from "./Stim";
+import { SurgicalKit } from "./SurgicalKit";
+import { Weapon } from "./Weapon";
+import { WeaponMod } from "./WeaponMod";
 
 type Props = {
   typeName: string;
   ItemId: string;
 };
 
-const ItemDetail = ({ typeName, ItemId }: Props) => {
+export const ItemProperties = ({ typeName, ItemId }: Props) => {
   switch (typeName) {
     case "ItemPropertiesAmmo":
       return <Ammo ItemId={ItemId} />;
@@ -82,5 +82,3 @@ const ItemDetail = ({ typeName, ItemId }: Props) => {
       return <></>;
   }
 };
-
-export default ItemDetail;

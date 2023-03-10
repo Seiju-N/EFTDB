@@ -24,17 +24,17 @@ import {
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { DataGrid } from "@mui/x-data-grid";
-import React, { memo, useCallback } from "react";
+import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
+import React, { memo, useCallback, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import { useHooks } from "./hooks";
-import ItemProperties from "./ItemProperties";
-import { ITEM_PROPERTIES } from "../constants/LANG_VALUES";
+import { ItemProperties } from "./ItemProperties";
 import type { Maybe } from "../graphql/generated";
 import { CALIBERS } from "@/constants/CALIBER";
+import { LanguageDictContext } from "@/App";
 
-const ItemList = () => {
+export const ItemList = () => {
   const {
     langDict,
     localeText,
@@ -89,7 +89,9 @@ const ItemList = () => {
               </Select>
             </FormControl>
           </>
-        ) : null}
+        ) : (
+          <GridToolbarQuickFilter />
+        )}
       </Box>
     );
   };
@@ -113,6 +115,7 @@ const ItemList = () => {
     );
 
   const DetailDialog = () => {
+    const { ITEM_PROPERTIES } = useContext(LanguageDictContext);
     const verticalCenter = { display: "flex", justifyContent: "center" };
     const flexCenter = { display: "flex", alignItems: "center" };
 
@@ -132,6 +135,34 @@ const ItemList = () => {
             <IconButton onClick={() => handleClick(currentItem.wikiLink)}>
               <LanguageIcon />
             </IconButton>
+          </Grid>
+        </Grid>
+      );
+    });
+
+    const BasePrice = memo(() => {
+      return (
+        <Grid container spacing={2}>
+          <Grid xs={6} sx={flexCenter}>
+            <Tooltip title="Base price">
+              <CurrencyRuble style={{ height: "auto", paddingRight: 4 }} />
+            </Tooltip>
+            <Typography
+              variant="subtitle2"
+              color="text.secondary"
+              component="div"
+            >
+              {ITEM_PROPERTIES.basePrice}
+            </Typography>
+          </Grid>
+          <Grid xs={6}>
+            <Typography
+              variant="subtitle1"
+              color="text.primary"
+              component="div"
+            >
+              {`₽ ${currentItem.basePrice}`}
+            </Typography>
           </Grid>
         </Grid>
       );
@@ -177,31 +208,7 @@ const ItemList = () => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid container spacing={2}>
-                  <Grid xs={6} sx={flexCenter}>
-                    <Tooltip title="Base price">
-                      <CurrencyRuble
-                        style={{ height: "auto", paddingRight: 4 }}
-                      />
-                    </Tooltip>
-                    <Typography
-                      variant="subtitle2"
-                      color="text.secondary"
-                      component="div"
-                    >
-                      {ITEM_PROPERTIES.basePrice}
-                    </Typography>
-                  </Grid>
-                  <Grid xs={6}>
-                    <Typography
-                      variant="subtitle1"
-                      color="text.primary"
-                      component="div"
-                    >
-                      {`₽ ${currentItem.basePrice}`}
-                    </Typography>
-                  </Grid>
-                </Grid>
+                <BasePrice />
                 {currentItem.avg24hPrice ? (
                   <Grid container spacing={2}>
                     <Grid xs={6} sx={flexCenter}>
@@ -326,7 +333,9 @@ const ItemList = () => {
             },
           }}
           onCellClick={(event) => handleDialogOpen(event.row)}
-          filterModel={ammoTypeFilter}
+          filterModel={
+            param.categoryName === "Ammo" ? ammoTypeFilter : undefined
+          }
         />
       </Box>
       <DetailDialog />
@@ -339,5 +348,3 @@ const ItemList = () => {
     </Container>
   );
 };
-
-export default ItemList;

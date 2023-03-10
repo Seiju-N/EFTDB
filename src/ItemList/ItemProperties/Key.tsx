@@ -1,19 +1,26 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 
-import { ITEM_PROPERTIES_KEY } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
+import { ItemPropertiesKey } from "@/graphql/generated";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
 };
 
+type QueryType = {
+  item: {
+    properties: ItemPropertiesKey | null;
+  };
+};
+
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesKey {
           uses
@@ -23,59 +30,47 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Key = ({ ItemId }: Props) => {
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
+export const Key = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
+  const { ITEM_PROPERTIES_KEY } = useContext(LanguageDictContext);
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+        lang,
+      },
+    }
+  );
 
-  if (error) return null;
   if (loading) return <Loading />;
-
+  if (!data || error) return null;
+  const properties = data.item.properties;
   return (
     <>
-      {!data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_KEY.detail}
           </Typography>
           <Grid
             container
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {Object.keys(ITEM_PROPERTIES_KEY).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] ? (
-                <Fragment key={idx}>
-                  <Grid xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_KEY[
-                        key as keyof typeof ITEM_PROPERTIES_KEY
-                      ]
-                    }
-                  </Grid>
-                  <Grid xs={2}>
-                    {`${
-                      data.item.properties[
-                        key as keyof typeof data.item.properties
-                      ]
-                    }/${
-                      data.item.properties[
-                        key as keyof typeof data.item.properties
-                      ]
-                    }`}
-                  </Grid>
-                </Fragment>
-              ) : null
-            )}
+            {properties.uses ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_KEY.uses}
+                </Grid>
+                <Grid xs={3}>{`${properties.uses}/${properties.uses}`}</Grid>
+              </>
+            ) : null}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );
 };
-
-export default Key;

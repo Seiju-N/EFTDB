@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 
-import { CustomSkelton } from "../utils";
+import { convertPercent, CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesFoodDrink } from "@/graphql/generated";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesFoodDrink {
           energy
@@ -41,13 +41,15 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const FoodDrink = ({ ItemId }: Props) => {
+export const FoodDrink = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_FOOD_DRINK } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_QUERY,
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -55,13 +57,12 @@ const FoodDrink = ({ ItemId }: Props) => {
   if (!data || loading) return <Loading />;
   if (error) return null;
   const properties = data.item.properties;
-
   return (
     <>
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_FOOD_DRINK.title}
           </Typography>
           <Grid
             container
@@ -84,19 +85,22 @@ const FoodDrink = ({ ItemId }: Props) => {
                 <Grid xs={3}>{properties.hydration}</Grid>
               </>
             ) : null}
-            {properties.stimEffects ? (
+            {properties.stimEffects.length !== 0 ? (
               <>
-                <Typography>StimEffects</Typography>
+                <Grid xs={12}>
+                  <Typography>
+                    {ITEM_PROPERTIES_FOOD_DRINK.stimEffects}
+                  </Typography>
+                </Grid>
                 {properties.stimEffects.map((effect) => (
-                  <>
+                  <Fragment key={effect?.skillName}>
                     <Grid xs={3} color="text.secondary">
-                      {ITEM_PROPERTIES_FOOD_DRINK.skillName}
+                      {effect?.skillName ? effect?.skillName : effect?.type}
                     </Grid>
-                    <Grid
-                      xs={3}
-                    >{`${effect?.chance}%  ${effect?.duration}sec`}</Grid>
-                    s
-                  </>
+                    <Grid xs={3}>{`${convertPercent(effect?.chance)}  ${
+                      effect?.duration
+                    }sec`}</Grid>
+                  </Fragment>
                 ))}
               </>
             ) : null}
@@ -108,5 +112,3 @@ const FoodDrink = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default FoodDrink;

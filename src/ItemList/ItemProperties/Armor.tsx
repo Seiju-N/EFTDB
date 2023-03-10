@@ -1,7 +1,7 @@
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesArmor } from "@/graphql/generated";
 import { gql, useQuery } from "@apollo/client";
-import { Typography } from "@mui/material";
+import { List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesArmor {
           class
@@ -32,13 +32,15 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
           repairCost
           speedPenalty
           turnPenalty
+          zones
         }
       }
     }
   }
 `;
 
-const Armor = ({ ItemId }: Props) => {
+export const Armor = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_ARMOR, ARMOR_MATERIAL } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
@@ -46,6 +48,7 @@ const Armor = ({ ItemId }: Props) => {
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -58,7 +61,7 @@ const Armor = ({ ItemId }: Props) => {
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_ARMOR.title}
           </Typography>
           <Grid
             container
@@ -71,6 +74,22 @@ const Armor = ({ ItemId }: Props) => {
                   {ITEM_PROPERTIES_ARMOR.class}
                 </Grid>
                 <Grid xs={3}>{properties.class}</Grid>
+              </>
+            ) : null}
+            {properties.zones ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR.zones}
+                </Grid>
+                <Grid xs={3}>
+                  <List disablePadding>
+                    {properties.zones.map((zone) => (
+                      <ListItem disableGutters disablePadding key={zone}>
+                        {zone}
+                      </ListItem>
+                    ))}
+                  </List>
+                </Grid>
               </>
             ) : null}
             {properties.durability ? (
@@ -134,5 +153,3 @@ const Armor = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default Armor;

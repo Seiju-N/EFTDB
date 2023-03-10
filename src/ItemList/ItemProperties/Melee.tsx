@@ -1,14 +1,21 @@
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 
-import { ITEM_PROPERTIES_MELEE } from "../../constants/LANG_VALUES";
 import { CustomSkelton } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
+import { ItemPropertiesMelee } from "@/graphql/generated";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 type Props = {
   ItemId: string;
+};
+
+type QueryType = {
+  item: {
+    properties: ItemPropertiesMelee | null;
+  };
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
@@ -16,96 +23,73 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
     item(id: $itemId) {
       properties {
         ... on ItemPropertiesMelee {
-          damage
-          armorDamage
-          penetrationPower
-          caliber
-          stackMaxSize
-          tracer
-          tracerColor
-          ammoType
-          projectileCount
-          fragmentationChance
-          ricochetChance
-          penetrationChance
-          accuracyModifier
-          recoilModifier
-          initialSpeed
-          lightBleedModifier
-          heavyBleedModifier
-          durabilityBurnFactor
-          heatFactor
+          hitRadius
+          slashDamage
+          stabDamage
         }
       }
     }
   }
 `;
 
-const Melee = ({ ItemId }: Props) => {
-  const { loading, error, data } = useQuery(GET_ITEM_PROPERTIES_QUERY, {
-    variables: {
-      itemId: ItemId,
-    },
-  });
-
-  if (error) return null;
-  if (loading) return <Loading />;
-
-  type detailGridType = {
-    keyword: string;
-  };
-
-  const DetailGrid = ({ keyword }: detailGridType) => {
-    if (keyword.includes("hitRadius")) {
-      return (
-        <Grid xs={2}>
-          {`${
-            data.item.properties[keyword as keyof typeof data.item.properties]
-          }m`}
-        </Grid>
-      );
-    } else {
-      return (
-        <Grid xs={2}>
-          {data.item.properties[keyword as keyof typeof data.item.properties]}
-        </Grid>
-      );
+export const Melee = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
+  const { ITEM_PROPERTIES_MELEE } = useContext(LanguageDictContext);
+  const { loading, error, data } = useQuery<QueryType>(
+    GET_ITEM_PROPERTIES_QUERY,
+    {
+      variables: {
+        itemId: ItemId,
+        lang,
+      },
     }
-  };
+  );
+
+  if (!data || loading) return <Loading />;
+  if (error) return null;
+  const properties = data.item.properties;
 
   return (
     <>
-      {!data.item.properties ? (
-        <CustomSkelton />
-      ) : (
+      {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_MELEE.title}
           </Typography>
           <Grid
             container
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {Object.keys(ITEM_PROPERTIES_MELEE).map((key, idx) =>
-              data.item.properties[key as keyof typeof data.item.properties] ? (
-                <Fragment key={idx}>
-                  <Grid xs={4} color="text.secondary">
-                    {
-                      ITEM_PROPERTIES_MELEE[
-                        key as keyof typeof ITEM_PROPERTIES_MELEE
-                      ]
-                    }
-                  </Grid>
-                  <DetailGrid keyword={key} />
-                </Fragment>
-              ) : null
-            )}
+            {properties.hitRadius ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_MELEE.hitRadius}
+                </Grid>
+                <Grid xs={3}>{`${properties.hitRadius} m`}</Grid>
+              </>
+            ) : null}
+            {properties.slashDamage ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_MELEE.slashDamage}
+                </Grid>
+                <Grid xs={3}>{properties.slashDamage}</Grid>
+              </>
+            ) : null}
+            {properties.stabDamage ? (
+              <>
+                <Grid xs={3} color="text.secondary">
+                  {ITEM_PROPERTIES_MELEE.stabDamage}
+                </Grid>
+                <Grid xs={3}>{properties.stabDamage}</Grid>
+              </>
+            ) : null}
           </Grid>
         </>
+      ) : (
+        <CustomSkelton />
       )}
     </>
   );
 };
-
-export default Melee;

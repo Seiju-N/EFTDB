@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { CustomSkelton, translateMaterialName } from "../utils";
 import { gql, useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { LanguageDictContext } from "@/App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesGlasses } from "@/graphql/generated";
 
 type Props = {
@@ -19,8 +19,8 @@ type QueryType = {
 };
 
 const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+    item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesGlasses {
           blindnessProtection
@@ -36,7 +36,8 @@ const GET_ITEM_PROPERTIES_QUERY = gql`
   }
 `;
 
-const Glasses = ({ ItemId }: Props) => {
+export const Glasses = ({ ItemId }: Props) => {
+  const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_GLASSES, ARMOR_MATERIAL } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
@@ -44,6 +45,7 @@ const Glasses = ({ ItemId }: Props) => {
     {
       variables: {
         itemId: ItemId,
+        lang,
       },
     }
   );
@@ -57,7 +59,7 @@ const Glasses = ({ ItemId }: Props) => {
       {properties ? (
         <>
           <Typography gutterBottom variant="subtitle1">
-            詳細
+            {ITEM_PROPERTIES_GLASSES.title}
           </Typography>
           <Grid
             container
@@ -117,5 +119,3 @@ const Glasses = ({ ItemId }: Props) => {
     </>
   );
 };
-
-export default Glasses;

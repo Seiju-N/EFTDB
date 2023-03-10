@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 
 type TabPanelProps = {
   children?: React.ReactNode;
@@ -18,9 +18,11 @@ export const TabPanel = (props: TabPanelProps) => {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
+        <Container disableGutters>
+          <Box>
+            <Typography component="div">{children}</Typography>
+          </Box>
+        </Container>
       )}
     </div>
   );
