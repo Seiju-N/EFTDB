@@ -25,12 +25,12 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
-import React, { memo, useCallback, useContext } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { memo, useCallback, useContext, useEffect } from "react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import { useHooks } from "./hooks";
 import { ItemProperties } from "./ItemProperties";
-import type { Maybe } from "../graphql/generated";
+import type { Item, Maybe } from "../graphql/generated";
 import { CALIBERS } from "@/constants/CALIBER";
 import { LanguageDictContext } from "@/App";
 
@@ -96,7 +96,16 @@ export const ItemList = () => {
     );
   };
 
+  const location = useLocation();
   const items = data?.itemsWithCategories || data?.itemsWithoutCategories || [];
+  useEffect(() => {
+    if (!location.state || !location.state.itemId || !items) return;
+    const temp = items.find((item: Item) => item.id === location.state.itemId);
+    if (!temp) return;
+    handleDialogOpen(temp);
+    window.history.replaceState({}, document.title);
+  }, [location, data]);
+
   if (loading || error)
     return (
       <Box
@@ -306,6 +315,7 @@ export const ItemList = () => {
       </Dialog>
     );
   };
+
   return (
     <Container sx={{ height: "100%" }}>
       <Box sx={{ margin: 1, height: "90vh" }}>

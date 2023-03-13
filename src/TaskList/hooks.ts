@@ -5,7 +5,7 @@ import { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-dat
 import { Task, TaskRewards } from "@/graphql/generated";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useQuery } from "@apollo/client";
-import { LanguageContext, LanguageDictContext } from "@/App";
+import { CategoryContext, LanguageContext, LanguageDictContext } from "@/App";
 import { GET_TASKS } from "@/query";
 
 export const useHooks = () => {
@@ -17,6 +17,7 @@ export const useHooks = () => {
   });
   const lang = useContext(LanguageContext);
   const langDict = useContext(LanguageDictContext);
+  const categories = useContext(CategoryContext);
 
   const cols: GridColDef[] = [
     {
@@ -108,6 +109,7 @@ export const useHooks = () => {
     handleChange,
     isAllArrayElementsEmpty,
     setCurrentTask,
+    categories,
     dialogOpen,
     currentTask,
     filter,

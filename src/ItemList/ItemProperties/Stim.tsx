@@ -34,6 +34,7 @@ export const Stim = ({ ItemId }: Props) => {
   if (!data || loading) return <Loading />;
   if (error) return null;
   const properties = data.item.properties;
+  console.log(properties);
   return (
     <>
       {properties ? (
@@ -61,14 +62,18 @@ export const Stim = ({ ItemId }: Props) => {
                 <Grid xs={12}>
                   <Typography>{ITEM_PROPERTIES_STIM.stimEffects}</Typography>
                 </Grid>
-                {properties.stimEffects.map((effect) => (
-                  <Fragment key={effect?.skillName}>
+                {properties.stimEffects.map((effect, idx) => (
+                  <Fragment key={`${effect?.skillName}_${idx}`}>
                     <Grid xs={6} md={3} color="text.secondary">
                       {effect?.skillName ? effect?.skillName : effect?.type}
                     </Grid>
-                    <Grid xs={6} md={3}>{`${convertPercent(effect?.chance)}  ${
-                      effect?.duration
-                    }sec`}</Grid>
+                    <Grid xs={6} md={3}>
+                      {effect?.chance === 1
+                        ? `${effect?.duration}sec`
+                        : `${convertPercent(effect?.chance)} ${
+                            effect?.duration
+                          }sec`}
+                    </Grid>
                   </Fragment>
                 ))}
               </>

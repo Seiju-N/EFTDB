@@ -1,4 +1,10 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import {
   Backdrop,
@@ -14,6 +20,7 @@ import {
   InputLabel,
   List,
   ListItem,
+  ListItemButton,
   ListItemText,
   ListSubheader,
   MenuItem,
@@ -44,6 +51,8 @@ import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 import { useHooks } from "./hooks";
 import { useLocation, useParams } from "react-router-dom";
 import { TabPanel } from "@/components/TabPanel";
+import { Link as RouterLink } from "react-router-dom";
+import { toPascalCase } from "@/utils";
 
 export const TaskList = () => {
   const {
@@ -51,6 +60,7 @@ export const TaskList = () => {
     handleDialogOpen,
     handleDialogClose,
     isAllArrayElementsEmpty,
+    categories,
     dialogOpen,
     currentTask,
     filter,
@@ -80,15 +90,23 @@ export const TaskList = () => {
     objective: any
   ): objective is TaskObjectiveItem => "item" in objective;
 
+  const isTaskObjectiveBuildItem = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    objective: any
+  ): objective is TaskObjectiveBuildItem => "attributes" in objective;
+
   const param = useParams();
 
   const TaskDialog = () => {
     const [value, setValue] = useState(0);
     if (!currentTask) return null;
 
-    const handleChange = (event: SyntheticEvent, newValue: number) => {
-      setValue(newValue);
-    };
+    const handleChange = useCallback(
+      (event: SyntheticEvent, newValue: number) => {
+        setValue(newValue);
+      },
+      []
+    );
 
     const NoInfo = () => {
       return (
@@ -109,22 +127,82 @@ export const TaskList = () => {
         <Card variant="outlined">
           <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
             {objectives.map((data, idx) => (
-              <ListItem sx={{ pl: 4 }} key={`${data?.id}_${idx}`}>
-                <ListItemText>
-                  {data?.optional ? "(Optional):" : ""}
-                  {data?.description}
-                  {"count" in data ? `( x ${data?.count} )` : ""}
-                </ListItemText>
-                {isTaskObjectiveItem(data) && (
-                  <IconButton edge="end">
-                    <img
-                      style={{ height: 40, width: "auto", maxWidth: "100%" }}
-                      src={data.item?.inspectImageLink?.toString()}
-                      alt="Task objective item"
-                    />
-                  </IconButton>
-                )}
-              </ListItem>
+              <Fragment key={`${data?.id}_${idx}`}>
+                <ListItem sx={{ pl: 4 }}>
+                  <ListItemText>
+                    {data?.optional ? "(Optional):" : ""}
+                    {data?.description}
+                    {"count" in data ? `( x ${data?.count} )` : ""}
+                  </ListItemText>
+                  {isTaskObjectiveItem(data) && data.item.id ? (
+                    <IconButton
+                      component={RouterLink}
+                      to={`/item/${toPascalCase(
+                        categories.find(
+                          (category) =>
+                            category?.name === data.item.category?.name
+                        )?.normalizedName
+                      )}`}
+                      state={{ itemId: data.item?.id }}
+                      edge="end"
+                    >
+                      <img
+                        style={{ height: 40, width: "auto", maxWidth: "100%" }}
+                        src={data.item?.inspectImageLink?.toString()}
+                        alt="Task objective item"
+                      />
+                    </IconButton>
+                  ) : null}
+                </ListItem>
+                {isTaskObjectiveBuildItem(data)
+                  ? data.attributes.map((attribute) => (
+                      <ListItem key={attribute?.name} dense>
+                        <ListItemText
+                          inset
+                        >{`${attribute?.name} ${attribute?.requirement.compareMethod} ${attribute?.requirement.value}`}</ListItemText>
+                      </ListItem>
+                    ))
+                  : null}
+                {isTaskObjectiveBuildItem(data)
+                  ? data.containsAll.map((item) => (
+                      <ListItem key={item?.id} dense>
+                        <ListItemText
+                          inset
+                        >{`Required any ${item?.name}`}</ListItemText>
+                        <IconButton
+                          component={RouterLink}
+                          to={`/item/${toPascalCase(
+                            categories.find(
+                              (category) =>
+                                category?.name === item?.category?.name
+                            )?.normalizedName
+                          )}`}
+                          state={{ itemId: item?.id }}
+                          edge="end"
+                        >
+                          <img
+                            style={{
+                              height: 40,
+                              width: "auto",
+                              maxWidth: "100%",
+                            }}
+                            src={item?.inspectImageLink?.toString()}
+                            alt="Task objective item"
+                          />
+                        </IconButton>
+                      </ListItem>
+                    ))
+                  : null}
+                {isTaskObjectiveBuildItem(data)
+                  ? data.containsCategory.map((category) => (
+                      <ListItem key={category?.name} dense>
+                        <ListItemText
+                          inset
+                        >{`Required any ${category?.name}`}</ListItemText>
+                      </ListItem>
+                    ))
+                  : null}
+              </Fragment>
             ))}
           </List>
         </Card>
@@ -143,8 +221,14 @@ export const TaskList = () => {
           <>
             <ListSubheader>Task requirements</ListSubheader>
             {taskRequirements.map((data) => (
-              <ListItem sx={{ pl: 4 }} key={data?.task.id}>
-                <ListItemText>{`Task ${data?.task.name} ${data?.status}`}</ListItemText>
+              <ListItem sx={{ pl: 2 }} key={data?.task.id}>
+                <ListItemButton
+                  component={RouterLink}
+                  to={`/task/${data?.task.trader.name}`}
+                  state={{ taskId: data?.task?.id }}
+                >
+                  <ListItemText>{`Task ${data?.task.name} ${data?.status}`}</ListItemText>
+                </ListItemButton>
               </ListItem>
             ))}
           </>

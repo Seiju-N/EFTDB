@@ -19,6 +19,9 @@ export const GET_TASKS = gql`
         task {
           id
           name
+          trader{
+            name
+          }
         }
         status
       }
@@ -39,12 +42,22 @@ export const GET_TASKS = gql`
         ... on TaskObjectiveBuildItem {
           attributes {
             name
+            requirement{
+              compareMethod
+              value
+            }
           }
           containsAll {
+            id
             name
+            inspectImageLink
+            category{
+              name
+            }
           }
           containsCategory {
             name
+            normalizedName
           }
           description
           item {
@@ -75,8 +88,12 @@ export const GET_TASKS = gql`
           dogTagLevel
           foundInRaid
           item {
+            id
             name
             inspectImageLink
+            category{
+              name
+            }
           }
           maps {
             name
@@ -279,7 +296,7 @@ export const GET_ITEMS = gql`
         }
       }
     }
-    itemsWithoutCategories: items {
+    itemsWithoutCategories: items @skip(if: $skipCategoryNames) {
       id
       name
       normalizedName
@@ -705,7 +722,13 @@ export const GET_ITEM_PROPERTIES_STIM = gql`
         ... on ItemPropertiesStim {
           cures
           stimEffects {
+            chance
+            delay
+            duration
+            percent
             skillName
+            type
+            value
           }
           useTime
         }

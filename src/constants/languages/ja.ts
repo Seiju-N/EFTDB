@@ -136,7 +136,7 @@ const JA_DICT = {
     Keycard: "キーカード",
     Knife: "ナイフ",
     LockingContainer: "施錠可能なコンテナ",
-    Lubricant: "潤滑油",
+    Lubricant: "可燃物",
     Machinegun: "マシンガン",
     Magazine: "マガジン",
     Map: "地図",
