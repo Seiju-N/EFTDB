@@ -3,10 +3,11 @@ import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
 import { CustomSkelton } from "../utils";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesKey } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
+import { GET_ITEM_PROPERTIES_KEY } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -18,23 +19,11 @@ type QueryType = {
   };
 };
 
-const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
-      properties {
-        ... on ItemPropertiesKey {
-          uses
-        }
-      }
-    }
-  }
-`;
-
 export const Key = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_KEY } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_QUERY,
+    GET_ITEM_PROPERTIES_KEY,
     {
       variables: {
         itemId: ItemId,
@@ -60,10 +49,13 @@ export const Key = ({ ItemId }: Props) => {
           >
             {properties.uses ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_KEY.uses}
                 </Grid>
-                <Grid xs={3}>{`${properties.uses}/${properties.uses}`}</Grid>
+                <Grid
+                  xs={6}
+                  md={3}
+                >{`${properties.uses}/${properties.uses}`}</Grid>
               </>
             ) : null}
           </Grid>

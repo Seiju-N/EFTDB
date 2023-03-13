@@ -78,7 +78,7 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "add-domain": "echo \"eftdb.info\" > docs/CNAME",
+    "add-domain": "echo \"eftdb.info\" > docs/CNAME && echo \"eftdb.info\" > public/CNAME",
     "start": "graphql-codegen && node scripts/start.js",
     "build": "graphql-codegen && node scripts/build.js && cp docs/index.html docs/404.html",
     "predeploy": "npm run build",

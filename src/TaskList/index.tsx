@@ -10,10 +10,12 @@ import {
   DialogTitle,
   FormControl,
   Icon,
+  IconButton,
   InputLabel,
   List,
   ListItem,
   ListItemText,
+  ListSubheader,
   MenuItem,
   Select,
   Tab,
@@ -72,10 +74,17 @@ export const TaskList = () => {
     | TaskObjectiveSkill[]
     | TaskObjectiveTaskStatus[]
     | TaskObjectiveTraderLevel[];
+
+  const isTaskObjectiveItem = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    objective: any
+  ): objective is TaskObjectiveItem => "item" in objective;
+
   const param = useParams();
 
   const TaskDialog = () => {
     const [value, setValue] = useState(0);
+    if (!currentTask) return null;
 
     const handleChange = (event: SyntheticEvent, newValue: number) => {
       setValue(newValue);
@@ -83,9 +92,9 @@ export const TaskList = () => {
 
     const NoInfo = () => {
       return (
-        <Card sx={{ minHeight: "30vh" }} variant="outlined">
-          <List component="div">
-            <ListItem sx={{ pl: 4 }} divider>
+        <Card variant="outlined">
+          <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
+            <ListItem sx={{ pl: 4 }}>
               <ListItemText>Nothing</ListItemText>
             </ListItem>
           </List>
@@ -94,11 +103,11 @@ export const TaskList = () => {
     };
 
     const TaskObjectives = () => {
-      if (!currentTask || !currentTask.objectives) return <NoInfo />;
+      if (!currentTask.objectives) return <NoInfo />;
       const objectives = currentTask.objectives as taskObjectiveType;
       return (
-        <Card sx={{ minHeight: "30vh" }} variant="outlined">
-          <List component="div">
+        <Card variant="outlined">
+          <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
             {objectives.map((data, idx) => (
               <ListItem sx={{ pl: 4 }} key={`${data?.id}_${idx}`}>
                 <ListItemText>
@@ -106,6 +115,15 @@ export const TaskList = () => {
                   {data?.description}
                   {"count" in data ? `( x ${data?.count} )` : ""}
                 </ListItemText>
+                {isTaskObjectiveItem(data) && (
+                  <IconButton edge="end">
+                    <img
+                      style={{ height: 40, width: "auto", maxWidth: "100%" }}
+                      src={data.item?.inspectImageLink?.toString()}
+                      alt="Task objective item"
+                    />
+                  </IconButton>
+                )}
               </ListItem>
             ))}
           </List>
@@ -113,16 +131,78 @@ export const TaskList = () => {
       );
     };
 
+    const Requirements = () => {
+      const TaskRequirements = () => {
+        if (
+          !currentTask.taskRequirements ||
+          currentTask.taskRequirements.length === 0
+        )
+          return null;
+        const taskRequirements = currentTask.taskRequirements;
+        return (
+          <>
+            <ListSubheader>Task requirements</ListSubheader>
+            {taskRequirements.map((data) => (
+              <ListItem sx={{ pl: 4 }} key={data?.task.id}>
+                <ListItemText>{`Task ${data?.task.name} ${data?.status}`}</ListItemText>
+              </ListItem>
+            ))}
+          </>
+        );
+      };
+
+      const PlayerLevelRequirements = () => {
+        if (!currentTask.minPlayerLevel) return null;
+        const minPlayerLevel = currentTask.minPlayerLevel;
+        return (
+          <>
+            <ListSubheader>Player level requirements</ListSubheader>
+            <ListItem sx={{ pl: 4 }}>
+              <ListItemText>{`Player level ${minPlayerLevel}`}</ListItemText>
+            </ListItem>
+          </>
+        );
+      };
+
+      const TraderRequirements = () => {
+        if (
+          !currentTask.traderRequirements ||
+          currentTask.traderRequirements.length === 0
+        )
+          return null;
+        const traderRequirements = currentTask.traderRequirements;
+        return (
+          <>
+            <ListSubheader>Trader requirements</ListSubheader>
+            {traderRequirements.map((data) => (
+              <ListItem sx={{ pl: 4 }} key={data?.trader.id}>
+                <ListItemText>{`${data?.trader.name} LL ${data?.value}`}</ListItemText>
+              </ListItem>
+            ))}
+          </>
+        );
+      };
+
+      return (
+        <Card variant="outlined">
+          <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
+            <TaskRequirements />
+            <PlayerLevelRequirements />
+            <TraderRequirements />
+          </List>
+        </Card>
+      );
+    };
+
     const StartRewards = () => {
       if (
-        !currentTask ||
         !currentTask.startRewards ||
         isAllArrayElementsEmpty(currentTask.startRewards)
       )
         return <NoInfo />;
       return (
-        <Card sx={{ minHeight: "30vh" }} variant="outlined">
-          <List>
+        <Card variant="outlined">
+          <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
             {currentTask.startRewards.traderStanding.map((data, idx) => (
               <ListItem
                 sx={{ pl: 4 }}
@@ -135,10 +215,10 @@ export const TaskList = () => {
     };
 
     const FinishRewards = () => {
-      if (!currentTask || !currentTask.finishRewards) return null;
+      if (!currentTask.finishRewards) return null;
       return (
-        <Card sx={{ minHeight: "30vh" }} variant="outlined">
-          <List>
+        <Card variant="outlined">
+          <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
             {currentTask.finishRewards.traderUnlock.map((data, idx) => (
               <ListItem
                 sx={{ pl: 4 }}
@@ -186,18 +266,22 @@ export const TaskList = () => {
           component="div"
         >
           <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Task objectives" />
-            <Tab label="Task start rewards" />
-            <Tab label="Task finish rewards" />
+            <Tab label="Objectives" />
+            <Tab label="Requirements" />
+            <Tab label="Start rewards" />
+            <Tab label="Finish rewards" />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
           <TaskObjectives />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <StartRewards />
+          <Requirements />
         </TabPanel>
         <TabPanel value={value} index={2}>
+          <StartRewards />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
           <FinishRewards />
         </TabPanel>
       </Dialog>
@@ -206,7 +290,7 @@ export const TaskList = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (!location.state || !location.state.taskId || !taskData.tasks) return;
+    if (!location.state || !location.state.taskId || !taskData) return;
     const temp = taskData.tasks.find(
       (task: Task) => task.id === location.state.taskId
     );

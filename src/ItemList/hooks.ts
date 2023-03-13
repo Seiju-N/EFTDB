@@ -1,5 +1,6 @@
 import { Item } from "@/graphql/generated";
-import { gql, useQuery } from "@apollo/client";
+import { GET_ITEMS } from "@/query";
+import { useQuery } from "@apollo/client";
 import { CardContent, SelectChangeEvent, styled } from "@mui/material";
 import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 import { enUS } from "@mui/x-data-grid";
@@ -7,68 +8,6 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { LanguageDictContext } from "../App";
-
-const GET_ITEMS_QUERY = gql`
-  query GetItems(
-    $categoryNames: [ItemCategoryName]
-    $skipCategoryNames: Boolean!,
-  ) {
-    itemsWithCategories: items(categoryNames: $categoryNames)
-      @include(if: $skipCategoryNames) {
-        id
-        name
-        normalizedName
-        shortName
-        category {
-          name
-        }
-        basePrice
-        width
-        height
-        types
-        image512pxLink
-        wikiLink
-        usedInTasks {
-          id
-          name
-          trader {
-            name
-          }
-        }
-        properties {
-          ... on ItemPropertiesAmmo {
-            ammoType
-            caliber
-          }
-        }
-      }
-      itemsWithoutCategories: items {
-        id
-        name
-        normalizedName
-        shortName
-        category {
-          name
-        }
-        basePrice
-        width
-        height
-        types
-        image512pxLink
-        wikiLink
-        usedInTasks {
-          id
-          name
-          trader {
-            name
-          }
-        }
-        properties {
-          __typename
-        }
-      }
-    }
-  `;
 
 export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -150,7 +89,7 @@ export const useHooks = () => {
     }
   `);
 
-  const { loading, error, data } = useQuery(GET_ITEMS_QUERY, {
+  const { loading, error, data } = useQuery(GET_ITEMS, {
     variables: {
       categoryNames: [param.categoryName],
       skipCategoryNames: Boolean(param.categoryName),

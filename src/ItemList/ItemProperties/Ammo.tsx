@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -10,6 +10,7 @@ import { convertPercent, CustomSkelton } from "../utils";
 import { Loading } from "./Loading";
 import { LanguageContext, LanguageDictContext } from "@/App";
 import { normalise } from "@/utils";
+import { GET_ITEM_PROPERTIES_AMMO } from "@/query";
 
 type Props = {
   ItemId: Scalars["ID"];
@@ -20,34 +21,6 @@ type QueryType = {
     properties: ItemPropertiesAmmo | null;
   };
 };
-
-const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
-      properties {
-        ... on ItemPropertiesAmmo {
-          damage
-          armorDamage
-          penetrationPower
-          caliber
-          stackMaxSize
-          tracer
-          tracerColor
-          fragmentationChance
-          ricochetChance
-          penetrationChance
-          accuracyModifier
-          recoilModifier
-          initialSpeed
-          lightBleedModifier
-          heavyBleedModifier
-          durabilityBurnFactor
-          heatFactor
-        }
-      }
-    }
-  }
-`;
 
 const LinearProgressWithLabel = (
   props: LinearProgressProps & { value: number; maxValue?: number }
@@ -73,7 +46,7 @@ export const Ammo = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_AMMO } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_QUERY,
+    GET_ITEM_PROPERTIES_AMMO,
     {
       variables: {
         itemId: ItemId,
@@ -127,116 +100,130 @@ export const Ammo = ({ ItemId }: Props) => {
             ) : null}
             {properties.initialSpeed ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.initialSpeed}
                 </Grid>
-                <Grid xs={3}>{`${properties.initialSpeed} m/sec`}</Grid>
+                <Grid xs={6} md={3}>{`${properties.initialSpeed} m/sec`}</Grid>
               </>
             ) : null}
             {properties.penetrationPower ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.penetrationPower}
                 </Grid>
-                <Grid xs={3}>{properties.penetrationPower}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.penetrationPower}
+                </Grid>
               </>
             ) : null}
             {properties.caliber ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.caliber}
                 </Grid>
-                <Grid xs={3}>{properties.caliber}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.caliber}
+                </Grid>
               </>
             ) : null}
             {properties.tracer ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.tracer}
                 </Grid>
-                <Grid xs={3}>{properties.tracerColor}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.tracerColor}
+                </Grid>
               </>
             ) : null}
             {properties.fragmentationChance ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.fragmentationChance}
                 </Grid>
-                <Grid xs={3}>
+                <Grid xs={6} md={3}>
                   {convertPercent(properties.fragmentationChance)}
                 </Grid>
               </>
             ) : null}
             {properties.ricochetChance ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.ricochetChance}
                 </Grid>
-                <Grid xs={3}>{convertPercent(properties.ricochetChance)}</Grid>
+                <Grid xs={6} md={3}>
+                  {convertPercent(properties.ricochetChance)}
+                </Grid>
               </>
             ) : null}
             {properties.penetrationChance ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.penetrationChance}
                 </Grid>
-                <Grid xs={3}>
+                <Grid xs={6} md={3}>
                   {convertPercent(properties.penetrationChance)}
                 </Grid>
               </>
             ) : null}
             {properties.accuracyModifier ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.accuracyModifier}
                 </Grid>
-                <Grid xs={3}>
+                <Grid xs={6} md={3}>
                   {convertPercent(properties.accuracyModifier)}
                 </Grid>
               </>
             ) : null}
             {properties.recoilModifier ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.recoilModifier}
                 </Grid>
-                <Grid xs={3}>{convertPercent(properties.recoilModifier)}</Grid>
+                <Grid xs={6} md={3}>
+                  {convertPercent(properties.recoilModifier)}
+                </Grid>
               </>
             ) : null}
             {properties.lightBleedModifier ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.lightBleedModifier}
                 </Grid>
-                <Grid xs={3}>
+                <Grid xs={6} md={3}>
                   {convertPercent(properties.lightBleedModifier)}
                 </Grid>
               </>
             ) : null}
             {properties.heavyBleedModifier ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.heavyBleedModifier}
                 </Grid>
-                <Grid xs={3}>
+                <Grid xs={6} md={3}>
                   {convertPercent(properties.heavyBleedModifier)}
                 </Grid>
               </>
             ) : null}
             {properties.durabilityBurnFactor ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.durabilityBurnFactor}
                 </Grid>
-                <Grid xs={3}>{properties.durabilityBurnFactor}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.durabilityBurnFactor}
+                </Grid>
               </>
             ) : null}
             {properties.heatFactor ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_AMMO.heatFactor}
                 </Grid>
-                <Grid xs={3}>{properties.heatFactor}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.heatFactor}
+                </Grid>
               </>
             ) : null}
           </Grid>

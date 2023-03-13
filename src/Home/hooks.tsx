@@ -16,15 +16,26 @@ import { Link as RouterLink } from "react-router-dom";
 
 import type { ItemCategory, Maybe } from "@/graphql/generated";
 
-import { CategoryContext, LanguageDictContext, TradersContext } from "../App";
+import {
+  CategoryContext,
+  LanguageContext,
+  LanguageDictContext,
+  TradersContext,
+} from "../App";
 import { toPascalCase } from "../utils";
 import SearchIcon from "@mui/icons-material/Search";
+import { useQuery } from "@apollo/client";
+import { GET_TASKS } from "@/query";
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
+  const lang = useContext(LanguageContext);
   const categories = useContext(CategoryContext);
   const traders = useContext(TradersContext);
 
+  const { data: _taskData } = useQuery(GET_TASKS, {
+    variables: { lang },
+  });
   type nestedCategoryProps = {
     categoryName: string;
   };

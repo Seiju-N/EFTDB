@@ -118,6 +118,7 @@ const EN_DICT = {
 
   ITEM_PROPERTIES_ARMOR: {
     title: "Detail Information",
+    zone: "Protected zone",
     class: "Armor class",
     durability: "Durability",
     ergoPenalty: "Ergonomics penalty",

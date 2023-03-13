@@ -245,6 +245,7 @@ const JA_DICT = {
 
   ITEM_PROPERTIES_ARMOR: {
     title: "詳細",
+    zones: "保護部位",
     class: "アーマークラス",
     durability: "耐久",
     ergoPenalty: "エルゴペナルティ",

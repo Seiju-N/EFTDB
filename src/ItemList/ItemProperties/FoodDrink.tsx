@@ -3,10 +3,11 @@ import Grid from "@mui/material/Unstable_Grid2";
 import React, { Fragment, useContext } from "react";
 
 import { convertPercent, CustomSkelton } from "../utils";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesFoodDrink } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
+import { GET_ITEM_PROPERTIES_FOOD_DRINK } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -18,34 +19,11 @@ type QueryType = {
   };
 };
 
-const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
-      properties {
-        ... on ItemPropertiesFoodDrink {
-          energy
-          hydration
-          stimEffects {
-            chance
-            delay
-            duration
-            percent
-            skillName
-            type
-            value
-          }
-          units
-        }
-      }
-    }
-  }
-`;
-
 export const FoodDrink = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_FOOD_DRINK } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_QUERY,
+    GET_ITEM_PROPERTIES_FOOD_DRINK,
     {
       variables: {
         itemId: ItemId,
@@ -71,18 +49,22 @@ export const FoodDrink = ({ ItemId }: Props) => {
           >
             {properties.energy ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_FOOD_DRINK.energy}
                 </Grid>
-                <Grid xs={3}>{properties.energy}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.energy}
+                </Grid>
               </>
             ) : null}
             {properties.hydration ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_FOOD_DRINK.hydration}
                 </Grid>
-                <Grid xs={3}>{properties.hydration}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.hydration}
+                </Grid>
               </>
             ) : null}
             {properties.stimEffects.length !== 0 ? (
@@ -94,10 +76,10 @@ export const FoodDrink = ({ ItemId }: Props) => {
                 </Grid>
                 {properties.stimEffects.map((effect) => (
                   <Fragment key={effect?.skillName}>
-                    <Grid xs={3} color="text.secondary">
+                    <Grid xs={6} md={3} color="text.secondary">
                       {effect?.skillName ? effect?.skillName : effect?.type}
                     </Grid>
-                    <Grid xs={3}>{`${convertPercent(effect?.chance)}  ${
+                    <Grid xs={6} md={3}>{`${convertPercent(effect?.chance)}  ${
                       effect?.duration
                     }sec`}</Grid>
                   </Fragment>

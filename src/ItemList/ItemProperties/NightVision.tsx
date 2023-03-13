@@ -3,10 +3,11 @@ import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
 import { CustomSkelton } from "../utils";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesNightVision } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
+import { GET_ITEM_PROPERTIES_NIGHT_VISION } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -18,26 +19,11 @@ type QueryType = {
   };
 };
 
-const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
-      properties {
-        ... on ItemPropertiesNightVision {
-          diffuseIntensity
-          intensity
-          noiseIntensity
-          noiseScale
-        }
-      }
-    }
-  }
-`;
-
 export const NightVision = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_NIGHT_VISION } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_QUERY,
+    GET_ITEM_PROPERTIES_NIGHT_VISION,
     {
       variables: {
         itemId: ItemId,
@@ -64,34 +50,42 @@ export const NightVision = ({ ItemId }: Props) => {
           >
             {properties.diffuseIntensity ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_NIGHT_VISION.diffuseIntensity}
                 </Grid>
-                <Grid xs={3}>{properties.diffuseIntensity}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.diffuseIntensity}
+                </Grid>
               </>
             ) : null}
             {properties.intensity ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_NIGHT_VISION.intensity}
                 </Grid>
-                <Grid xs={3}>{properties.intensity}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.intensity}
+                </Grid>
               </>
             ) : null}
             {properties.noiseIntensity ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_NIGHT_VISION.noiseIntensity}
                 </Grid>
-                <Grid xs={3}>{properties.noiseIntensity}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.noiseIntensity}
+                </Grid>
               </>
             ) : null}
             {properties.noiseScale ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_NIGHT_VISION.noiseScale}
                 </Grid>
-                <Grid xs={3}>{properties.noiseScale}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.noiseScale}
+                </Grid>
               </>
             ) : null}
           </Grid>

@@ -1,6 +1,7 @@
 import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesBackpack } from "@/graphql/generated";
-import { gql, useQuery } from "@apollo/client";
+import { GET_ITEM_PROPERTIES_BACKPACK } from "@/query";
+import { useQuery } from "@apollo/client";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
@@ -18,44 +19,11 @@ type QueryType = {
   };
 };
 
-const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
-      properties {
-        ... on ItemPropertiesBackpack {
-          capacity
-          grids {
-            filters {
-              allowedCategories {
-                name
-              }
-              allowedItems {
-                name
-              }
-              excludedCategories {
-                name
-              }
-              excludedItems {
-                name
-              }
-            }
-            height
-            width
-            ergoPenalty
-            speedPenalty
-            turnPenalty
-          }
-        }
-      }
-    }
-  }
-`;
-
 export const Backpack = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_BACKPACK } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_QUERY,
+    GET_ITEM_PROPERTIES_BACKPACK,
     {
       variables: {
         itemId: ItemId,
@@ -83,34 +51,42 @@ export const Backpack = ({ ItemId }: Props) => {
             {/* TODO: 構造(Gridの表示)  */}
             {properties.capacity ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_BACKPACK.capacity}
                 </Grid>
-                <Grid xs={3}>{properties.capacity}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.capacity}
+                </Grid>
               </>
             ) : null}
             {properties.ergoPenalty ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_BACKPACK.ergoPenalty}
                 </Grid>
-                <Grid xs={3}>{convertPercent(properties.ergoPenalty)}</Grid>
+                <Grid xs={6} md={3}>
+                  {convertPercent(properties.ergoPenalty)}
+                </Grid>
               </>
             ) : null}
             {properties.speedPenalty ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_BACKPACK.speedPenalty}
                 </Grid>
-                <Grid xs={3}>{convertPercent(properties.speedPenalty)}</Grid>
+                <Grid xs={6} md={3}>
+                  {convertPercent(properties.speedPenalty)}
+                </Grid>
               </>
             ) : null}
             {properties.turnPenalty ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_BACKPACK.turnPenalty}
                 </Grid>
-                <Grid xs={3}>{convertPercent(properties.turnPenalty)}</Grid>
+                <Grid xs={6} md={3}>
+                  {convertPercent(properties.turnPenalty)}
+                </Grid>
               </>
             ) : null}
           </Grid>

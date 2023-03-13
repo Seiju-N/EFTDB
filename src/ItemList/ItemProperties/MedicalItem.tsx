@@ -3,10 +3,11 @@ import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
 import { CustomSkelton } from "../utils";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { ItemPropertiesMedicalItem } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
+import { GET_ITEM_PROPERTIES_MEDICAL_ITEM } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -18,24 +19,11 @@ type QueryType = {
   };
 };
 
-const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
-      properties {
-        ... on ItemPropertiesMedicalItem {
-          cures
-          useTime
-          uses
-        }
-      }
-    }
-  }
-`;
 export const MedicalItem = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_MEDICAL_ITEM } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_QUERY,
+    GET_ITEM_PROPERTIES_MEDICAL_ITEM,
     {
       variables: {
         itemId: ItemId,
@@ -62,10 +50,10 @@ export const MedicalItem = ({ ItemId }: Props) => {
           >
             {properties.cures ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_MEDICAL_ITEM.cures}
                 </Grid>
-                <Grid xs={3}>
+                <Grid xs={6} md={3}>
                   <List disablePadding>
                     {properties.cures.map((cure) => (
                       <ListItem disablePadding disableGutters key={cure}>
@@ -78,18 +66,21 @@ export const MedicalItem = ({ ItemId }: Props) => {
             ) : null}
             {properties.useTime ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_MEDICAL_ITEM.useTime}
                 </Grid>
-                <Grid xs={3}>{`${properties.useTime} sec`}</Grid>
+                <Grid xs={6} md={3}>{`${properties.useTime} sec`}</Grid>
               </>
             ) : null}
             {properties.uses ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_MEDICAL_ITEM.uses}
                 </Grid>
-                <Grid xs={3}>{`${properties.uses}/${properties.uses}`}</Grid>
+                <Grid
+                  xs={6}
+                  md={3}
+                >{`${properties.uses}/${properties.uses}`}</Grid>
               </>
             ) : null}
           </Grid>

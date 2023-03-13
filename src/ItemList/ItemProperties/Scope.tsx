@@ -1,6 +1,7 @@
 import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesScope } from "@/graphql/generated";
-import { gql, useQuery } from "@apollo/client";
+import { GET_ITEM_PROPERTIES_SCOPE } from "@/query";
+import { useQuery } from "@apollo/client";
 import { Box, List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
@@ -18,27 +19,11 @@ type QueryType = {
   };
 };
 
-const GET_ITEM_PROPERTIES_QUERY = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
-      properties {
-        ... on ItemPropertiesScope {
-          ergonomics
-          recoilModifier
-          sightModes
-          sightingRange
-          zoomLevels
-        }
-      }
-    }
-  }
-`;
-
 export const Scope = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_SCOPE } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_QUERY,
+    GET_ITEM_PROPERTIES_SCOPE,
     {
       variables: {
         itemId: ItemId,
@@ -65,34 +50,38 @@ export const Scope = ({ ItemId }: Props) => {
           >
             {properties.ergonomics ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_SCOPE.ergonomics}
                 </Grid>
-                <Grid xs={3}>{properties.ergonomics}</Grid>
+                <Grid xs={6} md={3}>
+                  {properties.ergonomics}
+                </Grid>
               </>
             ) : null}
             {properties.recoilModifier ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_SCOPE.recoilModifier}
                 </Grid>
-                <Grid xs={3}>{convertPercent(properties.recoilModifier)}</Grid>
+                <Grid xs={6} md={3}>
+                  {convertPercent(properties.recoilModifier)}
+                </Grid>
               </>
             ) : null}
             {properties.sightingRange ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_SCOPE.sightingRange}
                 </Grid>
-                <Grid xs={3}>{`${properties.sightingRange} m`}</Grid>
+                <Grid xs={6} md={3}>{`${properties.sightingRange} m`}</Grid>
               </>
             ) : null}
             {properties.sightModes?.length !== 0 ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_SCOPE.sightModes}
                 </Grid>
-                <Grid xs={3} display={"flex"}>
+                <Grid xs={6} md={3} display={"flex"}>
                   {properties.sightModes?.map((sightMode) => (
                     <Box pr={2} key={sightMode}>{`x${sightMode}`}</Box>
                   ))}
@@ -101,10 +90,10 @@ export const Scope = ({ ItemId }: Props) => {
             ) : null}
             {properties.zoomLevels?.length !== 0 ? (
               <>
-                <Grid xs={3} color="text.secondary">
+                <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_SCOPE.zoomLevels}
                 </Grid>
-                <Grid xs={3}>
+                <Grid xs={6} md={3}>
                   <List disablePadding>
                     {properties.zoomLevels?.map((zoomLevels, idx) => (
                       <ListItem
