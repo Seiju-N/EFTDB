@@ -1,7 +1,11 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import RecommendIcon from "@mui/icons-material/Recommend";
+import { LanguageDictContext } from "@/App";
+import { useContext } from "react";
 
 export const Footer = () => {
+  const langDict = useContext(LanguageDictContext);
   return (
     <Box
       sx={{
@@ -18,12 +22,17 @@ export const Footer = () => {
     >
       <Box>{"© 2023 EFTDB. All rights reserved."}</Box>
       <Box>
-        {
-          "If you find any bugs on our site, please report them to our GitHub issues."
-        }
-        <IconButton href="https://github.com/Seiju-N/EFTDB/issues">
-          <GitHubIcon />
-        </IconButton>
+        <Button href="" endIcon={<RecommendIcon />}>
+          {langDict.FOOTER_SENTENCE.donate}
+        </Button>
+      </Box>
+      <Box>
+        <Button
+          href="https://github.com/Seiju-N/EFTDB/issues"
+          endIcon={<GitHubIcon />}
+        >
+          {langDict.FOOTER_SENTENCE.report}
+        </Button>
       </Box>
     </Box>
   );

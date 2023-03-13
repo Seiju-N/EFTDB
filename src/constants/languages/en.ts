@@ -33,7 +33,10 @@ const EN_DICT = {
       }
     }
   },
-
+  FOOTER_SENTENCE: {
+    report: "Please report bugs or feature requests to Github issues or Discord (boru#4555).",
+    donate: "Please support us to improve and maintain our service.",
+  },
   TASK_COLUMN: {
     Name: "Task name",
     Experience: "Experience",

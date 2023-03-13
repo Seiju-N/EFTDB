@@ -33,6 +33,10 @@ const JA_DICT = {
       }
     }
   },
+  FOOTER_SENTENCE: {
+    report: "バグや要望はGithubのissues、もしくはDiscord(boru#4555)へお願いします。",
+    donate: "サービス向上と維持のためにご支援をお願いします。",
+  },
   TASK_COLUMN: {
     Name: "タスク名",
     Experience: "経験値",
