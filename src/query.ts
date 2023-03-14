@@ -416,12 +416,10 @@ export const GET_ITEM_PROPERTIES_BACKPACK = gql`
                 name
               }
             }
-            height
-            width
-            ergoPenalty
-            speedPenalty
-            turnPenalty
           }
+          ergoPenalty
+          speedPenalty
+          turnPenalty
         }
       }
     }

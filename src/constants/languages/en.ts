@@ -148,6 +148,9 @@ const EN_DICT = {
     title: "Detail Information",
     capacity: "Capacity",
     grid: "Grid",
+    ergoPenalty: "Ergonomics penalty",
+    speedPenalty: "Movement speed penalty",
+    turnPenalty: "Turning speed penalty",
   },
 
   ITEM_PROPERTIES_BARREL: {

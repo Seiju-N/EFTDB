@@ -276,6 +276,9 @@ const JA_DICT = {
     title: "詳細",
     capacity: "容量",
     grid: "構造",
+    ergoPenalty: "エルゴペナルティ",
+    speedPenalty: "移動速度ペナルティ",
+    turnPenalty: "振向きペナルティ",
   },
 
   ITEM_PROPERTIES_BARREL: {
