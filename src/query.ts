@@ -472,7 +472,7 @@ export const GET_ITEM_PROPERTIES_CONTAINER = gql`
       properties {
         ... on ItemPropertiesContainer {
           capacity
-          grid {
+          grids {
             filters {
               allowedCategories {
                 name

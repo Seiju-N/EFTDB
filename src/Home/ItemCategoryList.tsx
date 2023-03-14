@@ -30,10 +30,13 @@ export const ItemCategoryList = memo(() => {
         <FlatCategory categoryName="Glasses" />
         <FlatCategory categoryName="Headphones" />
         <FlatCategory categoryName="Headwear" />
+        <FlatCategory categoryName="Info" />
         <NestedCategory categoryName="Key" />
         <FlatCategory categoryName="Knife" />
+        <FlatCategory categoryName="Map" />
         <NestedCategory categoryName="Meds" />
         <FlatCategory categoryName="Port. container" />
+        <FlatCategory categoryName="Special item" />
         <FlatCategory categoryName="Throwable weapon" />
         <NestedSubcategory categoryName="Weapon mod" />
         <NestedCategory categoryName="Weapon" />

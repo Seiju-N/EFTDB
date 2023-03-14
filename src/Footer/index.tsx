@@ -20,20 +20,25 @@ export const Footer = () => {
         mt: 2,
       }}
     >
-      <Box>{"© 2023 EFTDB. All rights reserved."}</Box>
       <Box>
-        <Button href="" endIcon={<RecommendIcon />}>
-          {langDict.FOOTER_SENTENCE.donate}
+        <Button
+          href="https://paypal.me/NSeiju"
+          endIcon={<RecommendIcon />}
+          sx={{ textTransform: "unset !important" }}
+        >
+          {langDict.FOOTER_SENTENCE.donate}(paypal)
         </Button>
       </Box>
       <Box>
         <Button
           href="https://github.com/Seiju-N/EFTDB/issues"
           endIcon={<GitHubIcon />}
+          sx={{ textTransform: "unset !important" }}
         >
           {langDict.FOOTER_SENTENCE.report}
         </Button>
       </Box>
+      <Box>{"© 2023 EFTDB. All rights reserved."}</Box>
     </Box>
   );
 };
