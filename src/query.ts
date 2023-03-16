@@ -8,6 +8,16 @@ export const GET_TASKS = gql`
       normalizedName
       experience
       minPlayerLevel
+      neededKeys{
+        keys{
+          id
+          name
+          category{
+            name
+          }
+          iconLink
+        }
+      }
       traderRequirements {
         trader {
           id
@@ -91,6 +101,7 @@ export const GET_TASKS = gql`
             id
             name
             inspectImageLink
+            iconLink
             category{
               name
             }
@@ -184,6 +195,10 @@ export const GET_TASKS = gql`
           item {
             id
             name
+            iconLink
+            category{
+              name
+            }
           }
           count
           quantity
@@ -231,6 +246,10 @@ export const GET_TASKS = gql`
           item {
             id
             name
+            iconLink
+            category{
+              name
+            }
           }
           count
           quantity

@@ -33,10 +33,12 @@ const JA_DICT = {
       }
     }
   },
+
   FOOTER_SENTENCE: {
     report: "バグや要望はGithubのissues、もしくはDiscord(boru#4555)へお願いします。",
     donate: "サービス向上と維持のためにご支援をお願いします。",
   },
+
   TASK_COLUMN: {
     Name: "タスク名",
     Experience: "経験値",
@@ -45,6 +47,24 @@ const JA_DICT = {
     KappaRequired: "kappaRequired",
     LightkeeperRequired: "lightkeeperRequired",
   },
+
+  TASK_DETAIL_DIALOG: {
+    Objective: "目標",
+    Requirements: "必要条件",
+    StartRewards: "開始時報酬",
+    FinishRewards: "完了時報酬",
+    Reputation: "友好度",
+    Rewards: "報酬",
+    PlayerLevelRequirements: "プレイヤーレベル",
+    TaskRequirements: "前提タスク",
+    NeededKeys: "必要な鍵",
+    StartRewardsItems: "開始時報酬アイテム",
+  },
+
+  TASK_STATUS: {
+    complete: "完了",
+  },
+
   ITEM_DETAIL_DIALOG: {
     SIZE: "サイズ",
     NO_DETAIL: "詳細はありません。",

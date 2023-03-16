@@ -15,6 +15,7 @@ import {
   Dialog,
   DialogTitle,
   FormControl,
+  Grid,
   Icon,
   IconButton,
   InputLabel,
@@ -31,6 +32,8 @@ import {
 } from "@mui/material";
 
 import FilterAlt from "@mui/icons-material/FilterAlt";
+import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 import {
   Task,
@@ -53,6 +56,8 @@ import { useLocation, useParams } from "react-router-dom";
 import { TabPanel } from "@/components/TabPanel";
 import { Link as RouterLink } from "react-router-dom";
 import { toPascalCase } from "@/utils";
+import { Item } from "@/components/Item";
+import { ItemCenter } from "@/components/ItemCenter";
 
 export const TaskList = () => {
   const {
@@ -60,6 +65,7 @@ export const TaskList = () => {
     handleDialogOpen,
     handleDialogClose,
     isAllArrayElementsEmpty,
+    langDict,
     categories,
     dialogOpen,
     currentTask,
@@ -100,7 +106,6 @@ export const TaskList = () => {
   const TaskDialog = () => {
     const [value, setValue] = useState(0);
     if (!currentTask) return null;
-
     const handleChange = useCallback(
       (event: SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -110,13 +115,9 @@ export const TaskList = () => {
 
     const NoInfo = () => {
       return (
-        <Card variant="outlined">
-          <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
-            <ListItem sx={{ pl: 4 }}>
-              <ListItemText>Nothing</ListItemText>
-            </ListItem>
-          </List>
-        </Card>
+        <ListItem sx={{ pl: 4 }}>
+          <ListItemText>Nothing</ListItemText>
+        </ListItem>
       );
     };
 
@@ -126,9 +127,12 @@ export const TaskList = () => {
       return (
         <Card variant="outlined">
           <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
+            <ListSubheader>
+              {langDict.TASK_DETAIL_DIALOG.Objective}
+            </ListSubheader>
             {objectives.map((data, idx) => (
               <Fragment key={`${data?.id}_${idx}`}>
-                <ListItem sx={{ pl: 4 }}>
+                <ListItem sx={{ px: 4 }} disablePadding>
                   <ListItemText>
                     {data?.optional ? "(Optional):" : ""}
                     {data?.description}
@@ -148,7 +152,7 @@ export const TaskList = () => {
                     >
                       <img
                         style={{ height: 40, width: "auto", maxWidth: "100%" }}
-                        src={data.item?.inspectImageLink?.toString()}
+                        src={data.item?.iconLink?.toString()}
                         alt="Task objective item"
                       />
                     </IconButton>
@@ -186,7 +190,7 @@ export const TaskList = () => {
                               width: "auto",
                               maxWidth: "100%",
                             }}
-                            src={item?.inspectImageLink?.toString()}
+                            src={item?.iconLink?.toString()}
                             alt="Task objective item"
                           />
                         </IconButton>
@@ -204,6 +208,54 @@ export const TaskList = () => {
                   : null}
               </Fragment>
             ))}
+            {currentTask.neededKeys?.length !== 0 ? (
+              <>
+                <ListSubheader>
+                  {langDict.TASK_DETAIL_DIALOG.NeededKeys}
+                </ListSubheader>
+                <Grid container px={2} spacing={1}>
+                  {currentTask.neededKeys?.map((neededKey, idx) =>
+                    neededKey?.keys?.map((key) => (
+                      <Grid item xs={12} md={6} key={`${key?.id}_${idx}`}>
+                        <RouterLink
+                          to={`/item/${toPascalCase(
+                            categories.find(
+                              (category) =>
+                                category?.name === key?.category?.name
+                            )?.normalizedName
+                          )}`}
+                          state={{ itemId: key?.id }}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Item>
+                            <img
+                              style={{
+                                height: 50,
+                                width: "auto",
+                                maxWidth: "100%",
+                              }}
+                              src={key?.iconLink?.toString()}
+                              alt="Task needed key."
+                            />
+                            <Typography
+                              sx={{
+                                height: "40px",
+                                display: "flex",
+                                alignItems: "center",
+                                pl: 1,
+                              }}
+                              variant="body1"
+                            >
+                              {key?.name}
+                            </Typography>
+                          </Item>
+                        </RouterLink>
+                      </Grid>
+                    ))
+                  )}
+                </Grid>
+              </>
+            ) : null}
           </List>
         </Card>
       );
@@ -219,15 +271,21 @@ export const TaskList = () => {
         const taskRequirements = currentTask.taskRequirements;
         return (
           <>
-            <ListSubheader>Task requirements</ListSubheader>
+            <ListSubheader>
+              {langDict.TASK_DETAIL_DIALOG.TaskRequirements}
+            </ListSubheader>
             {taskRequirements.map((data) => (
-              <ListItem sx={{ pl: 2 }} key={data?.task.id}>
+              <ListItem sx={{ pl: 2 }} key={data?.task.id} disableGutters>
                 <ListItemButton
                   component={RouterLink}
                   to={`/task/${data?.task.trader.name}`}
                   state={{ taskId: data?.task?.id }}
                 >
-                  <ListItemText>{`Task ${data?.task.name} ${data?.status}`}</ListItemText>
+                  <ListItemText>{`${data?.task.name} ${
+                    data?.status
+                      ? langDict.TASK_STATUS[data?.status.toString()]
+                      : null
+                  }`}</ListItemText>
                 </ListItemButton>
               </ListItem>
             ))}
@@ -240,7 +298,9 @@ export const TaskList = () => {
         const minPlayerLevel = currentTask.minPlayerLevel;
         return (
           <>
-            <ListSubheader>Player level requirements</ListSubheader>
+            <ListSubheader>
+              {langDict.TASK_DETAIL_DIALOG.PlayerLevelRequirements}
+            </ListSubheader>
             <ListItem sx={{ pl: 4 }}>
               <ListItemText>{`Player level ${minPlayerLevel}`}</ListItemText>
             </ListItem>
@@ -283,10 +343,61 @@ export const TaskList = () => {
         !currentTask.startRewards ||
         isAllArrayElementsEmpty(currentTask.startRewards)
       )
-        return <NoInfo />;
+        return (
+          <Card variant="outlined">
+            <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
+              <ListSubheader>
+                {langDict.TASK_DETAIL_DIALOG.StartRewardsItems}
+              </ListSubheader>
+              <NoInfo />
+            </List>
+          </Card>
+        );
       return (
         <Card variant="outlined">
           <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
+            <ListSubheader>
+              {langDict.TASK_DETAIL_DIALOG.StartRewardsItems}
+            </ListSubheader>
+            <Grid container px={2} spacing={1}>
+              {currentTask.startRewards.items.map((data, idx) => (
+                <Grid item xs={12} md={6} key={`${data?.item.id}_${idx}`}>
+                  <RouterLink
+                    to={`/item/${toPascalCase(
+                      categories.find(
+                        (category) =>
+                          category?.name === data?.item.category?.name
+                      )?.normalizedName
+                    )}`}
+                    state={{ itemId: data?.item.id }}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Item>
+                      <img
+                        style={{
+                          height: 50,
+                          width: "auto",
+                          maxWidth: "100%",
+                        }}
+                        src={data?.item.iconLink?.toString()}
+                        alt="Task needed key."
+                      />
+                      <Typography
+                        sx={{
+                          height: "40px",
+                          display: "flex",
+                          alignItems: "center",
+                          pl: 1,
+                        }}
+                        variant="body1"
+                      >
+                        {data?.item.name}
+                      </Typography>
+                    </Item>
+                  </RouterLink>
+                </Grid>
+              ))}
+            </Grid>
             {currentTask.startRewards.traderStanding.map((data, idx) => (
               <ListItem
                 sx={{ pl: 4 }}
@@ -303,34 +414,110 @@ export const TaskList = () => {
       return (
         <Card variant="outlined">
           <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
-            {currentTask.finishRewards.traderUnlock.map((data, idx) => (
-              <ListItem
-                sx={{ pl: 4 }}
-                key={`${data?.id}_${idx}`}
-              >{`Unlock trader ${data?.name}`}</ListItem>
-            ))}
-            {currentTask.finishRewards.traderStanding.map((data, idx) => (
-              <ListItem
-                sx={{ pl: 4 }}
-                key={`${data?.trader.id}_${idx}`}
-              >{`${data?.trader.name}: +${data?.standing}`}</ListItem>
-            ))}
-            {currentTask.finishRewards.skillLevelReward.map((data, idx) => (
-              <ListItem
-                sx={{ pl: 4 }}
-                key={`${data?.name}_${idx}`}
-              >{`Skill ${data?.name}: +${data?.level}`}</ListItem>
-            ))}
-            {currentTask.finishRewards.items.map((data, idx) => (
-              <ListItem sx={{ pl: 4 }} key={`${data?.item.id}_${idx}`}>
-                <ListItemText>{`${data?.item.name}: ${data?.count}`}</ListItemText>
-              </ListItem>
-            ))}
-            {currentTask.finishRewards.offerUnlock.map((data, idx) => (
-              <ListItem sx={{ pl: 4 }} key={`${data?.id}_${idx}`}>
-                <ListItemText>{`Unlock offer ${data?.item.name} at ${data?.trader.name}.`}</ListItemText>
-              </ListItem>
-            ))}
+            <ListSubheader>{langDict.TASK_DETAIL_DIALOG.Rewards}</ListSubheader>
+            <Grid container px={2} spacing={1}>
+              {
+                // TODO: finishRewardsもItemCenter使用する
+                currentTask.finishRewards.traderUnlock.map((data, idx) => (
+                  <ListItem
+                    sx={{ pl: 4 }}
+                    key={`${data?.id}_${idx}`}
+                  >{`Unlock trader ${data?.name}`}</ListItem>
+                ))
+              }
+              {currentTask.finishRewards.traderStanding.map((data, idx) => (
+                <Grid item xs={12} md={6} key={`${data?.trader.id}_${idx}`}>
+                  <ItemCenter>
+                    <SignalCellularAltIcon fontSize="small" />
+                    <Typography
+                      sx={{
+                        alignItems: "center",
+                        lineHeight: 1,
+                      }}
+                      p={0}
+                      variant="subtitle2"
+                    >
+                      {data?.trader.name}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        alignItems: "center",
+                      }}
+                      variant="subtitle1"
+                    >
+                      {`${
+                        data?.standing && data?.standing >= 0
+                          ? `+ ${data?.standing}`
+                          : `${data?.standing}`
+                      }`}
+                    </Typography>
+                  </ItemCenter>
+                </Grid>
+              ))}
+              {currentTask.finishRewards.skillLevelReward.map((data, idx) => (
+                <Grid item xs={12} md={6} key={`${data?.name}_${idx}`}>
+                  <ItemCenter>
+                    <LightModeIcon fontSize="small" />
+                    <Typography
+                      sx={{
+                        alignItems: "center",
+                        lineHeight: 1,
+                      }}
+                      p={0}
+                      variant="subtitle2"
+                    >
+                      {data?.name}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        alignItems: "center",
+                      }}
+                      variant="subtitle1"
+                    >
+                      {`${
+                        data?.level && data?.level >= 0
+                          ? `+ ${data?.level}`
+                          : `${data?.level}`
+                      }`}
+                    </Typography>
+                  </ItemCenter>
+                </Grid>
+              ))}
+              {currentTask.finishRewards.items.map((data, idx) => (
+                <Grid item xs={12} md={6} key={`${data?.item.id}_${idx}`}>
+                  <Item>
+                    <img
+                      style={{
+                        height: 50,
+                        width: "auto",
+                        maxWidth: "100%",
+                      }}
+                      src={data?.item.iconLink?.toString()}
+                      alt="Task needed key."
+                    />
+                    <Typography
+                      sx={{
+                        height: "40px",
+                        display: "flex",
+                        alignItems: "center",
+                        pl: 1,
+                      }}
+                      variant="body1"
+                    >
+                      {data?.item.name}
+                      {data?.count && data?.count > 1
+                        ? ` (${data?.count})`
+                        : null}
+                    </Typography>
+                  </Item>
+                </Grid>
+              ))}
+              {currentTask.finishRewards.offerUnlock.map((data, idx) => (
+                <ListItem sx={{ pl: 4 }} key={`${data?.id}_${idx}`}>
+                  <ListItemText>{`Unlock offer ${data?.item.name} at ${data?.trader.name}.`}</ListItemText>
+                </ListItem>
+              ))}
+            </Grid>
           </List>
         </Card>
       );
@@ -350,10 +537,10 @@ export const TaskList = () => {
           component="div"
         >
           <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Objectives" />
-            <Tab label="Requirements" />
-            <Tab label="Start rewards" />
-            <Tab label="Finish rewards" />
+            <Tab label={langDict.TASK_DETAIL_DIALOG.Objective} />
+            <Tab label={langDict.TASK_DETAIL_DIALOG.Requirements} />
+            <Tab label={langDict.TASK_DETAIL_DIALOG.StartRewards} />
+            <Tab label={langDict.TASK_DETAIL_DIALOG.FinishRewards} />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>

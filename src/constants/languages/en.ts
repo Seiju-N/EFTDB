@@ -33,10 +33,25 @@ const EN_DICT = {
       }
     }
   },
+
   FOOTER_SENTENCE: {
     report: "Please report bugs or feature requests to Github issues or Discord (boru#4555).",
     donate: "Please support us to improve and maintain our service.",
   },
+
+  TASK_DETAIL_DIALOG: {
+    Objective: "Objective",
+    Requirements: "Requirements",
+    StartRewards: "Start rewards",
+    FinishRewards: "Finish rewards",
+    Reputation: "Reputation",
+    Rewards: "Rewards",
+    PlayerLevelRequirements: "Player level requirements",
+    TaskRequirements: "Task requirements",
+    NeededKeys: "Needed keys",
+    StartRewardsItems: "Start rewards items",
+  },
+
   TASK_COLUMN: {
     Name: "Task name",
     Experience: "Experience",
@@ -44,6 +59,10 @@ const EN_DICT = {
     TraderName: "Trader name",
     KappaRequired: "kappaRequired",
     LightkeeperRequired: "lightkeeperRequired",
+  },
+
+  TASK_STATUS: {
+    complete: "complete",
   },
 
   ITEM_DETAIL_DIALOG: {

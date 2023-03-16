@@ -23,6 +23,8 @@ export type dictType = {
   },
   FOOTER_SENTENCE: Record<string, string>,
   TASK_COLUMN: Record<string, string>,
+  TASK_DETAIL_DIALOG: Record<string, string>,
+  TASK_STATUS: Record<string, string>,
   ITEM_DETAIL_DIALOG: Record<string, string>,
   MENU_SENTENCE: Record<string, string>,
   ARMOR_MATERIAL: Record<string, string>[],

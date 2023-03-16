@@ -109,6 +109,7 @@ export const useHooks = () => {
     handleChange,
     isAllArrayElementsEmpty,
     setCurrentTask,
+    langDict,
     categories,
     dialogOpen,
     currentTask,

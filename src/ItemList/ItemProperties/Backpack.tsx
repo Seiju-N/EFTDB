@@ -65,7 +65,7 @@ export const Backpack = ({ ItemId }: Props) => {
                   {ITEM_PROPERTIES_BACKPACK.ergoPenalty}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {convertPercent(properties.ergoPenalty)}
+                  {`${properties.ergoPenalty}%`}
                 </Grid>
               </>
             ) : null}
