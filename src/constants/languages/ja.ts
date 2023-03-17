@@ -110,7 +110,7 @@ const JA_DICT = {
     AmmoContainer: "弾薬パック",
     ArmBand: "アームバンド",
     Armor: "アーマー",
-    ArmoredEquipment: "アーマー類",
+    ArmoredEquipment: "追加装甲",
     AssaultCarbine: "アサルトカービン",
     AssaultRifle: "アサルトライフル",
     AssaultScope: "アサルトスコープ",
@@ -239,6 +239,23 @@ const JA_DICT = {
       id: "Glass",
     },
   ],
+
+  HEAD_ZONES:{
+    "Top of the head": "前頭部",
+    "Eyes":"目",
+    "Ears":"耳",
+    "Jaws":"顎",
+    "Lower nape":"うなじ",
+    "Nape":"後頭部",
+  },
+
+  BODY_ZONES:{
+    THORAX: "Thorax",
+    STOMACH: "Stomach",
+    LEFT_ARM: "Left arm",
+    RIGHT_ARM: "Right arm",
+  },
+
   ITEM_PROPERTIES: {
     name: "アイテム名",
     basePrice: "基準価格",

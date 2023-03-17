@@ -55,9 +55,10 @@ import { useHooks } from "./hooks";
 import { useLocation, useParams } from "react-router-dom";
 import { TabPanel } from "@/components/TabPanel";
 import { Link as RouterLink } from "react-router-dom";
-import { toPascalCase } from "@/utils";
+import { addSign, toPascalCase } from "@/utils";
 import { Item } from "@/components/Item";
 import { ItemCenter } from "@/components/ItemCenter";
+import { NoInfo } from "./NoInfo";
 
 export const TaskList = () => {
   const {
@@ -112,14 +113,6 @@ export const TaskList = () => {
       },
       []
     );
-
-    const NoInfo = () => {
-      return (
-        <ListItem sx={{ pl: 4 }}>
-          <ListItemText>Nothing</ListItemText>
-        </ListItem>
-      );
-    };
 
     const TaskObjectives = () => {
       if (!currentTask.objectives) return <NoInfo />;
@@ -445,11 +438,7 @@ export const TaskList = () => {
                       }}
                       variant="subtitle1"
                     >
-                      {`${
-                        data?.standing && data?.standing >= 0
-                          ? `+ ${data?.standing}`
-                          : `${data?.standing}`
-                      }`}
+                      {addSign(data?.standing)}
                     </Typography>
                   </ItemCenter>
                 </Grid>
@@ -474,42 +463,49 @@ export const TaskList = () => {
                       }}
                       variant="subtitle1"
                     >
-                      {`${
-                        data?.level && data?.level >= 0
-                          ? `+ ${data?.level}`
-                          : `${data?.level}`
-                      }`}
+                      {addSign(data?.level)}
                     </Typography>
                   </ItemCenter>
                 </Grid>
               ))}
               {currentTask.finishRewards.items.map((data, idx) => (
                 <Grid item xs={12} md={6} key={`${data?.item.id}_${idx}`}>
-                  <Item>
-                    <img
-                      style={{
-                        height: 50,
-                        width: "auto",
-                        maxWidth: "100%",
-                      }}
-                      src={data?.item.iconLink?.toString()}
-                      alt="Task needed key."
-                    />
-                    <Typography
-                      sx={{
-                        height: "40px",
-                        display: "flex",
-                        alignItems: "center",
-                        pl: 1,
-                      }}
-                      variant="body1"
-                    >
-                      {data?.item.name}
-                      {data?.count && data?.count > 1
-                        ? ` (${data?.count})`
-                        : null}
-                    </Typography>
-                  </Item>
+                  <RouterLink
+                    to={`/item/${toPascalCase(
+                      categories.find(
+                        (category) =>
+                          category?.name === data?.item.category?.name
+                      )?.normalizedName
+                    )}`}
+                    state={{ itemId: data?.item.id }}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Item>
+                      <img
+                        style={{
+                          height: 50,
+                          width: "auto",
+                          maxWidth: "100%",
+                        }}
+                        src={data?.item.iconLink?.toString()}
+                        alt="Task needed key."
+                      />
+                      <Typography
+                        sx={{
+                          height: "40px",
+                          display: "flex",
+                          alignItems: "center",
+                          pl: 1,
+                        }}
+                        variant="body1"
+                      >
+                        {data?.item.name}
+                        {data?.count && data?.count > 1
+                          ? ` (${data?.count})`
+                          : null}
+                      </Typography>
+                    </Item>
+                  </RouterLink>
                 </Grid>
               ))}
               {currentTask.finishRewards.offerUnlock.map((data, idx) => (

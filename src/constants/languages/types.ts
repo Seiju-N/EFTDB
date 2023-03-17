@@ -28,6 +28,8 @@ export type dictType = {
   ITEM_DETAIL_DIALOG: Record<string, string>,
   MENU_SENTENCE: Record<string, string>,
   ARMOR_MATERIAL: Record<string, string>[],
+  HEAD_ZONES: Record<string, string>,
+  BODY_ZONES: Record<string, string>,
   ITEM_PROPERTIES: {
     [key: string]: string;
   },

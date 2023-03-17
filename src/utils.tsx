@@ -49,6 +49,15 @@ export const parseData = (dataArr?: Task[]) => {
   return result;
 };
 
+export const addSign = (num?: number): string => {
+  if (!num) return "";
+  if (num > 0) {
+    return `+${num}`;
+  } else {
+    return num.toString();
+  }
+};
+
 export const normalise = (value: number, MIN = 0, MAX = 100) => {
   return ((value - MIN) * 100) / (MAX - MIN);
 };

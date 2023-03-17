@@ -77,6 +77,7 @@ const EN_DICT = {
     item: "Items",
     taskMarker: "Task markers",
   },
+  
   ARMOR_MATERIAL: [
     {
       name: "Ultra High Molecular Weight Polyethylene",
@@ -111,6 +112,22 @@ const EN_DICT = {
       id: "Glass",
     },
   ],
+
+  HEAD_ZONES:{
+    "Top of the head": "Top of the head",
+    "Eyes":"Eyes",
+    "Ears":"Ears",
+    "Jaws":"Jaws",
+    "Lower nape":"Lower nape",
+    "Nape":"Nape",
+  },
+
+  BODY_ZONES:{
+    THORAX: "Thorax",
+    STOMACH: "Stomach",
+    LEFT_ARM: "Left arm",
+    RIGHT_ARM: "Right arm",
+  },
 
   ITEM_PROPERTIES: {
     name: "Name",

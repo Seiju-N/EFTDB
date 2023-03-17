@@ -21,7 +21,7 @@ type QueryType = {
 
 export const ChestRig = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_CHEST_RIG, ARMOR_MATERIAL } =
+  const { ITEM_PROPERTIES_CHEST_RIG, ARMOR_MATERIAL, BODY_ZONES } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_CHEST_RIG,
@@ -67,7 +67,7 @@ export const ChestRig = ({ ItemId }: Props) => {
                   <List disablePadding>
                     {properties.zones.map((zone) => (
                       <ListItem disableGutters disablePadding key={zone}>
-                        {zone}
+                        {zone ? BODY_ZONES[zone] : null}
                       </ListItem>
                     ))}
                   </List>

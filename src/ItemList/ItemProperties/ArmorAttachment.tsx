@@ -2,7 +2,7 @@ import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesArmorAttachment } from "@/graphql/generated";
 import { GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT } from "@/query";
 import { useQuery } from "@apollo/client";
-import { Typography } from "@mui/material";
+import { List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
@@ -21,7 +21,7 @@ type QueryType = {
 
 export const ArmorAttachment = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_ARMOR_ATTACHMENT, ARMOR_MATERIAL } =
+  const { ITEM_PROPERTIES_ARMOR_ATTACHMENT, ARMOR_MATERIAL, HEAD_ZONES } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT,
@@ -84,7 +84,13 @@ export const ArmorAttachment = ({ ItemId }: Props) => {
                   {ITEM_PROPERTIES_ARMOR_ATTACHMENT.headZones}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.headZones}
+                  <List disablePadding>
+                    {properties.headZones.map((headZone) => (
+                      <ListItem disableGutters disablePadding key={headZone}>
+                        {headZone ? HEAD_ZONES[headZone] : null}
+                      </ListItem>
+                    ))}
+                  </List>
                 </Grid>
               </>
             ) : null}
