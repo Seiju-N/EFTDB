@@ -351,6 +351,55 @@ export const GET_ITEMS = gql`
   }
 `;
 
+export const GET_SERVER_STATUS = gql`
+    query getServerStatus {
+      status {
+        currentStatuses {
+          message
+          name
+          status
+          statusCode
+        }
+        generalStatus {
+          message
+          name
+          status
+          statusCode
+        }
+        messages {
+          content
+          solveTime
+          statusCode
+          time
+          type
+        }
+      }
+    }
+  `;
+
+export const GET_BOSS_SPAWN = gql`
+  query getBossSpawn {
+    maps {
+      name
+      bosses {
+        boss{
+          name
+          imagePosterLink
+          imagePortraitLink
+        }
+        spawnLocations{
+          name
+          chance
+        }
+        spawnChance
+        spawnTime
+        spawnTimeRandom
+        spawnTrigger
+      }
+    }
+  }
+`;
+
 export const GET_ITEM_PROPERTIES_ARMOR = gql`
   query getItemProperties($itemId: ID, $lang: LanguageCode) {
     item(id: $itemId, lang: $lang) {

@@ -1,42 +1,26 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import StorageIcon from "@mui/icons-material/Storage";
-import { Box, List, Paper, Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+  Typography,
+} from "@mui/material";
 
 import type { Query } from "@/graphql/generated";
+import { memo } from "react";
 
 import { useHooks } from "./hooks";
+import { GET_SERVER_STATUS } from "@/query";
 
-export const ServerStatus = () => {
+export const ServerStatus = memo(() => {
   const { langDict } = useHooks();
-  const SERVER_STATUS_QUERY = gql`
-    query getServerStatus {
-      status {
-        currentStatuses {
-          message
-          name
-          status
-          statusCode
-        }
-        generalStatus {
-          message
-          name
-          status
-          statusCode
-        }
-        messages {
-          content
-          solveTime
-          statusCode
-          time
-          type
-        }
-      }
-    }
-  `;
-  const { loading, error, data } = useQuery<Query>(SERVER_STATUS_QUERY);
+
+  const { loading, error, data } = useQuery<Query>(GET_SERVER_STATUS);
   if (loading || error || !data) return null;
   return (
     <Paper sx={{ display: "flex", flexDirection: "column" }}>
@@ -50,30 +34,25 @@ export const ServerStatus = () => {
       <List>
         {data.status.currentStatuses?.map((status, index) =>
           status ? (
-            <Grid container key={index} p={1}>
-              <Grid xs={10} pl={2}>
-                <Typography variant="inherit">
-                  {langDict.HOME_SENTENCE.server_status[status.name]}
-                </Typography>
-              </Grid>
-              <Grid xs={2} pr={2}>
-                {status.status === 0 ? (
-                  <CheckCircleIcon fontSize="medium" color="success" />
-                ) : (
-                  <CancelIcon fontSize="medium" color="error" />
-                )}
-              </Grid>
-              {status.message ? (
-                <Grid xs={12}>
-                  <Typography variant="subtitle2" pl={2} pb={1}>
-                    {status?.message}
-                  </Typography>
-                </Grid>
-              ) : null}
-            </Grid>
+            <ListItem
+              key={index}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <ListItemText
+                primary={langDict.HOME_SENTENCE.server_status[status.name]}
+                primaryTypographyProps={{ variant: "h6" }}
+                sx={{ pl: 2 }}
+                secondary={status.message ? status.message : null}
+              />
+              {status.status === 0 ? (
+                <CheckCircleIcon fontSize="medium" color="success" />
+              ) : (
+                <CancelIcon fontSize="medium" color="error" />
+              )}
+            </ListItem>
           ) : null
         )}
       </List>
     </Paper>
   );
-};
+});

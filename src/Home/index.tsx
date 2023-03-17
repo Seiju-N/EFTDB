@@ -1,12 +1,12 @@
 import { Box, CardMedia, Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { memo } from "react";
 
 import { useHooks } from "./hooks";
 import { ServerStatus } from "./ServerStatus";
 import { TopSubtitle } from "./TopSubtitle";
 import { ItemCategoryList } from "./ItemCategoryList";
 import { TaskTraderList } from "./TaskTraderList";
+import { BossSpawn } from "./BossSpawn";
 
 export const Home = () => {
   const { langDict } = useHooks();
@@ -25,33 +25,6 @@ export const Home = () => {
       </Typography>
     );
   };
-
-  const Menu = memo(() => {
-    return (
-      <Grid container>
-        <Grid
-          xs={12}
-          md={6}
-          sx={{
-            mb: { xs: 2, md: 0 },
-            px: { xs: 0, md: 1 },
-          }}
-        >
-          <ItemCategoryList />
-        </Grid>
-        <Grid
-          xs={12}
-          md={6}
-          sx={{
-            mb: { xs: 2, md: 0 },
-            px: { xs: 0, md: 1 },
-          }}
-        >
-          <TaskTraderList />
-        </Grid>
-      </Grid>
-    );
-  });
 
   return (
     <Container>
@@ -86,12 +59,18 @@ export const Home = () => {
           />
         </Grid>
       </Grid>
-      <Grid container columnSpacing={1}>
-        <Grid xs={12} md={9}>
-          <Menu />
+      <Grid container spacing={1} columns={16}>
+        <Grid xs={16} md={6}>
+          <ItemCategoryList />
         </Grid>
-        <Grid xs={12} md={3}>
+        <Grid xs={16} md={6}>
+          <TaskTraderList />
+        </Grid>
+        <Grid xs={16} md={4}>
           <ServerStatus />
+        </Grid>
+        <Grid xs={16} md={12}>
+          <BossSpawn />
         </Grid>
       </Grid>
     </Container>

@@ -1,25 +1,27 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, styled } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import RecommendIcon from "@mui/icons-material/Recommend";
 import { LanguageDictContext } from "@/App";
 import { useContext } from "react";
 
+const FooterBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  height: 100,
+  backgroundColor: "#121212",
+  backgroundImage:
+    "linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))",
+  color: "#ffffff",
+  fontSize: theme.typography.subtitle1.fontSize,
+  mt: 2,
+}));
+
 export const Footer = () => {
   const langDict = useContext(LanguageDictContext);
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 100,
-        backgroundColor: "#1a1a1a",
-        color: "#ffffff",
-        fontSize: 12,
-        mt: 2,
-      }}
-    >
+    <FooterBox>
       <Box>
         <Button
           href="https://paypal.me/NSeiju"
@@ -39,6 +41,6 @@ export const Footer = () => {
         </Button>
       </Box>
       <Box>{"© 2023 EFTDB. All rights reserved."}</Box>
-    </Box>
+    </FooterBox>
   );
 };

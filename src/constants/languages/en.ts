@@ -17,19 +17,22 @@ const EN_DICT = {
       "Inventory operations": "Inventory",
       "Global": "Global",
     },
+    boss_spawns:{
+      "title": "Boss spawns",
+    },
     subtitle: {
-      "subtitle1": "EFTDB provides the following features.",
-      "simple": {
-        "primary": "Simplicity",
-        "secondary": "No extra information."
+      subtitle1: "EFTDB provides the following features.",
+      simple: {
+        primary: "Simplicity",
+        secondary: "No extra information."
       },
-      "accurate": {
-        "primary": "Accuracy",
-        "secondary": "Accurate information."
+      accurate: {
+        primary: "Accuracy",
+        secondary: "Accurate information."
       },
-      "fast": {
-        "primary": "Speed",
-        "secondary": "Fresh information."
+      fast: {
+        primary: "Speed",
+        secondary: "Fresh information."
       }
     }
   },

@@ -5,6 +5,7 @@ export type dictType = {
     search_item: string,
     search_task: string,
     server_status: Record<string, string>,
+    boss_spawns: Record<string, string>,
     subtitle: {
       subtitle1: string,
       simple: {

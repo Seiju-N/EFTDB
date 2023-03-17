@@ -17,6 +17,9 @@ const JA_DICT = {
       "Inventory operations": "インベントリ",
       "Global": "グローバル",
     },
+    boss_spawns:{
+      "title": "ボススポーン率",
+    },
     subtitle: {
       subtitle1: "EFTDBは以下を提供します。",
       simple: {

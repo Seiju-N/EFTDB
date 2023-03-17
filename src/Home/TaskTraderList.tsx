@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useHooks } from "./hooks";
+import { memo } from "react";
 
-export const TaskTraderList = () => {
+export const TaskTraderList = memo(() => {
   const { langDict, traders, MenuTitle } = useHooks();
   return (
     <Card>
@@ -35,4 +36,4 @@ export const TaskTraderList = () => {
       </List>
     </Card>
   );
-};
+});
