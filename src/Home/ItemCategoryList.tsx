@@ -19,18 +19,14 @@ export const ItemCategoryList = memo(() => {
       />
       <List component="div">
         <FlatCategory categoryName="Ammo" />
-        <FlatCategory categoryName="Armor" />
-        <FlatCategory categoryName="Armored equipment" />
+        <NestedSubcategory categoryName="Armored equipment" />
         <FlatCategory categoryName="Arm band" />
         <FlatCategory categoryName="Backpack" />
         <NestedCategory categoryName="Barter item" />
         <FlatCategory categoryName="Chest rig" />
         <FlatCategory categoryName="Common container" />
-        <FlatCategory categoryName="Face Cover" />
         <NestedCategory categoryName="Food and drink" />
-        <FlatCategory categoryName="Glasses" />
         <FlatCategory categoryName="Headphones" />
-        <FlatCategory categoryName="Headwear" />
         <FlatCategory categoryName="Info" />
         <NestedCategory categoryName="Key" />
         <FlatCategory categoryName="Knife" />

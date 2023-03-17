@@ -34,6 +34,7 @@ import {
 import FilterAlt from "@mui/icons-material/FilterAlt";
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 
 import {
   Task,
@@ -509,9 +510,49 @@ export const TaskList = () => {
                 </Grid>
               ))}
               {currentTask.finishRewards.offerUnlock.map((data, idx) => (
-                <ListItem sx={{ pl: 4 }} key={`${data?.id}_${idx}`}>
-                  <ListItemText>{`Unlock offer ${data?.item.name} at ${data?.trader.name}.`}</ListItemText>
-                </ListItem>
+                <Grid item xs={12} md={6} key={`${data?.item.id}_${idx}`}>
+                  <RouterLink
+                    to={`/item/${toPascalCase(
+                      categories.find(
+                        (category) =>
+                          category?.name === data?.item.category?.name
+                      )?.normalizedName
+                    )}`}
+                    state={{ itemId: data?.item.id }}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Item>
+                      <img
+                        style={{
+                          height: 50,
+                          width: "auto",
+                          maxWidth: "100%",
+                        }}
+                        src={data?.item.iconLink?.toString()}
+                        alt="Offer unlock item."
+                      />
+                      <LockOpenIcon
+                        fontSize="small"
+                        sx={{
+                          position: "absolute",
+                          top: 2,
+                          left: 44,
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          height: "40px",
+                          display: "flex",
+                          alignItems: "center",
+                          pl: 1,
+                        }}
+                        variant="body1"
+                      >
+                        {data?.item.name}
+                      </Typography>
+                    </Item>
+                  </RouterLink>
+                </Grid>
               ))}
             </Grid>
           </List>

@@ -8,4 +8,5 @@ export const Item = styled(Paper)(({ theme }) => ({
   alignItems: "center",
   color: theme.palette.text.secondary,
   borderRadius: 1,
+  position: "relative",
 }));

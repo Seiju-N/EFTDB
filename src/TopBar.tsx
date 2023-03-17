@@ -124,6 +124,7 @@ export const TopBar = (props: Props) => {
       </>
     );
   };
+
   const traders = useContext(TradersContext);
   const itemCategories = useContext<readonly Maybe<ItemCategory>[]>(
     CategoryContext
@@ -131,19 +132,20 @@ export const TopBar = (props: Props) => {
     .filter(
       (category) =>
         category?.name === "Ammo" ||
-        category?.name === "Armor" ||
+        category?.name === "Armored equipment" ||
         category?.name === "Arm Band" ||
-        category?.name === "Barter item" ||
         category?.name === "Backpack" ||
+        category?.name === "Barter item" ||
         category?.name === "Chest rig" ||
         category?.name === "Common container" ||
         category?.name === "Food and drink" ||
-        category?.name === "Glasses" ||
+        category?.name === "Info" ||
         category?.name === "Headphones" ||
-        category?.name === "Helmet" ||
         category?.name === "Key" ||
         category?.name === "Knife" ||
+        category?.name === "Map" ||
         category?.name === "Meds" ||
+        category?.name === "Port. container" ||
         category?.name === "Throwable weapon" ||
         category?.name === "Weapon mod" ||
         category?.name === "Weapon"

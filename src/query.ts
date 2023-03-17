@@ -216,6 +216,10 @@ export const GET_TASKS = gql`
           item {
             id
             name
+            iconLink
+            category{
+              name
+            }
           }
         }
         skillLevelReward {
@@ -267,6 +271,10 @@ export const GET_TASKS = gql`
           item {
             id
             name
+            iconLink
+            category{
+              name
+            }
           }
         }
         skillLevelReward {
