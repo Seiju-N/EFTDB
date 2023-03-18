@@ -1,53 +1,72 @@
 import { useQuery } from "@apollo/client";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Avatar,
   AvatarGroup,
   Box,
-  Collapse,
-  List,
+  Divider,
   ListItem,
   ListItemAvatar,
-  ListItemButton,
   ListItemText,
   Paper,
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Fragment, memo, useState } from "react";
-import type { Map, Maybe, Query } from "@/graphql/generated";
+import { Fragment, memo, SyntheticEvent, useState } from "react";
+import type { Query } from "@/graphql/generated";
 import { GET_BOSS_SPAWN } from "@/query";
 import GroupIcon from "@mui/icons-material/Group";
 import { useHooks } from "./hooks";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { convertPercent } from "@/ItemList/utils";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
-type props = {
-  map: Maybe<Map>;
-};
-
 export const BossSpawn = memo(() => {
   const { langDict } = useHooks();
+  const [expanded, setExpanded] = useState<string | false>(false);
+
+  const handleChange =
+    (panel: string | undefined) =>
+    (event: SyntheticEvent, isExpanded: boolean) => {
+      if (!panel) return;
+      setExpanded(isExpanded ? panel : false);
+    };
+
   const { loading, error, data } = useQuery<Query>(GET_BOSS_SPAWN);
   if (loading || error || !data) return null;
-  console.log(data);
 
-  const BossSpawnListItem = memo(({ map }: props) => {
-    const [open, setOpen] = useState(false);
+  const Title = memo(() => (
+    <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
+      <GroupIcon fontSize="medium" />
+      <Typography variant="h5" pl={1}>
+        {langDict.HOME_SENTENCE.boss_spawns.title}
+      </Typography>
+    </Box>
+  ));
 
-    const handleClick = () => {
-      setOpen(!open);
-    };
-    return (
-      <>
-        <ListItemButton onClick={handleClick}>
-          <>
-            <ListItemText
-              sx={{ pl: 2 }}
-              primary={map?.name}
-              primaryTypographyProps={{ variant: "h6" }}
-            />
+  return (
+    <Paper sx={{ display: "flex", flexDirection: "column" }}>
+      <Title />
+      {data.maps.map((map, index) => (
+        <Accordion
+          expanded={expanded === map?.name}
+          onChange={handleChange(map?.name)}
+          key={`${map?.name}_${index}`}
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography
+              variant="h6"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                width: "42%",
+                flexShrink: 0,
+              }}
+            >
+              {map?.name}
+            </Typography>
             <AvatarGroup max={4}>
               {map?.bosses.map((boss, index) => (
                 <Tooltip
@@ -58,57 +77,40 @@ export const BossSpawn = memo(() => {
                 </Tooltip>
               ))}
             </AvatarGroup>
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </>
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List>
+          </AccordionSummary>
+          <AccordionDetails sx={{ p: 2 }}>
             {map?.bosses.map((boss, index) => (
-              <>
+              <Fragment key={`${boss?.boss.name}__${index}`}>
                 <ListItem key={`${boss?.boss.name}__${index}`}>
-                  <ListItemAvatar sx={{ pl: 4 }}>
+                  <ListItemAvatar>
                     <Avatar src={boss?.boss.imagePortraitLink?.toString()} />
                   </ListItemAvatar>
                   <ListItemText
-                    sx={{ pl: 2 }}
                     primary={boss?.boss.name}
                     primaryTypographyProps={{ variant: "h6" }}
                     secondary={`Chance ${convertPercent(boss?.spawnChance)}`}
                   />
-                  <Grid container pl={10}>
-                    {boss?.spawnLocations.map((location, idx) => (
-                      <Grid xs={6} md={6} key={`${location?.name}_${idx}`}>
-                        <ListItemText
-                          inset
-                          primary={location?.name}
-                          secondary={convertPercent(location?.chance)}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
                 </ListItem>
-              </>
+                <Grid container pl={2}>
+                  {boss?.spawnLocations.map((location, idx) => (
+                    <Grid xs={6} key={`${location?.name}_${idx}`}>
+                      <ListItemText
+                        inset
+                        primary={location?.name}
+                        secondary={convertPercent(
+                          boss?.spawnChance *
+                            (location?.chance ? location?.chance : 1)
+                        )}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+                <Divider />
+              </Fragment>
             ))}
-          </List>
-        </Collapse>
-      </>
-    );
-  });
-  return (
-    <Paper sx={{ display: "flex", flexDirection: "column" }}>
-      <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
-        <GroupIcon fontSize="medium" />
-        <Typography variant="h5" pl={1}>
-          {langDict.HOME_SENTENCE.boss_spawns.title}
-        </Typography>
-      </Box>
-      <List>
-        {data.maps.map((map, index) => (
-          <Fragment key={index}>
-            <BossSpawnListItem map={map} />
-          </Fragment>
-        ))}
-      </List>
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </Paper>
   );
 });

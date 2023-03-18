@@ -665,7 +665,7 @@ export const TaskList = () => {
               <MenuItem value={"lightkeeperRequired"}>Lightkeeper</MenuItem>
             </Select>
           </FormControl>
-          <Box height={"84vh"}>
+          <Box height={"84vh"} mb={1}>
             <DataGrid
               columns={cols}
               rows={formatted}

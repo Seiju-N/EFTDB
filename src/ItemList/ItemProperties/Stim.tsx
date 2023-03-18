@@ -34,7 +34,6 @@ export const Stim = ({ ItemId }: Props) => {
   if (!data || loading) return <Loading />;
   if (error) return null;
   const properties = data.item.properties;
-  console.log(properties);
   return (
     <>
       {properties ? (

@@ -9,13 +9,13 @@ const FooterBox = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  height: 100,
+  height: 96,
   backgroundColor: "#121212",
   backgroundImage:
     "linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))",
   color: "#ffffff",
   fontSize: theme.typography.subtitle1.fontSize,
-  mt: 2,
+  mt: 4,
 }));
 
 export const Footer = () => {

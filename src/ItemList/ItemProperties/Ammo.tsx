@@ -74,7 +74,7 @@ export const Ammo = ({ ItemId }: Props) => {
                 <Grid xs={3}>{ITEM_PROPERTIES_AMMO.damage}</Grid>
                 <Grid xs={9}>
                   <LinearProgressWithLabel
-                    value={normalise(properties.damage, 0, 200)}
+                    value={properties.damage}
                     maxValue={200}
                   />
                 </Grid>

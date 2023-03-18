@@ -59,7 +59,7 @@ export const Home = () => {
           />
         </Grid>
       </Grid>
-      <Grid container spacing={1} columns={16}>
+      <Grid container spacing={1} columns={16} pb={2}>
         <Grid xs={16} md={6}>
           <ItemCategoryList />
         </Grid>
@@ -69,7 +69,7 @@ export const Home = () => {
         <Grid xs={16} md={4}>
           <ServerStatus />
         </Grid>
-        <Grid xs={16} md={12}>
+        <Grid xs={16} md={6}>
           <BossSpawn />
         </Grid>
       </Grid>
