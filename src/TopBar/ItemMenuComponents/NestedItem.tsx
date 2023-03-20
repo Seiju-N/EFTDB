@@ -41,7 +41,7 @@ export const NestedItem = ({ categoryName }: props) => {
       >
         <ListItemButton
           component={RouterLink}
-          to={`item/{${toPascalCase(categoryName)}}`}
+          to={`item/${toPascalCase(categoryName)}`}
           onClick={handleCloseItemMenu}
         >
           <ListItemText

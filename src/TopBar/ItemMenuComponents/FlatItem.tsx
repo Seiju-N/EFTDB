@@ -14,7 +14,7 @@ export const FlatItem = ({ categoryName }: FlatMenuItemProps) => {
     <ListItem alignItems="flex-start" disableGutters disablePadding>
       <ListItemButton
         component={RouterLink}
-        to={`item/{${toPascalCase(categoryName)}}`}
+        to={`item/${toPascalCase(categoryName)}`}
         onClick={handleCloseItemMenu}
       >
         <ListItemText
