@@ -262,6 +262,7 @@ const JA_DICT = {
   ITEM_PROPERTIES: {
     name: "アイテム名",
     basePrice: "基準価格",
+    sellPrice: "売値",
     usedInTasks: "タスクでの使用",
     width: "幅",
     height: "高さ",

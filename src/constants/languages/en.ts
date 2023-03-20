@@ -135,6 +135,7 @@ const EN_DICT = {
   ITEM_PROPERTIES: {
     name: "Name",
     basePrice: "Base price",
+    sellPrice: "Sell price",
     usedInTasks: "Used in tasks",
     width: "Width",
     height: "Height",
