@@ -306,7 +306,6 @@ export const GET_ITEMS = gql`
       basePrice
       width
       height
-      types
       image512pxLink
       wikiLink
       usedInTasks {
@@ -315,6 +314,14 @@ export const GET_ITEMS = gql`
         trader {
           name
         }
+      }
+      sellFor{
+        price
+        vendor{
+          name
+        }
+        currency
+        priceRUB
       }
       properties {
         ... on ItemPropertiesAmmo {
@@ -343,6 +350,14 @@ export const GET_ITEMS = gql`
         trader {
           name
         }
+      }
+      sellFor{
+        price
+        vendor{
+          name
+        }
+        currency
+        priceRUB
       }
       properties {
         __typename
