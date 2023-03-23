@@ -22,15 +22,21 @@ export const ServerStatus = memo(() => {
 
   const { loading, error, data } = useQuery<Query>(GET_SERVER_STATUS);
   if (loading || error || !data) return null;
-  return (
-    <Paper sx={{ display: "flex", flexDirection: "column" }}>
+
+  const Title = memo(() => {
+    return (
       <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
         <StorageIcon fontSize="medium" />
         <Typography variant="h5" pl={1}>
           {langDict.HOME_SENTENCE.server_status.title}
         </Typography>
       </Box>
+    );
+  });
 
+  return (
+    <Paper sx={{ display: "flex", flexDirection: "column" }}>
+      <Title />
       <List>
         {data.status.currentStatuses?.map((status, index) =>
           status ? (

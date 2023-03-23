@@ -292,10 +292,10 @@ export const GET_TASKS = gql`
 export const GET_ITEMS = gql`
   query GetItems(
     $categoryNames: [ItemCategoryName]
-    $skipCategoryNames: Boolean!
+    $withCategory: Boolean!
   ) {
     itemsWithCategories: items(categoryNames: $categoryNames)
-      @include(if: $skipCategoryNames) {
+      @include(if: $withCategory) {
       id
       name
       normalizedName
@@ -330,7 +330,7 @@ export const GET_ITEMS = gql`
         }
       }
     }
-    itemsWithoutCategories: items @skip(if: $skipCategoryNames) {
+    itemsWithoutCategories: items @skip(if: $withCategory) {
       id
       name
       normalizedName

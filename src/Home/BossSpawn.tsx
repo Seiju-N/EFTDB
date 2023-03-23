@@ -105,7 +105,7 @@ export const BossSpawn = memo(() => {
                     </Grid>
                   ))}
                 </Grid>
-                <Divider />
+                {map?.bosses.length - 1 !== index && <Divider />}
               </Fragment>
             ))}
           </AccordionDetails>

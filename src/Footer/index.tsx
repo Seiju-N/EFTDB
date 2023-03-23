@@ -1,4 +1,4 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, styled, Typography } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import RecommendIcon from "@mui/icons-material/Recommend";
 import { LanguageDictContext } from "@/App";
@@ -22,25 +22,26 @@ export const Footer = () => {
   const langDict = useContext(LanguageDictContext);
   return (
     <FooterBox>
-      <Box>
-        <Button
-          href="https://paypal.me/NSeiju"
-          endIcon={<RecommendIcon />}
-          sx={{ textTransform: "unset !important" }}
-        >
-          {langDict.FOOTER_SENTENCE.donate}(paypal)
-        </Button>
-      </Box>
-      <Box>
-        <Button
-          href="https://github.com/Seiju-N/EFTDB/issues"
-          endIcon={<GitHubIcon />}
-          sx={{ textTransform: "unset !important" }}
-        >
-          {langDict.FOOTER_SENTENCE.report}
-        </Button>
-      </Box>
-      <Box>{"© 2023 EFTDB. All rights reserved."}</Box>
+      <Button
+        href="https://paypal.me/NSeiju"
+        endIcon={<RecommendIcon />}
+        sx={{ textTransform: "unset !important", py: 0 }}
+      >
+        {langDict.FOOTER_SENTENCE.donate}(paypal)
+      </Button>
+      <Button
+        href="https://github.com/Seiju-N/EFTDB/issues"
+        endIcon={<GitHubIcon />}
+        sx={{ textTransform: "unset !important", py: 0 }}
+      >
+        {langDict.FOOTER_SENTENCE.report}
+      </Button>
+      <Typography variant="caption">
+        {"データはtarkov-apiから取得されています。"}
+      </Typography>
+      <Typography variant="subtitle2">
+        {"© 2023 EFTDB. All rights reserved."}
+      </Typography>
     </FooterBox>
   );
 };

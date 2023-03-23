@@ -19,7 +19,7 @@ export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
   const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
   const param = useParams();
-  
+
   const convertObject = useCallback((ammoType: string) => {
     return {
       items: [
@@ -31,7 +31,7 @@ export const useHooks = () => {
     const value: string = event.target.value as string;
     setFilter(value);
     setAmmoTypeFilter(convertObject(value));
-  },[]);
+  }, []);
 
   useEffect(() => {
     setFilter("")
@@ -46,7 +46,7 @@ export const useHooks = () => {
   const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
   }, []);
-  
+
   const cols: GridColDef[] = [
     {
       field: "category",
@@ -92,7 +92,7 @@ export const useHooks = () => {
   const { loading, error, data } = useQuery(GET_ITEMS, {
     variables: {
       categoryNames: [param.categoryName],
-      skipCategoryNames: Boolean(param.categoryName),
+      withCategory: Boolean(param.categoryName),
     },
   });
   return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading }

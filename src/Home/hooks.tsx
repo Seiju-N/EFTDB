@@ -46,7 +46,7 @@ export const useHooks = () => {
     if (!parsedCategory) return null;
     return (
       <>
-        <ListItem sx={{ py: 0 }}>
+        <ListItem sx={{ py: 0 }} dense>
           <ListItemButton
             component={RouterLink}
             to={`item/${toPascalCase(parsedCategory?.normalizedName)}`}
@@ -76,6 +76,7 @@ export const useHooks = () => {
       <>
         <ListItem
           sx={{ py: 0 }}
+          dense
           secondaryAction={
             <ListItemButton onClick={handleClick}>
               {open ? <ExpandLess /> : <ExpandMore />}
@@ -92,24 +93,22 @@ export const useHooks = () => {
           </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <List>
-            {parsedCategories.map((category) => (
-              <ListItem key={category?.name}>
-                <ListItemButton
-                  component={RouterLink}
-                  to={`item/${toPascalCase(category?.normalizedName)}`}
-                >
-                  <ListItemText sx={{ pl: 2 }}>
-                    {
-                      langDict.ITEM_CATEGORY_NAME[
-                        toPascalCase(category?.normalizedName)
-                      ]
-                    }
-                  </ListItemText>
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+          {parsedCategories.map((category) => (
+            <ListItem key={category?.name} dense>
+              <ListItemButton
+                component={RouterLink}
+                to={`item/${toPascalCase(category?.normalizedName)}`}
+              >
+                <ListItemText sx={{ pl: 2 }}>
+                  {
+                    langDict.ITEM_CATEGORY_NAME[
+                      toPascalCase(category?.normalizedName)
+                    ]
+                  }
+                </ListItemText>
+              </ListItemButton>
+            </ListItem>
+          ))}
         </Collapse>
       </>
     );
@@ -138,7 +137,7 @@ export const useHooks = () => {
       return (
         <>
           {filterByParentCategory.length === 0 ? (
-            <ListItem key={category?.name} sx={{ py: 0 }}>
+            <ListItem key={category?.name} sx={{ py: 0 }} dense>
               <ListItemButton
                 component={RouterLink}
                 to={`item/${toPascalCase(category?.normalizedName)}`}
@@ -162,6 +161,7 @@ export const useHooks = () => {
                     {openDeep ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
                 }
+                dense
               >
                 <ListItemButton
                   component={RouterLink}
@@ -177,27 +177,26 @@ export const useHooks = () => {
                 </ListItemButton>
               </ListItem>
               <Collapse in={openDeep} timeout="auto" unmountOnExit>
-                <List>
-                  {filterByParentCategory.map((category) => (
-                    <ListItem
-                      sx={{ py: 0 }}
-                      key={`NestedList_${category?.name}`}
+                {filterByParentCategory.map((category) => (
+                  <ListItem
+                    sx={{ py: 0 }}
+                    key={`NestedList_${category?.name}`}
+                    dense
+                  >
+                    <ListItemButton
+                      component={RouterLink}
+                      to={`item/${toPascalCase(category?.normalizedName)}`}
                     >
-                      <ListItemButton
-                        component={RouterLink}
-                        to={`item/${toPascalCase(category?.normalizedName)}`}
-                      >
-                        <ListItemText sx={{ pl: 4 }}>
-                          {
-                            langDict.ITEM_CATEGORY_NAME[
-                              toPascalCase(category?.normalizedName)
-                            ]
-                          }
-                        </ListItemText>
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
+                      <ListItemText sx={{ pl: 4 }}>
+                        {
+                          langDict.ITEM_CATEGORY_NAME[
+                            toPascalCase(category?.normalizedName)
+                          ]
+                        }
+                      </ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                ))}
               </Collapse>
             </>
           )}
@@ -214,6 +213,7 @@ export const useHooks = () => {
               {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
           }
+          dense
         >
           <ListItemButton
             component={RouterLink}

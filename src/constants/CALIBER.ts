@@ -13,6 +13,10 @@ export const CALIBERS: caliberType[] = [
     label: ".338 Lapua Magnum"
   },
   {
+    caliberName: "Caliber9x33R",
+    label: ".357 Magnum"
+  },
+  {
     caliberName: "Caliber1143x23ACP",
     label: ".45 ACP"
   },
@@ -53,10 +57,6 @@ export const CALIBERS: caliberType[] = [
     label: "9x21mm"
   },
   {
-    caliberName: "Caliber9x33R",
-    label: ".357 Magnum"
-  },
-  {
     caliberName: "Caliber9x39",
     label: "9x39mm"
   },
@@ -83,6 +83,10 @@ export const CALIBERS: caliberType[] = [
   {
     caliberName: "Caliber762x39",
     label: "7.62x39mm"
+  },
+  {
+    caliberName: "Caliber762x51",
+    label: "7.62x51mm"
   },
   {
     caliberName: "Caliber762x54R",
