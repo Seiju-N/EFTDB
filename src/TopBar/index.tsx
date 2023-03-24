@@ -10,8 +10,8 @@ import { DiscordButton } from "./DiscordButton";
 import { TitleLogo } from "./TitleLogo";
 import { MenuItemsMD } from "./MenuItemsMD";
 import { MenuItemsXS } from "./MenuItemsXS";
-import { SearchInput } from "./SearchInput";
 import { LanguageSelect } from "./LanguageSelect";
+import { SearchInput } from "./SearchInput";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<string>>;

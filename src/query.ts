@@ -333,34 +333,8 @@ export const GET_ITEMS = gql`
     itemsWithoutCategories: items @skip(if: $withCategory) {
       id
       name
-      normalizedName
-      shortName
       category {
         name
-      }
-      basePrice
-      width
-      height
-      types
-      image512pxLink
-      wikiLink
-      usedInTasks {
-        id
-        name
-        trader {
-          name
-        }
-      }
-      sellFor{
-        price
-        vendor{
-          name
-        }
-        currency
-        priceRUB
-      }
-      properties {
-        __typename
       }
     }
   }
