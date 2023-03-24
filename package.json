@@ -62,6 +62,8 @@
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.8.0",
     "react-signature-canvas": "^1.0.6",
+    "react-virtualized-auto-sizer": "^1.0.7",
+    "react-window": "^1.8.8",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^12.3.0",
@@ -163,6 +165,8 @@
   "devDependencies": {
     "@types/lodash": "^4.14.191",
     "@types/react-signature-canvas": "^1.0.2",
+    "@types/react-virtualized-auto-sizer": "^1.0.1",
+    "@types/react-window": "^1.8.5",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "eslint": "^8.35.0",

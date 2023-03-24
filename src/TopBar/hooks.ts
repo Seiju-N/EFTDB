@@ -24,12 +24,14 @@ export const useHooks = () => {
     itemsWithoutCategories: Item[];
   }
 
-  const { data: taskData } = useQuery<taskDataType>(GET_TASKS, {
+  const { data: taskData, loading:taskIsLoading } = useQuery<taskDataType>(GET_TASKS, {
     variables: { lang },
   });
-  const { data: itemData } = useQuery<itemDataType>(GET_ITEMS, {
+  const { data: itemData, loading:itemIsLoading } = useQuery<itemDataType>(GET_ITEMS, {
     variables: { categoryNames: [], withCategory: false },
   });
+
+  const isLoading = taskIsLoading || itemIsLoading;
   const searchItems = {
     tasks: taskData?.tasks.map((task) => { return { id: task.id, name: task.name } }) ?? [],
     items: itemData?.itemsWithoutCategories.map((item) => {
@@ -97,6 +99,7 @@ export const useHooks = () => {
     categories,
     traders,
     searchItems,
+    isLoading,
     anchorElNav,
     anchorElTask,
     anchorElItem,
