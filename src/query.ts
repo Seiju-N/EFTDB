@@ -335,6 +335,7 @@ export const GET_ITEMS = gql`
       name
       category {
         name
+        normalizedName
       }
     }
   }
