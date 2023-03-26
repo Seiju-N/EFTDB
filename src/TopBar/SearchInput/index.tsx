@@ -1,6 +1,7 @@
 import {
   Autocomplete,
   InputAdornment,
+  ListItem,
   styled,
   SxProps,
   TextField,
@@ -21,28 +22,34 @@ const CustomInputAdornment = styled(InputAdornment)(({ theme }) => ({
   marginRight: theme.spacing(-4),
 }));
 
-const ListItem = ({ index, style, data }: ListChildComponentProps) => {
+const CustomListItem = ({ index, data }: ListChildComponentProps) => {
   const option = data[index];
-
+  // const link = (() => {
+  //   if (option.type === "item") {
+  //     return toPascalCase(option.categoryName);
+  //   } else if (option.type === "task") {
+  //     return toPascalCase(option.trader);
+  //   }
+  //   return "";
+  // })();
   return (
-    <div style={style} key={option.id}>
+    <ListItem key={option.id}>
       <Typography
         sx={{
           color: "inherit",
           textDecoration: "none",
         }}
         component={RouterLink}
-        to={""}
+        to={"link"}
       >
         {option.name}
       </Typography>
-    </div>
+    </ListItem>
   );
 };
 
 export const SearchInput = memo(({ sx }: props) => {
-  const { inputValue, setInputValue, taskData, itemData, isLoading } =
-    useHooks();
+  const { inputValue, setInputValue, searchItems, isLoading } = useHooks();
 
   if (isLoading) {
     return (
@@ -69,21 +76,6 @@ export const SearchInput = memo(({ sx }: props) => {
     );
   }
 
-  const searchItems = {
-    tasks:
-      taskData?.tasks.map((task) => {
-        return { id: task.id, name: task.name };
-      }) ?? [],
-    items:
-      itemData?.itemsWithoutCategories.map((item) => {
-        return {
-          id: item.id,
-          name: item.name ? item.name : "",
-          categoryName: item.category?.name,
-        };
-      }) ?? [],
-  };
-
   const filteredOptions =
     inputValue !== "" && inputValue.length > 2
       ? [...searchItems.tasks, ...searchItems.items].filter((option) =>
@@ -103,13 +95,13 @@ export const SearchInput = memo(({ sx }: props) => {
       getOptionLabel={(option) => option.name}
       ListboxComponent={forwardRef(() => (
         <FixedSizeList
-          height={Math.min(filteredOptions.length * 40, 300)}
+          height={400}
           itemCount={filteredOptions.length}
           itemSize={40}
           itemData={filteredOptions}
           width="100%"
         >
-          {ListItem}
+          {CustomListItem}
         </FixedSizeList>
       ))}
       renderInput={(params) => (

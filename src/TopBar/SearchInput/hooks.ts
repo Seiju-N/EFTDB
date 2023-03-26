@@ -28,7 +28,21 @@ export const useHooks = () => {
     }
   );
 
+  const searchItems = {
+    tasks:
+      taskData?.tasks.map((task) => {
+        return { id: task.id, name: task.name };
+      }) ?? [],
+    items:
+      itemData?.itemsWithoutCategories.map((item) => {
+        return {
+          id: item.id,
+          name: item.name ? item.name : "",
+          categoryName: item.category?.name,
+        };
+      }) ?? [],
+  };
   const isLoading = taskIsLoading || itemIsLoading;
 
-  return { inputValue, setInputValue, taskData, itemData, isLoading }
+  return { inputValue, setInputValue, searchItems, isLoading }
 }
