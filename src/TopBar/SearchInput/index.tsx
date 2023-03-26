@@ -1,7 +1,6 @@
 import {
   Autocomplete,
   InputAdornment,
-  ListItem,
   styled,
   SxProps,
   TextField,
@@ -22,34 +21,27 @@ const CustomInputAdornment = styled(InputAdornment)(({ theme }) => ({
   marginRight: theme.spacing(-4),
 }));
 
-const CustomListItem = ({ index, data }: ListChildComponentProps) => {
+const CustomListItem = ({ index, style, data }: ListChildComponentProps) => {
   const option = data[index];
-  // const link = (() => {
-  //   if (option.type === "item") {
-  //     return toPascalCase(option.categoryName);
-  //   } else if (option.type === "task") {
-  //     return toPascalCase(option.trader);
-  //   }
-  //   return "";
-  // })();
+
   return (
-    <ListItem key={option.id}>
+    <div style={style} key={option.id}>
       <Typography
         sx={{
           color: "inherit",
           textDecoration: "none",
         }}
         component={RouterLink}
-        to={"link"}
+        to={""}
       >
         {option.name}
       </Typography>
-    </ListItem>
+    </div>
   );
 };
 
 export const SearchInput = memo(({ sx }: props) => {
-  const { inputValue, setInputValue, searchItems, isLoading } = useHooks();
+  const { inputValue, setInputValue, filteredOptions, isLoading } = useHooks();
 
   if (isLoading) {
     return (
@@ -75,13 +67,6 @@ export const SearchInput = memo(({ sx }: props) => {
       />
     );
   }
-
-  const filteredOptions =
-    inputValue !== "" && inputValue.length > 2
-      ? [...searchItems.tasks, ...searchItems.items].filter((option) =>
-          option.name.toLowerCase().includes(inputValue.toLowerCase())
-        )
-      : [];
 
   return (
     <Autocomplete

@@ -28,6 +28,8 @@ export const useHooks = () => {
     }
   );
 
+  const isLoading = taskIsLoading || itemIsLoading;
+
   const searchItems = {
     tasks:
       taskData?.tasks.map((task) => {
@@ -42,7 +44,12 @@ export const useHooks = () => {
         };
       }) ?? [],
   };
-  const isLoading = taskIsLoading || itemIsLoading;
+  const filteredOptions =
+    inputValue !== "" && inputValue.length > 2
+      ? [...searchItems.tasks, ...searchItems.items].filter((option) =>
+        option.name.toLowerCase().includes(inputValue.toLowerCase())
+      )
+      : [];
 
-  return { inputValue, setInputValue, searchItems, isLoading }
+  return { inputValue, setInputValue, filteredOptions, isLoading }
 }
