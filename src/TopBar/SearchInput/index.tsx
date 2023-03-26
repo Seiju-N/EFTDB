@@ -7,25 +7,14 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import { memo, useContext, useState } from "react";
+import { forwardRef, memo } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link as RouterLink } from "react-router-dom";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
-import { Item, Task } from "@/graphql/generated";
-import { useQuery } from "@apollo/client";
-import { GET_ITEMS, GET_TASKS } from "@/query";
-import { LanguageContext } from "@/App";
+import { useHooks } from "./hooks";
 
 type props = {
   sx?: SxProps<Theme>;
-};
-
-type taskDataType = {
-  tasks: Task[];
-};
-
-type itemDataType = {
-  itemsWithoutCategories: Item[];
 };
 
 const CustomInputAdornment = styled(InputAdornment)(({ theme }) => ({
@@ -52,22 +41,9 @@ const ListItem = ({ index, style, data }: ListChildComponentProps) => {
 };
 
 export const SearchInput = memo(({ sx }: props) => {
-  const [inputValue, setInputValue] = useState<string>("");
-  const lang = useContext(LanguageContext);
-  const { data: taskData, loading: taskIsLoading } = useQuery<taskDataType>(
-    GET_TASKS,
-    {
-      variables: { lang },
-    }
-  );
-  const { data: itemData, loading: itemIsLoading } = useQuery<itemDataType>(
-    GET_ITEMS,
-    {
-      variables: { categoryNames: [], withCategory: false },
-    }
-  );
+  const { inputValue, setInputValue, taskData, itemData, isLoading } =
+    useHooks();
 
-  const isLoading = taskIsLoading || itemIsLoading;
   if (isLoading) {
     return (
       <Autocomplete
@@ -125,7 +101,7 @@ export const SearchInput = memo(({ sx }: props) => {
       }}
       noOptionsText="3+ char keyword."
       getOptionLabel={(option) => option.name}
-      ListboxComponent={() => (
+      ListboxComponent={forwardRef(() => (
         <FixedSizeList
           height={Math.min(filteredOptions.length * 40, 300)}
           itemCount={filteredOptions.length}
@@ -135,7 +111,7 @@ export const SearchInput = memo(({ sx }: props) => {
         >
           {ListItem}
         </FixedSizeList>
-      )}
+      ))}
       renderInput={(params) => (
         <TextField
           {...params}
