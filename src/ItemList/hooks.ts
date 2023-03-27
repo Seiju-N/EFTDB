@@ -100,7 +100,7 @@ export const useHooks = () => {
     const storageItem = localStorage.getItem("PriceTracker");
     if (!storageItem) return null;
     const set = new Set(JSON.parse(storageItem));
-    set.add(id);
+    set.has(id) ? set.delete(id) : set.add(id);
     localStorage.setItem("PriceTracker", JSON.stringify(Array.from(set)));
   }, []);
 
