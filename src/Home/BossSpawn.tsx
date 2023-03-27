@@ -6,6 +6,7 @@ import {
   Avatar,
   AvatarGroup,
   Box,
+  CircularProgress,
   Divider,
   ListItem,
   ListItemAvatar,
@@ -35,8 +36,7 @@ export const BossSpawn = memo(() => {
     };
 
   const { loading, error, data } = useQuery<Query>(GET_BOSS_SPAWN);
-  if (loading || error || !data) return null;
-
+  if (error) return null;
   const Title = memo(() => (
     <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
       <GroupIcon fontSize="medium" />
@@ -45,6 +45,25 @@ export const BossSpawn = memo(() => {
       </Typography>
     </Box>
   ));
+  if (loading || !data)
+    return (
+      <Paper sx={{ height: 600 }}>
+        <Title />
+        <Box
+          sx={{
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress size={20} />
+          <Typography variant="h6" pl={2}>
+            Loading...
+          </Typography>
+        </Box>
+      </Paper>
+    );
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column" }}>

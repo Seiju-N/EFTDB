@@ -305,6 +305,12 @@ export const GET_ITEMS = gql`
       category {
         name
       }
+      bartersFor{
+        level
+        trader{
+          name
+        }
+      }
       basePrice
       width
       height
@@ -391,6 +397,33 @@ export const GET_BOSS_SPAWN = gql`
     }
   }
 `;
+
+export const GET_ITEM_PRICE = gql`
+  query GetItemPrice(
+    $ids: [ID]
+  ) {
+    items(ids: $ids){
+      id
+      name
+      normalizedName
+      category {
+        name
+      }
+      basePrice
+      changeLast48h
+      changeLast48hPercent
+      image512pxLink
+      sellFor{
+        price
+        vendor{
+          name
+        }
+        currency
+        priceRUB
+      }
+    }
+  }
+`
 
 export const GET_ITEM_PROPERTIES_ARMOR = gql`
   query getItemProperties($itemId: ID, $lang: LanguageCode) {

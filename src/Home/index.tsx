@@ -7,7 +7,8 @@ import { TopSubtitle } from "./TopSubtitle";
 import { ItemCategoryList } from "./ItemCategoryList";
 import { TaskTraderList } from "./TaskTraderList";
 import { BossSpawn } from "./BossSpawn";
-import { TaskMemo } from "./TaskMemo";
+import { PriceTracker } from "./PriceTracker";
+// import { TaskMemo } from "./TaskMemo";
 
 export const Home = () => {
   const { langDict } = useHooks();
@@ -73,8 +74,11 @@ export const Home = () => {
         <Grid xs={16} md={6}>
           <BossSpawn />
         </Grid>
-        <Grid xs={16} md={6}>
+        {/* <Grid xs={16} md={6}>
           <TaskMemo />
+        </Grid> */}
+        <Grid xs={16} md={6}>
+          <PriceTracker />
         </Grid>
       </Grid>
     </Container>

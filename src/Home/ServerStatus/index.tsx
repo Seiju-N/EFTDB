@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/client";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import StorageIcon from "@mui/icons-material/Storage";
 import {
   Box,
+  CircularProgress,
   List,
   ListItem,
   ListItemText,
@@ -11,17 +11,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import type { Query } from "@/graphql/generated";
 import { memo } from "react";
 
 import { useHooks } from "./hooks";
-import { GET_SERVER_STATUS } from "@/query";
 
 export const ServerStatus = memo(() => {
-  const { langDict } = useHooks();
-
-  const { loading, error, data } = useQuery<Query>(GET_SERVER_STATUS);
-  if (loading || error || !data) return null;
+  const { langDict, loading, error, data } = useHooks();
+  if (error) return null;
 
   const Title = memo(() => {
     return (
@@ -33,7 +29,25 @@ export const ServerStatus = memo(() => {
       </Box>
     );
   });
-
+  if (loading || !data)
+    return (
+      <Paper sx={{ height: 600 }}>
+        <Title />
+        <Box
+          sx={{
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress size={20} />
+          <Typography variant="h6" pl={2}>
+            Loading...
+          </Typography>
+        </Box>
+      </Paper>
+    );
   return (
     <Paper sx={{ display: "flex", flexDirection: "column" }}>
       <Title />

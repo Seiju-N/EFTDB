@@ -3,6 +3,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import QueryStats from "@mui/icons-material/QueryStats";
 import ZoomOutMap from "@mui/icons-material/ZoomOutMap";
 import SellIcon from "@mui/icons-material/Sell";
+import PushPinIcon from "@mui/icons-material/PushPin";
 import {
   Backdrop,
   Box,
@@ -126,13 +127,9 @@ export const ItemList = () => {
 
   const DetailDialog = () => {
     const { ITEM_PROPERTIES } = useContext(LanguageDictContext);
+    const { handlePinClick, handleWikiLinkClick } = useHooks();
     const verticalCenter = { display: "flex", justifyContent: "center" };
     const flexCenter = { display: "flex", alignItems: "center" };
-
-    const handleClick = useCallback((link: Maybe<string> | undefined) => {
-      if (!link) return null;
-      window.open(link);
-    }, []);
     if (!currentItem) return null;
 
     const DetailDialogTitle = memo(() => {
@@ -142,9 +139,22 @@ export const ItemList = () => {
             <DialogTitle>{currentItem.name}</DialogTitle>
           </Grid>
           <Grid xs={2} sx={verticalCenter}>
-            <IconButton onClick={() => handleClick(currentItem.wikiLink)}>
-              <LanguageIcon />
-            </IconButton>
+            <Tooltip title="Add price tracker">
+              <IconButton
+                disableRipple
+                onClick={() => handlePinClick(currentItem.id)}
+              >
+                <PushPinIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="WiKi link">
+              <IconButton
+                disableRipple
+                onClick={() => handleWikiLinkClick(currentItem.wikiLink)}
+              >
+                <LanguageIcon />
+              </IconButton>
+            </Tooltip>
           </Grid>
         </Grid>
       );
@@ -247,7 +257,6 @@ export const ItemList = () => {
           <Card variant="outlined">
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <CardContentNoPadding>
-                {/* TODO: 以下コンポーネント切り出し */}
                 <Grid container spacing={2}>
                   <Grid xs={6} sx={flexCenter}>
                     <Tooltip title="Size">

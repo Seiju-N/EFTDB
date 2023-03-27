@@ -20,6 +20,9 @@ const JA_DICT = {
     boss_spawns:{
       "title": "ボススポーン率",
     },
+    price_tracker:{
+      "title": "価格推移",
+    },
     subtitle: {
       subtitle1: "EFTDBは以下を提供します。",
       simple: {

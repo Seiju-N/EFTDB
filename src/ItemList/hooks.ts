@@ -1,4 +1,4 @@
-import { Item } from "@/graphql/generated";
+import { Item, Maybe } from "@/graphql/generated";
 import { GET_ITEMS } from "@/query";
 import { useQuery } from "@apollo/client";
 import { CardContent, SelectChangeEvent, styled } from "@mui/material";
@@ -95,5 +95,18 @@ export const useHooks = () => {
       withCategory: Boolean(param.categoryName),
     },
   });
-  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading }
+
+  const handlePinClick = useCallback((id:string) => {
+    const storageItem = localStorage.getItem("PriceTracker");
+    if (!storageItem) return null;
+    const set = new Set(JSON.parse(storageItem));
+    set.add(id);
+    localStorage.setItem("PriceTracker", JSON.stringify(Array.from(set)));
+  }, []);
+
+  const handleWikiLinkClick = useCallback((link: Maybe<string> | undefined) => {
+    if (!link) return null;
+    window.open(link);
+  }, []);
+  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, handlePinClick, handleWikiLinkClick }
 }

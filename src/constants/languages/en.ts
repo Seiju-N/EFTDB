@@ -20,6 +20,9 @@ const EN_DICT = {
     boss_spawns:{
       "title": "Boss spawns",
     },
+    price_tracker:{
+      "title": "Price tracker",
+    },
     subtitle: {
       subtitle1: "EFTDB provides the following features.",
       simple: {
