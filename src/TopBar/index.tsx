@@ -43,7 +43,7 @@ export const TopBar = ({ setLanguage }: Props) => {
             {SITE_NAME}
           </Typography>
           <MenuItemsMD />
-          <SearchInput sx={{ flexGrow: 0.4 }} />
+          <SearchInput />
           <DiscordButton />
           <LanguageSelect setLanguage={setLanguage} />
         </Toolbar>
