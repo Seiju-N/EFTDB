@@ -64,6 +64,7 @@ export const GET_TASKS = gql`
             category{
               name
             }
+            iconLink
           }
           containsCategory {
             name
@@ -72,6 +73,7 @@ export const GET_TASKS = gql`
           description
           item {
             name
+            iconLink
           }
           maps {
             name

@@ -55,6 +55,14 @@ const EN_DICT = {
     StartRewardsItems: "Start rewards items",
   },
 
+  OPERATORS :{
+    "=": "equal",
+    ">": "greater than",
+    "<": "less than",
+    ">=": "greater than or equal",
+    "<=": "less than or equal",
+  },
+
   TASK_COLUMN: {
     Name: "Task name",
     Experience: "Experience",

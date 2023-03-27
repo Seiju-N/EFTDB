@@ -75,6 +75,7 @@ export const useHooks = () => {
 
   const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
+    window.history.replaceState({}, document.title);
   }, []);
 
   const defaultSort: GridSortingInitialState = {
@@ -109,6 +110,7 @@ export const useHooks = () => {
     handleChange,
     isAllArrayElementsEmpty,
     setCurrentTask,
+    lang,
     langDict,
     categories,
     dialogOpen,

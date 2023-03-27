@@ -67,6 +67,7 @@ export const TaskList = () => {
     handleDialogOpen,
     handleDialogClose,
     isAllArrayElementsEmpty,
+    lang,
     langDict,
     categories,
     dialogOpen,
@@ -153,13 +154,24 @@ export const TaskList = () => {
                   ) : null}
                 </ListItem>
                 {isTaskObjectiveBuildItem(data)
-                  ? data.attributes.map((attribute) => (
-                      <ListItem key={attribute?.name} dense>
-                        <ListItemText
-                          inset
-                        >{`${attribute?.name} ${attribute?.requirement.compareMethod} ${attribute?.requirement.value}`}</ListItemText>
-                      </ListItem>
-                    ))
+                  ? data.attributes.map((attribute) => {
+                      const { name, requirement } = attribute || {};
+                      const { value, compareMethod } = requirement || {};
+                      const operator = compareMethod
+                        ? langDict.OPERATORS[compareMethod]
+                        : "";
+
+                      const text =
+                        lang === "ja"
+                          ? `${name} ${value} ${operator}`
+                          : `${name} ${operator} ${value}`;
+
+                      return (
+                        <ListItem key={name} dense>
+                          <ListItemText inset>{text}</ListItemText>
+                        </ListItem>
+                      );
+                    })
                   : null}
                 {isTaskObjectiveBuildItem(data)
                   ? data.containsAll.map((item) => (

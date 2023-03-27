@@ -64,6 +64,14 @@ const JA_DICT = {
     StartRewardsItems: "開始時報酬アイテム",
   },
 
+  OPERATORS :{
+    "=": "=",
+    ">": "greater than",
+    "<": "less than",
+    ">=": "以上",
+    "<=": "以下",
+  },
+
   TASK_STATUS: {
     complete: "完了",
   },
