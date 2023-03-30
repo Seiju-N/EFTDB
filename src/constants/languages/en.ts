@@ -17,11 +17,13 @@ const EN_DICT = {
       "Inventory operations": "Inventory",
       "Global": "Global",
     },
-    boss_spawns:{
+    boss_spawns: {
       "title": "Boss spawns",
     },
-    price_tracker:{
+    price_tracker: {
       "title": "Price tracker",
+      "dialog_title": "Reset price tracker list.",
+      "dialog_description": "I will initialize the price history list. The default is Bitcoin. This operation cannot be undone. Do you wish to proceed?",
     },
     subtitle: {
       subtitle1: "EFTDB provides the following features.",
@@ -58,7 +60,7 @@ const EN_DICT = {
     StartRewardsItems: "Start rewards items",
   },
 
-  OPERATORS :{
+  OPERATORS: {
     "=": "equal",
     ">": "greater than",
     "<": "less than",
@@ -91,7 +93,7 @@ const EN_DICT = {
     item: "Items",
     taskMarker: "Task markers",
   },
-  
+
   ARMOR_MATERIAL: [
     {
       name: "Ultra High Molecular Weight Polyethylene",
@@ -127,16 +129,16 @@ const EN_DICT = {
     },
   ],
 
-  HEAD_ZONES:{
+  HEAD_ZONES: {
     "Top of the head": "Top of the head",
-    "Eyes":"Eyes",
-    "Ears":"Ears",
-    "Jaws":"Jaws",
-    "Lower nape":"Lower nape",
-    "Nape":"Nape",
+    "Eyes": "Eyes",
+    "Ears": "Ears",
+    "Jaws": "Jaws",
+    "Lower nape": "Lower nape",
+    "Nape": "Nape",
   },
 
-  BODY_ZONES:{
+  BODY_ZONES: {
     THORAX: "Thorax",
     STOMACH: "Stomach",
     LEFT_ARM: "Left arm",

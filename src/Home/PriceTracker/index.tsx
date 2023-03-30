@@ -1,6 +1,12 @@
 import {
   Box,
+  Button,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   IconButton,
   List,
   ListItem,
@@ -16,8 +22,17 @@ import { memo } from "react";
 import { useHooks } from "./hooks";
 
 export const PriceTracker = memo(() => {
-  const { langDict, loading, error, data, maxPriceObj, handlePinClick } =
-    useHooks();
+  const {
+    langDict,
+    loading,
+    error,
+    data,
+    maxPriceObj,
+    open,
+    handleClickOpen,
+    handleOk,
+    handleCancel,
+  } = useHooks();
   if (error) return null;
 
   const Title = memo(() => {
@@ -35,12 +50,31 @@ export const PriceTracker = memo(() => {
         </Typography>
         {loading ? null : (
           <Tooltip title={"Reset items."}>
-            <IconButton onClick={handlePinClick}>
+            <IconButton onClick={handleClickOpen}>
               <RotateLeftIcon />
             </IconButton>
           </Tooltip>
         )}
       </Box>
+    );
+  });
+
+  const CustomDialog = memo(() => {
+    return (
+      <Dialog open={open} onClose={handleCancel}>
+        <DialogTitle>
+          {langDict.HOME_SENTENCE.price_tracker.dialog_title}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {langDict.HOME_SENTENCE.price_tracker.dialog_description}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleOk}>OK</Button>
+          <Button onClick={handleCancel}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
     );
   });
   if (loading || !data)
@@ -103,6 +137,7 @@ export const PriceTracker = memo(() => {
           );
         })}
       </List>
+      <CustomDialog />
     </Paper>
   );
 });

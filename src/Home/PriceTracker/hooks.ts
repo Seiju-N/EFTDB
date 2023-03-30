@@ -8,6 +8,7 @@ export const useHooks = () => {
   const DEFAULT_ITEM = "59faff1d86f7746c51718c9c" //Bitcoin
   const langDict = useContext(LanguageDictContext);
   const [itemIds, setItemIds] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const storageItem = localStorage.getItem("PriceTracker");
@@ -43,12 +44,25 @@ export const useHooks = () => {
     return `${convertCurrency(resultItem.currency)} ${resultItem.price}`;
   };
 
-  const handlePinClick = useCallback(() => {
+  const handleReset = useCallback(() => {
     localStorage.setItem("PriceTracker", JSON.stringify([DEFAULT_ITEM]));
     setItemIds([DEFAULT_ITEM]);
   }, [])
 
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleOk = useCallback(() => {
+    handleReset();
+    setOpen(false);
+  }, [])
+
+  const handleCancel = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return {
-    langDict, loading, error, data, maxPriceObj, handlePinClick
+    langDict, loading, error, data, maxPriceObj, open, handleClickOpen, handleOk, handleCancel
   }
 }

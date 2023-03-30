@@ -17,11 +17,13 @@ const JA_DICT = {
       "Inventory operations": "インベントリ",
       "Global": "グローバル",
     },
-    boss_spawns:{
+    boss_spawns: {
       "title": "ボススポーン率",
     },
-    price_tracker:{
+    price_tracker: {
       "title": "価格推移",
+      "dialog_title": "リストを初期化します。",
+      "dialog_description": "価格推移リストの初期化をします。デフォルトはBitcoinです。この操作は元に戻せません。続行しますか?",
     },
     subtitle: {
       subtitle1: "EFTDBは以下を提供します。",
@@ -67,7 +69,7 @@ const JA_DICT = {
     StartRewardsItems: "開始時報酬アイテム",
   },
 
-  OPERATORS :{
+  OPERATORS: {
     "=": "=",
     ">": "greater than",
     "<": "less than",
@@ -254,16 +256,16 @@ const JA_DICT = {
     },
   ],
 
-  HEAD_ZONES:{
+  HEAD_ZONES: {
     "Top of the head": "前頭部",
-    "Eyes":"目",
-    "Ears":"耳",
-    "Jaws":"顎",
-    "Lower nape":"うなじ",
-    "Nape":"後頭部",
+    "Eyes": "目",
+    "Ears": "耳",
+    "Jaws": "顎",
+    "Lower nape": "うなじ",
+    "Nape": "後頭部",
   },
 
-  BODY_ZONES:{
+  BODY_ZONES: {
     THORAX: "Thorax",
     STOMACH: "Stomach",
     LEFT_ARM: "Left arm",
