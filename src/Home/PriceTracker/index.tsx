@@ -1,28 +1,45 @@
 import {
   Box,
   CircularProgress,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Paper,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import { memo } from "react";
 import { useHooks } from "./hooks";
 
 export const PriceTracker = memo(() => {
-  const { langDict, loading, error, data, maxPriceObj } = useHooks();
+  const { langDict, loading, error, data, maxPriceObj, handlePinClick } =
+    useHooks();
   if (error) return null;
 
   const Title = memo(() => {
     return (
-      <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+        }}
+        p={2}
+      >
         <QueryStatsIcon fontSize="medium" />
-        <Typography variant="h5" pl={1}>
+        <Typography variant="h5" pl={1} flexGrow={1}>
           {langDict.HOME_SENTENCE.price_tracker.title}
         </Typography>
+        {loading ? null : (
+          <Tooltip title={"Reset items."}>
+            <IconButton onClick={handlePinClick}>
+              <RotateLeftIcon />
+            </IconButton>
+          </Tooltip>
+        )}
       </Box>
     );
   });

@@ -2,7 +2,7 @@ import { LanguageDictContext } from "@/App";
 import { Item, ItemPrice, Maybe, Query } from "@/graphql/generated";
 import { GET_ITEM_PRICE } from "@/query";
 import { useQuery } from "@apollo/client";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 export const useHooks = () => {
   const DEFAULT_ITEM = "59faff1d86f7746c51718c9c" //Bitcoin
@@ -18,9 +18,9 @@ export const useHooks = () => {
       setItemIds([DEFAULT_ITEM]);
     }
   }, []);
-  
-  const { loading, error, data } = useQuery<Query>(GET_ITEM_PRICE,{
-    variables: { ids:itemIds },
+
+  const { loading, error, data } = useQuery<Query>(GET_ITEM_PRICE, {
+    variables: { ids: itemIds },
   });
   const convertCurrency = (currency: Maybe<string> | undefined) => {
     switch (currency) {
@@ -31,7 +31,7 @@ export const useHooks = () => {
       case "RUB":
         return "₽";
       default:
-        return "";
+        return "₽";
     }
   };
 
@@ -42,7 +42,13 @@ export const useHooks = () => {
     );
     return `${convertCurrency(resultItem.currency)} ${resultItem.price}`;
   };
+
+  const handlePinClick = useCallback(() => {
+    localStorage.setItem("PriceTracker", JSON.stringify([DEFAULT_ITEM]));
+    setItemIds([DEFAULT_ITEM]);
+  }, [])
+
   return {
-    langDict, loading, error, data, maxPriceObj
+    langDict, loading, error, data, maxPriceObj, handlePinClick
   }
 }

@@ -4,6 +4,7 @@ import QueryStats from "@mui/icons-material/QueryStats";
 import ZoomOutMap from "@mui/icons-material/ZoomOutMap";
 import SellIcon from "@mui/icons-material/Sell";
 import PushPinIcon from "@mui/icons-material/PushPin";
+import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
 import {
   Backdrop,
   Box,
@@ -35,6 +36,8 @@ import { ItemProperties } from "./ItemProperties";
 import type { Item, ItemPrice, Maybe } from "../graphql/generated";
 import { CALIBERS } from "@/constants/CALIBER";
 import { LanguageDictContext } from "@/App";
+import { Loading } from "./Loading";
+import { SnackbarItem } from "./SnackbarItem";
 
 export const ItemList = () => {
   const {
@@ -108,26 +111,45 @@ export const ItemList = () => {
     window.history.replaceState({}, document.title);
   }, [location, data]);
 
-  if (loading || error)
+  if (loading || error) return <Loading />;
+
+  const PinIcon = () => {
+    const { handlePinClick, priceTrackerSet, open, handleClose } = useHooks();
+    if (!currentItem) return null;
     return (
-      <Box
-        sx={{
-          height: "90vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CircularProgress />
-        <Typography variant="h4" pl={2}>
-          Loading...
-        </Typography>
-      </Box>
+      <>
+        {priceTrackerSet.has(currentItem.id) ? (
+          <Tooltip title="Remove item price tracker">
+            <IconButton
+              disableRipple
+              onClick={() => handlePinClick(currentItem.id)}
+            >
+              <PlaylistRemoveIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Add price tracker">
+            <IconButton
+              disableRipple
+              onClick={() => handlePinClick(currentItem.id)}
+            >
+              <PushPinIcon />
+            </IconButton>
+          </Tooltip>
+        )}
+        <SnackbarItem
+          priceTrackerSet={priceTrackerSet}
+          currentItem={currentItem}
+          open={open}
+          handleClose={handleClose}
+        />
+      </>
     );
+  };
 
   const DetailDialog = () => {
     const { ITEM_PROPERTIES } = useContext(LanguageDictContext);
-    const { handlePinClick, handleWikiLinkClick } = useHooks();
+    const { handleWikiLinkClick } = useHooks();
     const verticalCenter = { display: "flex", justifyContent: "center" };
     const flexCenter = { display: "flex", alignItems: "center" };
     if (!currentItem) return null;
@@ -139,14 +161,7 @@ export const ItemList = () => {
             <DialogTitle>{currentItem.name}</DialogTitle>
           </Grid>
           <Grid xs={2} sx={verticalCenter}>
-            <Tooltip title="Add price tracker">
-              <IconButton
-                disableRipple
-                onClick={() => handlePinClick(currentItem.id)}
-              >
-                <PushPinIcon />
-              </IconButton>
-            </Tooltip>
+            <PinIcon />
             <Tooltip title="WiKi link">
               <IconButton
                 disableRipple

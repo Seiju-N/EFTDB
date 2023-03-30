@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { CardContent, SelectChangeEvent, styled } from "@mui/material";
 import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 import { enUS } from "@mui/x-data-grid";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { SyntheticEvent, useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { LanguageDictContext } from "../App";
@@ -13,9 +13,11 @@ export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<Item>();
   const [filter, setFilter] = useState<string>("");
+  const [priceTrackerSet, setPriceTrackerSet] = useState<Set<string>>(new Set(JSON.parse(localStorage.getItem("PriceTracker") || "[]")));
   const [ammoTypeFilter, setAmmoTypeFilter] = useState<GridFilterModel>({
     items: [],
   });
+  const [open, setOpen] = useState<boolean>(false);
   const langDict = useContext(LanguageDictContext);
   const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
   const param = useParams();
@@ -96,17 +98,31 @@ export const useHooks = () => {
     },
   });
 
-  const handlePinClick = useCallback((id:string) => {
-    const storageItem = localStorage.getItem("PriceTracker");
-    if (!storageItem) return null;
-    const set = new Set(JSON.parse(storageItem));
-    set.has(id) ? set.delete(id) : set.add(id);
-    localStorage.setItem("PriceTracker", JSON.stringify(Array.from(set)));
+  const handlePinClick = useCallback((id: string) => {
+    if (priceTrackerSet.size >= 5 && !priceTrackerSet.has(id)) {
+      setOpen(true);
+      return;
+    }
+    setPriceTrackerSet((prevPriceTrackerSet) => {
+      const newData = new Set(prevPriceTrackerSet);
+      newData.has(id) ? newData.delete(id) : newData.add(id);
+      localStorage.setItem("PriceTracker", JSON.stringify(Array.from(newData)));
+      setOpen(true);
+      return newData;
+    });
   }, []);
 
   const handleWikiLinkClick = useCallback((link: Maybe<string> | undefined) => {
     if (!link) return null;
     window.open(link);
   }, []);
-  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, handlePinClick, handleWikiLinkClick }
+
+  const handleClose = (_event?: SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, handlePinClick, handleWikiLinkClick, priceTrackerSet, open, handleClose }
 }

@@ -412,6 +412,9 @@ export const GET_ITEM_PRICE = gql`
       basePrice
       changeLast48h
       changeLast48hPercent
+      low24hPrice
+      high24hPrice
+      avg24hPrice
       image512pxLink
       sellFor{
         price
