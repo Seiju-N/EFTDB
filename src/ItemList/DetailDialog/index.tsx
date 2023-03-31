@@ -5,6 +5,7 @@ import QueryStats from "@mui/icons-material/QueryStats";
 import ZoomOutMap from "@mui/icons-material/ZoomOutMap";
 import LanguageIcon from "@mui/icons-material/Language";
 import SellIcon from "@mui/icons-material/Sell";
+import ScaleIcon from "@mui/icons-material/Scale";
 import Grid from "@mui/material/Unstable_Grid2";
 import { CardContent, styled } from "@mui/material";
 import {
@@ -92,6 +93,54 @@ export const DetailDialog = ({
               </IconButton>
             )}
           </Tooltip>
+        </Grid>
+      </Grid>
+    );
+  });
+
+  const ItemSize = memo(() => {
+    return (
+      <Grid container spacing={2}>
+        <Grid xs={6} sx={flexCenter}>
+          <Tooltip title="Size">
+            <ZoomOutMap style={{ height: "auto", paddingRight: 4 }} />
+          </Tooltip>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            component="div"
+          >
+            {langDict.ITEM_DETAIL_DIALOG.SIZE}
+          </Typography>
+        </Grid>
+        <Grid xs={6}>
+          <Typography variant="subtitle1" color="text.primary" component="div">
+            {`${langDict.ITEM_DETAIL_DIALOG.WIDTH}: ${currentItem.width}   ${langDict.ITEM_DETAIL_DIALOG.HEIGHT}: ${currentItem.height}`}
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  });
+
+  const ItemWeight = memo(() => {
+    return (
+      <Grid container spacing={2}>
+        <Grid xs={6} sx={flexCenter}>
+          <Tooltip title="Weight">
+            <ScaleIcon style={{ height: "auto", paddingRight: 4 }} />
+          </Tooltip>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            component="div"
+          >
+            {langDict.ITEM_DETAIL_DIALOG.WEIGHT}
+          </Typography>
+        </Grid>
+        <Grid xs={6}>
+          <Typography variant="subtitle1" color="text.primary" component="div">
+            {`${currentItem.weight} kg`}
+          </Typography>
         </Grid>
       </Grid>
     );
@@ -186,29 +235,8 @@ export const DetailDialog = ({
         <Card variant="outlined">
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <CardContentNoPadding>
-              <Grid container spacing={2}>
-                <Grid xs={6} sx={flexCenter}>
-                  <Tooltip title="Size">
-                    <ZoomOutMap style={{ height: "auto", paddingRight: 4 }} />
-                  </Tooltip>
-                  <Typography
-                    variant="subtitle2"
-                    color="text.secondary"
-                    component="div"
-                  >
-                    {langDict.ITEM_DETAIL_DIALOG.SIZE}
-                  </Typography>
-                </Grid>
-                <Grid xs={6}>
-                  <Typography
-                    variant="subtitle1"
-                    color="text.primary"
-                    component="div"
-                  >
-                    {`${langDict.ITEM_DETAIL_DIALOG.WIDTH}: ${currentItem.width}   ${langDict.ITEM_DETAIL_DIALOG.HEIGHT}: ${currentItem.height}`}
-                  </Typography>
-                </Grid>
-              </Grid>
+              <ItemSize />
+              <ItemWeight />
               <BasePrice />
               <SellPrice />
               {currentItem.avg24hPrice ? (

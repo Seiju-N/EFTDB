@@ -86,7 +86,8 @@ const EN_DICT = {
     SIZE: "Size",
     NO_DETAIL: "No detail info.",
     WIDTH: "width",
-    HEIGHT: "height"
+    HEIGHT: "height",
+    WEIGHT: "Weight",
   },
 
   MENU_SENTENCE: {

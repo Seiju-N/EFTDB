@@ -21,6 +21,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import ClearIcon from "@mui/icons-material/Clear";
 import TimelineIcon from "@mui/icons-material/Timeline";
+import { PriceChart } from "./PriceChart";
 
 export const PriceTracker = memo(() => {
   const {
@@ -89,134 +90,134 @@ export const PriceTracker = memo(() => {
           if (!item) return null;
           if (!item.changeLast48h || !item.changeLast48hPercent)
             return (
-              <Accordion
-                expanded={expanded === item.id}
-                onChange={handleChange(item.id)}
-                key={`${item.id}_${index}`}
-              >
-                <AccordionSummary>
-                  <ListItemIcon>
-                    <img
-                      src={item.image512pxLink?.toString()}
-                      alt={item.name?.toString()}
-                      width={50}
-                      height={"auto"}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.name}
-                    secondary={maxPriceObj(item)}
-                    primaryTypographyProps={{
-                      width: { md: "15vw", xs: "40vw" },
-                      maxWidth: { md: 200, xs: 400 },
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                    sx={{
-                      textAlign: "left",
-                      flexGrow: 1,
-                    }}
+              <ListItem key={`${item.id}_${index}`}>
+                <ListItemIcon>
+                  <img
+                    src={item.image512pxLink?.toString()}
+                    alt={item.name?.toString()}
+                    width={52}
+                    style={{ objectFit: "contain" }}
                   />
-                  <Box sx={{ width: { md: 96, xs: 200 } }}>
-                    <Typography variant="subtitle1" color="text.secondary">
-                      Item not in Flea Market
-                    </Typography>
-                  </Box>
-                  <Tooltip title="Remove Item">
-                    <IconButton
-                      sx={{ width: 20 }}
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      <ClearIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                </AccordionSummary>
-                <AccordionDetails sx={{ p: 2 }}>here</AccordionDetails>
-              </Accordion>
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.name}
+                  secondary={maxPriceObj(item)}
+                  primaryTypographyProps={{
+                    width: { md: "14vw", xs: "40vw" },
+                    maxWidth: { md: 192, xs: 400 },
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  sx={{
+                    textAlign: "left",
+                    flexGrow: 1,
+                  }}
+                />
+                <Box sx={{ width: { md: 96, xs: 200 } }}>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Item not in Flea Market
+                  </Typography>
+                </Box>
+                <Tooltip title="Remove Item">
+                  <IconButton
+                    sx={{ width: 20 }}
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    <ClearIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </ListItem>
             );
           const TrendingIcon =
             item.changeLast48hPercent >= 0 ? TrendingUpIcon : TrendingDownIcon;
           const color = item.changeLast48hPercent >= 0 ? "primary" : "error";
           return (
-            <ListItem
-              key={index}
-              sx={{ display: "flex", justifyContent: "space-between" }}
+            <Accordion
+              expanded={expanded === item.id}
+              onChange={handleChange(item.id)}
+              key={`${item.id}_${index}`}
+              TransitionProps={{ unmountOnExit: true }}
             >
-              <ListItemIcon>
-                <img
-                  src={item.image512pxLink?.toString()}
-                  alt={item.name?.toString()}
-                  width={50}
-                  height={"auto"}
+              <AccordionSummary>
+                <ListItemIcon>
+                  <img
+                    src={item.image512pxLink?.toString()}
+                    alt={item.name?.toString()}
+                    width={52}
+                    style={{ objectFit: "contain" }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.name}
+                  secondary={maxPriceObj(item)}
+                  primaryTypographyProps={{
+                    width: { md: "14vw", xs: "40vw" },
+                    maxWidth: { md: 192, xs: 400 },
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  sx={{
+                    textAlign: "left",
+                    flexGrow: 1,
+                  }}
                 />
-              </ListItemIcon>
-              <ListItemText
-                primary={item.name}
-                secondary={maxPriceObj(item)}
-                primaryTypographyProps={{
-                  width: { md: "15vw", xs: "40vw" },
-                  maxWidth: { md: 200, xs: 400 },
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-                sx={{
-                  textAlign: "left",
-                  flexGrow: 1,
-                }}
-              />
-              <Box sx={{ minWidth: { md: 100, xs: 200 } }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    verticalAlign: "middle",
-                    alignItems: "center",
-                  }}
-                >
-                  <TimelineIcon
-                    sx={{ verticalAlign: "middle" }}
-                    fontSize="medium"
-                  />
-                  <Typography
-                    variant="h6"
-                    color="text.primary"
-                    pl={0.5}
-                    sx={{ color: color }}
+                <Box sx={{ minWidth: { md: 96, xs: 200 } }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      verticalAlign: "middle",
+                      alignItems: "center",
+                    }}
                   >
-                    {`${item.changeLast48h} ₽`}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    verticalAlign: "middle",
-                    alignItems: "center",
-                  }}
-                >
-                  <TrendingIcon
-                    sx={{ verticalAlign: "middle" }}
-                    color={color}
-                    fontSize="medium"
-                  />
-                  <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    pl={0.5}
+                    <TimelineIcon
+                      sx={{ verticalAlign: "middle" }}
+                      fontSize="medium"
+                    />
+                    <Typography
+                      variant="h6"
+                      color="text.primary"
+                      pl={0.5}
+                      sx={{ color: color, whiteSpace: "nowrap" }}
+                    >
+                      {`${item.changeLast48h} ₽`}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      verticalAlign: "middle",
+                      alignItems: "center",
+                    }}
                   >
-                    {`${item.changeLast48hPercent}%`}
-                  </Typography>
+                    <TrendingIcon
+                      sx={{ verticalAlign: "middle" }}
+                      color={color}
+                      fontSize="medium"
+                    />
+                    <Typography
+                      variant="subtitle1"
+                      color="text.secondary"
+                      pl={0.5}
+                    >
+                      {`${item.changeLast48hPercent}%`}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Tooltip title="Remove Item">
-                <IconButton
-                  sx={{ width: 20 }}
-                  onClick={() => handleDelete(item.id)}
-                >
-                  <ClearIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </ListItem>
+                <Tooltip title="Remove Item">
+                  <IconButton
+                    sx={{ width: 20 }}
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    <ClearIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 1 }}>
+                <PriceChart itemId={item.id} />
+              </AccordionDetails>
+            </Accordion>
           );
         })}
       </List>

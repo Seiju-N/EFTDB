@@ -314,6 +314,7 @@ export const GET_ITEMS = gql`
       basePrice
       width
       height
+      weight
       image512pxLink
       wikiLink
       usedInTasks {

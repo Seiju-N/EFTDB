@@ -86,7 +86,8 @@ const JA_DICT = {
     SIZE: "サイズ",
     NO_DETAIL: "詳細はありません。",
     WIDTH: "幅",
-    HEIGHT: "高さ"
+    HEIGHT: "高さ",
+    WEIGHT: "重量"
   },
 
   MENU_SENTENCE: {
