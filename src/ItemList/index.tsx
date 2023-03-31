@@ -41,6 +41,7 @@ import { SnackbarItem } from "./SnackbarItem";
 
 export const ItemList = () => {
   const {
+    DEFAULT_ITEMS_COUNT_LIMIT,
     langDict,
     localeText,
     cols,
@@ -142,6 +143,7 @@ export const ItemList = () => {
           currentItem={currentItem}
           open={open}
           handleClose={handleClose}
+          DEFAULT_ITEMS_COUNT_LIMIT={DEFAULT_ITEMS_COUNT_LIMIT}
         />
       </>
     );

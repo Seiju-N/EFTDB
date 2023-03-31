@@ -21,9 +21,10 @@ const JA_DICT = {
       "title": "ボススポーン率",
     },
     price_tracker: {
-      "title": "価格推移",
+      "title": "価格推移(48h)",
       "dialog_title": "リストを初期化します。",
-      "dialog_description": "価格推移リストの初期化をします。デフォルトはBitcoinです。この操作は元に戻せません。続行しますか?",
+      "dialog_description": "価格推移リストをデフォルト状態に戻します。続行しますか?",
+      "trader_price": "トレーダー販売価格",
     },
     subtitle: {
       subtitle1: "EFTDBは以下を提供します。",

@@ -26,7 +26,9 @@
         "Tarkov",
         "UBGL",
         "UHMWPE",
-        "Underbarrel"
+        "Underbarrel",
+        "visx",
+        "xychart"
     ],
     "editor.tabSize": 2,
     "eslint.validate": [

@@ -1,12 +1,6 @@
 import {
   Box,
-  Button,
   CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   IconButton,
   List,
   ListItem,
@@ -16,10 +10,14 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import QueryStatsIcon from "@mui/icons-material/QueryStats";
-import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import { memo } from "react";
+import { CustomDialog } from "./CustomDialog";
 import { useHooks } from "./hooks";
+import { Title } from "./Title";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import TrendingDownIcon from "@mui/icons-material/TrendingDown";
+import ClearIcon from "@mui/icons-material/Clear";
+import TimelineIcon from "@mui/icons-material/Timeline";
 
 export const PriceTracker = memo(() => {
   const {
@@ -32,55 +30,18 @@ export const PriceTracker = memo(() => {
     handleClickOpen,
     handleOk,
     handleCancel,
+    handleDelete,
   } = useHooks();
   if (error) return null;
 
-  const Title = memo(() => {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-        }}
-        p={2}
-      >
-        <QueryStatsIcon fontSize="medium" />
-        <Typography variant="h5" pl={1} flexGrow={1}>
-          {langDict.HOME_SENTENCE.price_tracker.title}
-        </Typography>
-        {loading ? null : (
-          <Tooltip title={"Reset items."}>
-            <IconButton onClick={handleClickOpen}>
-              <RotateLeftIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-      </Box>
-    );
-  });
-
-  const CustomDialog = memo(() => {
-    return (
-      <Dialog open={open} onClose={handleCancel}>
-        <DialogTitle>
-          {langDict.HOME_SENTENCE.price_tracker.dialog_title}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {langDict.HOME_SENTENCE.price_tracker.dialog_description}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleOk}>OK</Button>
-          <Button onClick={handleCancel}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
-    );
-  });
   if (loading || !data)
     return (
       <Paper sx={{ height: 600 }}>
-        <Title />
+        <Title
+          loading={loading}
+          handleClickOpen={handleClickOpen}
+          langDict={langDict}
+        />
         <Box
           sx={{
             height: "100%",
@@ -99,7 +60,11 @@ export const PriceTracker = memo(() => {
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", minHeight: 720 }}>
-      <Title />
+      <Title
+        loading={loading}
+        handleClickOpen={handleClickOpen}
+        langDict={langDict}
+      />
       {data.items.length === 0 ? (
         <Box
           sx={{
@@ -116,6 +81,44 @@ export const PriceTracker = memo(() => {
       ) : null}
       <List>
         {data.items.map((item, index) => {
+          if (!item) return null;
+          if (!item.changeLast48h || !item.changeLast48hPercent)
+            return (
+              <ListItem
+                key={index}
+                sx={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <ListItemIcon>
+                  <img
+                    src={item.image512pxLink?.toString()}
+                    alt={item.name?.toString()}
+                    width={50}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.name}
+                  secondary={maxPriceObj(item)}
+                  sx={{
+                    textAlign: "left",
+                    flexGrow: 1,
+                    width: { md: 250, xs: 150 },
+                  }}
+                />
+                <Box sx={{ minWidth: { md: 100, xs: 200 } }}>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Item not in Flea Market.
+                  </Typography>
+                </Box>
+                <Tooltip title="Remove Item">
+                  <IconButton onClick={() => handleDelete(item.id)}>
+                    <ClearIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </ListItem>
+            );
+          const TrendingIcon =
+            item.changeLast48hPercent >= 0 ? TrendingUpIcon : TrendingDownIcon;
+          const color = item.changeLast48hPercent >= 0 ? "primary" : "error";
           return (
             <ListItem
               key={index}
@@ -123,21 +126,77 @@ export const PriceTracker = memo(() => {
             >
               <ListItemIcon>
                 <img
-                  src={item?.image512pxLink?.toString()}
-                  alt={item?.name?.toString()}
+                  src={item.image512pxLink?.toString()}
+                  alt={item.name?.toString()}
                   width={50}
                 />
               </ListItemIcon>
               <ListItemText
-                primary={item?.name}
+                primary={item.name}
                 secondary={maxPriceObj(item)}
-                sx={{ textAlign: "left" }}
+                sx={{
+                  textAlign: "left",
+                  flexGrow: 1,
+                  width: { md: 250, xs: 150 },
+                }}
               />
+              <Box sx={{ minWidth: { md: 100, xs: 200 } }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    verticalAlign: "middle",
+                    alignItems: "center",
+                  }}
+                >
+                  <TimelineIcon
+                    sx={{ verticalAlign: "middle" }}
+                    fontSize="medium"
+                  />
+                  <Typography
+                    variant="h6"
+                    color="text.primary"
+                    pl={0.5}
+                    sx={{ color: color }}
+                  >
+                    {`${item.changeLast48h} ₽`}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    verticalAlign: "middle",
+                    alignItems: "center",
+                  }}
+                >
+                  <TrendingIcon
+                    sx={{ verticalAlign: "middle" }}
+                    color={color}
+                    fontSize="medium"
+                  />
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    pl={0.5}
+                  >
+                    {`${item.changeLast48hPercent}%`}
+                  </Typography>
+                </Box>
+              </Box>
+              <Tooltip title="Remove Item">
+                <IconButton onClick={() => handleDelete(item.id)}>
+                  <ClearIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
             </ListItem>
           );
         })}
       </List>
-      <CustomDialog />
+      <CustomDialog
+        open={open}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        langDict={langDict}
+      />
     </Paper>
   );
 });

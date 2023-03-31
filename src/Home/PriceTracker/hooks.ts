@@ -62,7 +62,14 @@ export const useHooks = () => {
     setOpen(false);
   }, []);
 
+  const handleDelete = useCallback((id: string) => {
+    const set = new Set(itemIds);
+    set.delete(id);
+    localStorage.setItem("PriceTracker", JSON.stringify(Array.from(set)));
+    setItemIds(Array.from(set));
+  }, [itemIds])
+
   return {
-    langDict, loading, error, data, maxPriceObj, open, handleClickOpen, handleOk, handleCancel
+    langDict, loading, error, data, maxPriceObj, open, handleClickOpen, handleOk, handleCancel, handleDelete
   }
 }

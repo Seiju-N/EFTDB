@@ -21,9 +21,10 @@ const EN_DICT = {
       "title": "Boss spawns",
     },
     price_tracker: {
-      "title": "Price tracker",
+      "title": "Price tracker(48h)",
       "dialog_title": "Reset price tracker list.",
       "dialog_description": "I will initialize the price history list. The default is Bitcoin. This operation cannot be undone. Do you wish to proceed?",
+      "trader_price": "Trader's selling price."
     },
     subtitle: {
       subtitle1: "EFTDB provides the following features.",

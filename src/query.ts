@@ -428,6 +428,17 @@ export const GET_ITEM_PRICE = gql`
   }
 `
 
+export const GET_ITEM_PRICE_HISTORY = gql`
+  query GetItemPriceHistory(
+    $id: ID!
+  ) {
+    historicalItemPrices(id: $id){
+      price
+      timestamp
+    }
+  }
+`;
+
 export const GET_ITEM_PROPERTIES_ARMOR = gql`
   query getItemProperties($itemId: ID, $lang: LanguageCode) {
     item(id: $itemId, lang: $lang) {

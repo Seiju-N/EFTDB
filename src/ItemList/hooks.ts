@@ -21,6 +21,7 @@ export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
   const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
   const param = useParams();
+  const DEFAULT_ITEMS_COUNT_LIMIT = 8;
 
   const convertObject = useCallback((ammoType: string) => {
     return {
@@ -99,7 +100,7 @@ export const useHooks = () => {
   });
 
   const handlePinClick = useCallback((id: string) => {
-    if (priceTrackerSet.size >= 5 && !priceTrackerSet.has(id)) {
+    if (priceTrackerSet.size >= DEFAULT_ITEMS_COUNT_LIMIT && !priceTrackerSet.has(id)) {
       setOpen(true);
       return;
     }
@@ -124,5 +125,5 @@ export const useHooks = () => {
     setOpen(false);
   };
 
-  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, handlePinClick, handleWikiLinkClick, priceTrackerSet, open, handleClose }
+  return { DEFAULT_ITEMS_COUNT_LIMIT,langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, handlePinClick, handleWikiLinkClick, priceTrackerSet, open, handleClose }
 }
