@@ -1,7 +1,7 @@
 import { Item, Maybe } from "@/graphql/generated";
 import { GET_ITEMS } from "@/query";
 import { useQuery } from "@apollo/client";
-import { CardContent, SelectChangeEvent, styled } from "@mui/material";
+import {  SelectChangeEvent } from "@mui/material";
 import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 import { enUS } from "@mui/x-data-grid";
 import { SyntheticEvent, useCallback, useContext, useEffect, useState } from "react";
@@ -85,13 +85,6 @@ export const useHooks = () => {
     sortModel: [{ field: "category", sort: "asc" }],
   };
 
-  const CardContentNoPadding = styled(CardContent)(`
-    padding: 16px;
-    &:last-child {
-      padding-bottom: 16px;
-    }
-  `);
-
   const { loading, error, data } = useQuery(GET_ITEMS, {
     variables: {
       categoryNames: [param.categoryName],
@@ -125,5 +118,5 @@ export const useHooks = () => {
     setOpen(false);
   };
 
-  return { DEFAULT_ITEMS_COUNT_LIMIT,langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, CardContentNoPadding, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, handlePinClick, handleWikiLinkClick, priceTrackerSet, open, handleClose }
+  return { DEFAULT_ITEMS_COUNT_LIMIT,langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, handlePinClick, handleWikiLinkClick, priceTrackerSet, open, handleClose }
 }
