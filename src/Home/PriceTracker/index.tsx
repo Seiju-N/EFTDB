@@ -30,6 +30,7 @@ export const PriceTracker = memo(() => {
     error,
     data,
     expanded,
+    convNum,
     maxPriceObj,
     open,
     handleChange,
@@ -131,6 +132,7 @@ export const PriceTracker = memo(() => {
             );
           const TrendingIcon =
             item.changeLast48hPercent >= 0 ? TrendingUpIcon : TrendingDownIcon;
+
           const color = item.changeLast48hPercent >= 0 ? "primary" : "error";
           return (
             <Accordion
@@ -181,7 +183,7 @@ export const PriceTracker = memo(() => {
                       pl={0.5}
                       sx={{ color: color, whiteSpace: "nowrap" }}
                     >
-                      {`${item.changeLast48h} ₽`}
+                      {`${convNum(item.changeLast48h)} ₽`}
                     </Typography>
                   </Box>
                   <Box
@@ -201,7 +203,7 @@ export const PriceTracker = memo(() => {
                       color="text.secondary"
                       pl={0.5}
                     >
-                      {`${item.changeLast48hPercent}%`}
+                      {`${convNum(item.changeLast48hPercent)}%`}
                     </Typography>
                   </Box>
                 </Box>

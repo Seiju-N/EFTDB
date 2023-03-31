@@ -1,60 +1,31 @@
-import { HistoricalPricePoint, Maybe, Query } from "@/graphql/generated";
-import { GET_ITEM_PRICE_HISTORY } from "@/query";
-import { useQuery } from "@apollo/client";
-import { Box } from "@mui/material";
+import { HistoricalPricePoint, Maybe } from "@/graphql/generated";
+import { Typography } from "@mui/material";
 import {
   CartesianGrid,
   Line,
   LineChart,
   ResponsiveContainer,
   Tooltip,
-  TooltipProps,
   XAxis,
   YAxis,
 } from "recharts";
-import {
-  NameType,
-  ValueType,
-} from "recharts/types/component/DefaultTooltipContent";
-
+import { CustomDot } from "./CustomDot";
+import { CustomTooltip } from "./CustomTooltip";
+import { useHooks } from "./hooks";
 type Props = {
   itemId: string;
 };
 
 export const PriceChart = ({ itemId }: Props) => {
-  const { loading, error, data } = useQuery<Query>(GET_ITEM_PRICE_HISTORY, {
-    variables: { id: itemId },
-  });
+  const { formattedData, loading, error, data } = useHooks({ itemId });
 
-  if (loading) return <>Loading...</>;
-  if (error || !data) return null;
-
-  const formattedData = data.historicalItemPrices.map((point) => {
-    if (!point) return null;
-    const timestamp = point.timestamp || "0";
-    return {
-      ...point,
-      timestamp: new Date(parseInt(timestamp)).toLocaleString(),
-    };
-  });
-
-  const CustomTooltip = ({
-    active,
-    payload,
-    label,
-  }: TooltipProps<ValueType, NameType>) => {
-    if (active && payload && payload.length) {
-      return (
-        <Box sx={{ backgroundColor: "rgba(96, 96, 96, 0.6)" }}>
-          <p className="label">{`Price:${payload[0].value} RUB`}</p>
-          <p className="desc">{`Time: ${label}`}</p>
-        </Box>
-      );
-    }
-
-    return null;
-  };
-
+  if (loading || !data)
+    return (
+      <Typography variant="h5" width={"100%"} textAlign={"center"}>
+        Loading...
+      </Typography>
+    );
+  if (error) return null;
   return (
     <ResponsiveContainer width="100%" height={200}>
       <LineChart
@@ -76,6 +47,10 @@ export const PriceChart = ({ itemId }: Props) => {
               day: "2-digit",
             })
           }
+          axisLine={{
+            stroke: "#eee",
+            strokeWidth: 1,
+          }}
         />
         <YAxis
           dataKey="price"
@@ -85,10 +60,19 @@ export const PriceChart = ({ itemId }: Props) => {
             offset: -2,
             position: "insideLeft",
           }}
+          axisLine={{
+            stroke: "#eee",
+            strokeWidth: 1,
+          }}
         />
         <Tooltip content={<CustomTooltip />} />
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <Line type="monotone" dataKey="price" stroke="#8884d8" />
+        <CartesianGrid stroke="#888" strokeDasharray="4 4" />
+        <Line
+          type="monotone"
+          dataKey="price"
+          stroke="#8884d8"
+          dot={CustomDot}
+        />
       </LineChart>
     </ResponsiveContainer>
   );

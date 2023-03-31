@@ -10,6 +10,9 @@ export const useHooks = () => {
   const [itemIds, setItemIds] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | false>(false);
+  const convNum = (num: number) => {
+    return num > 0 ? "+" + num.toString() : num.toString();
+  };
 
   useEffect(() => {
     const storageItem = localStorage.getItem("PriceTracker");
@@ -47,11 +50,11 @@ export const useHooks = () => {
 
   const handleChange =
     (panel: string | undefined) =>
-    (event: SyntheticEvent, isExpanded: boolean) => {
-      if (!panel) return;
-      setExpanded(isExpanded ? panel : false);
-    };
-  
+      (event: SyntheticEvent, isExpanded: boolean) => {
+        if (!panel) return;
+        setExpanded(isExpanded ? panel : false);
+      };
+
   const handleReset = useCallback(() => {
     localStorage.setItem("PriceTracker", JSON.stringify([DEFAULT_ITEM]));
     setItemIds([DEFAULT_ITEM]);
@@ -78,6 +81,18 @@ export const useHooks = () => {
   }, [itemIds])
 
   return {
-    langDict, loading, error, data, expanded, maxPriceObj, open, handleChange, handleClickOpen, handleOk, handleCancel, handleDelete
+    langDict,
+    loading,
+    error,
+    data,
+    expanded,
+    maxPriceObj,
+    convNum,
+    open,
+    handleChange,
+    handleClickOpen,
+    handleOk,
+    handleCancel,
+    handleDelete
   }
 }
