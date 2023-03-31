@@ -2,13 +2,14 @@ import { LanguageDictContext } from "@/App";
 import { Item, ItemPrice, Maybe, Query } from "@/graphql/generated";
 import { GET_ITEM_PRICE } from "@/query";
 import { useQuery } from "@apollo/client";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { SyntheticEvent, useCallback, useContext, useEffect, useState } from "react";
 
 export const useHooks = () => {
   const DEFAULT_ITEM = "59faff1d86f7746c51718c9c" //Bitcoin
   const langDict = useContext(LanguageDictContext);
   const [itemIds, setItemIds] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string | false>(false);
 
   useEffect(() => {
     const storageItem = localStorage.getItem("PriceTracker");
@@ -44,6 +45,13 @@ export const useHooks = () => {
     return `${convertCurrency(resultItem.currency)} ${resultItem.price}`;
   };
 
+  const handleChange =
+    (panel: string | undefined) =>
+    (event: SyntheticEvent, isExpanded: boolean) => {
+      if (!panel) return;
+      setExpanded(isExpanded ? panel : false);
+    };
+  
   const handleReset = useCallback(() => {
     localStorage.setItem("PriceTracker", JSON.stringify([DEFAULT_ITEM]));
     setItemIds([DEFAULT_ITEM]);
@@ -70,6 +78,6 @@ export const useHooks = () => {
   }, [itemIds])
 
   return {
-    langDict, loading, error, data, maxPriceObj, open, handleClickOpen, handleOk, handleCancel, handleDelete
+    langDict, loading, error, data, expanded, maxPriceObj, open, handleChange, handleClickOpen, handleOk, handleCancel, handleDelete
   }
 }

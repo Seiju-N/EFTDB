@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   CircularProgress,
   IconButton,
@@ -25,8 +28,10 @@ export const PriceTracker = memo(() => {
     loading,
     error,
     data,
+    expanded,
     maxPriceObj,
     open,
+    handleChange,
     handleClickOpen,
     handleOk,
     handleCancel,
@@ -84,37 +89,51 @@ export const PriceTracker = memo(() => {
           if (!item) return null;
           if (!item.changeLast48h || !item.changeLast48hPercent)
             return (
-              <ListItem
-                key={index}
-                sx={{ display: "flex", justifyContent: "space-between" }}
+              <Accordion
+                expanded={expanded === item.id}
+                onChange={handleChange(item.id)}
+                key={`${item.id}_${index}`}
               >
-                <ListItemIcon>
-                  <img
-                    src={item.image512pxLink?.toString()}
-                    alt={item.name?.toString()}
-                    width={50}
+                <AccordionSummary>
+                  <ListItemIcon>
+                    <img
+                      src={item.image512pxLink?.toString()}
+                      alt={item.name?.toString()}
+                      width={50}
+                      height={"auto"}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.name}
+                    secondary={maxPriceObj(item)}
+                    primaryTypographyProps={{
+                      width: { md: "15vw", xs: "40vw" },
+                      maxWidth: { md: 200, xs: 400 },
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    sx={{
+                      textAlign: "left",
+                      flexGrow: 1,
+                    }}
                   />
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.name}
-                  secondary={maxPriceObj(item)}
-                  sx={{
-                    textAlign: "left",
-                    flexGrow: 1,
-                    width: { md: 250, xs: 150 },
-                  }}
-                />
-                <Box sx={{ minWidth: { md: 100, xs: 200 } }}>
-                  <Typography variant="subtitle1" color="text.secondary">
-                    Item not in Flea Market.
-                  </Typography>
-                </Box>
-                <Tooltip title="Remove Item">
-                  <IconButton onClick={() => handleDelete(item.id)}>
-                    <ClearIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
-              </ListItem>
+                  <Box sx={{ width: { md: 96, xs: 200 } }}>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      Item not in Flea Market
+                    </Typography>
+                  </Box>
+                  <Tooltip title="Remove Item">
+                    <IconButton
+                      sx={{ width: 20 }}
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <ClearIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
+                </AccordionSummary>
+                <AccordionDetails sx={{ p: 2 }}>here</AccordionDetails>
+              </Accordion>
             );
           const TrendingIcon =
             item.changeLast48hPercent >= 0 ? TrendingUpIcon : TrendingDownIcon;
@@ -129,15 +148,22 @@ export const PriceTracker = memo(() => {
                   src={item.image512pxLink?.toString()}
                   alt={item.name?.toString()}
                   width={50}
+                  height={"auto"}
                 />
               </ListItemIcon>
               <ListItemText
                 primary={item.name}
                 secondary={maxPriceObj(item)}
+                primaryTypographyProps={{
+                  width: { md: "15vw", xs: "40vw" },
+                  maxWidth: { md: 200, xs: 400 },
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
                 sx={{
                   textAlign: "left",
                   flexGrow: 1,
-                  width: { md: 250, xs: 150 },
                 }}
               />
               <Box sx={{ minWidth: { md: 100, xs: 200 } }}>
@@ -183,7 +209,10 @@ export const PriceTracker = memo(() => {
                 </Box>
               </Box>
               <Tooltip title="Remove Item">
-                <IconButton onClick={() => handleDelete(item.id)}>
+                <IconButton
+                  sx={{ width: 20 }}
+                  onClick={() => handleDelete(item.id)}
+                >
                   <ClearIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
