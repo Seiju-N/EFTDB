@@ -96,8 +96,8 @@ export const PriceTracker = memo(() => {
                   <img
                     src={item.image512pxLink?.toString()}
                     alt={item.name?.toString()}
-                    width={52}
-                    style={{ objectFit: "contain" }}
+                    width={50}
+                    style={{ objectFit: "contain", flexGrow: 1 }}
                   />
                 </ListItemIcon>
                 <ListItemText
@@ -105,14 +105,13 @@ export const PriceTracker = memo(() => {
                   secondary={maxPriceObj(item)}
                   primaryTypographyProps={{
                     width: { md: "14vw", xs: "40vw" },
-                    maxWidth: { md: 192, xs: 400 },
+                    maxWidth: { md: 190, xs: 400 },
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                   }}
                   sx={{
                     textAlign: "left",
-                    flexGrow: 1,
                   }}
                 />
                 <Box sx={{ width: { md: 96, xs: 200 } }}>
@@ -146,8 +145,8 @@ export const PriceTracker = memo(() => {
                   <img
                     src={item.image512pxLink?.toString()}
                     alt={item.name?.toString()}
-                    width={52}
-                    style={{ objectFit: "contain" }}
+                    width={50}
+                    style={{ objectFit: "contain", flexGrow: 1 }}
                   />
                 </ListItemIcon>
                 <ListItemText
@@ -155,14 +154,13 @@ export const PriceTracker = memo(() => {
                   secondary={maxPriceObj(item)}
                   primaryTypographyProps={{
                     width: { md: "14vw", xs: "40vw" },
-                    maxWidth: { md: 192, xs: 400 },
+                    maxWidth: { md: 190, xs: 400 },
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                   }}
                   sx={{
                     textAlign: "left",
-                    flexGrow: 1,
                   }}
                 />
                 <Box sx={{ minWidth: { md: 96, xs: 200 } }}>

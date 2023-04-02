@@ -85,6 +85,7 @@ export const MenuItemsXS = () => {
                   <ListItemButton
                     component={RouterLink}
                     to={`task/${trader?.name}`}
+                    onClick={handleCloseNavMenu}
                   >
                     <ListItemAvatar>
                       <Avatar
@@ -107,25 +108,64 @@ export const MenuItemsXS = () => {
             )}
           </ListItemButton>
           <Collapse in={itemOpen} timeout="auto" unmountOnExit>
-            <FlatItem categoryName="Ammo" />
-            <FlatItem categoryName="Arm Band" />
-            <NestedSubItem categoryName="Armored equipment" />
-            <FlatItem categoryName="Backpack" />
-            <NestedItem categoryName="Barter item" />
-            <FlatItem categoryName="Chest rig" />
-            <FlatItem categoryName="Common container" />
-            <NestedItem categoryName="Food and drink" />
-            <FlatItem categoryName="Headphones" />
-            <FlatItem categoryName="Info" />
-            <NestedItem categoryName="Key" />
-            <FlatItem categoryName="Knife" />
-            <FlatItem categoryName="Map" />
-            <NestedItem categoryName="Meds" />
-            <FlatItem categoryName="Port. container" />
-            <FlatItem categoryName="Special item" />
-            <FlatItem categoryName="Throwable weapon" />
-            <NestedSubItem categoryName="Weapon mod" />
-            <NestedItem categoryName="Weapon" />
+            <FlatItem categoryName="Ammo" handleClose={handleCloseNavMenu} />
+            <FlatItem
+              categoryName="Arm Band"
+              handleClose={handleCloseNavMenu}
+            />
+            <NestedSubItem
+              categoryName="Armored equipment"
+              handleClose={handleCloseNavMenu}
+            />
+            <FlatItem
+              categoryName="Backpack"
+              handleClose={handleCloseNavMenu}
+            />
+            <NestedItem
+              categoryName="Barter item"
+              handleClose={handleCloseNavMenu}
+            />
+            <FlatItem
+              categoryName="Chest rig"
+              handleClose={handleCloseNavMenu}
+            />
+            <FlatItem
+              categoryName="Common container"
+              handleClose={handleCloseNavMenu}
+            />
+            <NestedItem
+              categoryName="Food and drink"
+              handleClose={handleCloseNavMenu}
+            />
+            <FlatItem
+              categoryName="Headphones"
+              handleClose={handleCloseNavMenu}
+            />
+            <FlatItem categoryName="Info" handleClose={handleCloseNavMenu} />
+            <NestedItem categoryName="Key" handleClose={handleCloseNavMenu} />
+            <FlatItem categoryName="Knife" handleClose={handleCloseNavMenu} />
+            <FlatItem categoryName="Map" handleClose={handleCloseNavMenu} />
+            <NestedItem categoryName="Meds" handleClose={handleCloseNavMenu} />
+            <FlatItem
+              categoryName="Port. container"
+              handleClose={handleCloseNavMenu}
+            />
+            <FlatItem
+              categoryName="Special item"
+              handleClose={handleCloseNavMenu}
+            />
+            <FlatItem
+              categoryName="Throwable weapon"
+              handleClose={handleCloseNavMenu}
+            />
+            <NestedSubItem
+              categoryName="Weapon mod"
+              handleClose={handleCloseNavMenu}
+            />
+            <NestedItem
+              categoryName="Weapon"
+              handleClose={handleCloseNavMenu}
+            />
           </Collapse>
         </List>
       </Menu>

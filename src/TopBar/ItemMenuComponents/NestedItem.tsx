@@ -15,10 +15,11 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 
 type props = {
   categoryName: string;
+  handleClose: () => void;
 };
 
-export const NestedItem = ({ categoryName }: props) => {
-  const { categories, langDict, handleCloseItemMenu } = useHooks();
+export const NestedItem = ({ categoryName, handleClose }: props) => {
+  const { categories, langDict } = useHooks();
   const [open, setOpen] = useState<boolean>(false);
   const handleClick = useCallback(() => {
     setOpen(!open);
@@ -42,7 +43,7 @@ export const NestedItem = ({ categoryName }: props) => {
         <ListItemButton
           component={RouterLink}
           to={`item/${toPascalCase(categoryName)}`}
-          onClick={handleCloseItemMenu}
+          onClick={handleClose}
         >
           <ListItemText
             sx={{ pl: 1 }}
@@ -61,6 +62,7 @@ export const NestedItem = ({ categoryName }: props) => {
             <ListItemButton
               component={RouterLink}
               to={`item/${toPascalCase(category?.normalizedName)}`}
+              onClick={handleClose}
             >
               <ListItemText sx={{ pl: 2 }}>
                 {

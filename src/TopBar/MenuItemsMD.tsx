@@ -87,25 +87,49 @@ export const MenuItemsMD = () => {
         open={Boolean(anchorElItem)}
         onClose={handleCloseItemMenu}
       >
-        <FlatItem categoryName="Ammo" />
-        <FlatItem categoryName="Arm Band" />
-        <NestedSubItem categoryName="Armored equipment" />
-        <FlatItem categoryName="Backpack" />
-        <NestedItem categoryName="Barter item" />
-        <FlatItem categoryName="Chest rig" />
-        <FlatItem categoryName="Common container" />
-        <NestedItem categoryName="Food and drink" />
-        <FlatItem categoryName="Headphones" />
-        <FlatItem categoryName="Info" />
-        <NestedItem categoryName="Key" />
-        <FlatItem categoryName="Knife" />
-        <FlatItem categoryName="Map" />
-        <NestedItem categoryName="Meds" />
-        <FlatItem categoryName="Port. container" />
-        <FlatItem categoryName="Special item" />
-        <FlatItem categoryName="Throwable weapon" />
-        <NestedSubItem categoryName="Weapon mod" />
-        <NestedItem categoryName="Weapon" />
+        <FlatItem categoryName="Ammo" handleClose={handleCloseItemMenu} />
+        <FlatItem categoryName="Arm Band" handleClose={handleCloseItemMenu} />
+        <NestedSubItem
+          categoryName="Armored equipment"
+          handleClose={handleCloseItemMenu}
+        />
+        <FlatItem categoryName="Backpack" handleClose={handleCloseItemMenu} />
+        <NestedItem
+          categoryName="Barter item"
+          handleClose={handleCloseItemMenu}
+        />
+        <FlatItem categoryName="Chest rig" handleClose={handleCloseItemMenu} />
+        <FlatItem
+          categoryName="Common container"
+          handleClose={handleCloseItemMenu}
+        />
+        <NestedItem
+          categoryName="Food and drink"
+          handleClose={handleCloseItemMenu}
+        />
+        <FlatItem categoryName="Headphones" handleClose={handleCloseItemMenu} />
+        <FlatItem categoryName="Info" handleClose={handleCloseItemMenu} />
+        <NestedItem categoryName="Key" handleClose={handleCloseItemMenu} />
+        <FlatItem categoryName="Knife" handleClose={handleCloseItemMenu} />
+        <FlatItem categoryName="Map" handleClose={handleCloseItemMenu} />
+        <NestedItem categoryName="Meds" handleClose={handleCloseItemMenu} />
+        <FlatItem
+          categoryName="Port. container"
+          handleClose={handleCloseItemMenu}
+        />
+        <FlatItem
+          categoryName="Special item"
+          handleClose={handleCloseItemMenu}
+        />
+        <FlatItem
+          categoryName="Throwable weapon"
+          handleClose={handleCloseItemMenu}
+        />
+        <NestedSubItem
+          categoryName="Weapon mod"
+          handleClose={handleCloseItemMenu}
+        />
+        <NestedItem categoryName="Weapon" handleClose={handleCloseItemMenu} />
       </Menu>
     </Box>
   );

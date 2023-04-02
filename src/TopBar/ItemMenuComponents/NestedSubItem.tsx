@@ -15,10 +15,11 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 
 type props = {
   categoryName: string;
+  handleClose: () => void;
 };
 
-export const NestedSubItem = ({ categoryName }: props) => {
-  const { categories, langDict, handleCloseItemMenu } = useHooks();
+export const NestedSubItem = ({ categoryName, handleClose }: props) => {
+  const { categories, langDict } = useHooks();
   const [open, setOpen] = useState<boolean>(false);
   const handleClick = useCallback(() => {
     setOpen(!open);
@@ -46,6 +47,7 @@ export const NestedSubItem = ({ categoryName }: props) => {
             <ListItemButton
               component={RouterLink}
               to={`item/${toPascalCase(category?.normalizedName)}`}
+              onClick={handleClose}
             >
               <ListItemText sx={{ pl: 2 }}>
                 {
@@ -72,6 +74,7 @@ export const NestedSubItem = ({ categoryName }: props) => {
               <ListItemButton
                 component={RouterLink}
                 to={`item/${toPascalCase(category?.normalizedName)}`}
+                onClick={handleClose}
               >
                 <ListItemText sx={{ pl: 2 }}>
                   {
@@ -126,11 +129,11 @@ export const NestedSubItem = ({ categoryName }: props) => {
         }
         disableGutters
         disablePadding
-        onClick={handleCloseItemMenu}
       >
         <ListItemButton
           component={RouterLink}
           to={`item/${toPascalCase(categoryName)}`}
+          onClick={handleClose}
         >
           <ListItemText
             sx={{ pl: 1 }}

@@ -195,7 +195,7 @@ export const DetailDialog = ({
     return (
       <Grid container spacing={2}>
         <Grid xs={6} sx={flexCenter}>
-          <Tooltip title="Base price">
+          <Tooltip title="Sell price">
             <SellIcon style={{ height: "auto", paddingRight: 4 }} />
           </Tooltip>
           <Typography

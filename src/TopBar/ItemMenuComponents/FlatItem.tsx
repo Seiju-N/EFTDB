@@ -6,16 +6,17 @@ import { useHooks } from "../hooks";
 
 type FlatMenuItemProps = {
   categoryName: string;
+  handleClose: () => void;
 };
 
-export const FlatItem = ({ categoryName }: FlatMenuItemProps) => {
-  const { langDict, handleCloseItemMenu } = useHooks();
+export const FlatItem = ({ categoryName, handleClose }: FlatMenuItemProps) => {
+  const { langDict } = useHooks();
   return (
     <ListItem alignItems="flex-start" disableGutters disablePadding>
       <ListItemButton
         component={RouterLink}
         to={`item/${toPascalCase(categoryName)}`}
-        onClick={handleCloseItemMenu}
+        onClick={handleClose}
       >
         <ListItemText
           sx={{ pl: 1 }}
