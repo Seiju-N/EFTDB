@@ -22,6 +22,7 @@ export const useHooks = () => {
       localStorage.setItem("PriceTracker", JSON.stringify([DEFAULT_ITEM]));
       setItemIds([DEFAULT_ITEM]);
     }
+    setExpanded(false);
   }, []);
 
   const { loading, error, data } = useQuery<Query>(GET_ITEM_PRICE, {
@@ -51,6 +52,7 @@ export const useHooks = () => {
   const handleChange =
     (panel: string | undefined) =>
       (event: SyntheticEvent, isExpanded: boolean) => {
+        console.log(panel);
         if (!panel) return;
         setExpanded(isExpanded ? panel : false);
       };
@@ -73,7 +75,8 @@ export const useHooks = () => {
     setOpen(false);
   }, []);
 
-  const handleDelete = useCallback((id: string) => {
+  const handleDelete = useCallback((id: string | undefined) => {
+    if (!id) return;
     const set = new Set(itemIds);
     set.delete(id);
     localStorage.setItem("PriceTracker", JSON.stringify(Array.from(set)));

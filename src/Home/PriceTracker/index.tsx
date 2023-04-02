@@ -6,7 +6,6 @@ import {
   CircularProgress,
   IconButton,
   List,
-  ListItem,
   ListItemIcon,
   ListItemText,
   Paper,
@@ -91,43 +90,53 @@ export const PriceTracker = memo(() => {
           if (!item) return null;
           if (!item.changeLast48h || !item.changeLast48hPercent)
             return (
-              <ListItem key={`${item.id}_${index}`}>
-                <ListItemIcon>
-                  <img
-                    src={item.image512pxLink?.toString()}
-                    alt={item.name?.toString()}
-                    width={50}
-                    style={{ objectFit: "contain", flexGrow: 1 }}
+              <Accordion
+                key={`${item.id}_${index}`}
+                expanded={expanded === item.id}
+                onChange={handleChange(item.id)}
+                TransitionProps={{ unmountOnExit: true }}
+              >
+                <AccordionSummary>
+                  <ListItemIcon>
+                    <img
+                      src={item.image512pxLink?.toString()}
+                      alt={item.name?.toString()}
+                      width={50}
+                      style={{ objectFit: "contain", flexGrow: 1 }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.name}
+                    secondary={maxPriceObj(item)}
+                    primaryTypographyProps={{
+                      width: { md: "14vw", xs: "40vw" },
+                      maxWidth: { md: 190, xs: 400 },
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    sx={{
+                      textAlign: "left",
+                    }}
                   />
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.name}
-                  secondary={maxPriceObj(item)}
-                  primaryTypographyProps={{
-                    width: { md: "14vw", xs: "40vw" },
-                    maxWidth: { md: 190, xs: 400 },
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  sx={{
-                    textAlign: "left",
-                  }}
-                />
-                <Box sx={{ width: { md: 96, xs: 200 } }}>
-                  <Typography variant="subtitle1" color="text.secondary">
-                    Item not in Flea Market
-                  </Typography>
-                </Box>
-                <Tooltip title="Remove Item">
-                  <IconButton
-                    sx={{ width: 20 }}
-                    onClick={() => handleDelete(item.id)}
-                  >
-                    <ClearIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
-              </ListItem>
+                  <Box sx={{ width: { md: 96, xs: 200 } }}>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      Item not in Flea Market
+                    </Typography>
+                  </Box>
+                  <Tooltip title="Remove Item">
+                    <IconButton
+                      sx={{ width: 20 }}
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <ClearIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <>None</>
+                </AccordionDetails>
+              </Accordion>
             );
           const TrendingIcon =
             item.changeLast48hPercent >= 0 ? TrendingUpIcon : TrendingDownIcon;
