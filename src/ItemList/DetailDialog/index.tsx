@@ -1,9 +1,4 @@
-import { Item, ItemPrice } from "@/graphql/generated";
-import CurrencyRuble from "@mui/icons-material/CurrencyRuble";
-import QueryStats from "@mui/icons-material/QueryStats";
-import ZoomOutMap from "@mui/icons-material/ZoomOutMap";
-import SellIcon from "@mui/icons-material/Sell";
-import ScaleIcon from "@mui/icons-material/Scale";
+import { Item } from "@/graphql/generated";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
   Box,
@@ -11,23 +6,22 @@ import {
   CardContent,
   Dialog,
   DialogContent,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   styled,
   Tab,
   Tabs,
-  Tooltip,
   Typography,
 } from "@mui/material";
-import { Maybe } from "graphql/jsutils/Maybe";
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { ItemProperties } from "./ItemProperties";
-import { Link as RouterLink } from "react-router-dom";
 import { useHooks } from "./hooks";
 import { TabPanel } from "@/components/TabPanel";
 import { DetailDialogTitle } from "./Title";
+import { ItemSize } from "./ItemSize";
+import { ItemWeight } from "./ItemWeight";
+import { BasePrice } from "./BasePrice";
+import { SellPrice } from "./SellPrice";
+import { Avg24hPrice } from "./Avg24hPrice";
+import { UsedInTasks } from "./UsedInTasks";
 
 type Props = {
   currentItem: Item | undefined;
@@ -43,11 +37,9 @@ export const DetailDialog = ({
   const {
     selectedTab,
     handleTabChange,
-    ITEM_PROPERTIES,
     ITEM_PROPERTIES_TAB,
     ITEM_DETAIL_DIALOG,
     verticalCenter,
-    flexCenter,
   } = useHooks();
   if (!currentItem) return null;
   const CardContentNoPadding = styled(CardContent)(`
@@ -56,198 +48,6 @@ export const DetailDialog = ({
       padding-bottom: 16px;
     }
   `);
-
-  const ItemSize = memo(() => {
-    return (
-      <Grid container spacing={2}>
-        <Grid xs={6} sx={flexCenter}>
-          <Tooltip title="Size">
-            <ZoomOutMap style={{ height: "auto", paddingRight: 4 }} />
-          </Tooltip>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            component="div"
-          >
-            {ITEM_DETAIL_DIALOG.SIZE}
-          </Typography>
-        </Grid>
-        <Grid xs={6}>
-          <Typography variant="subtitle1" color="text.primary" component="div">
-            {`${ITEM_DETAIL_DIALOG.WIDTH}: ${currentItem.width}   ${ITEM_DETAIL_DIALOG.HEIGHT}: ${currentItem.height}`}
-          </Typography>
-        </Grid>
-      </Grid>
-    );
-  });
-
-  const ItemWeight = memo(() => {
-    return (
-      <Grid container spacing={2}>
-        <Grid xs={6} sx={flexCenter}>
-          <Tooltip title="Weight">
-            <ScaleIcon style={{ height: "auto", paddingRight: 4 }} />
-          </Tooltip>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            component="div"
-          >
-            {ITEM_DETAIL_DIALOG.WEIGHT}
-          </Typography>
-        </Grid>
-        <Grid xs={6}>
-          <Typography variant="subtitle1" color="text.primary" component="div">
-            {`${currentItem.weight} kg`}
-          </Typography>
-        </Grid>
-      </Grid>
-    );
-  });
-
-  const BasePrice = memo(() => {
-    return (
-      <Grid container spacing={2}>
-        <Grid xs={6} sx={flexCenter}>
-          <Tooltip title="Base price">
-            <CurrencyRuble style={{ height: "auto", paddingRight: 4 }} />
-          </Tooltip>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            component="div"
-          >
-            {ITEM_PROPERTIES.basePrice}
-          </Typography>
-        </Grid>
-        <Grid xs={6}>
-          <Typography variant="subtitle1" color="text.primary" component="div">
-            {`₽ ${currentItem.basePrice}`}
-          </Typography>
-        </Grid>
-      </Grid>
-    );
-  });
-
-  const SellPrice = memo(() => {
-    const maxPriceObj =
-      currentItem.sellFor?.length !== 0
-        ? currentItem.sellFor?.reduce((a: ItemPrice, b: ItemPrice) =>
-            Number(a.priceRUB) > Number(b.priceRUB) ? a : b
-          )
-        : null;
-    const convertCurrency = useCallback(
-      (currency: Maybe<string> | undefined) => {
-        switch (currency) {
-          case "USD":
-            return "$";
-          case "EUR":
-            return "€";
-          case "RUB":
-            return "₽";
-          default:
-            return "";
-        }
-      },
-      []
-    );
-    return (
-      <Grid container spacing={2}>
-        <Grid xs={6} sx={flexCenter}>
-          <Tooltip title="Sell price">
-            <SellIcon style={{ height: "auto", paddingRight: 4 }} />
-          </Tooltip>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            component="div"
-          >
-            {ITEM_PROPERTIES.sellPrice}
-          </Typography>
-        </Grid>
-        <Grid xs={6}>
-          <Typography variant="subtitle1" color="text.primary" component="div">
-            {maxPriceObj
-              ? `${convertCurrency(maxPriceObj.currency)} ${
-                  maxPriceObj.price
-                } - ${maxPriceObj.vendor.name}`
-              : "情報がありません"}
-          </Typography>
-        </Grid>
-      </Grid>
-    );
-  });
-
-  const Avg24hPrice = memo(() => {
-    if (!currentItem.avg24hPrice) return null;
-    return (
-      <Grid container spacing={2}>
-        <Grid xs={6} sx={flexCenter}>
-          <Tooltip title="24h average price">
-            <QueryStats style={{ height: "auto", paddingRight: 4 }} />
-          </Tooltip>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            component="div"
-          >
-            {ITEM_PROPERTIES.avg24hPrice}
-          </Typography>
-        </Grid>
-        <Grid xs={6}>
-          <Typography variant="subtitle1" color="text.primary" component="div">
-            {`₽ ${currentItem.avg24hPrice}`}
-          </Typography>
-        </Grid>
-      </Grid>
-    );
-  });
-
-  const UsedInTasks = memo(() => {
-    if (!currentItem.usedInTasks || currentItem.usedInTasks.length === 0)
-      return null;
-    return (
-      <Grid container spacing={1}>
-        <Grid xs={6} sx={flexCenter}>
-          <Tooltip title="use in task?">
-            <QueryStats style={{ height: "auto", paddingRight: 4 }} />
-          </Tooltip>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
-            component="div"
-          >
-            {ITEM_PROPERTIES.usedInTasks}
-          </Typography>
-        </Grid>
-        <Grid xs={6}>
-          <List>
-            {currentItem.usedInTasks.map((task) => (
-              <ListItem key={task?.id} disablePadding>
-                <ListItemButton
-                  disableGutters
-                  component={RouterLink}
-                  to={`/task/${task?.trader.name}`}
-                  state={{ taskId: task?.id }}
-                >
-                  <ListItemText
-                    primaryTypographyProps={{
-                      fontSize: "0.8rem",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                    }}
-                    color="text.primary"
-                    primary={task?.name}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
-      </Grid>
-    );
-  });
 
   const DetailTab = memo(() => {
     return (
@@ -281,12 +81,12 @@ export const DetailDialog = ({
         <Card variant="outlined">
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <CardContentNoPadding>
-              <ItemSize />
-              <ItemWeight />
-              <BasePrice />
-              <SellPrice />
-              <Avg24hPrice />
-              <UsedInTasks />
+              <ItemSize currentItem={currentItem} />
+              <ItemWeight currentItem={currentItem} />
+              <BasePrice currentItem={currentItem} />
+              <SellPrice currentItem={currentItem} />
+              <Avg24hPrice currentItem={currentItem} />
+              <UsedInTasks currentItem={currentItem} />
             </CardContentNoPadding>
           </Box>
         </Card>
