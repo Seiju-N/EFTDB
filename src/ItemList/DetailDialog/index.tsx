@@ -1,62 +1,54 @@
-import { LanguageDictContext } from "@/App";
 import { Item, ItemPrice } from "@/graphql/generated";
 import CurrencyRuble from "@mui/icons-material/CurrencyRuble";
 import QueryStats from "@mui/icons-material/QueryStats";
 import ZoomOutMap from "@mui/icons-material/ZoomOutMap";
-import LanguageIcon from "@mui/icons-material/Language";
 import SellIcon from "@mui/icons-material/Sell";
 import ScaleIcon from "@mui/icons-material/Scale";
 import Grid from "@mui/material/Unstable_Grid2";
-import { CardContent, styled } from "@mui/material";
 import {
   Box,
   Card,
+  CardContent,
   Dialog,
   DialogContent,
-  DialogTitle,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
+  styled,
+  Tab,
+  Tabs,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { Maybe } from "graphql/jsutils/Maybe";
-import { memo, useCallback, useContext } from "react";
-import { ItemProperties } from "../ItemProperties";
-import { PinIcon } from "../PinIcon";
-import { dictType } from "@/constants/languages/types";
+import { memo, useCallback } from "react";
+import { ItemProperties } from "./ItemProperties";
 import { Link as RouterLink } from "react-router-dom";
+import { useHooks } from "./hooks";
+import { TabPanel } from "@/components/TabPanel";
+import { DetailDialogTitle } from "./Title";
 
 type Props = {
-  langDict: dictType;
   currentItem: Item | undefined;
-  handleWikiLinkClick: (link: Maybe<string> | null) => void;
-  handlePinClick: (id: string) => void;
-  priceTrackerSet: Set<string>;
-  open: boolean;
   dialogOpen: boolean;
-  handleClose: () => void;
   handleDialogClose: () => void;
-  DEFAULT_ITEMS_COUNT_LIMIT: number;
 };
 
 export const DetailDialog = ({
-  langDict,
   currentItem,
-  handleWikiLinkClick,
-  handlePinClick,
-  priceTrackerSet,
   dialogOpen,
-  open,
-  handleClose,
   handleDialogClose,
-  DEFAULT_ITEMS_COUNT_LIMIT,
 }: Props) => {
-  const { ITEM_PROPERTIES } = useContext(LanguageDictContext);
-  const verticalCenter = { display: "flex", justifyContent: "center" };
-  const flexCenter = { display: "flex", alignItems: "center" };
+  const {
+    selectedTab,
+    handleTabChange,
+    ITEM_PROPERTIES,
+    ITEM_PROPERTIES_TAB,
+    ITEM_DETAIL_DIALOG,
+    verticalCenter,
+    flexCenter,
+  } = useHooks();
   if (!currentItem) return null;
   const CardContentNoPadding = styled(CardContent)(`
     padding: 16px;
@@ -64,39 +56,6 @@ export const DetailDialog = ({
       padding-bottom: 16px;
     }
   `);
-  const DetailDialogTitle = memo(() => {
-    return (
-      <Grid container>
-        <Grid xs={10}>
-          <DialogTitle>{currentItem.name}</DialogTitle>
-        </Grid>
-        <Grid xs={2} sx={verticalCenter}>
-          <PinIcon
-            currentItem={currentItem}
-            handlePinClick={handlePinClick}
-            priceTrackerSet={priceTrackerSet}
-            open={open}
-            handleClose={handleClose}
-            DEFAULT_ITEMS_COUNT_LIMIT={DEFAULT_ITEMS_COUNT_LIMIT}
-          />
-          <Tooltip title="WiKi link">
-            {currentItem.wikiLink && currentItem.wikiLink !== "" ? (
-              <IconButton
-                disableRipple
-                onClick={() => handleWikiLinkClick(currentItem.wikiLink)}
-              >
-                <LanguageIcon />
-              </IconButton>
-            ) : (
-              <IconButton disableRipple disabled>
-                <LanguageIcon />
-              </IconButton>
-            )}
-          </Tooltip>
-        </Grid>
-      </Grid>
-    );
-  });
 
   const ItemSize = memo(() => {
     return (
@@ -110,12 +69,12 @@ export const DetailDialog = ({
             color="text.secondary"
             component="div"
           >
-            {langDict.ITEM_DETAIL_DIALOG.SIZE}
+            {ITEM_DETAIL_DIALOG.SIZE}
           </Typography>
         </Grid>
         <Grid xs={6}>
           <Typography variant="subtitle1" color="text.primary" component="div">
-            {`${langDict.ITEM_DETAIL_DIALOG.WIDTH}: ${currentItem.width}   ${langDict.ITEM_DETAIL_DIALOG.HEIGHT}: ${currentItem.height}`}
+            {`${ITEM_DETAIL_DIALOG.WIDTH}: ${currentItem.width}   ${ITEM_DETAIL_DIALOG.HEIGHT}: ${currentItem.height}`}
           </Typography>
         </Grid>
       </Grid>
@@ -134,7 +93,7 @@ export const DetailDialog = ({
             color="text.secondary"
             component="div"
           >
-            {langDict.ITEM_DETAIL_DIALOG.WEIGHT}
+            {ITEM_DETAIL_DIALOG.WEIGHT}
           </Typography>
         </Grid>
         <Grid xs={6}>
@@ -219,9 +178,96 @@ export const DetailDialog = ({
     );
   });
 
+  const Avg24hPrice = memo(() => {
+    if (!currentItem.avg24hPrice) return null;
+    return (
+      <Grid container spacing={2}>
+        <Grid xs={6} sx={flexCenter}>
+          <Tooltip title="24h average price">
+            <QueryStats style={{ height: "auto", paddingRight: 4 }} />
+          </Tooltip>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            component="div"
+          >
+            {ITEM_PROPERTIES.avg24hPrice}
+          </Typography>
+        </Grid>
+        <Grid xs={6}>
+          <Typography variant="subtitle1" color="text.primary" component="div">
+            {`₽ ${currentItem.avg24hPrice}`}
+          </Typography>
+        </Grid>
+      </Grid>
+    );
+  });
+
+  const UsedInTasks = memo(() => {
+    if (!currentItem.usedInTasks || currentItem.usedInTasks.length === 0)
+      return null;
+    return (
+      <Grid container spacing={1}>
+        <Grid xs={6} sx={flexCenter}>
+          <Tooltip title="use in task?">
+            <QueryStats style={{ height: "auto", paddingRight: 4 }} />
+          </Tooltip>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            component="div"
+          >
+            {ITEM_PROPERTIES.usedInTasks}
+          </Typography>
+        </Grid>
+        <Grid xs={6}>
+          <List>
+            {currentItem.usedInTasks.map((task) => (
+              <ListItem key={task?.id} disablePadding>
+                <ListItemButton
+                  disableGutters
+                  component={RouterLink}
+                  to={`/task/${task?.trader.name}`}
+                  state={{ taskId: task?.id }}
+                >
+                  <ListItemText
+                    primaryTypographyProps={{
+                      fontSize: "0.8rem",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                    }}
+                    color="text.primary"
+                    primary={task?.name}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Grid>
+      </Grid>
+    );
+  });
+
+  const DetailTab = memo(() => {
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <CardContentNoPadding>
+          {currentItem.properties && currentItem.properties.__typename ? (
+            <ItemProperties
+              typeName={currentItem.properties.__typename}
+              ItemId={currentItem.id}
+            />
+          ) : (
+            <Typography>{ITEM_DETAIL_DIALOG.NO_DETAIL}</Typography>
+          )}
+        </CardContentNoPadding>
+      </Box>
+    );
+  });
   return (
     <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth>
-      <DetailDialogTitle />
+      <DetailDialogTitle currentItem={currentItem} />
       {currentItem.image512pxLink ? (
         <Grid sx={verticalCenter}>
           <img
@@ -239,92 +285,26 @@ export const DetailDialog = ({
               <ItemWeight />
               <BasePrice />
               <SellPrice />
-              {currentItem.avg24hPrice ? (
-                <Grid container spacing={2}>
-                  <Grid xs={6} sx={flexCenter}>
-                    <Tooltip title="24h average price">
-                      <QueryStats style={{ height: "auto", paddingRight: 4 }} />
-                    </Tooltip>
-                    <Typography
-                      variant="subtitle2"
-                      color="text.secondary"
-                      component="div"
-                    >
-                      {ITEM_PROPERTIES.avg24hPrice}
-                    </Typography>
-                  </Grid>
-                  <Grid xs={6}>
-                    <Typography
-                      variant="subtitle1"
-                      color="text.primary"
-                      component="div"
-                      sx={{ pl: 2 }}
-                    >
-                      {currentItem.avg24hPrice}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              ) : null}
-              {currentItem.usedInTasks.length !== 0 ? (
-                <Grid container spacing={1}>
-                  <Grid xs={6} sx={flexCenter}>
-                    <Tooltip title="use in task?">
-                      <QueryStats style={{ height: "auto", paddingRight: 4 }} />
-                    </Tooltip>
-                    <Typography
-                      variant="subtitle2"
-                      color="text.secondary"
-                      component="div"
-                    >
-                      {ITEM_PROPERTIES.usedInTasks}
-                    </Typography>
-                  </Grid>
-                  <Grid xs={6}>
-                    <List>
-                      {currentItem.usedInTasks.map((task) => (
-                        <ListItem key={task?.id} disablePadding>
-                          <ListItemButton
-                            disableGutters
-                            component={RouterLink}
-                            to={`/task/${task?.trader.name}`}
-                            state={{ taskId: task?.id }}
-                          >
-                            <ListItemText
-                              primaryTypographyProps={{
-                                fontSize: "0.8rem",
-                                textOverflow: "ellipsis",
-                                overflow: "hidden",
-                                whiteSpace: "nowrap",
-                              }}
-                              color="text.primary"
-                              primary={task?.name}
-                            />
-                          </ListItemButton>
-                        </ListItem>
-                      ))}
-                    </List>
-                  </Grid>
-                </Grid>
-              ) : null}
+              <Avg24hPrice />
+              <UsedInTasks />
             </CardContentNoPadding>
           </Box>
         </Card>
+
         <Card
           variant="outlined"
           sx={{ display: "flex", flexDirection: "column" }}
         >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardContentNoPadding>
-              {currentItem.properties && currentItem.properties.__typename ? (
-                <ItemProperties
-                  typeName={currentItem.properties.__typename}
-                  ItemId={currentItem.id}
-                />
-              ) : (
-                <Typography>{langDict.ITEM_DETAIL_DIALOG.NO_DETAIL}</Typography>
-              )}
-            </CardContentNoPadding>
-          </Box>
+          <Tabs value={selectedTab} onChange={handleTabChange} centered>
+            <Tab label={ITEM_PROPERTIES_TAB.detail} />
+            <Tab label={ITEM_PROPERTIES_TAB.unlock_requirement} />
+          </Tabs>
+          <TabPanel value={selectedTab} index={0}>
+            <DetailTab />
+          </TabPanel>
+          <TabPanel value={selectedTab} index={1}>
+            <></>
+          </TabPanel>
         </Card>
       </DialogContent>
     </Dialog>

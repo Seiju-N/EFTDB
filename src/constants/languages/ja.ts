@@ -284,6 +284,12 @@ const JA_DICT = {
     avg24hPrice: "平均価格(24h)",
   },
 
+  ITEM_PROPERTIES_TAB:{
+    detail: "詳細",
+    unlock_requirement  : "解除条件",
+    chart: "価格チャート",
+  },
+
   ITEM_PROPERTIES_AMMO: {
     title: "詳細",
     damage: "ダメージ",

@@ -157,6 +157,12 @@ const EN_DICT = {
     avg24hPrice: "Average price (24h)",
   },
 
+  ITEM_PROPERTIES_TAB:{
+    detail: "Detail",
+    unlock_requirement  : "Unlock requirement",
+    chart: "Chart",
+  },
+
   ITEM_PROPERTIES_AMMO: {
     title: "Detail Information",
     damage: "Damage",

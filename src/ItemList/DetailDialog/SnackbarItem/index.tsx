@@ -18,10 +18,9 @@ export const SnackbarItem = ({
 }: Props) => {
   return (
     <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
-      {priceTrackerSet.size >= DEFAULT_ITEMS_COUNT_LIMIT &&
-      priceTrackerSet.has(currentItem.id) ? (
+      {priceTrackerSet.has(currentItem.id) ? (
         <Alert severity="success" sx={{ width: "100%" }}>
-          {"Item remove done."}
+          {"Item add done."}
         </Alert>
       ) : priceTrackerSet.size >= DEFAULT_ITEMS_COUNT_LIMIT &&
         !priceTrackerSet.has(currentItem.id) ? (
@@ -30,7 +29,7 @@ export const SnackbarItem = ({
         </Alert>
       ) : (
         <Alert severity="success" sx={{ width: "100%" }}>
-          {"Item add done."}
+          {"Item remove done."}
         </Alert>
       )}
     </Snackbar>

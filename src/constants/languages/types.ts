@@ -36,6 +36,7 @@ export type dictType = {
   ITEM_PROPERTIES: {
     [key: string]: string;
   },
+  ITEM_PROPERTIES_TAB: Record<string, string>,
   ITEM_PROPERTIES_AMMO: Record<string, string>,
   ITEM_PROPERTIES_ARMOR: Record<string, string>,
   ITEM_PROPERTIES_ARMOR_ATTACHMENT: Record<string, string>,
