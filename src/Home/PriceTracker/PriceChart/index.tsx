@@ -51,19 +51,21 @@ export const PriceChart = ({ itemId }: Props) => {
             stroke: "#eee",
             strokeWidth: 1,
           }}
+          tick={{ fontSize: 12 }}
         />
         <YAxis
           dataKey="price"
           domain={["auto", "auto"]}
           label={{
             value: "₽",
-            offset: -2,
+            offset: -5,
             position: "insideLeft",
           }}
           axisLine={{
             stroke: "#eee",
             strokeWidth: 1,
           }}
+          tick={{ fontSize: 12, transform: "translate(6, 0)" }}
         />
         <Tooltip content={<CustomTooltip />} />
         <CartesianGrid stroke="#888" strokeDasharray="4 4" />

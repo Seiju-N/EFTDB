@@ -1,10 +1,10 @@
-import { Item, Maybe } from "@/graphql/generated";
+import { Item } from "@/graphql/generated";
 import { GET_ITEMS } from "@/query";
 import { useQuery } from "@apollo/client";
 import {  SelectChangeEvent } from "@mui/material";
 import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 import { enUS } from "@mui/x-data-grid";
-import { SyntheticEvent, useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { LanguageDictContext } from "../App";
@@ -13,15 +13,12 @@ export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<Item>();
   const [filter, setFilter] = useState<string>("");
-  const [priceTrackerSet, setPriceTrackerSet] = useState<Set<string>>(new Set(JSON.parse(localStorage.getItem("PriceTracker") || "[]")));
   const [ammoTypeFilter, setAmmoTypeFilter] = useState<GridFilterModel>({
     items: [],
   });
-  const [open, setOpen] = useState<boolean>(false);
   const langDict = useContext(LanguageDictContext);
   const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
   const param = useParams();
-  const DEFAULT_ITEMS_COUNT_LIMIT = 8;
 
   const convertObject = useCallback((ammoType: string) => {
     return {
@@ -92,31 +89,7 @@ export const useHooks = () => {
     },
   });
 
-  const handlePinClick = useCallback((id: string) => {
-    if (priceTrackerSet.size >= DEFAULT_ITEMS_COUNT_LIMIT && !priceTrackerSet.has(id)) {
-      setOpen(true);
-      return;
-    }
-    setPriceTrackerSet((prevPriceTrackerSet) => {
-      const newData = new Set(prevPriceTrackerSet);
-      newData.has(id) ? newData.delete(id) : newData.add(id);
-      localStorage.setItem("PriceTracker", JSON.stringify(Array.from(newData)));
-      setOpen(true);
-      return newData;
-    });
-  }, []);
 
-  const handleWikiLinkClick = useCallback((link: Maybe<string> | undefined) => {
-    if (!link) return null;
-    window.open(link);
-  }, []);
 
-  const handleClose = (_event?: SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
-
-  return { DEFAULT_ITEMS_COUNT_LIMIT,langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, handlePinClick, handleWikiLinkClick, priceTrackerSet, open, handleClose }
+  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading }
 }

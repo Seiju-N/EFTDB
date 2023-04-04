@@ -21,7 +21,7 @@ import { GET_BOSS_SPAWN } from "@/query";
 import GroupIcon from "@mui/icons-material/Group";
 import { useHooks } from "./hooks";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { convertPercent } from "@/ItemList/utils";
+import { convertPercent } from "@/ItemList/DetailDialog/utils";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 export const BossSpawn = memo(() => {

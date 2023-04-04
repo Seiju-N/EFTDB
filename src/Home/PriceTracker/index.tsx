@@ -20,6 +20,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import ClearIcon from "@mui/icons-material/Clear";
 import TimelineIcon from "@mui/icons-material/Timeline";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import { PriceChart } from "./PriceChart";
 
 export const PriceTracker = memo(() => {
@@ -101,15 +102,24 @@ export const PriceTracker = memo(() => {
                     <img
                       src={item.image512pxLink?.toString()}
                       alt={item.name?.toString()}
-                      width={50}
+                      width={48}
                       style={{ objectFit: "contain", flexGrow: 1 }}
                     />
                   </ListItemIcon>
                   <ListItemText
                     primary={item.name}
-                    secondary={maxPriceObj(item)}
+                    secondary={`${maxPriceObj(item).text} on ${
+                      maxPriceObj(item).vendor?.name
+                    }`}
                     primaryTypographyProps={{
-                      width: { md: "14vw", xs: "40vw" },
+                      width: { md: "12vw", xs: "40vw" },
+                      maxWidth: { md: 190, xs: 400 },
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    secondaryTypographyProps={{
+                      width: { md: "12vw", xs: "40vw" },
                       maxWidth: { md: 190, xs: 400 },
                       whiteSpace: "nowrap",
                       overflow: "hidden",
@@ -119,7 +129,7 @@ export const PriceTracker = memo(() => {
                       textAlign: "left",
                     }}
                   />
-                  <Box sx={{ width: { md: 96, xs: 200 } }}>
+                  <Box sx={{ width: { md: 108, xs: 200 } }}>
                     <Typography variant="subtitle1" color="text.secondary">
                       Item not in Flea Market
                     </Typography>
@@ -134,7 +144,17 @@ export const PriceTracker = memo(() => {
                   </Tooltip>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <>None</>
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    sx={{ textAlign: "center" }}
+                  >
+                    <SentimentVeryDissatisfiedIcon
+                      sx={{ verticalAlign: "middle" }}
+                      fontSize="small"
+                    />
+                    Item not in Flea Market.
+                  </Typography>
                 </AccordionDetails>
               </Accordion>
             );
@@ -154,15 +174,24 @@ export const PriceTracker = memo(() => {
                   <img
                     src={item.image512pxLink?.toString()}
                     alt={item.name?.toString()}
-                    width={50}
+                    width={48}
                     style={{ objectFit: "contain", flexGrow: 1 }}
                   />
                 </ListItemIcon>
                 <ListItemText
                   primary={item.name}
-                  secondary={maxPriceObj(item)}
+                  secondary={`${maxPriceObj(item).text} on ${
+                    maxPriceObj(item).vendor?.name
+                  }`}
                   primaryTypographyProps={{
-                    width: { md: "14vw", xs: "40vw" },
+                    width: { md: "12vw", xs: "40vw" },
+                    maxWidth: { md: 190, xs: 400 },
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  secondaryTypographyProps={{
+                    width: { md: "12vw", xs: "40vw" },
                     maxWidth: { md: 190, xs: 400 },
                     whiteSpace: "nowrap",
                     overflow: "hidden",
@@ -172,7 +201,7 @@ export const PriceTracker = memo(() => {
                     textAlign: "left",
                   }}
                 />
-                <Box sx={{ minWidth: { md: 96, xs: 200 } }}>
+                <Box sx={{ minWidth: { md: 108, xs: 200 } }}>
                   <Box
                     sx={{
                       display: "flex",
@@ -223,7 +252,7 @@ export const PriceTracker = memo(() => {
                   </IconButton>
                 </Tooltip>
               </AccordionSummary>
-              <AccordionDetails sx={{ p: 1 }}>
+              <AccordionDetails sx={{ p: 0 }}>
                 <PriceChart itemId={item.id} />
               </AccordionDetails>
             </Accordion>
