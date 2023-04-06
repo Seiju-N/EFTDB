@@ -9,10 +9,7 @@ import {
   styled,
   Tab,
   Tabs,
-  Typography,
 } from "@mui/material";
-import { memo } from "react";
-import { ItemProperties } from "./ItemProperties";
 import { useHooks } from "./hooks";
 import { TabPanel } from "@/components/TabPanel";
 import { DetailDialogTitle } from "./Title";
@@ -22,6 +19,10 @@ import { BasePrice } from "./BasePrice";
 import { SellPrice } from "./SellPrice";
 import { Avg24hPrice } from "./Avg24hPrice";
 import { UsedInTasks } from "./UsedInTasks";
+import { DetailTab } from "./TabContents/DetailTab";
+import { UnlockRequirement } from "./TabContents/UnlockRequirement";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import InfoIcon from "@mui/icons-material/Info";
 
 type Props = {
   currentItem: Item | undefined;
@@ -34,13 +35,8 @@ export const DetailDialog = ({
   dialogOpen,
   handleDialogClose,
 }: Props) => {
-  const {
-    selectedTab,
-    handleTabChange,
-    ITEM_PROPERTIES_TAB,
-    ITEM_DETAIL_DIALOG,
-    verticalCenter,
-  } = useHooks();
+  const { selectedTab, handleTabChange, ITEM_PROPERTIES_TAB, verticalCenter } =
+    useHooks();
   if (!currentItem) return null;
   const CardContentNoPadding = styled(CardContent)(`
     padding: 16px;
@@ -49,22 +45,6 @@ export const DetailDialog = ({
     }
   `);
 
-  const DetailTab = memo(() => {
-    return (
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContentNoPadding>
-          {currentItem.properties && currentItem.properties.__typename ? (
-            <ItemProperties
-              typeName={currentItem.properties.__typename}
-              ItemId={currentItem.id}
-            />
-          ) : (
-            <Typography>{ITEM_DETAIL_DIALOG.NO_DETAIL}</Typography>
-          )}
-        </CardContentNoPadding>
-      </Box>
-    );
-  });
   return (
     <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth>
       <DetailDialogTitle currentItem={currentItem} />
@@ -93,17 +73,27 @@ export const DetailDialog = ({
 
         <Card
           variant="outlined"
-          sx={{ display: "flex", flexDirection: "column" }}
+          sx={{ display: "flex", flexDirection: "column", minHeight: 200 }}
         >
-          <Tabs value={selectedTab} onChange={handleTabChange} centered>
-            <Tab label={ITEM_PROPERTIES_TAB.detail} />
-            <Tab label={ITEM_PROPERTIES_TAB.unlock_requirement} />
+          <Tabs value={selectedTab} onChange={handleTabChange}>
+            <Tab
+              label={ITEM_PROPERTIES_TAB.detail}
+              icon={<InfoIcon sx={{ height: 20 }} />}
+              iconPosition="start"
+              sx={{ minHeight: "48px" }}
+            />
+            <Tab
+              label={ITEM_PROPERTIES_TAB.unlock_requirement}
+              icon={<LockOpenIcon sx={{ height: 20 }} />}
+              iconPosition="start"
+              sx={{ minHeight: "48px" }}
+            />
           </Tabs>
           <TabPanel value={selectedTab} index={0}>
-            <DetailTab />
+            <DetailTab currentItem={currentItem} />
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
-            <></>
+            <UnlockRequirement currentItem={currentItem} />
           </TabPanel>
         </Card>
       </DialogContent>

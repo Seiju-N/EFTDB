@@ -1,13 +1,12 @@
-import { List, ListItem, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { CustomSkelton, translateMaterialName } from "../utils";
+import { CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { ItemPropertiesHelmet } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { GET_ITEM_PROPERTIES_HELMET } from "@/query";
+import { ItemPropertiesGrenade } from "@/graphql/generated";
+import { GET_ITEM_PROPERTIES_GRENADE } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -15,16 +14,15 @@ type Props = {
 
 type QueryType = {
   item: {
-    properties: ItemPropertiesHelmet | null;
+    properties: ItemPropertiesGrenade | null;
   };
 };
 
-export const Helmet = ({ ItemId }: Props) => {
+export const Grenade = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_HELMET, ARMOR_MATERIAL } =
-    useContext(LanguageDictContext);
+  const { ITEM_PROPERTIES_GRENADE } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_HELMET,
+    GET_ITEM_PROPERTIES_GRENADE,
     {
       variables: {
         itemId: ItemId,
@@ -41,76 +39,64 @@ export const Helmet = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_HELMET.title}
-          </Typography>
           <Grid container sx={{ minHeight: 80, fontSize: "0.7rem" }}>
-            {properties.class ? (
+            {properties.type ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_HELMET.class}
+                  {ITEM_PROPERTIES_GRENADE.type}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.class}
+                  {properties.type}
                 </Grid>
               </>
             ) : null}
-            {properties.blindnessProtection ? (
+            {properties.contusionRadius ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_HELMET.blindnessProtection}
+                  {ITEM_PROPERTIES_GRENADE.contusionRadius}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.blindnessProtection}
+                  {properties.contusionRadius}
                 </Grid>
               </>
             ) : null}
-            {properties.blocksHeadset ? (
+            {properties.fragments ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_HELMET.blocksHeadset}
+                  {ITEM_PROPERTIES_GRENADE.fragments}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.blocksHeadset}
+                  {properties.fragments}
                 </Grid>
               </>
             ) : null}
-            {properties.deafening ? (
+            {properties.fuse ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_HELMET.deafening}
+                  {ITEM_PROPERTIES_GRENADE.fuse}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.deafening}
+                  {properties.fuse}
                 </Grid>
               </>
             ) : null}
-            {properties.material?.id ? (
+            {properties.minExplosionDistance ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_HELMET.material}
+                  {ITEM_PROPERTIES_GRENADE.minExplosionDistance}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {translateMaterialName(
-                    properties.material.id,
-                    ARMOR_MATERIAL
-                  )}
+                  {properties.minExplosionDistance}
                 </Grid>
               </>
             ) : null}
-            {properties.headZones ? (
+            {properties.maxExplosionDistance ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_HELMET.headZones}
+                  {ITEM_PROPERTIES_GRENADE.maxExplosionDistance}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  <List disablePadding>
-                    {properties.headZones.map((zone) => (
-                      <ListItem disablePadding disableGutters key={zone}>
-                        {zone}
-                      </ListItem>
-                    ))}
-                  </List>
+                  {properties.maxExplosionDistance}
                 </Grid>
               </>
             ) : null}

@@ -1,13 +1,13 @@
-import { List, ListItem, Typography } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { CustomSkelton } from "../utils";
+import { CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { ItemPropertiesMedicalItem } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { GET_ITEM_PROPERTIES_MEDICAL_ITEM } from "@/query";
+import { ItemPropertiesPainkiller } from "@/graphql/generated";
+import { GET_ITEM_PROPERTIES_PAINKILLER } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -15,15 +15,15 @@ type Props = {
 
 type QueryType = {
   item: {
-    properties: ItemPropertiesMedicalItem | null;
+    properties: ItemPropertiesPainkiller | null;
   };
 };
 
-export const MedicalItem = ({ ItemId }: Props) => {
+export const Painkiller = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_MEDICAL_ITEM } = useContext(LanguageDictContext);
+  const { ITEM_PROPERTIES_PAINKILLER } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_MEDICAL_ITEM,
+    GET_ITEM_PROPERTIES_PAINKILLER,
     {
       variables: {
         itemId: ItemId,
@@ -32,17 +32,14 @@ export const MedicalItem = ({ ItemId }: Props) => {
     }
   );
 
-  if (!data || loading) return <Loading />;
-  if (error) return null;
+  if (loading) return <Loading />;
+  if (!data || error) return null;
   const properties = data.item.properties;
 
   return (
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_MEDICAL_ITEM.title}
-          </Typography>
           <Grid
             container
             rowSpacing={1}
@@ -51,7 +48,7 @@ export const MedicalItem = ({ ItemId }: Props) => {
             {properties.cures ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MEDICAL_ITEM.cures}
+                  {ITEM_PROPERTIES_PAINKILLER.cures}
                 </Grid>
                 <Grid xs={6} md={3}>
                   <List disablePadding>
@@ -64,10 +61,41 @@ export const MedicalItem = ({ ItemId }: Props) => {
                 </Grid>
               </>
             ) : null}
+            {properties.energyImpact ? (
+              <>
+                <Grid xs={6} md={3} color="text.secondary">
+                  {ITEM_PROPERTIES_PAINKILLER.energyImpact}
+                </Grid>
+                <Grid xs={6} md={3}>
+                  {properties.energyImpact}
+                </Grid>
+              </>
+            ) : null}
+            {properties.hydrationImpact ? (
+              <>
+                <Grid xs={6} md={3} color="text.secondary">
+                  {ITEM_PROPERTIES_PAINKILLER.hydrationImpact}
+                </Grid>
+                <Grid xs={6} md={3}>
+                  {properties.hydrationImpact}
+                </Grid>
+              </>
+            ) : null}
+            {properties.painkillerDuration ? (
+              <>
+                <Grid xs={6} md={3} color="text.secondary">
+                  {ITEM_PROPERTIES_PAINKILLER.painkillerDuration}
+                </Grid>
+                <Grid
+                  xs={6}
+                  md={3}
+                >{`${properties.painkillerDuration} sec`}</Grid>
+              </>
+            ) : null}
             {properties.useTime ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MEDICAL_ITEM.useTime}
+                  {ITEM_PROPERTIES_PAINKILLER.useTime}
                 </Grid>
                 <Grid xs={6} md={3}>{`${properties.useTime} sec`}</Grid>
               </>
@@ -75,7 +103,7 @@ export const MedicalItem = ({ ItemId }: Props) => {
             {properties.uses ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MEDICAL_ITEM.uses}
+                  {ITEM_PROPERTIES_PAINKILLER.uses}
                 </Grid>
                 <Grid
                   xs={6}

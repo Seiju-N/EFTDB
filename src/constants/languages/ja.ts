@@ -5,7 +5,7 @@ const JA_DICT = {
     search_item: "アイテムを検索",
     search_task: "タスクを検索",
     server_status: {
-      "title": "サーバーステータス",
+      "title": "サーバー状況",
       "Website": "ウェブサイト",
       "Forum": "フォーラム",
       "Authentication": "ログイン認証",
@@ -284,9 +284,9 @@ const JA_DICT = {
     avg24hPrice: "平均価格(24h)",
   },
 
-  ITEM_PROPERTIES_TAB:{
+  ITEM_PROPERTIES_TAB: {
     detail: "詳細",
-    unlock_requirement  : "解除条件",
+    unlock_requirement: "解除条件",
     chart: "価格チャート",
   },
 

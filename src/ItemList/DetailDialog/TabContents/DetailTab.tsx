@@ -1,8 +1,7 @@
 import { Item } from "@/graphql/generated";
 import { Box, CardContent, styled, Typography } from "@mui/material";
 import { memo } from "react";
-// TODO: Fix this import
-import { ItemProperties } from "../ItemProperties";
+import { ItemProperties } from "./ItemProperties";
 import { useHooks } from "../hooks";
 
 type Props = {

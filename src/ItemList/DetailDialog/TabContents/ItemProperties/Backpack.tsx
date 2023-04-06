@@ -2,11 +2,10 @@ import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesBackpack } from "@/graphql/generated";
 import { GET_ITEM_PROPERTIES_BACKPACK } from "@/query";
 import { useQuery } from "@apollo/client";
-import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { convertPercent, CustomSkelton } from "../utils";
+import { convertPercent, CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { Loading } from "./Loading";
 
 type Props = {
@@ -40,9 +39,6 @@ export const Backpack = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_BACKPACK.title}
-          </Typography>
           <Grid
             container
             rowSpacing={1}

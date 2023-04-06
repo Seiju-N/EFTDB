@@ -1,8 +1,7 @@
-import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { CustomSkelton } from "../utils";
+import { CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { LanguageContext, LanguageDictContext } from "@/App";
@@ -40,9 +39,6 @@ export const Preset = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_PRESET.title}
-          </Typography>
           <Grid
             container
             rowSpacing={1}

@@ -1,13 +1,12 @@
-import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { CustomSkelton } from "../utils";
+import { convertPercent, CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
+import { ItemPropertiesBarrel } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { ItemPropertiesGrenade } from "@/graphql/generated";
-import { GET_ITEM_PROPERTIES_GRENADE } from "@/query";
+import { GET_ITEM_PROPERTIES_BARREL } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -15,15 +14,15 @@ type Props = {
 
 type QueryType = {
   item: {
-    properties: ItemPropertiesGrenade | null;
+    properties: ItemPropertiesBarrel | null;
   };
 };
 
-export const Grenade = ({ ItemId }: Props) => {
+export const Barrel = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_GRENADE } = useContext(LanguageDictContext);
+  const { ITEM_PROPERTIES_BARREL } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_GRENADE,
+    GET_ITEM_PROPERTIES_BARREL,
     {
       variables: {
         itemId: ItemId,
@@ -40,67 +39,58 @@ export const Grenade = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_GRENADE.title}
-          </Typography>
-          <Grid container sx={{ minHeight: 80, fontSize: "0.7rem" }}>
-            {properties.type ? (
+          <Grid
+            container
+            rowSpacing={1}
+            sx={{ minHeight: 80, fontSize: "0.7rem" }}
+          >
+            {properties.centerOfImpact ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_GRENADE.type}
+                  {ITEM_PROPERTIES_BARREL.centerOfImpact}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.type}
+                  {properties.centerOfImpact}
                 </Grid>
               </>
             ) : null}
-            {properties.contusionRadius ? (
+            {properties.deviationCurve ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_GRENADE.contusionRadius}
+                  {ITEM_PROPERTIES_BARREL.deviationCurve}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.contusionRadius}
+                  {properties.deviationCurve}
                 </Grid>
               </>
             ) : null}
-            {properties.fragments ? (
+            {properties.deviationMax ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_GRENADE.fragments}
+                  {ITEM_PROPERTIES_BARREL.deviationMax}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.fragments}
+                  {properties.deviationMax}
                 </Grid>
               </>
             ) : null}
-            {properties.fuse ? (
+            {properties.ergonomics ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_GRENADE.fuse}
+                  {ITEM_PROPERTIES_BARREL.ergonomics}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.fuse}
+                  {properties.ergonomics}
                 </Grid>
               </>
             ) : null}
-            {properties.minExplosionDistance ? (
+            {properties.recoilModifier ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_GRENADE.minExplosionDistance}
+                  {ITEM_PROPERTIES_BARREL.recoilModifier}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.minExplosionDistance}
-                </Grid>
-              </>
-            ) : null}
-            {properties.maxExplosionDistance ? (
-              <>
-                <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_GRENADE.maxExplosionDistance}
-                </Grid>
-                <Grid xs={6} md={3}>
-                  {properties.maxExplosionDistance}
+                  {convertPercent(properties.recoilModifier)}
                 </Grid>
               </>
             ) : null}

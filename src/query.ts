@@ -307,6 +307,19 @@ export const GET_ITEMS = gql`
       }
       bartersFor{
         level
+        requiredItems{
+          attributes{
+            name
+            type
+            value
+          }
+          count
+          item{
+            name
+            iconLink
+          }
+          quantity
+        }
         trader{
           name
         }

@@ -22,7 +22,6 @@ export const PinIcon = ({
   DEFAULT_ITEMS_COUNT_LIMIT,
 }: Props) => {
   if (!currentItem) return null;
-  console.log(priceTrackerSet.has(currentItem.id));
   return (
     <>
       {priceTrackerSet.has(currentItem.id) ? (

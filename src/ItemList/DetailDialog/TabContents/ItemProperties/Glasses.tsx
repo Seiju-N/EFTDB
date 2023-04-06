@@ -1,13 +1,15 @@
-import { Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { convertPercent, CustomSkelton } from "../utils";
+import {
+  CustomSkelton,
+  translateMaterialName,
+} from "@/ItemList/DetailDialog/utils";
 import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { ItemPropertiesBarrel } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { GET_ITEM_PROPERTIES_BARREL } from "@/query";
+import { ItemPropertiesGlasses } from "@/graphql/generated";
+import { GET_ITEM_PROPERTIES_GLASSES } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -15,15 +17,16 @@ type Props = {
 
 type QueryType = {
   item: {
-    properties: ItemPropertiesBarrel | null;
+    properties: ItemPropertiesGlasses | null;
   };
 };
 
-export const Barrel = ({ ItemId }: Props) => {
+export const Glasses = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_BARREL } = useContext(LanguageDictContext);
+  const { ITEM_PROPERTIES_GLASSES, ARMOR_MATERIAL } =
+    useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_BARREL,
+    GET_ITEM_PROPERTIES_GLASSES,
     {
       variables: {
         itemId: ItemId,
@@ -40,61 +43,61 @@ export const Barrel = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_BARREL.title}
-          </Typography>
           <Grid
             container
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {properties.centerOfImpact ? (
+            {properties.class ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_BARREL.centerOfImpact}
+                  {ITEM_PROPERTIES_GLASSES.class}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.centerOfImpact}
+                  {properties.class}
                 </Grid>
               </>
             ) : null}
-            {properties.deviationCurve ? (
+            {properties.durability ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_BARREL.deviationCurve}
+                  {ITEM_PROPERTIES_GLASSES.durability}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.deviationCurve}
+                  {properties.durability}
                 </Grid>
               </>
             ) : null}
-            {properties.deviationMax ? (
+            {properties.blindnessProtection ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_BARREL.deviationMax}
+                  {ITEM_PROPERTIES_GLASSES.blindnessProtection}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.deviationMax}
+                  {properties.blindnessProtection}
                 </Grid>
               </>
             ) : null}
-            {properties.ergonomics ? (
+            {properties.material?.id ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_BARREL.ergonomics}
+                  {ITEM_PROPERTIES_GLASSES.material}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.ergonomics}
+                  {translateMaterialName(
+                    properties.material.id,
+                    ARMOR_MATERIAL
+                  )}
                 </Grid>
               </>
             ) : null}
-            {properties.recoilModifier ? (
+            {properties.repairCost ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_BARREL.recoilModifier}
+                  {ITEM_PROPERTIES_GLASSES.repairCost}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {convertPercent(properties.recoilModifier)}
+                  {properties.repairCost}
                 </Grid>
               </>
             ) : null}

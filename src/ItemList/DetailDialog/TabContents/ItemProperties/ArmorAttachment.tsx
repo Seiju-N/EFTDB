@@ -1,12 +1,15 @@
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { ItemPropertiesArmor } from "@/graphql/generated";
-import { GET_ITEM_PROPERTIES_ARMOR } from "@/query";
+import { ItemPropertiesArmorAttachment } from "@/graphql/generated";
+import { GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT } from "@/query";
 import { useQuery } from "@apollo/client";
-import { List, ListItem, Typography } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { CustomSkelton, translateMaterialName } from "../utils";
+import {
+  CustomSkelton,
+  translateMaterialName,
+} from "@/ItemList/DetailDialog/utils";
 import { Loading } from "./Loading";
 
 type Props = {
@@ -15,16 +18,16 @@ type Props = {
 
 type QueryType = {
   item: {
-    properties: ItemPropertiesArmor | null;
+    properties: ItemPropertiesArmorAttachment | null;
   };
 };
 
-export const Armor = ({ ItemId }: Props) => {
+export const ArmorAttachment = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_ARMOR, ARMOR_MATERIAL, BODY_ZONES } =
+  const { ITEM_PROPERTIES_ARMOR_ATTACHMENT, ARMOR_MATERIAL, HEAD_ZONES } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_ARMOR,
+    GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT,
     {
       variables: {
         itemId: ItemId,
@@ -40,9 +43,6 @@ export const Armor = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_ARMOR.title}
-          </Typography>
           <Grid
             container
             rowSpacing={1}
@@ -51,43 +51,53 @@ export const Armor = ({ ItemId }: Props) => {
             {properties.class ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_ARMOR.class}
+                  {ITEM_PROPERTIES_ARMOR_ATTACHMENT.class}
                 </Grid>
                 <Grid xs={6} md={3}>
                   {properties.class}
                 </Grid>
               </>
             ) : null}
-            {properties.zones ? (
-              <>
-                <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_ARMOR.zones}
-                </Grid>
-                <Grid xs={6} md={3}>
-                  <List disablePadding>
-                    {properties.zones.map((zone) => (
-                      <ListItem disableGutters disablePadding key={zone}>
-                        {zone ? BODY_ZONES[zone] : null}
-                      </ListItem>
-                    ))}
-                  </List>
-                </Grid>
-              </>
-            ) : null}
             {properties.durability ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_ARMOR.durability}
+                  {ITEM_PROPERTIES_ARMOR_ATTACHMENT.durability}
                 </Grid>
                 <Grid xs={6} md={3}>
                   {properties.durability}
                 </Grid>
               </>
             ) : null}
+            {properties.blindnessProtection ? (
+              <>
+                <Grid xs={6} md={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR_ATTACHMENT.blindnessProtection}
+                </Grid>
+                <Grid xs={6} md={3}>
+                  {properties.blindnessProtection}
+                </Grid>
+              </>
+            ) : null}
+            {properties.headZones ? (
+              <>
+                <Grid xs={6} md={3} color="text.secondary">
+                  {ITEM_PROPERTIES_ARMOR_ATTACHMENT.headZones}
+                </Grid>
+                <Grid xs={6} md={3}>
+                  <List disablePadding>
+                    {properties.headZones.map((headZone) => (
+                      <ListItem disableGutters disablePadding key={headZone}>
+                        {headZone ? HEAD_ZONES[headZone] : null}
+                      </ListItem>
+                    ))}
+                  </List>
+                </Grid>
+              </>
+            ) : null}
             {properties.material?.id ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_ARMOR.material}
+                  {ITEM_PROPERTIES_ARMOR_ATTACHMENT.material}
                 </Grid>
                 <Grid xs={6} md={3}>
                   {translateMaterialName(
@@ -97,20 +107,10 @@ export const Armor = ({ ItemId }: Props) => {
                 </Grid>
               </>
             ) : null}
-            {properties.repairCost ? (
-              <>
-                <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_ARMOR.repairCost}
-                </Grid>
-                <Grid xs={6} md={3}>
-                  {properties.repairCost}
-                </Grid>
-              </>
-            ) : null}
             {properties.ergoPenalty ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_ARMOR.ergoPenalty}
+                  {ITEM_PROPERTIES_ARMOR_ATTACHMENT.ergoPenalty}
                 </Grid>
                 <Grid xs={6} md={3}>
                   {properties.ergoPenalty}
@@ -120,7 +120,7 @@ export const Armor = ({ ItemId }: Props) => {
             {properties.speedPenalty ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_ARMOR.speedPenalty}
+                  {ITEM_PROPERTIES_ARMOR_ATTACHMENT.speedPenalty}
                 </Grid>
                 <Grid xs={6} md={3}>
                   {properties.speedPenalty}
@@ -130,7 +130,7 @@ export const Armor = ({ ItemId }: Props) => {
             {properties.turnPenalty ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_ARMOR.turnPenalty}
+                  {ITEM_PROPERTIES_ARMOR_ATTACHMENT.turnPenalty}
                 </Grid>
                 <Grid xs={6} md={3}>
                   {properties.turnPenalty}

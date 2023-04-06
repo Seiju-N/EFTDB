@@ -6,7 +6,7 @@ import React, { useContext } from "react";
 
 import type { ItemPropertiesAmmo, Scalars } from "@/graphql/generated";
 
-import { convertPercent, CustomSkelton } from "../utils";
+import { convertPercent, CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { Loading } from "./Loading";
 import { LanguageContext, LanguageDictContext } from "@/App";
 import { normalise } from "@/utils";
@@ -61,9 +61,6 @@ export const Ammo = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <Box pb={2}>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_AMMO.title}
-          </Typography>
           <Grid
             container
             rowSpacing={1}

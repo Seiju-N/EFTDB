@@ -1,13 +1,13 @@
-import { Typography } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import React, { useContext } from "react";
 
-import { convertPercent, CustomSkelton } from "../utils";
+import { CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
+import { ItemPropertiesMedicalItem } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { useContext } from "react";
-import { ItemPropertiesWeaponMod } from "@/graphql/generated";
-import { GET_ITEM_PROPERTIES_WEAPON_MOD } from "@/query";
+import { GET_ITEM_PROPERTIES_MEDICAL_ITEM } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -15,15 +15,15 @@ type Props = {
 
 type QueryType = {
   item: {
-    properties: ItemPropertiesWeaponMod | null;
+    properties: ItemPropertiesMedicalItem | null;
   };
 };
 
-export const WeaponMod = ({ ItemId }: Props) => {
+export const MedicalItem = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_WEAPON_MOD } = useContext(LanguageDictContext);
+  const { ITEM_PROPERTIES_MEDICAL_ITEM } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_WEAPON_MOD,
+    GET_ITEM_PROPERTIES_MEDICAL_ITEM,
     {
       variables: {
         itemId: ItemId,
@@ -40,42 +40,44 @@ export const WeaponMod = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_WEAPON_MOD.title}
-          </Typography>
           <Grid
             container
             rowSpacing={1}
             sx={{ minHeight: 80, fontSize: "0.7rem" }}
           >
-            {properties.ergonomics ? (
+            {properties.cures ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_WEAPON_MOD.ergonomics}
+                  {ITEM_PROPERTIES_MEDICAL_ITEM.cures}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.ergonomics}
+                  <List disablePadding>
+                    {properties.cures.map((cure) => (
+                      <ListItem disablePadding disableGutters key={cure}>
+                        {cure}
+                      </ListItem>
+                    ))}
+                  </List>
                 </Grid>
               </>
             ) : null}
-            {properties.accuracyModifier ? (
+            {properties.useTime ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_WEAPON_MOD.accuracyModifier}
+                  {ITEM_PROPERTIES_MEDICAL_ITEM.useTime}
                 </Grid>
-                <Grid xs={6} md={3}>
-                  {convertPercent(properties.accuracyModifier)}
-                </Grid>
+                <Grid xs={6} md={3}>{`${properties.useTime} sec`}</Grid>
               </>
             ) : null}
-            {properties.recoilModifier ? (
+            {properties.uses ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_WEAPON_MOD.recoilModifier}
+                  {ITEM_PROPERTIES_MEDICAL_ITEM.uses}
                 </Grid>
-                <Grid xs={6} md={3}>
-                  {convertPercent(properties.recoilModifier)}
-                </Grid>
+                <Grid
+                  xs={6}
+                  md={3}
+                >{`${properties.uses}/${properties.uses}`}</Grid>
               </>
             ) : null}
           </Grid>

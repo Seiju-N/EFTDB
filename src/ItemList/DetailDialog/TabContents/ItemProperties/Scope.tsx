@@ -2,11 +2,11 @@ import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesScope } from "@/graphql/generated";
 import { GET_ITEM_PROPERTIES_SCOPE } from "@/query";
 import { useQuery } from "@apollo/client";
-import { Box, List, ListItem, Typography } from "@mui/material";
+import { Box, List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { convertPercent, CustomSkelton } from "../utils";
+import { convertPercent, CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { Loading } from "./Loading";
 
 type Props = {
@@ -40,9 +40,6 @@ export const Scope = ({ ItemId }: Props) => {
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_SCOPE.title}
-          </Typography>
           <Grid
             container
             rowSpacing={1}

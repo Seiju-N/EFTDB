@@ -1,7 +1,5 @@
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import StorageIcon from "@mui/icons-material/Storage";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import {
   Box,
   Button,
@@ -10,7 +8,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
   List,
   ListItem,
   ListItemText,
@@ -19,45 +16,23 @@ import {
   Typography,
 } from "@mui/material";
 
-import { memo, useState } from "react";
+import { memo } from "react";
 
 import { useHooks } from "./hooks";
+import { Title } from "./Title";
 
 export const ServerStatus = memo(() => {
-  const { langDict, loading, error, data } = useHooks();
-  const [open, setOpen] = useState(false);
+  const { langDict, loading, error, data, open, handleClickOpen, handleClose } =
+    useHooks();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  if (error) return null;
-
-  const Title = memo(() => {
-    return (
-      <Box sx={{ display: "flex", alignItems: "center" }} p={2}>
-        <StorageIcon fontSize="medium" />
-        <Typography variant="h5" pl={1} flexGrow={1}>
-          {langDict.HOME_SENTENCE.server_status.title}
-        </Typography>
-        {data?.status.messages && data?.status.messages.length > 0 ? (
-          <Tooltip title={"More information"}>
-            <IconButton onClick={handleClickOpen}>
-              <WarningAmberIcon />
-            </IconButton>
-          </Tooltip>
-        ) : null}
-      </Box>
-    );
-  });
-  if (loading || !data)
+  if (loading || error || !data)
     return (
       <Paper sx={{ height: 600 }}>
-        <Title />
+        <Title
+          data={data}
+          handleClickOpen={handleClickOpen}
+          langDict={langDict}
+        />
         <Box
           sx={{
             height: "100%",
@@ -75,7 +50,11 @@ export const ServerStatus = memo(() => {
     );
   return (
     <Paper sx={{ display: "flex", flexDirection: "column" }}>
-      <Title />
+      <Title
+        data={data}
+        handleClickOpen={handleClickOpen}
+        langDict={langDict}
+      />
       <List>
         {data.status.currentStatuses?.map((status, index) =>
           status ? (

@@ -1,13 +1,16 @@
-import { Typography } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { convertPercent, CustomSkelton } from "../utils";
+import {
+  CustomSkelton,
+  translateMaterialName,
+} from "@/ItemList/DetailDialog/utils";
 import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { ItemPropertiesMagazine } from "@/graphql/generated";
+import { ItemPropertiesHelmet } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { GET_ITEM_PROPERTIES_MAGAZINE } from "@/query";
+import { GET_ITEM_PROPERTIES_HELMET } from "@/query";
 
 type Props = {
   ItemId: string;
@@ -15,15 +18,16 @@ type Props = {
 
 type QueryType = {
   item: {
-    properties: ItemPropertiesMagazine | null;
+    properties: ItemPropertiesHelmet | null;
   };
 };
 
-export const Magazine = ({ ItemId }: Props) => {
+export const Helmet = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_MAGAZINE } = useContext(LanguageDictContext);
+  const { ITEM_PROPERTIES_HELMET, ARMOR_MATERIAL } =
+    useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_MAGAZINE,
+    GET_ITEM_PROPERTIES_HELMET,
     {
       variables: {
         itemId: ItemId,
@@ -32,79 +36,81 @@ export const Magazine = ({ ItemId }: Props) => {
     }
   );
 
-  if (!data || loading) return <Loading />;
-  if (error) return null;
+  if (loading) return <Loading />;
+  if (!data || error) return null;
   const properties = data.item.properties;
 
   return (
     <>
       {properties ? (
         <>
-          <Typography gutterBottom variant="subtitle1">
-            {ITEM_PROPERTIES_MAGAZINE.title}
-          </Typography>
-          <Grid
-            container
-            rowSpacing={1}
-            sx={{ minHeight: 80, fontSize: "0.7rem" }}
-          >
-            {properties.capacity ? (
+          <Grid container sx={{ minHeight: 80, fontSize: "0.7rem" }}>
+            {properties.class ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MAGAZINE.capacity}
+                  {ITEM_PROPERTIES_HELMET.class}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.capacity}
+                  {properties.class}
                 </Grid>
               </>
             ) : null}
-            {properties.ergonomics ? (
+            {properties.blindnessProtection ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MAGAZINE.ergonomics}
+                  {ITEM_PROPERTIES_HELMET.blindnessProtection}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.ergonomics}
+                  {properties.blindnessProtection}
                 </Grid>
               </>
             ) : null}
-            {properties.ammoCheckModifier ? (
+            {properties.blocksHeadset ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MAGAZINE.ammoCheckModifier}
+                  {ITEM_PROPERTIES_HELMET.blocksHeadset}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {convertPercent(properties.ammoCheckModifier)}
+                  {properties.blocksHeadset}
                 </Grid>
               </>
             ) : null}
-            {properties.loadModifier ? (
+            {properties.deafening ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MAGAZINE.loadModifier}
+                  {ITEM_PROPERTIES_HELMET.deafening}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {convertPercent(properties.loadModifier)}
+                  {properties.deafening}
                 </Grid>
               </>
             ) : null}
-            {properties.recoilModifier ? (
+            {properties.material?.id ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MAGAZINE.recoilModifier}
+                  {ITEM_PROPERTIES_HELMET.material}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {convertPercent(properties.recoilModifier)}
+                  {translateMaterialName(
+                    properties.material.id,
+                    ARMOR_MATERIAL
+                  )}
                 </Grid>
               </>
             ) : null}
-            {properties.malfunctionChance ? (
+            {properties.headZones ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
-                  {ITEM_PROPERTIES_MAGAZINE.malfunctionChance}
+                  {ITEM_PROPERTIES_HELMET.headZones}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {convertPercent(properties.malfunctionChance)}
+                  <List disablePadding>
+                    {properties.headZones.map((zone) => (
+                      <ListItem disablePadding disableGutters key={zone}>
+                        {zone}
+                      </ListItem>
+                    ))}
+                  </List>
                 </Grid>
               </>
             ) : null}
