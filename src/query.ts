@@ -385,6 +385,9 @@ export const GET_CASH_OFFERS = gql`
           name
         }
         minTraderLevel
+        taskUnlock{
+          name
+        }
       }
     }
   }

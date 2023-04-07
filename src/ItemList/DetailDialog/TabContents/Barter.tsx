@@ -49,7 +49,11 @@ export const Barter = memo(({ currentItem, cashOffersData }: Props) => {
               <ListItemText
                 sx={{ mt: 0 }}
                 primary={
-                  <Typography variant="h6">{cashOffer?.traderName}</Typography>
+                  <Typography variant="h6">
+                    {cashOffer?.traderName}
+                    {cashOffer?.taskUnlock?.name &&
+                      ` (${cashOffer?.taskUnlock?.name} completed)`}
+                  </Typography>
                 }
                 secondary={`LL > ${cashOffer?.minTraderLevel}`}
               />
