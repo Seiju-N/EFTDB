@@ -3,15 +3,16 @@ import Language from "@mui/icons-material/Language";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { memo, useCallback } from "react";
 import { useHooks } from "./hooks";
+import { LanguageCode } from "@/graphql/generated";
 
 type props = {
-  setLanguage: React.Dispatch<React.SetStateAction<string>>;
+  setLanguage: React.Dispatch<React.SetStateAction<LanguageCode>>;
 };
 
 export const LanguageSelect = memo(({ setLanguage }: props) => {
   const { anchorElLang, handleOpenLangMenu, handleCloseLangMenu } = useHooks();
   const handleLangClick = useCallback(
-    (lang: string) => {
+    (lang: LanguageCode) => {
       handleCloseLangMenu();
       setLanguage(lang);
       localStorage.setItem("lang", lang);

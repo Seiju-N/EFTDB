@@ -493,7 +493,7 @@ export const GET_ITEM_PRICE_HISTORY = gql`
 `;
 
 export const GET_ITEM_PROPERTIES_ARMOR = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
+  query getItemProperties($itemId: ID,$lang: LanguageCode ) {
     item(id: $itemId, lang: $lang) {
       properties {
         ... on ItemPropertiesArmor {
@@ -501,7 +501,7 @@ export const GET_ITEM_PROPERTIES_ARMOR = gql`
           durability
           ergoPenalty
           material {
-            id
+            name
           }
           repairCost
           speedPenalty
@@ -553,6 +553,7 @@ export const GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT = gql`
           headZones
           material {
             id
+            name
           }
           repairCost
           speedPenalty
@@ -733,7 +734,7 @@ export const GET_ITEM_PROPERTIES_HELMET = gql`
           ergoPenalty
           headZones
           material {
-            id
+            name
           }
           repairCost
           speedPenalty

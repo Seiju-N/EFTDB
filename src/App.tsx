@@ -40,7 +40,7 @@ const darkTheme = createTheme({
 
 export const TradersContext = createContext<readonly Maybe<Trader>[]>([]);
 export const LanguageDictContext = createContext<dictType>(EN_DICT);
-export const LanguageContext = createContext<LanguageCode | string>("en");
+export const LanguageContext = createContext<LanguageCode>(LanguageCode.En);
 export const CategoryContext = createContext<readonly Maybe<ItemCategory>[]>(
   []
 );
@@ -71,7 +71,7 @@ const ITEM_CATEGORIES = gql`
 `;
 
 const App = () => {
-  const [language, setLanguage] = useState<LanguageCode | string>("en");
+  const [language, setLanguage] = useState<LanguageCode>("en");
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const { loading: tradersIsLoading, data: tradersData } =
     useQuery<Query>(TRADERS);
@@ -79,8 +79,10 @@ const App = () => {
     useQuery<Query>(ITEM_CATEGORIES);
 
   useEffect(() => {
-    const storageLang = localStorage.getItem("lang");
-    storageLang ? setLanguage(storageLang) : setLanguage(navigator.language);
+    const storageLang = localStorage.getItem("lang") as LanguageCode;
+    storageLang
+      ? setLanguage(storageLang)
+      : setLanguage(navigator.language as LanguageCode);
   }, []);
 
   useEffect(() => {

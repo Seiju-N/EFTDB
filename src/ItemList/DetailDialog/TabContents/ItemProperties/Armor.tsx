@@ -1,15 +1,13 @@
 import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesArmor } from "@/graphql/generated";
+import { LanguageCode } from "@/graphql/generated";
 import { GET_ITEM_PROPERTIES_ARMOR } from "@/query";
 import { useQuery } from "@apollo/client";
 import { List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import {
-  CustomSkelton,
-  translateMaterialName,
-} from "@/ItemList/DetailDialog/utils";
+import { CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { Loading } from "./Loading";
 
 type Props = {
@@ -24,14 +22,13 @@ type QueryType = {
 
 export const Armor = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_ARMOR, ARMOR_MATERIAL, BODY_ZONES } =
-    useContext(LanguageDictContext);
+  const { ITEM_PROPERTIES_ARMOR } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
     GET_ITEM_PROPERTIES_ARMOR,
     {
       variables: {
         itemId: ItemId,
-        lang,
+        lang: convertToLanguageCode(lang),
       },
     }
   );
@@ -67,7 +64,7 @@ export const Armor = ({ ItemId }: Props) => {
                   <List disablePadding>
                     {properties.zones.map((zone) => (
                       <ListItem disableGutters disablePadding key={zone}>
-                        {zone ? BODY_ZONES[zone] : null}
+                        {zone ? zone : null}
                       </ListItem>
                     ))}
                   </List>
@@ -90,10 +87,7 @@ export const Armor = ({ ItemId }: Props) => {
                   {ITEM_PROPERTIES_ARMOR.material}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {translateMaterialName(
-                    properties.material.id,
-                    ARMOR_MATERIAL
-                  )}
+                  {properties.material.name}
                 </Grid>
               </>
             ) : null}

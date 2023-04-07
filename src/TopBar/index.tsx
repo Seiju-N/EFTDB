@@ -12,9 +12,10 @@ import { MenuItemsMD } from "./MenuItemsMD";
 import { MenuItemsXS } from "./MenuItemsXS";
 import { LanguageSelect } from "./LanguageSelect";
 import { SearchInput } from "./SearchInput";
+import { LanguageCode } from "@/graphql/generated";
 
 type Props = {
-  setLanguage: React.Dispatch<React.SetStateAction<string>>;
+  setLanguage: React.Dispatch<React.SetStateAction<LanguageCode>>;
 };
 
 export const TopBar = ({ setLanguage }: Props) => {
