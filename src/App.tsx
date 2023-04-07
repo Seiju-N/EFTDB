@@ -73,16 +73,10 @@ const ITEM_CATEGORIES = gql`
 const App = () => {
   const [language, setLanguage] = useState<LanguageCode | string>("en");
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
-  const {
-    loading: tradersIsLoading,
-    error: tradersError,
-    data: tradersData,
-  } = useQuery<Query>(TRADERS);
-  const {
-    loading: categoryIsLoading,
-    error: categoryError,
-    data: categoryData,
-  } = useQuery<Query>(ITEM_CATEGORIES);
+  const { loading: tradersIsLoading, data: tradersData } =
+    useQuery<Query>(TRADERS);
+  const { loading: categoryIsLoading, data: categoryData } =
+    useQuery<Query>(ITEM_CATEGORIES);
 
   useEffect(() => {
     const storageLang = localStorage.getItem("lang");
@@ -103,14 +97,7 @@ const App = () => {
         break;
     }
   }, [language]);
-  if (
-    tradersIsLoading ||
-    tradersError ||
-    !tradersData ||
-    categoryIsLoading ||
-    categoryError ||
-    !categoryData
-  )
+  if (tradersIsLoading || !tradersData || categoryIsLoading || !categoryData)
     return (
       <Backdrop open={true}>
         <CircularProgress color="inherit" />

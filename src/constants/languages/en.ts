@@ -88,6 +88,8 @@ const EN_DICT = {
     WIDTH: "width",
     HEIGHT: "height",
     WEIGHT: "Weight",
+    CASH:"Purchase by cash",
+    BARTER:"Purchase by item",
   },
 
   MENU_SENTENCE: {
@@ -150,6 +152,7 @@ const EN_DICT = {
   ITEM_PROPERTIES: {
     name: "Name",
     basePrice: "Base price",
+    buyPrice: "Buy price",
     sellPrice: "Sell price",
     usedInTasks: "Used in tasks",
     width: "Width",
@@ -159,7 +162,7 @@ const EN_DICT = {
 
   ITEM_PROPERTIES_TAB:{
     detail: "Detail",
-    unlock_requirement  : "Unlock requirement",
+    barter: "Barter",
     chart: "Chart",
   },
 

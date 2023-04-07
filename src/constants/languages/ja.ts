@@ -87,7 +87,9 @@ const JA_DICT = {
     NO_DETAIL: "詳細はありません。",
     WIDTH: "幅",
     HEIGHT: "高さ",
-    WEIGHT: "重量"
+    WEIGHT: "重量",
+    CASH:"現金での取引",
+    BARTER:"アイテムでの取引",
   },
 
   MENU_SENTENCE: {
@@ -277,6 +279,7 @@ const JA_DICT = {
   ITEM_PROPERTIES: {
     name: "アイテム名",
     basePrice: "基準価格",
+    buyPrice: "買値",
     sellPrice: "売値",
     usedInTasks: "タスクでの使用",
     width: "幅",
@@ -286,7 +289,7 @@ const JA_DICT = {
 
   ITEM_PROPERTIES_TAB: {
     detail: "詳細",
-    unlock_requirement: "解除条件",
+    barter: "取引条件",
     chart: "価格チャート",
   },
 

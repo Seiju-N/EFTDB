@@ -34,6 +34,7 @@ export const ItemList = () => {
     loading,
     error,
     data,
+    cashOffers,
   } = useHooks();
 
   const CustomToolbar = () => {
@@ -126,6 +127,7 @@ export const ItemList = () => {
         currentItem={currentItem}
         dialogOpen={dialogOpen}
         handleDialogClose={handleDialogClose}
+        cashOffers={cashOffers?.traders || []}
       />
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

@@ -52,7 +52,6 @@ export const useHooks = () => {
   const handleChange =
     (panel: string | undefined) =>
       (event: SyntheticEvent, isExpanded: boolean) => {
-        console.log(panel);
         if (!panel) return;
         setExpanded(isExpanded ? panel : false);
       };

@@ -1,5 +1,5 @@
-import { Item } from "@/graphql/generated";
-import { GET_ITEMS } from "@/query";
+import { Item, Query } from "@/graphql/generated";
+import { GET_CASH_OFFERS, GET_ITEMS } from "@/query";
 import { useQuery } from "@apollo/client";
 import {  SelectChangeEvent } from "@mui/material";
 import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
@@ -89,7 +89,7 @@ export const useHooks = () => {
     },
   });
 
+  const { data:cashOffers } = useQuery<Query>(GET_CASH_OFFERS);
 
-
-  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading }
+  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, cashOffers }
 }

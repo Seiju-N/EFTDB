@@ -1,4 +1,4 @@
-import { Item } from "@/graphql/generated";
+import { Item, Maybe, Trader } from "@/graphql/generated";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Box, Card, Dialog, DialogContent, Tab, Tabs } from "@mui/material";
 import { useHooks } from "./hooks";
@@ -6,13 +6,13 @@ import { TabPanel } from "@/components/TabPanel";
 import { DetailDialogTitle } from "./Title";
 import { ItemSize } from "./ItemSize";
 import { ItemWeight } from "./ItemWeight";
-import { BasePrice } from "./BasePrice";
+import { BuyPrice } from "./BuyPrice";
 import { SellPrice } from "./SellPrice";
 import { Avg24hPrice } from "./Avg24hPrice";
 import { UsedInTasks } from "./UsedInTasks";
 import { DetailTab } from "./TabContents/DetailTab";
-import { UnlockRequirement } from "./TabContents/UnlockRequirement";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
+import { Barter } from "./TabContents/Barter";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import InfoIcon from "@mui/icons-material/Info";
 import { CardContentNoPadding } from "@/components/CardContentNoPadding";
 
@@ -20,12 +20,14 @@ type Props = {
   currentItem: Item | undefined;
   dialogOpen: boolean;
   handleDialogClose: () => void;
+  cashOffers: ReadonlyArray<Maybe<Trader>>;
 };
 
 export const DetailDialog = ({
   currentItem,
   dialogOpen,
   handleDialogClose,
+  cashOffers,
 }: Props) => {
   const { selectedTab, handleTabChange, ITEM_PROPERTIES_TAB, verticalCenter } =
     useHooks();
@@ -49,7 +51,7 @@ export const DetailDialog = ({
             <CardContentNoPadding>
               <ItemSize currentItem={currentItem} />
               <ItemWeight currentItem={currentItem} />
-              <BasePrice currentItem={currentItem} />
+              <BuyPrice currentItem={currentItem} />
               <SellPrice currentItem={currentItem} />
               <Avg24hPrice currentItem={currentItem} />
               <UsedInTasks currentItem={currentItem} />
@@ -69,8 +71,8 @@ export const DetailDialog = ({
               sx={{ minHeight: "48px" }}
             />
             <Tab
-              label={ITEM_PROPERTIES_TAB.unlock_requirement}
-              icon={<LockOpenIcon sx={{ height: 20 }} />}
+              label={ITEM_PROPERTIES_TAB.barter}
+              icon={<SyncAltIcon sx={{ height: 20 }} />}
               iconPosition="start"
               sx={{ minHeight: "48px" }}
             />
@@ -79,7 +81,7 @@ export const DetailDialog = ({
             <DetailTab currentItem={currentItem} />
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
-            <UnlockRequirement currentItem={currentItem} />
+            <Barter currentItem={currentItem} cashOffersData={cashOffers} />
           </TabPanel>
         </Card>
       </DialogContent>

@@ -323,6 +323,10 @@ export const GET_ITEMS = gql`
         trader{
           name
         }
+        taskUnlock{
+          id
+          name
+        }
       }
       basePrice
       width
@@ -345,6 +349,14 @@ export const GET_ITEMS = gql`
         currency
         priceRUB
       }
+      buyFor{
+        price
+        vendor{
+          name
+        }
+        currency
+        priceRUB
+      }
       properties {
         ... on ItemPropertiesAmmo {
           ammoType
@@ -358,6 +370,21 @@ export const GET_ITEMS = gql`
       category {
         name
         normalizedName
+      }
+    }
+  }
+`;
+
+export const GET_CASH_OFFERS = gql`
+  query getCashOffers {
+    traders{
+      name
+      cashOffers{
+        item{
+          id
+          name
+        }
+        minTraderLevel
       }
     }
   }
@@ -408,6 +435,15 @@ export const GET_BOSS_SPAWN = gql`
         spawnTimeRandom
         spawnTrigger
       }
+    }
+  }
+`;
+
+export const GET_ARMOR_MATERIAL = gql`
+  query getArmorMaterial($lang: Language) {
+    armorMaterials(lang: $lang){
+      id
+      name
     }
   }
 `;
