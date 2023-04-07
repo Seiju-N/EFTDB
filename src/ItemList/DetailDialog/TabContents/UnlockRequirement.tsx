@@ -1,26 +1,18 @@
 import {
   Box,
-  CardContent,
   Grid,
   List,
   ListItem,
   ListItemText,
-  styled,
   Typography,
 } from "@mui/material";
 import { memo } from "react";
 import { Item } from "@/graphql/generated";
+import { CardContentNoPadding } from "@/components/CardContentNoPadding";
 
 type Props = {
   currentItem: Item;
 };
-
-const CardContentNoPadding = styled(CardContent)(`
-  padding: 16px;
-  &:last-child {
-    padding-bottom: 16px;
-  }
-`);
 
 export const UnlockRequirement = memo(({ currentItem }: Props) => {
   console.log(currentItem.bartersFor);

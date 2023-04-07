@@ -1,19 +1,13 @@
 import { Item } from "@/graphql/generated";
-import { Box, CardContent, styled, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import { ItemProperties } from "./ItemProperties";
 import { useHooks } from "../hooks";
+import { CardContentNoPadding } from "@/components/CardContentNoPadding";
 
 type Props = {
   currentItem: Item;
 };
-
-const CardContentNoPadding = styled(CardContent)(`
-    padding: 16px;
-    &:last-child {
-      padding-bottom: 16px;
-    }
-  `);
 
 export const DetailTab = memo(({ currentItem }: Props) => {
   const { ITEM_DETAIL_DIALOG } = useHooks();

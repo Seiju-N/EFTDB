@@ -1,15 +1,6 @@
 import { Item } from "@/graphql/generated";
 import Grid from "@mui/material/Unstable_Grid2";
-import {
-  Box,
-  Card,
-  CardContent,
-  Dialog,
-  DialogContent,
-  styled,
-  Tab,
-  Tabs,
-} from "@mui/material";
+import { Box, Card, Dialog, DialogContent, Tab, Tabs } from "@mui/material";
 import { useHooks } from "./hooks";
 import { TabPanel } from "@/components/TabPanel";
 import { DetailDialogTitle } from "./Title";
@@ -23,6 +14,7 @@ import { DetailTab } from "./TabContents/DetailTab";
 import { UnlockRequirement } from "./TabContents/UnlockRequirement";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import InfoIcon from "@mui/icons-material/Info";
+import { CardContentNoPadding } from "@/components/CardContentNoPadding";
 
 type Props = {
   currentItem: Item | undefined;
@@ -38,12 +30,6 @@ export const DetailDialog = ({
   const { selectedTab, handleTabChange, ITEM_PROPERTIES_TAB, verticalCenter } =
     useHooks();
   if (!currentItem) return null;
-  const CardContentNoPadding = styled(CardContent)(`
-    padding: 16px;
-    &:last-child {
-      padding-bottom: 16px;
-    }
-  `);
 
   return (
     <Dialog open={dialogOpen} onClose={handleDialogClose} fullWidth>
