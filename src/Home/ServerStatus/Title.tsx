@@ -18,7 +18,9 @@ export const Title = memo(({ data, handleClickOpen, langDict }: Props) => {
       <Typography variant="h5" pl={1} flexGrow={1}>
         {langDict.HOME_SENTENCE.server_status.title}
       </Typography>
-      {data?.status.messages && data?.status.messages.length > 0 ? (
+      {data?.status.messages &&
+      data?.status.messages.length > 0 &&
+      data?.status.messages.some((message) => message?.solveTime === null) ? (
         <Tooltip title={"More information"}>
           <IconButton onClick={handleClickOpen}>
             <WarningIcon color="warning" />
