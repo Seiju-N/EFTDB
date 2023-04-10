@@ -371,9 +371,68 @@ export const GET_ITEMS = (lang: LanguageCode) => {
     itemsWithoutCategories: items @skip(if: $withCategory) {
       id
       name
+      normalizedName
+      shortName
       category {
         name
-        normalizedName
+      }
+      bartersFor{
+        level
+        requiredItems{
+          attributes{
+            name
+            type
+            value
+          }
+          count
+          item{
+            name
+            iconLink
+          }
+          quantity
+        }
+        trader{
+          name
+        }
+        taskUnlock{
+          id
+          name
+        }
+      }
+      basePrice
+      width
+      height
+      weight
+      image512pxLink
+      wikiLink
+      usedInTasks {
+        id
+        name
+        trader {
+          name
+        }
+      }
+      sellFor{
+        price
+        vendor{
+          name
+        }
+        currency
+        priceRUB
+      }
+      buyFor{
+        price
+        vendor{
+          name
+        }
+        currency
+        priceRUB
+      }
+      properties {
+        ... on ItemPropertiesAmmo {
+          ammoType
+          caliber
+        }
       }
     }
   }
