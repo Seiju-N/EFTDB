@@ -23,11 +23,10 @@ export const Scope = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_SCOPE } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_SCOPE,
+    GET_ITEM_PROPERTIES_SCOPE(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

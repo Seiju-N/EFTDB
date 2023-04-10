@@ -23,11 +23,10 @@ export const MedicalItem = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_MEDICAL_ITEM } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_MEDICAL_ITEM,
+    GET_ITEM_PROPERTIES_MEDICAL_ITEM(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

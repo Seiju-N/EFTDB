@@ -22,11 +22,10 @@ export const Barrel = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_BARREL } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_BARREL,
+    GET_ITEM_PROPERTIES_BARREL(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

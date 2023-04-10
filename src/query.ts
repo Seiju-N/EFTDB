@@ -1,302 +1,306 @@
 import { gql } from "@apollo/client";
+import { LanguageCode } from "./graphql/generated";
 
-export const GET_TASKS = gql`
-  query GetTasks($lang: LanguageCode) {
-    tasks(lang: $lang) {
-      id
-      name
-      normalizedName
-      experience
-      minPlayerLevel
-      neededKeys{
-        keys{
-          id
-          name
-          category{
+export const GET_TASKS = (lang: LanguageCode) => {
+  return gql`
+    query GetTasks {
+      tasks(lang: ${lang}) {
+        id
+        name
+        normalizedName
+        experience
+        minPlayerLevel
+        neededKeys{
+          keys{
+            id
+            name
+            category{
+              name
+            }
+            iconLink
+          }
+        }
+        traderRequirements {
+          trader {
+            id
             name
           }
-          iconLink
+          value
         }
-      }
-      traderRequirements {
+        taskRequirements {
+          task {
+            id
+            name
+            trader{
+              name
+            }
+          }
+          status
+        }
+        kappaRequired
+        lightkeeperRequired
+        map {
+          name
+        }
         trader {
           id
           name
         }
-        value
-      }
-      taskRequirements {
-        task {
-          id
-          name
-          trader{
-            name
+        factionName
+        objectives {
+          ... on TaskObjectiveBasic {
+            description
           }
-        }
-        status
-      }
-      kappaRequired
-      lightkeeperRequired
-      map {
-        name
-      }
-      trader {
-        id
-        name
-      }
-      factionName
-      objectives {
-        ... on TaskObjectiveBasic {
-          description
-        }
-        ... on TaskObjectiveBuildItem {
-          attributes {
-            name
-            requirement{
+          ... on TaskObjectiveBuildItem {
+            attributes {
+              name
+              requirement{
+                compareMethod
+                value
+              }
+            }
+            containsAll {
+              id
+              name
+              inspectImageLink
+              category{
+                name
+              }
+              iconLink
+            }
+            containsCategory {
+              name
+              normalizedName
+            }
+            description
+            item {
+              name
+              iconLink
+            }
+            maps {
+              name
+            }
+            optional
+          }
+          ... on TaskObjectiveExperience {
+            description
+            maps {
+              name
+            }
+            optional
+          }
+          ... on TaskObjectiveExtract {
+            description
+            maps {
+              name
+            }
+            optional
+          }
+          ... on TaskObjectiveItem {
+            count
+            description
+            dogTagLevel
+            foundInRaid
+            item {
+              id
+              name
+              inspectImageLink
+              iconLink
+              category{
+                name
+              }
+            }
+            maps {
+              name
+            }
+            maxDurability
+            minDurability
+            optional
+            type
+          }
+          ... on TaskObjectiveMark {
+            description
+            maps {
+              name
+            }
+            markerItem {
+              name
+            }
+            optional
+          }
+          ... on TaskObjectivePlayerLevel {
+            description
+            maps {
+              name
+            }
+            optional
+            playerLevel
+          }
+          ... on TaskObjectiveQuestItem {
+            count
+            description
+            maps {
+              name
+            }
+            optional
+            questItem {
+              name
+            }
+          }
+          ... on TaskObjectiveShoot {
+            count
+            description
+            distance {
               compareMethod
               value
             }
           }
-          containsAll {
-            id
-            name
-            inspectImageLink
-            category{
+          ... on TaskObjectiveSkill {
+            description
+            maps {
               name
             }
-            iconLink
+            optional
+            skillLevel {
+              name
+              level
+            }
           }
-          containsCategory {
-            name
-            normalizedName
-          }
-          description
-          item {
-            name
-            iconLink
-          }
-          maps {
-            name
-          }
-          optional
-        }
-        ... on TaskObjectiveExperience {
-          description
-          maps {
-            name
-          }
-          optional
-        }
-        ... on TaskObjectiveExtract {
-          description
-          maps {
-            name
-          }
-          optional
-        }
-        ... on TaskObjectiveItem {
-          count
-          description
-          dogTagLevel
-          foundInRaid
-          item {
-            id
-            name
-            inspectImageLink
-            iconLink
-            category{
+          ... on TaskObjectiveTaskStatus {
+            description
+            maps {
+              name
+            }
+            optional
+            task {
               name
             }
           }
-          maps {
-            name
-          }
-          maxDurability
-          minDurability
-          optional
-          type
-        }
-        ... on TaskObjectiveMark {
-          description
-          maps {
-            name
-          }
-          markerItem {
-            name
-          }
-          optional
-        }
-        ... on TaskObjectivePlayerLevel {
-          description
-          maps {
-            name
-          }
-          optional
-          playerLevel
-        }
-        ... on TaskObjectiveQuestItem {
-          count
-          description
-          maps {
-            name
-          }
-          optional
-          questItem {
-            name
+          ... on TaskObjectiveTraderLevel {
+            description
+            level
+            maps {
+              name
+            }
+            optional
+            trader {
+              name
+            }
           }
         }
-        ... on TaskObjectiveShoot {
-          count
-          description
-          distance {
-            compareMethod
-            value
+        startRewards {
+          traderStanding {
+            trader {
+              name
+            }
+            standing
           }
-        }
-        ... on TaskObjectiveSkill {
-          description
-          maps {
-            name
+          items {
+            item {
+              id
+              name
+              iconLink
+              category{
+                name
+              }
+            }
+            count
+            quantity
+            attributes {
+              type
+              name
+              value
+            }
           }
-          optional
-          skillLevel {
+          offerUnlock {
+            trader {
+              name
+            }
+            level
+            item {
+              id
+              name
+              iconLink
+              category{
+                name
+              }
+            }
+          }
+          skillLevelReward {
             name
             level
           }
-        }
-        ... on TaskObjectiveTaskStatus {
-          description
-          maps {
+          traderUnlock {
             name
           }
-          optional
-          task {
-            name
-          }
-        }
-        ... on TaskObjectiveTraderLevel {
-          description
-          level
-          maps {
-            name
-          }
-          optional
-          trader {
-            name
-          }
-        }
-      }
-      startRewards {
-        traderStanding {
-          trader {
-            name
-          }
-          standing
-        }
-        items {
-          item {
-            id
-            name
-            iconLink
-            category{
+          craftUnlock {
+            station {
               name
             }
-          }
-          count
-          quantity
-          attributes {
-            type
-            name
-            value
-          }
-        }
-        offerUnlock {
-          trader {
-            name
-          }
-          level
-          item {
-            id
-            name
-            iconLink
-            category{
+            level
+            taskUnlock {
               name
             }
           }
         }
-        skillLevelReward {
-          name
-          level
-        }
-        traderUnlock {
-          name
-        }
-        craftUnlock {
-          station {
-            name
-          }
-          level
-          taskUnlock {
-            name
-          }
-        }
-      }
-      finishRewards {
-        traderStanding {
-          trader {
-            name
-          }
-          standing
-        }
-        items {
-          item {
-            id
-            name
-            iconLink
-            category{
+        finishRewards {
+          traderStanding {
+            trader {
               name
             }
+            standing
           }
-          count
-          quantity
-          attributes {
-            type
-            name
-            value
-          }
-        }
-        offerUnlock {
-          trader {
-            name
-          }
-          level
-          item {
-            id
-            name
-            iconLink
-            category{
+          items {
+            item {
+              id
               name
+              iconLink
+              category{
+                name
+              }
+            }
+            count
+            quantity
+            attributes {
+              type
+              name
+              value
             }
           }
-        }
-        skillLevelReward {
-          name
-          level
-        }
-        traderUnlock {
-          name
+          offerUnlock {
+            trader {
+              name
+            }
+            level
+            item {
+              id
+              name
+              iconLink
+              category{
+                name
+              }
+            }
+          }
+          skillLevelReward {
+            name
+            level
+          }
+          traderUnlock {
+            name
+          }
         }
       }
     }
-  }
-`;
+  `;
+};
 
-export const GET_ITEMS = gql`
+export const GET_ITEMS = (lang: LanguageCode) => {
+  return gql`
   query GetItems(
     $categoryNames: [ItemCategoryName]
     $withCategory: Boolean!
   ) {
-    itemsWithCategories: items(categoryNames: $categoryNames)
+    itemsWithCategories: items(categoryNames: $categoryNames, lang: ${lang})
       @include(if: $withCategory) {
       id
       name
@@ -374,18 +378,19 @@ export const GET_ITEMS = gql`
     }
   }
 `;
+};
 
 export const GET_CASH_OFFERS = gql`
   query getCashOffers {
-    traders{
+    traders {
       name
-      cashOffers{
-        item{
+      cashOffers {
+        item {
           id
           name
         }
         minTraderLevel
-        taskUnlock{
+        taskUnlock {
           name
         }
       }
@@ -394,42 +399,42 @@ export const GET_CASH_OFFERS = gql`
 `;
 
 export const GET_SERVER_STATUS = gql`
-    query getServerStatus {
-      status {
-        currentStatuses {
-          message
-          name
-          status
-          statusCode
-        }
-        generalStatus {
-          message
-          name
-          status
-          statusCode
-        }
-        messages {
-          content
-          solveTime
-          statusCode
-          time
-          type
-        }
+  query getServerStatus {
+    status {
+      currentStatuses {
+        message
+        name
+        status
+        statusCode
+      }
+      generalStatus {
+        message
+        name
+        status
+        statusCode
+      }
+      messages {
+        content
+        solveTime
+        statusCode
+        time
+        type
       }
     }
-  `;
+  }
+`;
 
 export const GET_BOSS_SPAWN = gql`
   query getBossSpawn {
     maps {
       name
       bosses {
-        boss{
+        boss {
           name
           imagePosterLink
           imagePortraitLink
         }
-        spawnLocations{
+        spawnLocations {
           name
           chance
         }
@@ -444,7 +449,7 @@ export const GET_BOSS_SPAWN = gql`
 
 export const GET_ARMOR_MATERIAL = gql`
   query getArmorMaterial($lang: Language) {
-    armorMaterials(lang: $lang){
+    armorMaterials(lang: $lang) {
       id
       name
     }
@@ -452,10 +457,8 @@ export const GET_ARMOR_MATERIAL = gql`
 `;
 
 export const GET_ITEM_PRICE = gql`
-  query GetItemPrice(
-    $ids: [ID]
-  ) {
-    items(ids: $ids){
+  query GetItemPrice($ids: [ID]) {
+    items(ids: $ids) {
       id
       name
       normalizedName
@@ -469,9 +472,9 @@ export const GET_ITEM_PRICE = gql`
       high24hPrice
       avg24hPrice
       image512pxLink
-      sellFor{
+      sellFor {
         price
-        vendor{
+        vendor {
           name
         }
         currency
@@ -479,43 +482,44 @@ export const GET_ITEM_PRICE = gql`
       }
     }
   }
-`
+`;
 
 export const GET_ITEM_PRICE_HISTORY = gql`
-  query GetItemPriceHistory(
-    $id: ID!
-  ) {
-    historicalItemPrices(id: $id){
+  query GetItemPriceHistory($id: ID!) {
+    historicalItemPrices(id: $id) {
       price
       timestamp
     }
   }
 `;
 
-export const GET_ITEM_PROPERTIES_ARMOR = gql`
-  query getItemProperties($itemId: ID,$lang: LanguageCode ) {
-    item(id: $itemId, lang: $lang) {
-      properties {
-        ... on ItemPropertiesArmor {
-          class
-          durability
-          ergoPenalty
-          material {
-            name
+export const GET_ITEM_PROPERTIES_ARMOR = (lang: LanguageCode) => {
+  return gql`
+      query getItemProperties($itemId: ID) {
+        item(id: $itemId, lang: ${lang}) {
+          properties {
+            ... on ItemPropertiesArmor {
+              class
+              durability
+              ergoPenalty
+              material {
+                name
+              }
+              repairCost
+              speedPenalty
+              turnPenalty
+              zones
+            }
           }
-          repairCost
-          speedPenalty
-          turnPenalty
-          zones
         }
       }
-    }
-  }
-`;
+    `;
+};
 
-export const GET_ITEM_PROPERTIES_AMMO = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_AMMO = (lang: LanguageCode) => {
+  return gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesAmmo {
           damage
@@ -540,10 +544,12 @@ export const GET_ITEM_PROPERTIES_AMMO = gql`
     }
   }
 `;
+};
 
-export const GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesArmorAttachment {
           blindnessProtection
@@ -562,11 +568,12 @@ export const GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_BACKPACK = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_BACKPACK = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesBackpack {
           capacity
@@ -593,11 +600,12 @@ export const GET_ITEM_PROPERTIES_BACKPACK = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_BARREL = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_BARREL = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesBarrel {
           centerOfImpact
@@ -609,11 +617,12 @@ export const GET_ITEM_PROPERTIES_BARREL = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_CHEST_RIG = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_CHEST_RIG = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesChestRig {
           capacity
@@ -631,11 +640,12 @@ export const GET_ITEM_PROPERTIES_CHEST_RIG = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_CONTAINER = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_CONTAINER = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesContainer {
           capacity
@@ -661,11 +671,12 @@ export const GET_ITEM_PROPERTIES_CONTAINER = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_FOOD_DRINK = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_FOOD_DRINK = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesFoodDrink {
           energy
@@ -684,11 +695,12 @@ export const GET_ITEM_PROPERTIES_FOOD_DRINK = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_GLASSES = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_GLASSES = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesGlasses {
           blindnessProtection
@@ -702,11 +714,12 @@ export const GET_ITEM_PROPERTIES_GLASSES = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_GRENADE = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_GRENADE = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesGrenade {
           contusionRadius
@@ -719,11 +732,12 @@ export const GET_ITEM_PROPERTIES_GRENADE = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_HELMET = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_HELMET = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesHelmet {
           blindnessProtection
@@ -743,11 +757,12 @@ export const GET_ITEM_PROPERTIES_HELMET = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_KEY = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_KEY = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesKey {
           uses
@@ -755,11 +770,12 @@ export const GET_ITEM_PROPERTIES_KEY = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_MAGAZINE = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_MAGAZINE = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesMagazine {
           ammoCheckModifier
@@ -772,11 +788,12 @@ export const GET_ITEM_PROPERTIES_MAGAZINE = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_MEDICAL_ITEM = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_MEDICAL_ITEM = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesMedicalItem {
           cures
@@ -786,11 +803,12 @@ export const GET_ITEM_PROPERTIES_MEDICAL_ITEM = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_MED_KIT = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_MED_KIT = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesMedKit {
           cures
@@ -803,11 +821,12 @@ export const GET_ITEM_PROPERTIES_MED_KIT = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_MELEE = gql`
+export const GET_ITEM_PROPERTIES_MELEE = (lang: LanguageCode) => {
+  return (gql`
   query getItemProperties($itemId: ID) {
-    item(id: $itemId) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesMelee {
           hitRadius
@@ -817,11 +836,12 @@ export const GET_ITEM_PROPERTIES_MELEE = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_NIGHT_VISION = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_NIGHT_VISION = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesNightVision {
           diffuseIntensity
@@ -832,11 +852,12 @@ export const GET_ITEM_PROPERTIES_NIGHT_VISION = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_PAINKILLER = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_PAINKILLER = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesPainkiller {
           cures
@@ -849,11 +870,12 @@ export const GET_ITEM_PROPERTIES_PAINKILLER = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_PRESET = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_PRESET = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesPreset {
           ergonomics
@@ -864,11 +886,12 @@ export const GET_ITEM_PROPERTIES_PRESET = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_SCOPE = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_SCOPE = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesScope {
           ergonomics
@@ -880,11 +903,12 @@ export const GET_ITEM_PROPERTIES_SCOPE = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_STIM = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_STIM = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesStim {
           cures
@@ -902,11 +926,12 @@ export const GET_ITEM_PROPERTIES_STIM = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_SURGICAL_KIT = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_SURGICAL_KIT = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesSurgicalKit {
           cures
@@ -918,11 +943,12 @@ export const GET_ITEM_PROPERTIES_SURGICAL_KIT = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_WEAPON = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_WEAPON = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesWeapon {
           caliber
@@ -941,11 +967,12 @@ export const GET_ITEM_PROPERTIES_WEAPON = gql`
       }
     }
   }
-`;
+`)};
 
-export const GET_ITEM_PROPERTIES_WEAPON_MOD = gql`
-  query getItemProperties($itemId: ID, $lang: LanguageCode) {
-    item(id: $itemId, lang: $lang) {
+export const GET_ITEM_PROPERTIES_WEAPON_MOD = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
       properties {
         ... on ItemPropertiesWeaponMod {
           accuracyModifier
@@ -955,4 +982,4 @@ export const GET_ITEM_PROPERTIES_WEAPON_MOD = gql`
       }
     }
   }
-`;
+`)};

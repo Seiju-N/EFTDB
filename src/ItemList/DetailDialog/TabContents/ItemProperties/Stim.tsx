@@ -23,11 +23,10 @@ export const Stim = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_STIM } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_STIM,
+    GET_ITEM_PROPERTIES_STIM(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

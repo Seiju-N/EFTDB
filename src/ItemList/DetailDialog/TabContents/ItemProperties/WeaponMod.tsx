@@ -22,11 +22,10 @@ export const WeaponMod = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_WEAPON_MOD } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_WEAPON_MOD,
+    GET_ITEM_PROPERTIES_WEAPON_MOD(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

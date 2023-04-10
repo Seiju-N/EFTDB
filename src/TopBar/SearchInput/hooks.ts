@@ -27,14 +27,10 @@ export const useHooks = () => {
   const [results, setResults] = useState<searchResult[]>([]);
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const lang = useContext(LanguageContext);
-  const { data: taskData, loading: taskIsLoading } = useQuery<taskDataType>(
-    GET_TASKS,
-    {
-      variables: { lang },
-    }
-  );
+
+  const { data: taskData, loading: taskIsLoading } = useQuery<taskDataType>(GET_TASKS(lang));
   const { data: itemData, loading: itemIsLoading } = useQuery<itemDataType>(
-    GET_ITEMS,
+    GET_ITEMS(lang),
     {
       variables: { categoryNames: [], withCategory: false },
     }

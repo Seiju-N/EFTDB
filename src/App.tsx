@@ -71,7 +71,7 @@ const ITEM_CATEGORIES = gql`
 `;
 
 const App = () => {
-  const [language, setLanguage] = useState<LanguageCode>("en");
+  const [language, setLanguage] = useState<LanguageCode>(LanguageCode.En);
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const { loading: tradersIsLoading, data: tradersData } =
     useQuery<Query>(TRADERS);
@@ -95,7 +95,7 @@ const App = () => {
         break;
       default:
         setLanguageDict(EN_DICT);
-        setLanguage("en");
+        setLanguage(LanguageCode.En);
         break;
     }
   }, [language]);

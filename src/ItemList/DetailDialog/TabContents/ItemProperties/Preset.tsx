@@ -22,11 +22,10 @@ export const Preset = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_PRESET } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_PRESET,
+    GET_ITEM_PROPERTIES_PRESET(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

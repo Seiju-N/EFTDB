@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { memo } from "react";
+import { Fragment, memo } from "react";
 import { Item, Maybe, Trader } from "@/graphql/generated";
 import { CardContentNoPadding } from "@/components/CardContentNoPadding";
 import { useHooks } from "../hooks";
@@ -65,8 +65,8 @@ export const Barter = memo(({ currentItem, cashOffersData }: Props) => {
             </ListSubheader>
           ) : null}
           {currentItem.bartersFor.map((barter, index) => (
-            <>
-              <ListItem key={index} dense>
+            <Fragment key={index}>
+              <ListItem dense>
                 <ListItemText
                   sx={{ mt: 0 }}
                   primary={
@@ -109,7 +109,7 @@ export const Barter = memo(({ currentItem, cashOffersData }: Props) => {
                 />
               </ListItem>
               {currentItem.bartersFor.length - 1 !== index && <Divider />}
-            </>
+            </Fragment>
           ))}
         </List>
         {filteredData.length === 0 && currentItem.bartersFor.length === 0 && (

@@ -7,5 +7,5 @@ generates:
       - typescript-react-query
     config:
       fetcher: fetch
-      enumsAsConst: true
+      constEnums: true
       immutableTypes: true

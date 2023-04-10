@@ -27,11 +27,10 @@ export const ArmorAttachment = ({ ItemId }: Props) => {
   const { ITEM_PROPERTIES_ARMOR_ATTACHMENT, ARMOR_MATERIAL, HEAD_ZONES } =
     useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT,
+    GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

@@ -22,11 +22,10 @@ export const Melee = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_MELEE } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_MELEE,
+    GET_ITEM_PROPERTIES_MELEE(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

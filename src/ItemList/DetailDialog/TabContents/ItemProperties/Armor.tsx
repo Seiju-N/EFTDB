@@ -1,6 +1,5 @@
 import { LanguageContext, LanguageDictContext } from "@/App";
 import { ItemPropertiesArmor } from "@/graphql/generated";
-import { LanguageCode } from "@/graphql/generated";
 import { GET_ITEM_PROPERTIES_ARMOR } from "@/query";
 import { useQuery } from "@apollo/client";
 import { List, ListItem } from "@mui/material";
@@ -23,15 +22,13 @@ type QueryType = {
 export const Armor = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_ARMOR } = useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_ARMOR,
-    {
-      variables: {
-        itemId: ItemId,
-        lang: convertToLanguageCode(lang),
-      },
-    }
-  );
+  const QUERY = GET_ITEM_PROPERTIES_ARMOR(lang);
+  const { loading, error, data } = useQuery<QueryType>(QUERY, {
+    variables: {
+      itemId: ItemId,
+      lang,
+    },
+  });
   if (loading) return <Loading />;
   if (!data || error) return null;
   const properties = data.item.properties;

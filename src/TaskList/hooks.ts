@@ -18,7 +18,6 @@ export const useHooks = () => {
   const lang = useContext(LanguageContext);
   const langDict = useContext(LanguageDictContext);
   const categories = useContext(CategoryContext);
-
   const cols: GridColDef[] = [
     {
       field: "name",
@@ -100,9 +99,7 @@ export const useHooks = () => {
     setTaskFilter(convertObject(value));
   }, []);
 
-  const { data: taskData, loading } = useQuery(GET_TASKS, {
-    variables: { lang },
-  });
+  const { data: taskData, loading } = useQuery(GET_TASKS(lang));
 
   return {
     handleDialogOpen,

@@ -22,11 +22,10 @@ export const Container = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_CONTAINER } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_CONTAINER,
+    GET_ITEM_PROPERTIES_CONTAINER(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

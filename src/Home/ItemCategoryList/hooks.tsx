@@ -33,9 +33,7 @@ export const useHooks = () => {
   const categories = useContext(CategoryContext);
   const traders = useContext(TradersContext);
 
-  const { data: _taskData } = useQuery(GET_TASKS, {
-    variables: { lang },
-  });
+  const { data: _taskData } = useQuery(GET_TASKS(lang));
   type nestedCategoryProps = {
     categoryName: string;
   };

@@ -23,11 +23,10 @@ export const Painkiller = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_PAINKILLER } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_PAINKILLER,
+    GET_ITEM_PROPERTIES_PAINKILLER(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

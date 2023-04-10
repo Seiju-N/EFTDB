@@ -7,7 +7,7 @@ import { enUS } from "@mui/x-data-grid";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { LanguageDictContext } from "../App";
+import { LanguageContext, LanguageDictContext } from "@/App";
 
 export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -16,6 +16,7 @@ export const useHooks = () => {
   const [ammoTypeFilter, setAmmoTypeFilter] = useState<GridFilterModel>({
     items: [],
   });
+  const lang = useContext(LanguageContext);
   const langDict = useContext(LanguageDictContext);
   const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
   const param = useParams();
@@ -82,7 +83,7 @@ export const useHooks = () => {
     sortModel: [{ field: "category", sort: "asc" }],
   };
 
-  const { loading, error, data } = useQuery(GET_ITEMS, {
+  const { loading, error, data } = useQuery(GET_ITEMS(lang), {
     variables: {
       categoryNames: [param.categoryName],
       withCategory: Boolean(param.categoryName),

@@ -22,11 +22,10 @@ export const NightVision = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_NIGHT_VISION } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_NIGHT_VISION,
+    GET_ITEM_PROPERTIES_NIGHT_VISION(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );

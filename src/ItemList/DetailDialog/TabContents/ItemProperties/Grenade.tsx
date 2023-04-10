@@ -22,11 +22,10 @@ export const Grenade = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_GRENADE } = useContext(LanguageDictContext);
   const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_GRENADE,
+    GET_ITEM_PROPERTIES_GRENADE(lang),
     {
       variables: {
         itemId: ItemId,
-        lang,
       },
     }
   );
