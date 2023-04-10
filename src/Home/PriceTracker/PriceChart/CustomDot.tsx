@@ -1,7 +1,7 @@
 import { DotProps } from "recharts";
 
 export const CustomDot = (props: DotProps) => {
-  const { cx, cy } = props;
+  const { cx, cy, key } = props;
   return (
     <circle
       cx={cx}
@@ -10,6 +10,7 @@ export const CustomDot = (props: DotProps) => {
       stroke="black"
       strokeWidth={1}
       fill={"gray"}
+      key={`dot-${key}`}
     />
   );
 };
