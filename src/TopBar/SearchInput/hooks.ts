@@ -1,9 +1,8 @@
-import { LanguageContext } from "@/App";
-import { Item, Maybe, Task } from "@/graphql/generated";
+import { Item, LanguageCode, Maybe, Task } from "@/graphql/generated";
 import { GET_ITEMS, GET_TASKS } from "@/query";
 import { toPascalCase } from "@/utils";
 import { useQuery } from "@apollo/client";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 type taskDataType = {
   tasks: Task[];
@@ -26,11 +25,10 @@ export const useHooks = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [results, setResults] = useState<searchResult[]>([]);
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-  const lang = useContext(LanguageContext);
 
-  const { data: taskData, loading: taskIsLoading } = useQuery<taskDataType>(GET_TASKS(lang));
+  const { data: taskData, loading: taskIsLoading } = useQuery<taskDataType>(GET_TASKS(LanguageCode.En));
   const { data: itemData, loading: itemIsLoading } = useQuery<itemDataType>(
-    GET_ITEMS(lang),
+    GET_ITEMS(LanguageCode.En),
     {
       variables: { categoryNames: [], withCategory: false },
     }
@@ -48,7 +46,7 @@ export const useHooks = () => {
         return {
           id: item.id,
           name: item.name ? item.name : "",
-          categoryName: item.category?.name,
+          categoryName: item.category?.normalizedName,
           type: "item",
         };
       }) ?? [],

@@ -308,6 +308,7 @@ export const GET_ITEMS = (lang: LanguageCode) => {
       shortName
       category {
         name
+        normalizedName
       }
       bartersFor{
         level
@@ -375,6 +376,7 @@ export const GET_ITEMS = (lang: LanguageCode) => {
       shortName
       category {
         name
+        normalizedName
       }
       bartersFor{
         level
