@@ -51,7 +51,7 @@ import {
   TaskObjectiveTaskStatus,
   TaskObjectiveTraderLevel,
 } from "../graphql/generated";
-import { DataGrid, GridCellParams } from "@mui/x-data-grid";
+import { GridCellParams } from "@mui/x-data-grid";
 import { useHooks } from "./hooks";
 import { useLocation, useParams } from "react-router-dom";
 import { TabPanel } from "@/components/TabPanel";
@@ -60,6 +60,7 @@ import { addSign, toPascalCase } from "@/utils";
 import { Item } from "@/components/Item";
 import { ItemCenter } from "@/components/ItemCenter";
 import { NoInfo } from "./NoInfo";
+import { DataGrid } from "@/components/DataGrid";
 
 export const TaskList = () => {
   const {

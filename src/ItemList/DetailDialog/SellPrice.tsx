@@ -32,7 +32,7 @@ export const SellPrice = memo(({ currentItem }: Props) => {
   return (
     <Grid container spacing={2}>
       <Grid xs={6} sx={flexCenter}>
-        <Tooltip title="Sell price">
+        <Tooltip title={ITEM_PROPERTIES.sellPrice}>
           <SellIcon style={{ height: "auto", paddingRight: 4 }} />
         </Tooltip>
         <Typography variant="subtitle2" color="text.secondary" component="div">

@@ -1,22 +1,13 @@
-import {
-  Backdrop,
-  Box,
-  CircularProgress,
-  Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import { DataGrid, GridToolbarQuickFilter } from "@mui/x-data-grid";
+import { Backdrop, Box, CircularProgress, Container } from "@mui/material";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useHooks } from "./hooks";
 import type { Item } from "../graphql/generated";
-import { CALIBERS } from "@/constants/CALIBER";
 import { Loading } from "./Loading";
 import { DetailDialog } from "./DetailDialog";
+import { DataGrid } from "@/components/DataGrid";
+import { CustomToolbar } from "./CustomToolbar";
 
 export const ItemList = () => {
   const {
@@ -36,48 +27,6 @@ export const ItemList = () => {
     data,
     cashOffers,
   } = useHooks();
-
-  const CustomToolbar = () => {
-    return (
-      <Box
-        sx={{
-          p: 0.5,
-          pb: 0,
-        }}
-      >
-        {param.categoryName === "Ammo" ? (
-          <>
-            <FormControl
-              sx={{ m: 1, minWidth: 120, height: "100%" }}
-              size="small"
-            >
-              <InputLabel shrink id="select-trader">
-                Filter
-              </InputLabel>
-              <Select
-                id="select-trader"
-                displayEmpty
-                value={filter}
-                onChange={handleChange}
-              >
-                <MenuItem value={""}>None</MenuItem>
-                {CALIBERS.map((caliber) => (
-                  <MenuItem
-                    value={caliber.caliberName}
-                    key={caliber.caliberName}
-                  >
-                    {caliber.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </>
-        ) : (
-          <GridToolbarQuickFilter />
-        )}
-      </Box>
-    );
-  };
 
   const location = useLocation();
   const items = data?.itemsWithCategories || data?.itemsWithoutCategories || [];
@@ -115,9 +64,12 @@ export const ItemList = () => {
             toolbar: {
               showQuickFilter: true,
               quickFilterProps: { debounceMs: 500 },
+              param,
+              filter,
+              handleChange,
             },
           }}
-          onCellClick={(event) => handleDialogOpen(event.row)}
+          onRowClick={(event) => handleDialogOpen(event.row)}
           filterModel={
             param.categoryName === "Ammo" ? ammoTypeFilter : undefined
           }
