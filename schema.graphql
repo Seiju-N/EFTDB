@@ -254,6 +254,16 @@ type HideoutStation {
   crafts: [Craft]!
 }
 
+type HideoutStationBonus {
+  type: String!
+  name: String!
+  value: Float
+  passive: Boolean
+  production: Boolean
+  slotItems: [Item]
+  skillName: String
+}
+
 type HideoutStationLevel {
   id: ID!
   level: Int!
@@ -267,6 +277,7 @@ type HideoutStationLevel {
 
   """crafts is only available via the hideoutStations query."""
   crafts: [Craft]!
+  bonuses: [HideoutStationBonus]
 }
 
 type historicalPricePoint {
@@ -470,7 +481,7 @@ type ItemPrice {
   requirements: [PriceRequirement]! @deprecated(reason: "Use vendor instead.")
 }
 
-union ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesMedKit | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesScope | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod | ItemPropertiesStim
+union ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHeadphone | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesMedKit | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesResource | ItemPropertiesScope | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod | ItemPropertiesStim
 
 type ItemPropertiesAmmo {
   caliber: String
@@ -585,6 +596,21 @@ type ItemPropertiesGrenade {
   contusionRadius: Int
 }
 
+type ItemPropertiesHeadphone {
+  ambientVolume: Int
+  compressorAttack: Int
+  compressorGain: Int
+  compressorRelease: Int
+  compressorThreshold: Int
+  compressorVolume: Int
+  cutoffFrequency: Int
+  distanceModifier: Float
+  distortion: Float
+  dryVolume: Int
+  highFrequencyGain: Float
+  resonance: Float
+}
+
 type ItemPropertiesHelmet {
   class: Int
   durability: Int
@@ -666,6 +692,10 @@ type ItemPropertiesPreset {
   default: Boolean
 }
 
+type ItemPropertiesResource {
+  units: Int
+}
+
 type ItemPropertiesScope {
   ergonomics: Float
   sightModes: [Int]
@@ -705,9 +735,11 @@ type ItemPropertiesWeapon {
   centerOfImpact: Float
   deviationCurve: Float
   recoilDispersion: Int
+  recoilAngle: Int
   cameraRecoil: Float
   cameraSnap: Float
   deviationMax: Float
+  convergence: Float
   defaultWidth: Int
   defaultHeight: Int
   defaultErgonomics: Float
@@ -821,6 +853,8 @@ type Map {
   players: String
   bosses: [BossSpawn]!
   nameId: String
+  accessKeys: [Item]!
+  accessKeysMinPlayerLevel: Int
 }
 
 type MobInfo {
@@ -969,10 +1003,10 @@ type RequirementTask {
 type RequirementTrader {
   id: ID
   trader: Trader!
-  requirementType: String!
-  compareMethod: String!
-  value: Int!
-  level: Int @deprecated(reason: "Use requirement instead.")
+  requirementType: String
+  compareMethod: String
+  value: Int
+  level: Int @deprecated(reason: "Use value instead.")
 }
 
 enum RequirementType {
@@ -1168,6 +1202,8 @@ type TaskObjectiveShoot implements TaskObjective {
   distance: NumberCompare
   playerHealthEffect: HealthEffect
   enemyHealthEffect: HealthEffect
+  timeFromHour: Int
+  timeUntilHour: Int
 }
 
 type TaskObjectiveSkill implements TaskObjective {
@@ -1245,6 +1281,7 @@ type Trader {
   currency: Item!
   discount: Float!
   levels: [TraderLevel!]!
+  reputationLevels: [TraderReputationLevel]!
 
   """barters and cashOffers are only available via the traders query."""
   barters: [Barter]!
@@ -1306,6 +1343,22 @@ type TraderPrice {
   currency: String! @deprecated(reason: "Use item.buyFor instead.")
   priceRUB: Int! @deprecated(reason: "Use item.buyFor instead.")
   trader: Trader! @deprecated(reason: "Use item.buyFor instead.")
+}
+
+union TraderReputationLevel = TraderReputationLevelFence
+
+type TraderReputationLevelFence {
+  minimumReputation: Int!
+  scavCooldownModifier: Float
+  scavCaseTimeModifier: Float
+  extractPriceModifier: Float
+  scavFollowChance: Float
+  scavEquipmentSpawnChanceModifier: Float
+  priceModifier: Float
+  hostileBosses: Boolean
+  hostileScavs: Boolean
+  scavAttackSupport: Boolean
+  availableScavExtracts: Int
 }
 
 """TraderResetTime is deprecated and replaced with Trader."""

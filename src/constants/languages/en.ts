@@ -88,8 +88,8 @@ const EN_DICT = {
     WIDTH: "width",
     HEIGHT: "height",
     WEIGHT: "Weight",
-    CASH:"Purchase by cash",
-    BARTER:"Purchase by item",
+    CASH: "Purchase by cash",
+    BARTER: "Purchase by item",
   },
 
   MENU_SENTENCE: {
@@ -160,7 +160,7 @@ const EN_DICT = {
     avg24hPrice: "Average price (24h)",
   },
 
-  ITEM_PROPERTIES_TAB:{
+  ITEM_PROPERTIES_TAB: {
     detail: "Detail",
     barter: "Barter",
     chart: "Chart",
@@ -269,6 +269,22 @@ const EN_DICT = {
     maxExplosionDistance: "Max explosion distance",
     minExplosionDistance: "Min explosion distance",
     type: "Type",
+  },
+
+  ITEM_PROPERTIES_HEADPHONE: {
+    title: "Detail Information",
+    ambientVolume: "Ambient volume",
+    compressorAttack: "Compressor attack",
+    compressorGain: "Compressor gain",
+    compressorRelease: "Compressor release",
+    compressorThreshold: "Compressor threshold",
+    compressorVolume: "Compressor volume",
+    cutoffFrequency: "Cutoff frequency",
+    distanceModifier: "Distance modifier",
+    distortion: "Distortion",
+    dryVolume: "Dry volume",
+    highFrequencyGain: "High frequency gain",
+    resonance: "Resonance",
   },
 
   ITEM_PROPERTIES_HELMET: {

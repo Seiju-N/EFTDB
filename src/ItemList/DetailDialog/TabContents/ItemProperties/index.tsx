@@ -8,6 +8,7 @@ import { Container } from "./Container";
 import { FoodDrink } from "./FoodDrink";
 import { Glasses } from "./Glasses";
 import { Grenade } from "./Grenade";
+import { Headphone } from "./Headphone";
 import { Helmet } from "./Helmet";
 import { Key } from "./Key";
 import { Magazine } from "./Magazine";
@@ -50,6 +51,8 @@ export const ItemProperties = ({ typeName, ItemId }: Props) => {
       return <Glasses ItemId={ItemId} />;
     case "ItemPropertiesGrenade":
       return <Grenade ItemId={ItemId} />;
+    case "ItemPropertiesHeadphone":
+      return <Headphone ItemId={ItemId} />;
     case "ItemPropertiesHelmet":
       return <Helmet ItemId={ItemId} />;
     case "ItemPropertiesKey":

@@ -629,7 +629,8 @@ export const GET_ITEM_PROPERTIES_ARMOR_ATTACHMENT = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_BACKPACK = (lang: LanguageCode) => {
   return (gql`
@@ -661,7 +662,8 @@ export const GET_ITEM_PROPERTIES_BACKPACK = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_BARREL = (lang: LanguageCode) => {
   return (gql`
@@ -678,7 +680,8 @@ export const GET_ITEM_PROPERTIES_BARREL = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_CHEST_RIG = (lang: LanguageCode) => {
   return (gql`
@@ -701,7 +704,8 @@ export const GET_ITEM_PROPERTIES_CHEST_RIG = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_CONTAINER = (lang: LanguageCode) => {
   return (gql`
@@ -732,7 +736,8 @@ export const GET_ITEM_PROPERTIES_CONTAINER = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_FOOD_DRINK = (lang: LanguageCode) => {
   return (gql`
@@ -756,7 +761,8 @@ export const GET_ITEM_PROPERTIES_FOOD_DRINK = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_GLASSES = (lang: LanguageCode) => {
   return (gql`
@@ -775,7 +781,8 @@ export const GET_ITEM_PROPERTIES_GLASSES = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_GRENADE = (lang: LanguageCode) => {
   return (gql`
@@ -793,7 +800,33 @@ export const GET_ITEM_PROPERTIES_GRENADE = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
+
+export const GET_ITEM_PROPERTIES_HEADPHONE = (lang: LanguageCode) => {
+  return (gql`
+  query getItemProperties($itemId: ID) {
+    item(id: $itemId, lang: ${lang}) {
+      properties {
+        ... on ItemPropertiesHeadphone {
+          ambientVolume
+          compressorAttack
+          compressorGain
+          compressorRelease
+          compressorThreshold
+          compressorVolume
+          cutoffFrequency
+          distanceModifier
+          distortion
+          dryVolume
+          highFrequencyGain
+          resonance
+        }
+      }
+    }
+  }
+`)
+};
 
 export const GET_ITEM_PROPERTIES_HELMET = (lang: LanguageCode) => {
   return (gql`
@@ -818,7 +851,8 @@ export const GET_ITEM_PROPERTIES_HELMET = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_KEY = (lang: LanguageCode) => {
   return (gql`
@@ -831,7 +865,8 @@ export const GET_ITEM_PROPERTIES_KEY = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_MAGAZINE = (lang: LanguageCode) => {
   return (gql`
@@ -849,7 +884,8 @@ export const GET_ITEM_PROPERTIES_MAGAZINE = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_MEDICAL_ITEM = (lang: LanguageCode) => {
   return (gql`
@@ -864,7 +900,8 @@ export const GET_ITEM_PROPERTIES_MEDICAL_ITEM = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_MED_KIT = (lang: LanguageCode) => {
   return (gql`
@@ -882,7 +919,8 @@ export const GET_ITEM_PROPERTIES_MED_KIT = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_MELEE = (lang: LanguageCode) => {
   return (gql`
@@ -897,7 +935,8 @@ export const GET_ITEM_PROPERTIES_MELEE = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_NIGHT_VISION = (lang: LanguageCode) => {
   return (gql`
@@ -913,7 +952,8 @@ export const GET_ITEM_PROPERTIES_NIGHT_VISION = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_PAINKILLER = (lang: LanguageCode) => {
   return (gql`
@@ -931,7 +971,8 @@ export const GET_ITEM_PROPERTIES_PAINKILLER = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_PRESET = (lang: LanguageCode) => {
   return (gql`
@@ -947,7 +988,8 @@ export const GET_ITEM_PROPERTIES_PRESET = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_SCOPE = (lang: LanguageCode) => {
   return (gql`
@@ -964,7 +1006,8 @@ export const GET_ITEM_PROPERTIES_SCOPE = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_STIM = (lang: LanguageCode) => {
   return (gql`
@@ -987,7 +1030,8 @@ export const GET_ITEM_PROPERTIES_STIM = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_SURGICAL_KIT = (lang: LanguageCode) => {
   return (gql`
@@ -1004,7 +1048,8 @@ export const GET_ITEM_PROPERTIES_SURGICAL_KIT = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_WEAPON = (lang: LanguageCode) => {
   return (gql`
@@ -1028,7 +1073,8 @@ export const GET_ITEM_PROPERTIES_WEAPON = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};
 
 export const GET_ITEM_PROPERTIES_WEAPON_MOD = (lang: LanguageCode) => {
   return (gql`
@@ -1043,4 +1089,5 @@ export const GET_ITEM_PROPERTIES_WEAPON_MOD = (lang: LanguageCode) => {
       }
     }
   }
-`)};
+`)
+};

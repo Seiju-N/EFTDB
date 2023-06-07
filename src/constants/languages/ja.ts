@@ -88,8 +88,8 @@ const JA_DICT = {
     WIDTH: "幅",
     HEIGHT: "高さ",
     WEIGHT: "重量",
-    CASH:"現金での取引",
-    BARTER:"アイテムでの取引",
+    CASH: "現金での取引",
+    BARTER: "アイテムでの取引",
   },
 
   MENU_SENTENCE: {
@@ -404,6 +404,22 @@ const JA_DICT = {
     maxExplosionDistance: "最大爆発距離",
     minExplosionDistance: "最小爆発距離",
     type: "type",
+  },
+
+  ITEM_PROPERTIES_HEADPHONE: {
+    title: "詳細",
+    ambientVolume: "環境音減衰",
+    compressorAttack: "コンプレッサー反応開始速度",
+    compressorGain: "コンプレッサー音量増加率",
+    compressorRelease: "コンプレッサー反応停止速度",
+    compressorThreshold: "コンプレッサー閾値",
+    compressorVolume: "コンプレッサーボリューム",
+    cutoffFrequency: "遮音する周波数の閾値",
+    distanceModifier: "音源距離による音の変化率",
+    distortion: "音の歪みの度合い",
+    dryVolume: "原音のボリューム",
+    highFrequencyGain: "高音のボリューム調整",
+    resonance: "レゾナンス",
   },
 
   ITEM_PROPERTIES_HELMET: {

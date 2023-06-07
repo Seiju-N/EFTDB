@@ -292,8 +292,20 @@ export type HideoutStation = {
   readonly tarkovDataId?: Maybe<Scalars['Int']>;
 };
 
+export type HideoutStationBonus = {
+  readonly __typename?: 'HideoutStationBonus';
+  readonly name: Scalars['String'];
+  readonly passive?: Maybe<Scalars['Boolean']>;
+  readonly production?: Maybe<Scalars['Boolean']>;
+  readonly skillName?: Maybe<Scalars['String']>;
+  readonly slotItems?: Maybe<ReadonlyArray<Maybe<Item>>>;
+  readonly type: Scalars['String'];
+  readonly value?: Maybe<Scalars['Float']>;
+};
+
 export type HideoutStationLevel = {
   readonly __typename?: 'HideoutStationLevel';
+  readonly bonuses?: Maybe<ReadonlyArray<Maybe<HideoutStationBonus>>>;
   readonly constructionTime: Scalars['Int'];
   /** crafts is only available via the hideoutStations query. */
   readonly crafts: ReadonlyArray<Maybe<Craft>>;
@@ -531,7 +543,7 @@ export type ItemPrice = {
   readonly vendor: Vendor;
 };
 
-export type ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedKit | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesScope | ItemPropertiesStim | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod;
+export type ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHeadphone | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedKit | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesResource | ItemPropertiesScope | ItemPropertiesStim | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod;
 
 export type ItemPropertiesAmmo = {
   readonly __typename?: 'ItemPropertiesAmmo';
@@ -662,6 +674,22 @@ export type ItemPropertiesGrenade = {
   readonly type?: Maybe<Scalars['String']>;
 };
 
+export type ItemPropertiesHeadphone = {
+  readonly __typename?: 'ItemPropertiesHeadphone';
+  readonly ambientVolume?: Maybe<Scalars['Int']>;
+  readonly compressorAttack?: Maybe<Scalars['Int']>;
+  readonly compressorGain?: Maybe<Scalars['Int']>;
+  readonly compressorRelease?: Maybe<Scalars['Int']>;
+  readonly compressorThreshold?: Maybe<Scalars['Int']>;
+  readonly compressorVolume?: Maybe<Scalars['Int']>;
+  readonly cutoffFrequency?: Maybe<Scalars['Int']>;
+  readonly distanceModifier?: Maybe<Scalars['Float']>;
+  readonly distortion?: Maybe<Scalars['Float']>;
+  readonly dryVolume?: Maybe<Scalars['Int']>;
+  readonly highFrequencyGain?: Maybe<Scalars['Float']>;
+  readonly resonance?: Maybe<Scalars['Float']>;
+};
+
 export type ItemPropertiesHelmet = {
   readonly __typename?: 'ItemPropertiesHelmet';
   readonly armorType?: Maybe<Scalars['String']>;
@@ -753,6 +781,11 @@ export type ItemPropertiesPreset = {
   readonly recoilVertical?: Maybe<Scalars['Int']>;
 };
 
+export type ItemPropertiesResource = {
+  readonly __typename?: 'ItemPropertiesResource';
+  readonly units?: Maybe<Scalars['Int']>;
+};
+
 export type ItemPropertiesScope = {
   readonly __typename?: 'ItemPropertiesScope';
   readonly ergonomics?: Maybe<Scalars['Float']>;
@@ -788,6 +821,7 @@ export type ItemPropertiesWeapon = {
   readonly cameraRecoil?: Maybe<Scalars['Float']>;
   readonly cameraSnap?: Maybe<Scalars['Float']>;
   readonly centerOfImpact?: Maybe<Scalars['Float']>;
+  readonly convergence?: Maybe<Scalars['Float']>;
   readonly defaultAmmo?: Maybe<Item>;
   readonly defaultErgonomics?: Maybe<Scalars['Float']>;
   readonly defaultHeight?: Maybe<Scalars['Int']>;
@@ -804,6 +838,7 @@ export type ItemPropertiesWeapon = {
   readonly fireRate?: Maybe<Scalars['Int']>;
   readonly maxDurability?: Maybe<Scalars['Int']>;
   readonly presets?: Maybe<ReadonlyArray<Maybe<Item>>>;
+  readonly recoilAngle?: Maybe<Scalars['Int']>;
   readonly recoilDispersion?: Maybe<Scalars['Int']>;
   readonly recoilHorizontal?: Maybe<Scalars['Int']>;
   readonly recoilVertical?: Maybe<Scalars['Int']>;
@@ -911,6 +946,8 @@ export const enum LanguageCode {
 
 export type Map = {
   readonly __typename?: 'Map';
+  readonly accessKeys: ReadonlyArray<Maybe<Item>>;
+  readonly accessKeysMinPlayerLevel?: Maybe<Scalars['Int']>;
   readonly bosses: ReadonlyArray<Maybe<BossSpawn>>;
   readonly description?: Maybe<Scalars['String']>;
   readonly enemies?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
@@ -1264,13 +1301,13 @@ export type RequirementTask = {
 
 export type RequirementTrader = {
   readonly __typename?: 'RequirementTrader';
-  readonly compareMethod: Scalars['String'];
+  readonly compareMethod?: Maybe<Scalars['String']>;
   readonly id?: Maybe<Scalars['ID']>;
-  /** @deprecated Use requirement instead. */
+  /** @deprecated Use value instead. */
   readonly level?: Maybe<Scalars['Int']>;
-  readonly requirementType: Scalars['String'];
+  readonly requirementType?: Maybe<Scalars['String']>;
   readonly trader: Trader;
-  readonly value: Scalars['Int'];
+  readonly value?: Maybe<Scalars['Int']>;
 };
 
 export const enum RequirementType {
@@ -1479,6 +1516,8 @@ export type TaskObjectiveShoot = TaskObjective & {
   readonly playerHealthEffect?: Maybe<HealthEffect>;
   readonly shotType: Scalars['String'];
   readonly target: Scalars['String'];
+  readonly timeFromHour?: Maybe<Scalars['Int']>;
+  readonly timeUntilHour?: Maybe<Scalars['Int']>;
   readonly type: Scalars['String'];
   readonly usingWeapon?: Maybe<ReadonlyArray<Maybe<Item>>>;
   readonly usingWeaponMods?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
@@ -1573,6 +1612,7 @@ export type Trader = {
   readonly levels: ReadonlyArray<TraderLevel>;
   readonly name: Scalars['String'];
   readonly normalizedName: Scalars['String'];
+  readonly reputationLevels: ReadonlyArray<Maybe<TraderReputationLevel>>;
   readonly resetTime?: Maybe<Scalars['String']>;
   readonly tarkovDataId?: Maybe<Scalars['Int']>;
 };
@@ -1636,6 +1676,23 @@ export type TraderPrice = {
   readonly priceRUB: Scalars['Int'];
   /** @deprecated Use item.buyFor instead. */
   readonly trader: Trader;
+};
+
+export type TraderReputationLevel = TraderReputationLevelFence;
+
+export type TraderReputationLevelFence = {
+  readonly __typename?: 'TraderReputationLevelFence';
+  readonly availableScavExtracts?: Maybe<Scalars['Int']>;
+  readonly extractPriceModifier?: Maybe<Scalars['Float']>;
+  readonly hostileBosses?: Maybe<Scalars['Boolean']>;
+  readonly hostileScavs?: Maybe<Scalars['Boolean']>;
+  readonly minimumReputation: Scalars['Int'];
+  readonly priceModifier?: Maybe<Scalars['Float']>;
+  readonly scavAttackSupport?: Maybe<Scalars['Boolean']>;
+  readonly scavCaseTimeModifier?: Maybe<Scalars['Float']>;
+  readonly scavCooldownModifier?: Maybe<Scalars['Float']>;
+  readonly scavEquipmentSpawnChanceModifier?: Maybe<Scalars['Float']>;
+  readonly scavFollowChance?: Maybe<Scalars['Float']>;
 };
 
 /** TraderResetTime is deprecated and replaced with Trader. */
