@@ -40,7 +40,9 @@ export const Footer = () => {
         {"データはtarkov-apiから取得されています。"}
       </Typography>
       <Typography variant="subtitle2">
-        {"© 2023 EFTDB. All rights reserved."}
+        {
+          "Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved."
+        }
       </Typography>
     </FooterBox>
   );
