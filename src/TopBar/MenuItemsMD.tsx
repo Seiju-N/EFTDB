@@ -56,7 +56,7 @@ export const MenuItemsMD = () => {
         open={Boolean(anchorElTask)}
         onClose={handleCloseTaskMenu}
       >
-        {traders.map((trader) => (
+        {traders?.map((trader) => (
           <ListItem alignItems="flex-start" key={trader?.id} disablePadding>
             <ListItemButton
               component={RouterLink}

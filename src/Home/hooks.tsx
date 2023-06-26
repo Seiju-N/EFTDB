@@ -4,7 +4,6 @@ import {
   Box,
   CardContent,
   Collapse,
-  LinearProgress,
   List,
   ListItem,
   ListItemButton,
@@ -38,7 +37,7 @@ export const useHooks = () => {
     categoryName: string;
   };
   const FlatCategory = ({ categoryName }: nestedCategoryProps) => {
-    const parsedCategory: Maybe<ItemCategory> | undefined = categories.find(
+    const parsedCategory: Maybe<ItemCategory> | undefined = categories?.find(
       (category) => category?.name === categoryName
     );
     if (!parsedCategory) return null;
@@ -66,9 +65,8 @@ export const useHooks = () => {
     const handleClick = useCallback(() => {
       setOpen(!open);
     }, [open]);
-    const parsedCategories: Maybe<ItemCategory>[] = categories.filter(
-      (category) => category?.parent?.name === categoryName
-    );
+    const parsedCategories: Maybe<ItemCategory>[] | undefined =
+      categories?.filter((category) => category?.parent?.name === categoryName);
     if (!parsedCategories || parsedCategories.length === 0) return null;
     return (
       <>
@@ -117,7 +115,7 @@ export const useHooks = () => {
       setOpen(!open);
     }, [open]);
 
-    const filterByParentCategory = categories.filter(
+    const filterByParentCategory = categories?.filter(
       (category) => category?.parent?.name === categoryName
     );
 
@@ -129,12 +127,12 @@ export const useHooks = () => {
       const handleClickDeep = useCallback(() => {
         setOpenDeep(!openDeep);
       }, [openDeep]);
-      const filterByParentCategory = categories.filter(
+      const filterByParentCategory = categories?.filter(
         (category_child) => category_child?.parent?.name === category?.name
       );
       return (
         <>
-          {filterByParentCategory.length === 0 ? (
+          {filterByParentCategory?.length === 0 ? (
             <ListItem key={category?.name} sx={{ py: 0 }} dense>
               <ListItemButton
                 component={RouterLink}
@@ -175,7 +173,7 @@ export const useHooks = () => {
                 </ListItemButton>
               </ListItem>
               <Collapse in={openDeep} timeout="auto" unmountOnExit>
-                {filterByParentCategory.map((category) => (
+                {filterByParentCategory?.map((category) => (
                   <ListItem
                     sx={{ py: 0 }}
                     key={`NestedList_${category?.name}`}
@@ -224,7 +222,7 @@ export const useHooks = () => {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List>
-            {filterByParentCategory.map((category) => (
+            {filterByParentCategory?.map((category) => (
               <NestedList category={category} key={category?.name} />
             ))}
           </List>
@@ -235,10 +233,9 @@ export const useHooks = () => {
 
   type menuTitleProps = {
     titleStr: string;
-    isLoading: boolean;
   };
 
-  const MenuTitle = memo(({ titleStr, isLoading }: menuTitleProps) => {
+  const MenuTitle = memo(({ titleStr }: menuTitleProps) => {
     return (
       <CardContent>
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -247,7 +244,6 @@ export const useHooks = () => {
             {titleStr}
           </Typography>
         </Box>
-        {isLoading && <LinearProgress color="inherit" />}
       </CardContent>
     );
   });

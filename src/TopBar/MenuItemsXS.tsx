@@ -76,7 +76,7 @@ export const MenuItemsXS = () => {
           </ListItemButton>
           <Collapse in={taskOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {traders.map((trader) => (
+              {traders?.map((trader) => (
                 <ListItem
                   alignItems="flex-start"
                   key={trader?.name}

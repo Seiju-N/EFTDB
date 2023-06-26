@@ -138,7 +138,7 @@ export const TaskList = () => {
                     <IconButton
                       component={RouterLink}
                       to={`/item/${toPascalCase(
-                        categories.find(
+                        categories?.find(
                           (category) =>
                             category?.name === data.item.category?.name
                         )?.normalizedName
@@ -183,7 +183,7 @@ export const TaskList = () => {
                         <IconButton
                           component={RouterLink}
                           to={`/item/${toPascalCase(
-                            categories.find(
+                            categories?.find(
                               (category) =>
                                 category?.name === item?.category?.name
                             )?.normalizedName
@@ -226,7 +226,7 @@ export const TaskList = () => {
                       <Grid item xs={12} md={6} key={`${key?.id}_${idx}`}>
                         <RouterLink
                           to={`/item/${toPascalCase(
-                            categories.find(
+                            categories?.find(
                               (category) =>
                                 category?.name === key?.category?.name
                             )?.normalizedName
@@ -371,7 +371,7 @@ export const TaskList = () => {
                 <Grid item xs={12} md={6} key={`${data?.item.id}_${idx}`}>
                   <RouterLink
                     to={`/item/${toPascalCase(
-                      categories.find(
+                      categories?.find(
                         (category) =>
                           category?.name === data?.item.category?.name
                       )?.normalizedName
@@ -486,7 +486,7 @@ export const TaskList = () => {
                 <Grid item xs={12} md={6} key={`${data?.item.id}_${idx}`}>
                   <RouterLink
                     to={`/item/${toPascalCase(
-                      categories.find(
+                      categories?.find(
                         (category) =>
                           category?.name === data?.item.category?.name
                       )?.normalizedName
@@ -526,7 +526,7 @@ export const TaskList = () => {
                 <Grid item xs={12} md={6} key={`${data?.item.id}_${idx}`}>
                   <RouterLink
                     to={`/item/${toPascalCase(
-                      categories.find(
+                      categories?.find(
                         (category) =>
                           category?.name === data?.item.category?.name
                       )?.normalizedName

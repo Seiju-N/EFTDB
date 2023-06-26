@@ -15,12 +15,9 @@ export const TaskTraderList = memo(() => {
   const { langDict, traders, MenuTitle } = useHooks();
   return (
     <Card>
-      <MenuTitle
-        titleStr={langDict.HOME_SENTENCE.search_task}
-        isLoading={traders.length === 0}
-      />
+      <MenuTitle titleStr={langDict.HOME_SENTENCE.search_task} />
       <List component="div">
-        {traders.map((trader) => (
+        {traders?.map((trader) => (
           <ListItem alignItems="flex-start" key={trader?.name}>
             <ListItemButton component={RouterLink} to={`task/${trader?.name}`}>
               <ListItemAvatar>

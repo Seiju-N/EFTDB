@@ -1,12 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import {
-  Backdrop,
-  CircularProgress,
   createTheme,
   CssBaseline,
   darkScrollbar,
   ThemeProvider,
-  Typography,
 } from "@mui/material";
 import { createContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -38,12 +35,14 @@ const darkTheme = createTheme({
   },
 });
 
-export const TradersContext = createContext<readonly Maybe<Trader>[]>([]);
+export const TradersContext = createContext<
+  readonly Maybe<Trader>[] | undefined
+>([]);
 export const LanguageDictContext = createContext<dictType>(EN_DICT);
 export const LanguageContext = createContext<LanguageCode>(LanguageCode.En);
-export const CategoryContext = createContext<readonly Maybe<ItemCategory>[]>(
-  []
-);
+export const CategoryContext = createContext<
+  readonly Maybe<ItemCategory>[] | undefined
+>([]);
 const TRADERS = gql`
   query traders {
     traders {
@@ -73,10 +72,8 @@ const ITEM_CATEGORIES = gql`
 const App = () => {
   const [language, setLanguage] = useState<LanguageCode>(LanguageCode.En);
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
-  const { loading: tradersIsLoading, data: tradersData } =
-    useQuery<Query>(TRADERS);
-  const { loading: categoryIsLoading, data: categoryData } =
-    useQuery<Query>(ITEM_CATEGORIES);
+  const { data: tradersData } = useQuery<Query>(TRADERS);
+  const { data: categoryData } = useQuery<Query>(ITEM_CATEGORIES);
 
   useEffect(() => {
     const storageLang = localStorage.getItem("lang") as LanguageCode;
@@ -99,22 +96,22 @@ const App = () => {
         break;
     }
   }, [language]);
-  if (tradersIsLoading || !tradersData || categoryIsLoading || !categoryData)
-    return (
-      <Backdrop open={true}>
-        <CircularProgress color="inherit" />
-        <Typography variant="h4" pl={2}>
-          Loading...
-        </Typography>
-      </Backdrop>
-    );
+  // if (tradersIsLoading || !tradersData || categoryIsLoading || !categoryData)
+  //   return (
+  //     <Backdrop open={true}>
+  //       <CircularProgress color="inherit" />
+  //       <Typography variant="h4" pl={2}>
+  //         Loading...
+  //       </Typography>
+  //     </Backdrop>
+  //   );
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <CategoryContext.Provider value={categoryData.itemCategories}>
+      <CategoryContext.Provider value={categoryData?.itemCategories}>
         <LanguageContext.Provider value={language}>
           <LanguageDictContext.Provider value={languageDict}>
-            <TradersContext.Provider value={tradersData.traders}>
+            <TradersContext.Provider value={tradersData?.traders}>
               <TopBar setLanguage={setLanguage} />
               <Routes>
                 <Route path="/" element={<Home />} />

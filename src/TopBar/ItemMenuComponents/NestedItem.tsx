@@ -24,9 +24,8 @@ export const NestedItem = ({ categoryName, handleClose }: props) => {
   const handleClick = useCallback(() => {
     setOpen(!open);
   }, [open]);
-  const parsedCategories: Maybe<ItemCategory>[] = categories.filter(
-    (category) => category?.parent?.name === categoryName
-  );
+  const parsedCategories: Maybe<ItemCategory>[] | undefined =
+    categories?.filter((category) => category?.parent?.name === categoryName);
   if (!parsedCategories || parsedCategories.length === 0) return null;
   return (
     <>

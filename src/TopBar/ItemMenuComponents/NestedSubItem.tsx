@@ -25,7 +25,7 @@ export const NestedSubItem = ({ categoryName, handleClose }: props) => {
     setOpen(!open);
   }, [open]);
 
-  const filterByParentCategory = categories.filter(
+  const filterByParentCategory = categories?.filter(
     (category) => category?.parent?.name === categoryName
   );
 
@@ -37,12 +37,12 @@ export const NestedSubItem = ({ categoryName, handleClose }: props) => {
     const handleClickDeep = useCallback(() => {
       setOpenDeep(!openDeep);
     }, [openDeep]);
-    const filterByParentCategory = categories.filter(
+    const filterByParentCategory = categories?.filter(
       (category_child) => category_child?.parent?.name === category?.name
     );
     return (
       <>
-        {filterByParentCategory.length === 0 ? (
+        {filterByParentCategory?.length === 0 ? (
           <ListItem key={category?.name} disableGutters disablePadding>
             <ListItemButton
               component={RouterLink}
@@ -91,7 +91,7 @@ export const NestedSubItem = ({ categoryName, handleClose }: props) => {
               unmountOnExit
               sx={{ backgroundColor: "#020202" }}
             >
-              {filterByParentCategory.map((category) => (
+              {filterByParentCategory?.map((category) => (
                 <ListItem
                   sx={{ py: 0 }}
                   key={`NestedList_${category?.name}`}
@@ -147,7 +147,7 @@ export const NestedSubItem = ({ categoryName, handleClose }: props) => {
         unmountOnExit
         sx={{ backgroundColor: "#1b1b1b" }}
       >
-        {filterByParentCategory.map((category, idx) => (
+        {filterByParentCategory?.map((category, idx) => (
           <Fragment key={idx}>
             <NestedList category={category} />
           </Fragment>
