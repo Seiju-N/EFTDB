@@ -22,9 +22,9 @@ export const TopSubtitle = memo(() => {
     primary: string;
     secondary: string;
   }) => (
-    <ListItem>
+    <ListItem disableGutters>
       <ListItemIcon>
-        <FiberManualRecordIcon />
+        <FiberManualRecordIcon fontSize="small" />
       </ListItemIcon>
       <ListItemText
         primary={primary}
@@ -35,13 +35,13 @@ export const TopSubtitle = memo(() => {
   );
 
   return (
-    <Box p={3}>
+    <Box p={2}>
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Typography variant="h5" pl={2}>
           {langDict.HOME_SENTENCE.subtitle.subtitle1}
         </Typography>
       </Box>
-      <List>
+      <List dense>
         <TopSubtitleItem
           primary={subtitle.simple.primary}
           secondary={subtitle.simple.secondary}

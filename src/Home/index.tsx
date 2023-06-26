@@ -18,8 +18,8 @@ export const Home = () => {
       <Typography
         sx={{
           fontSize: {
-            xs: "1.5rem",
-            md: "2.4rem",
+            xs: "1.4rem",
+            md: "2.2rem",
           },
         }}
         color="text.secondary"
@@ -56,8 +56,8 @@ export const Home = () => {
         >
           <CardMedia
             component="iframe"
-            height={400}
-            frameBorder={0}
+            height={350}
+            sx={{ border: "none", mb: 2 }}
             src="https://discord.com/widget?id=944262508208877569&theme=dark"
           />
         </Grid>
