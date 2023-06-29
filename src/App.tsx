@@ -18,6 +18,7 @@ import { Home } from "./Home";
 import { ItemList } from "./ItemList";
 import { TaskList } from "./TaskList";
 import { TopBar } from "./TopBar";
+import { UserPage } from "./UserPage";
 
 const darkTheme = createTheme({
   palette: {
@@ -96,15 +97,6 @@ const App = () => {
         break;
     }
   }, [language]);
-  // if (tradersIsLoading || !tradersData || categoryIsLoading || !categoryData)
-  //   return (
-  //     <Backdrop open={true}>
-  //       <CircularProgress color="inherit" />
-  //       <Typography variant="h4" pl={2}>
-  //         Loading...
-  //       </Typography>
-  //     </Backdrop>
-  //   );
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -118,6 +110,7 @@ const App = () => {
                 <Route path="/task/:traderName/" element={<TaskList />} />
                 <Route path="/item/" element={<ItemList />} />
                 <Route path="/item/:categoryName" element={<ItemList />} />
+                <Route path="/user/:userName" element={<UserPage />} />
               </Routes>
               <Footer />
             </TradersContext.Provider>
