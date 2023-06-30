@@ -38,5 +38,4 @@
         "typescript",
         "typescriptreact"
     ],
-    "eslint.workingDirectories": ["./firebase/functions"],
 }
