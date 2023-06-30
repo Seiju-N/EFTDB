@@ -1091,3 +1091,30 @@ export const GET_ITEM_PROPERTIES_WEAPON_MOD = (lang: LanguageCode) => {
   }
 `)
 };
+
+export const TRADERS = gql`
+  query traders {
+    traders {
+      id
+      name
+      imageLink
+    }
+  }
+`;
+
+export const ITEM_CATEGORIES = gql`
+  query itemCategories {
+    itemCategories {
+      name
+      normalizedName
+      children {
+        name
+        normalizedName
+      }
+      parent {
+        name
+        normalizedName
+      }
+    }
+  }
+`;
