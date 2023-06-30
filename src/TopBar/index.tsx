@@ -13,6 +13,7 @@ import { MenuItemsXS } from "./MenuItemsXS";
 import { LanguageSelect } from "./LanguageSelect";
 import { SearchInput } from "./SearchInput";
 import { LanguageCode } from "@/graphql/generated";
+import { Box } from "@mui/material";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<LanguageCode>>;
@@ -48,6 +49,11 @@ export const TopBar = ({ setLanguage }: Props) => {
           <DiscordButton />
           <LanguageSelect setLanguage={setLanguage} />
         </Toolbar>
+        <Box textAlign={"center"} bgcolor={"#222"}>
+          <Typography variant="overline" color={"#DDD"}>
+            画面上部の検索機能は別機能への置き換えのため今後廃止されます。
+          </Typography>
+        </Box>
       </Container>
     </AppBar>
   );
