@@ -1,6 +1,5 @@
 import { Backdrop, Box, CircularProgress, Container } from "@mui/material";
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 import { useHooks } from "./hooks";
 import type { Item } from "../graphql/generated";
@@ -26,10 +25,10 @@ export const ItemList = () => {
     error,
     data,
     cashOffers,
+    items,
+    location,
   } = useHooks();
 
-  const location = useLocation();
-  const items = data?.itemsWithCategories || data?.itemsWithoutCategories || [];
   useEffect(() => {
     if (!location.state || !location.state.itemId || !items) return;
     const temp = items.find((item: Item) => item.id === location.state.itemId);

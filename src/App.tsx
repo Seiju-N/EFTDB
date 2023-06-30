@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import {
   createTheme,
   CssBaseline,
@@ -19,6 +19,7 @@ import { ItemList } from "./ItemList";
 import { TaskList } from "./TaskList";
 import { TopBar } from "./TopBar";
 import { UserPage } from "./UserPage";
+import { ITEM_CATEGORIES, TRADERS } from "@/query";
 
 const darkTheme = createTheme({
   palette: {
@@ -44,31 +45,6 @@ export const LanguageContext = createContext<LanguageCode>(LanguageCode.En);
 export const CategoryContext = createContext<
   readonly Maybe<ItemCategory>[] | undefined
 >([]);
-const TRADERS = gql`
-  query traders {
-    traders {
-      id
-      name
-      imageLink
-    }
-  }
-`;
-const ITEM_CATEGORIES = gql`
-  query itemCategories {
-    itemCategories {
-      name
-      normalizedName
-      children {
-        name
-        normalizedName
-      }
-      parent {
-        name
-        normalizedName
-      }
-    }
-  }
-`;
 
 const App = () => {
   const [language, setLanguage] = useState<LanguageCode>(LanguageCode.En);

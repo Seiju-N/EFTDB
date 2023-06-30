@@ -84,6 +84,7 @@
   "scripts": {
     "add-domain": "echo \"eftdb.info\" > docs/CNAME && echo \"eftdb.info\" > public/CNAME",
     "start": "graphql-codegen && node scripts/start.js",
+    "dev": "graphql-codegen && node scripts/start.js",
     "build": "graphql-codegen && node scripts/build.js && cp docs/index.html docs/404.html",
     "predeploy": "npm run build",
     "deploy": "npm run add-domain && gh-pages -d docs",

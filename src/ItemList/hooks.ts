@@ -5,7 +5,7 @@ import {  SelectChangeEvent } from "@mui/material";
 import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 import { enUS } from "@mui/x-data-grid";
 import { useCallback, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import { LanguageContext, LanguageDictContext } from "@/App";
 
@@ -20,7 +20,8 @@ export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
   const localeText = enUS.components.MuiDataGrid.defaultProps.localeText;
   const param = useParams();
-
+  const location = useLocation();
+  
   const convertObject = useCallback((ammoType: string) => {
     return {
       items: [
@@ -91,6 +92,7 @@ export const useHooks = () => {
   });
 
   const { data:cashOffers } = useQuery<Query>(GET_CASH_OFFERS);
+  const items = data?.itemsWithCategories || data?.itemsWithoutCategories || [];
 
-  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, cashOffers }
+  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, cashOffers, items, location }
 }
