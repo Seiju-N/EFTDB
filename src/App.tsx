@@ -58,7 +58,6 @@ const App = () => {
       ? setLanguage(storageLang)
       : setLanguage(navigator.language as LanguageCode);
   }, []);
-
   useEffect(() => {
     switch (language) {
       case LanguageCode.En:

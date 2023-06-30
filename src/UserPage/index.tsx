@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Avatar,
@@ -17,6 +17,15 @@ import { ReactComponent as Discord } from "@/img/discord.svg";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 export const UserPage = () => {
+  const [canReload, setCanReload] = React.useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setCanReload(false);
+    }, 10000);
+  }, [canReload]);
+  const handleReload = () => {
+    setCanReload(true);
+  };
   return (
     <Container>
       <Box sx={{ display: "flex", justifyContent: "left", height: 160 }}>
@@ -34,7 +43,12 @@ export const UserPage = () => {
           </Box>
         </Box>
         <Box sx={{ px: 2, py: 4 }}>
-          <Button variant="contained" startIcon={<AutorenewIcon />}>
+          <Button
+            variant="contained"
+            startIcon={<AutorenewIcon />}
+            disabled={canReload}
+            onClick={handleReload}
+          >
             Reload
           </Button>
         </Box>
