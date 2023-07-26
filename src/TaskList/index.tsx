@@ -578,10 +578,40 @@ export const TaskList = () => {
         open={dialogOpen}
         onClose={handleDialogClose}
         fullWidth
-        sx={{ minHeight: "70vh" }}
+        sx={{
+          minHeight: "70vh",
+        }}
         aria-label="task dialog"
       >
-        <DialogTitle>{currentTask?.name}</DialogTitle>
+        <DialogTitle
+          sx={{
+            height: 100,
+            fontSize: "2.5rem",
+            position: "relative",
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundImage: `url('${currentTask.taskImageLink}')`,
+              backgroundPosition: "center",
+              opacity: 0.4,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
+          />
+          <Box
+            sx={{
+              position: "relative",
+            }}
+          >
+            {currentTask?.name}
+          </Box>
+        </DialogTitle>
         <Box
           sx={{ width: "100%", bgcolor: "background.paper" }}
           component="div"

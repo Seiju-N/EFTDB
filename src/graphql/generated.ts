@@ -113,6 +113,7 @@ export type BossSpawnLocation = {
   readonly __typename?: 'BossSpawnLocation';
   readonly chance: Scalars['Float'];
   readonly name: Scalars['String'];
+  readonly spawnKey: Scalars['String'];
 };
 
 export type ContainedItem = {
@@ -957,8 +958,24 @@ export type Map = {
   readonly normalizedName: Scalars['String'];
   readonly players?: Maybe<Scalars['String']>;
   readonly raidDuration?: Maybe<Scalars['Int']>;
+  readonly spawns?: Maybe<ReadonlyArray<Maybe<MapSpawn>>>;
   readonly tarkovDataId?: Maybe<Scalars['ID']>;
   readonly wiki?: Maybe<Scalars['String']>;
+};
+
+export type MapPosition = {
+  readonly __typename?: 'MapPosition';
+  readonly x: Scalars['Float'];
+  readonly y: Scalars['Float'];
+  readonly z: Scalars['Float'];
+};
+
+export type MapSpawn = {
+  readonly __typename?: 'MapSpawn';
+  readonly categories?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly position: MapPosition;
+  readonly sides?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly zoneName?: Maybe<Scalars['String']>;
 };
 
 export type MobInfo = {
@@ -1388,6 +1405,7 @@ export type Task = {
   readonly startRewards?: Maybe<TaskRewards>;
   readonly successMessageId?: Maybe<Scalars['String']>;
   readonly tarkovDataId?: Maybe<Scalars['Int']>;
+  readonly taskImageLink?: Maybe<Scalars['String']>;
   readonly taskRequirements: ReadonlyArray<Maybe<TaskStatusRequirement>>;
   readonly trader: Trader;
   /** @deprecated Use traderRequirements instead. */
@@ -1515,7 +1533,9 @@ export type TaskObjectiveShoot = TaskObjective & {
   readonly optional: Scalars['Boolean'];
   readonly playerHealthEffect?: Maybe<HealthEffect>;
   readonly shotType: Scalars['String'];
+  /** @deprecated Use targetNames instead. */
   readonly target: Scalars['String'];
+  readonly targetNames: ReadonlyArray<Maybe<Scalars['String']>>;
   readonly timeFromHour?: Maybe<Scalars['Int']>;
   readonly timeUntilHour?: Maybe<Scalars['Int']>;
   readonly type: Scalars['String'];

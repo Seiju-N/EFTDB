@@ -9,6 +9,7 @@ export const GET_TASKS = (lang: LanguageCode) => {
         name
         normalizedName
         experience
+        taskImageLink
         minPlayerLevel
         neededKeys{
           keys{

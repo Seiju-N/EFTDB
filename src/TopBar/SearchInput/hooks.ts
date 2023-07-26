@@ -2,7 +2,8 @@ import { Item, LanguageCode, Maybe, Task } from "@/graphql/generated";
 import { GET_ITEMS, GET_TASKS } from "@/query";
 import { toPascalCase } from "@/utils";
 import { useQuery } from "@apollo/client";
-import { ChangeEvent, useState } from "react";
+import { debounce } from "@mui/material";
+import { ChangeEvent, useMemo, useState } from "react";
 
 type taskDataType = {
   tasks: Task[];
@@ -36,12 +37,12 @@ export const useHooks = () => {
 
   const isLoading = taskIsLoading || itemIsLoading;
 
-  const searchItems = {
-    tasks:
+  const searchItems = useMemo(() => {
+    const tasks =
       taskData?.tasks.map((task) => {
         return { id: task.id, name: task.name, trader: task.trader.name ,type: "task" };
-      }) ?? [],
-    items:
+      }) ?? [];
+    const items =
       itemData?.itemsWithoutCategories.map((item) => {
         return {
           id: item.id,
@@ -49,19 +50,24 @@ export const useHooks = () => {
           categoryName: item.category?.normalizedName,
           type: "item",
         };
-      }) ?? [],
-  };
-  const filteredOptions =[...searchItems.tasks, ...searchItems.items];
+      }) ?? [];
+    return { tasks, items };
+  }, [taskData, itemData]);
+  const filteredOptions = useMemo(() => [...searchItems.tasks, ...searchItems.items], [searchItems]);
+  const debouncedSearch = debounce((searchValue: string) => {
+    const filteredResults = filteredOptions.filter((item) =>
+      item.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setResults(filteredResults);
+  }, 500);
+  
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const searchValue = event.target.value;
     setAnchorEl(event.currentTarget);
     setInputValue(searchValue);
-
+  
     if (searchValue) {
-      const filteredResults = filteredOptions.filter((item) =>
-        item.name.toLowerCase().includes(searchValue.toLowerCase())
-      );
-      setResults(filteredResults);
+      debouncedSearch(searchValue);
     } else {
       setResults([]);
     }

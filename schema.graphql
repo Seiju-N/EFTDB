@@ -86,6 +86,7 @@ The chances of spawning in a given location are
 very rough estimates and may be incaccurate
 """
 type BossSpawnLocation {
+  spawnKey: String!
   name: String!
   chance: Float!
 }
@@ -855,6 +856,20 @@ type Map {
   nameId: String
   accessKeys: [Item]!
   accessKeysMinPlayerLevel: Int
+  spawns: [MapSpawn]
+}
+
+type MapPosition {
+  x: Float!
+  y: Float!
+  z: Float!
+}
+
+type MapSpawn {
+  zoneName: String
+  position: MapPosition!
+  sides: [String]
+  categories: [String]
 }
 
 type MobInfo {
@@ -1068,6 +1083,7 @@ type Task {
   map: Map
   experience: Int!
   wikiLink: String
+  taskImageLink: String
   minPlayerLevel: Int
   taskRequirements: [TaskStatusRequirement]!
   traderRequirements: [RequirementTrader]!
@@ -1190,7 +1206,7 @@ type TaskObjectiveShoot implements TaskObjective {
   description: String!
   maps: [Map]!
   optional: Boolean!
-  target: String!
+  targetNames: [String]!
   count: Int!
   shotType: String!
   zoneNames: [String]!
@@ -1204,6 +1220,7 @@ type TaskObjectiveShoot implements TaskObjective {
   enemyHealthEffect: HealthEffect
   timeFromHour: Int
   timeUntilHour: Int
+  target: String! @deprecated(reason: "Use targetNames instead.")
 }
 
 type TaskObjectiveSkill implements TaskObjective {
