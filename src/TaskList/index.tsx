@@ -578,6 +578,7 @@ export const TaskList = () => {
         open={dialogOpen}
         onClose={handleDialogClose}
         fullWidth
+        maxWidth="md"
         sx={{
           minHeight: "70vh",
         }}
@@ -586,7 +587,7 @@ export const TaskList = () => {
         <DialogTitle
           sx={{
             height: 100,
-            fontSize: "2.5rem",
+            fontSize: "2.4rem",
             position: "relative",
           }}
         >
