@@ -608,6 +608,9 @@ export const TaskList = () => {
           <Box
             sx={{
               position: "relative",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
             }}
           >
             {currentTask?.name}
