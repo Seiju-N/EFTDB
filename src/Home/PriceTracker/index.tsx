@@ -129,7 +129,7 @@ export const PriceTracker = memo(() => {
                       textAlign: "left",
                     }}
                   />
-                  <Box sx={{ width: { md: 108, xs: 192 } }}>
+                  <Box sx={{ width: { md: 108, xs: 128 } }}>
                     <Typography variant="subtitle1" color="text.secondary">
                       Item not in Flea Market
                     </Typography>
@@ -139,7 +139,7 @@ export const PriceTracker = memo(() => {
                       sx={{ width: 20 }}
                       onClick={() => handleDelete(item.id)}
                     >
-                      <ClearIcon fontSize="small" />
+                      <ClearIcon fontSize="small" sx={{ ml: 1 }} />
                     </IconButton>
                   </Tooltip>
                 </AccordionSummary>
@@ -201,7 +201,7 @@ export const PriceTracker = memo(() => {
                     textAlign: "left",
                   }}
                 />
-                <Box sx={{ minWidth: { md: 108, xs: 192 } }}>
+                <Box sx={{ width: { md: 108, xs: 172 } }}>
                   <Box
                     sx={{
                       display: "flex",
@@ -248,7 +248,7 @@ export const PriceTracker = memo(() => {
                     sx={{ width: 20 }}
                     onClick={() => handleDelete(item.id)}
                   >
-                    <ClearIcon fontSize="small" />
+                    <ClearIcon fontSize="small" sx={{ ml: 1 }} />
                   </IconButton>
                 </Tooltip>
               </AccordionSummary>
