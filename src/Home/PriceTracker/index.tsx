@@ -98,7 +98,7 @@ export const PriceTracker = memo(() => {
                 TransitionProps={{ unmountOnExit: true }}
               >
                 <AccordionSummary>
-                  <ListItemIcon>
+                  <ListItemIcon sx={{ mr: 1 }}>
                     <img
                       src={item.image512pxLink?.toString()}
                       alt={item.name?.toString()}
@@ -112,15 +112,15 @@ export const PriceTracker = memo(() => {
                       maxPriceObj(item).vendor?.name
                     }`}
                     primaryTypographyProps={{
-                      width: { md: "12vw", xs: "40vw" },
-                      maxWidth: { md: 190, xs: 400 },
+                      width: { md: "12vw", xs: "32vw" },
+                      maxWidth: { md: 190, xs: 380 },
                       whiteSpace: "nowrap",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                     }}
                     secondaryTypographyProps={{
-                      width: { md: "12vw", xs: "40vw" },
-                      maxWidth: { md: 190, xs: 400 },
+                      width: { md: "12vw", xs: "32vw" },
+                      maxWidth: { md: 190, xs: 380 },
                       whiteSpace: "nowrap",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
@@ -129,7 +129,7 @@ export const PriceTracker = memo(() => {
                       textAlign: "left",
                     }}
                   />
-                  <Box sx={{ width: { md: 108, xs: 200 } }}>
+                  <Box sx={{ width: { md: 108, xs: 192 } }}>
                     <Typography variant="subtitle1" color="text.secondary">
                       Item not in Flea Market
                     </Typography>
@@ -170,7 +170,7 @@ export const PriceTracker = memo(() => {
               TransitionProps={{ unmountOnExit: true }}
             >
               <AccordionSummary>
-                <ListItemIcon>
+                <ListItemIcon sx={{ mr: 1 }}>
                   <img
                     src={item.image512pxLink?.toString()}
                     alt={item.name?.toString()}
@@ -184,14 +184,14 @@ export const PriceTracker = memo(() => {
                     maxPriceObj(item).vendor?.name
                   }`}
                   primaryTypographyProps={{
-                    width: { md: "12vw", xs: "40vw" },
+                    width: { md: "12vw", xs: "32vw" },
                     maxWidth: { md: 190, xs: 400 },
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                   }}
                   secondaryTypographyProps={{
-                    width: { md: "12vw", xs: "40vw" },
+                    width: { md: "12vw", xs: "32vw" },
                     maxWidth: { md: 190, xs: 400 },
                     whiteSpace: "nowrap",
                     overflow: "hidden",
@@ -201,7 +201,7 @@ export const PriceTracker = memo(() => {
                     textAlign: "left",
                   }}
                 />
-                <Box sx={{ minWidth: { md: 108, xs: 200 } }}>
+                <Box sx={{ minWidth: { md: 108, xs: 192 } }}>
                   <Box
                     sx={{
                       display: "flex",
