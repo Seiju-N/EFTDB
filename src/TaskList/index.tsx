@@ -53,7 +53,7 @@ import {
 } from "../graphql/generated";
 import { GridCellParams } from "@mui/x-data-grid";
 import { useHooks } from "./hooks";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { TabPanel } from "@/components/TabPanel";
 import { Link as RouterLink } from "react-router-dom";
 import { addSign, toPascalCase } from "@/utils";
@@ -79,6 +79,7 @@ export const TaskList = () => {
     defaultSort,
     taskData,
     loading,
+    location,
   } = useHooks();
 
   type taskObjectiveType =
@@ -642,7 +643,6 @@ export const TaskList = () => {
       </Dialog>
     );
   };
-  const location = useLocation();
 
   useEffect(() => {
     if (!location.state || !location.state.taskId || !taskData) return;

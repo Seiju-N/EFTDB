@@ -7,6 +7,7 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import { useQuery } from "@apollo/client";
 import { CategoryContext, LanguageContext, LanguageDictContext } from "@/App";
 import { GET_TASKS } from "@/query";
+import { useLocation } from "react-router-dom";
 
 export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -66,6 +67,7 @@ export const useHooks = () => {
     },
   ];
 
+  const location = useLocation();
 
   const handleDialogOpen = useCallback((value: Task) => {
     setCurrentTask(value);
@@ -117,6 +119,7 @@ export const useHooks = () => {
     cols,
     defaultSort,
     taskData,
-    loading
+    loading,
+    location
   };
 };
