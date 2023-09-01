@@ -2,12 +2,12 @@ import { useCallback, useContext, useState } from "react";
 
 import { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 
-import { Task, TaskRewards } from "@/graphql/generated";
+import { Task } from "@/graphql/generated";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { useQuery } from "@apollo/client";
 import { CategoryContext, LanguageContext, LanguageDictContext } from "@/App";
 import { GET_TASKS } from "@/query";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 export const useHooks = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -83,11 +83,6 @@ export const useHooks = () => {
     sortModel: [{ field: "name", sort: "asc" }],
   };
 
-  const isAllArrayElementsEmpty = useCallback((obj: TaskRewards) => {
-    const { __typename, ...newObj } = obj
-    return Object.values(newObj).every((val) => val.length === 0);
-  }, []);
-
   const convertObject = useCallback((name: string) => {
     return {
       items: [
@@ -102,12 +97,12 @@ export const useHooks = () => {
   }, []);
 
   const { data: taskData, loading } = useQuery(GET_TASKS(lang));
+  const param = useParams();
 
   return {
     handleDialogOpen,
     handleDialogClose,
     handleChange,
-    isAllArrayElementsEmpty,
     setCurrentTask,
     lang,
     langDict,
@@ -120,6 +115,7 @@ export const useHooks = () => {
     defaultSort,
     taskData,
     loading,
-    location
+    location,
+    param
   };
 };
