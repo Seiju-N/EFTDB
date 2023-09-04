@@ -19,6 +19,7 @@ import { ItemList } from "./ItemList";
 import { TaskList } from "./TaskList";
 import { TopBar } from "./TopBar";
 import { ITEM_CATEGORIES, TRADERS } from "@/query";
+import { useTracking } from "./ga/useTracking";
 
 const darkTheme = createTheme({
   palette: {
