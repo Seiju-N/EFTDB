@@ -20,6 +20,7 @@ import { TaskList } from "./TaskList";
 import { TopBar } from "./TopBar";
 import { UserPage } from "./UserPage";
 import { ITEM_CATEGORIES, TRADERS } from "@/query";
+import { useTracking } from "./ga/useTracking";
 
 const darkTheme = createTheme({
   palette: {
@@ -51,7 +52,7 @@ const App = () => {
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const { data: tradersData } = useQuery<Query>(TRADERS);
   const { data: categoryData } = useQuery<Query>(ITEM_CATEGORIES);
-
+  useTracking("G-93Z965NJ8Q");
   useEffect(() => {
     const storageLang = localStorage.getItem("lang") as LanguageCode;
     storageLang
