@@ -50,7 +50,7 @@ const App = () => {
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const { data: tradersData } = useQuery<Query>(TRADERS);
   const { data: categoryData } = useQuery<Query>(ITEM_CATEGORIES);
-
+  useTracking("G-93Z965NJ8Q");
   useEffect(() => {
     const storageLang = localStorage.getItem("lang") as LanguageCode;
     storageLang
