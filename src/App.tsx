@@ -46,17 +46,49 @@ export const CategoryContext = createContext<
   readonly Maybe<ItemCategory>[] | undefined
 >([]);
 
+const SUPPORTED_LANGUAGES = [
+  "cs",
+  "de",
+  "en",
+  "es",
+  "fr",
+  "hu",
+  "it",
+  "ja",
+  "ko",
+  "pl",
+  "pt",
+  "ru",
+  "sk",
+  "tr",
+  "zh",
+] as const;
+
 const App = () => {
   const [language, setLanguage] = useState<LanguageCode>(LanguageCode.En);
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const { data: tradersData } = useQuery<Query>(TRADERS);
   const { data: categoryData } = useQuery<Query>(ITEM_CATEGORIES);
   useTracking("G-93Z965NJ8Q");
+
   useEffect(() => {
     const storageLang = localStorage.getItem("lang") as LanguageCode;
-    storageLang
-      ? setLanguage(storageLang)
-      : setLanguage(navigator.language as LanguageCode);
+    const isLangValid =
+      Object.values(SUPPORTED_LANGUAGES).includes(storageLang);
+
+    if (isLangValid) {
+      setLanguage(storageLang);
+    } else {
+      const browserLang = navigator.language
+        .split("-")[0]
+        .toLowerCase() as LanguageCode;
+      if (Object.values(SUPPORTED_LANGUAGES).includes(browserLang)) {
+        setLanguage(browserLang);
+      } else {
+        setLanguage(LanguageCode.En);
+      }
+      localStorage.setItem("lang", LanguageCode.En);
+    }
   }, []);
 
   useEffect(() => {

@@ -553,6 +553,9 @@ export type ItemPropertiesAmmo = {
   readonly accuracyModifier?: Maybe<Scalars['Float']>;
   readonly ammoType?: Maybe<Scalars['String']>;
   readonly armorDamage?: Maybe<Scalars['Int']>;
+  readonly ballisticCoeficient?: Maybe<Scalars['Float']>;
+  readonly bulletDiameterMilimeters?: Maybe<Scalars['Float']>;
+  readonly bulletMassGrams?: Maybe<Scalars['Float']>;
   readonly caliber?: Maybe<Scalars['String']>;
   readonly damage?: Maybe<Scalars['Int']>;
   readonly durabilityBurnFactor?: Maybe<Scalars['Float']>;
@@ -577,6 +580,7 @@ export type ItemPropertiesAmmo = {
 export type ItemPropertiesArmor = {
   readonly __typename?: 'ItemPropertiesArmor';
   readonly armorType?: Maybe<Scalars['String']>;
+  readonly bluntThroughput?: Maybe<Scalars['Float']>;
   readonly class?: Maybe<Scalars['Int']>;
   readonly durability?: Maybe<Scalars['Int']>;
   readonly ergoPenalty?: Maybe<Scalars['Int']>;
@@ -590,12 +594,14 @@ export type ItemPropertiesArmor = {
 export type ItemPropertiesArmorAttachment = {
   readonly __typename?: 'ItemPropertiesArmorAttachment';
   readonly blindnessProtection?: Maybe<Scalars['Float']>;
+  readonly bluntThroughput?: Maybe<Scalars['Float']>;
   readonly class?: Maybe<Scalars['Int']>;
   readonly durability?: Maybe<Scalars['Int']>;
   readonly ergoPenalty?: Maybe<Scalars['Int']>;
   readonly headZones?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly material?: Maybe<ArmorMaterial>;
   readonly repairCost?: Maybe<Scalars['Int']>;
+  readonly slots?: Maybe<ReadonlyArray<Maybe<ItemSlot>>>;
   readonly speedPenalty?: Maybe<Scalars['Float']>;
   readonly turnPenalty?: Maybe<Scalars['Float']>;
 };
@@ -628,6 +634,7 @@ export type ItemPropertiesBarrel = {
 export type ItemPropertiesChestRig = {
   readonly __typename?: 'ItemPropertiesChestRig';
   readonly armorType?: Maybe<Scalars['String']>;
+  readonly bluntThroughput?: Maybe<Scalars['Float']>;
   readonly capacity?: Maybe<Scalars['Int']>;
   readonly class?: Maybe<Scalars['Int']>;
   readonly durability?: Maybe<Scalars['Int']>;
@@ -659,6 +666,7 @@ export type ItemPropertiesFoodDrink = {
 export type ItemPropertiesGlasses = {
   readonly __typename?: 'ItemPropertiesGlasses';
   readonly blindnessProtection?: Maybe<Scalars['Float']>;
+  readonly bluntThroughput?: Maybe<Scalars['Float']>;
   readonly class?: Maybe<Scalars['Int']>;
   readonly durability?: Maybe<Scalars['Int']>;
   readonly material?: Maybe<ArmorMaterial>;
@@ -696,6 +704,7 @@ export type ItemPropertiesHelmet = {
   readonly armorType?: Maybe<Scalars['String']>;
   readonly blindnessProtection?: Maybe<Scalars['Float']>;
   readonly blocksHeadset?: Maybe<Scalars['Boolean']>;
+  readonly bluntThroughput?: Maybe<Scalars['Float']>;
   readonly class?: Maybe<Scalars['Int']>;
   readonly deafening?: Maybe<Scalars['String']>;
   readonly durability?: Maybe<Scalars['Int']>;
