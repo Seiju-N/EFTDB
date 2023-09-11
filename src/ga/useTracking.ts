@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-export const useTracking = (trackingId: string | undefined = process.env.GA_MEASUREMENT_ID) => {
+export const useTracking = (trackingId: string | undefined = "G-93Z965NJ8Q") => {
   const location = useLocation();
 
   useEffect(() => {
