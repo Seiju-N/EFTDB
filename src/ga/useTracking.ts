@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 declare global {
   interface Window {
-    gtag?: (key: string, trackingId: string, config: { page_path: string }) => void;
+    gtag?: (key: string, trackingId: string, config: { page_path: string | undefined, debug_mode?: boolean }) => void;
   }
 }
 
@@ -18,6 +18,7 @@ export const useTracking = (trackingId: string | undefined = "G-93Z965NJ8Q") => 
       );
       return;
     }
-    window.gtag('config', trackingId, { page_path: location.pathname });
+    window.gtag('config', trackingId, { page_path:location.pathname });
+    window.gtag('event', 'page_view', { page_path: location.pathname })
   }, [location.pathname, trackingId]);
 };
