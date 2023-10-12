@@ -7,6 +7,7 @@ export type dictType = {
     server_status: Record<string, string>,
     boss_spawns: Record<string, string>,
     price_tracker: Record<string, string>,
+    tracker: Record<string, string>,
     subtitle: {
       subtitle1: string,
       simple: {

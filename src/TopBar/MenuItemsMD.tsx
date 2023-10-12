@@ -40,6 +40,13 @@ export const MenuItemsMD = () => {
       >
         {langDict.MENU_SENTENCE.item}
       </Button>
+      {/* <Button
+        component={RouterLink}
+        to={"/tracker/"}
+        sx={{ my: 2, color: "white", display: "block" }}
+      >
+        {langDict.MENU_SENTENCE.tracker}
+      </Button> */}
       <Menu
         sx={{ mt: "45px" }}
         id="menu-appbar"

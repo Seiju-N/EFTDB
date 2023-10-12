@@ -26,6 +26,11 @@ const JA_DICT = {
       "dialog_description": "価格推移リストをデフォルト状態に戻します。続行しますか?",
       "trader_price": "トレーダー販売価格",
     },
+    tracker: {
+      "title": "トラッカー",
+      "last_seen": "Goons最終目撃情報",
+      "provide": "データはtarkovpal.comから取得しています。"
+    },
     subtitle: {
       subtitle1: "EFTDBは以下を提供します。",
       simple: {

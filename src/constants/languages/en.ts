@@ -26,6 +26,11 @@ const EN_DICT = {
       "dialog_description": "I will initialize the price history list. The default is Bitcoin. This operation cannot be undone. Do you wish to proceed?",
       "trader_price": "Trader's selling price."
     },
+    tracker: {
+      "title": "Tracker",
+      "last_seen": "Goons last seen on",
+      "provide": "This info is provided by tarkovpal.com",
+    },
     subtitle: {
       subtitle1: "EFTDB provides the following features.",
       simple: {

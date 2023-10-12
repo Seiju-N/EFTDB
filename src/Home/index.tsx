@@ -10,6 +10,7 @@ import { BossSpawn } from "./BossSpawn";
 import { PriceTracker } from "./PriceTracker";
 // import { UserSearch } from "./UserSearch";
 // import { TaskMemo } from "./TaskMemo";
+import { Tracker } from "./Tracker";
 
 export const Home = () => {
   const { langDict } = useHooks();
@@ -47,7 +48,6 @@ export const Home = () => {
           </Box>
           <TopSubtitle />
         </Grid>
-
         <Grid
           md={3}
           pt={2}
@@ -86,11 +86,11 @@ export const Home = () => {
         <Grid xs={16} md={6}>
           <BossSpawn />
         </Grid>
-        {/* <Grid xs={16} md={6}>
-          <TaskMemo />
-        </Grid> */}
         <Grid xs={16} md={6}>
           <PriceTracker />
+        </Grid>
+        <Grid xs={16} md={4}>
+          <Tracker />
         </Grid>
       </Grid>
     </Container>
