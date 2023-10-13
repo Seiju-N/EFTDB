@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { LanguageDictContext } from "@/App";
 import axios from "axios";
-import { Item } from "@/graphql/generated";
+import { Item, Vendor } from "@/graphql/generated";
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
@@ -18,6 +18,7 @@ export const useHooks = () => {
     sellItem: itemType,
     buyPrice: number,
     sellPrice: number,
+    sellVendor: Vendor,
     profit: number,
   }
   const [data, setData] = useState<Array<profitType>>([]);
