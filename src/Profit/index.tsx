@@ -15,7 +15,7 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { useHooks } from "./hooks";
 
 export const Profit = () => {
-  const { data } = useHooks();
+  const { data, langDict } = useHooks();
   return (
     <Container sx={{ height: "100%" }}>
       <Box sx={{ height: "100%" }}>
@@ -23,10 +23,14 @@ export const Profit = () => {
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ fontSize: 18, py: 1 }}>Item</TableCell>
-                <TableCell sx={{ fontSize: 18, py: 1 }}>Sell price</TableCell>
+                <TableCell sx={{ fontSize: 18, py: 1 }}>
+                  {langDict.PROFITS.item_name}
+                </TableCell>
+                <TableCell sx={{ fontSize: 18, py: 1 }}>
+                  {langDict.PROFITS.sell_price}
+                </TableCell>
                 <TableCell sx={{ fontSize: 18, py: 1 }} align="right">
-                  Profit
+                  {langDict.PROFITS.profit}
                 </TableCell>
               </TableRow>
             </TableHead>

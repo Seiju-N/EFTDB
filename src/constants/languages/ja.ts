@@ -83,6 +83,13 @@ const JA_DICT = {
     "<=": "以下",
   },
 
+  PROFITS: {
+    item_name: "アイテム名",
+    sell_price: "売却価格",
+    buy_price: "購入価格",
+    profit: "利益",
+  },
+
   TASK_STATUS: {
     complete: "完了",
   },

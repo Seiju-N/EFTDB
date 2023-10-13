@@ -74,6 +74,13 @@ const EN_DICT = {
     "<=": "less than or equal",
   },
 
+  PROFITS: {
+    item_name: "Item name",
+    sell_price: "Sell price",
+    buy_price: "Buy price",
+    profit: "Profit",
+  },
+
   TASK_COLUMN: {
     Name: "Task name",
     Experience: "Experience",
