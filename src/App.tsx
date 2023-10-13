@@ -20,6 +20,8 @@ import { TaskList } from "./TaskList";
 import { TopBar } from "./TopBar";
 import { ITEM_CATEGORIES, TRADERS } from "@/query";
 import { useTracking } from "./ga/useTracking";
+import { Profit } from "./Profit";
+import { NotFound } from "./404";
 
 const darkTheme = createTheme({
   palette: {
@@ -127,6 +129,8 @@ const App = () => {
                 <Route path="/task/:traderName/" element={<TaskList />} />
                 <Route path="/item/" element={<ItemList />} />
                 <Route path="/item/:categoryName" element={<ItemList />} />
+                <Route path="/profit/" element={<Profit />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
               <Footer />
             </TradersContext.Provider>
