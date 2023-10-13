@@ -101,6 +101,7 @@ const JA_DICT = {
     task: "タスク",
     item: "アイテム",
     taskMarker: "タスクマーカー",
+    profit:"利益表"
   },
 
   ITEM_TYPE: {

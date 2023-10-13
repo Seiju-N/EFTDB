@@ -167,6 +167,12 @@ export const MenuItemsXS = () => {
               handleClose={handleCloseNavMenu}
             />
           </Collapse>
+          <ListItemButton component={RouterLink} to="/profit">
+            <ListItemText
+              primary={langDict.MENU_SENTENCE.profit}
+              sx={{ pr: 10 }}
+            />
+          </ListItemButton>
         </List>
       </Menu>
     </Box>

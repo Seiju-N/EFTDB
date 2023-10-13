@@ -101,6 +101,7 @@ const EN_DICT = {
     task: "Tasks",
     item: "Items",
     taskMarker: "Task markers",
+    profit: "Profit",
   },
 
   ARMOR_MATERIAL: [
