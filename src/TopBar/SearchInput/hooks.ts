@@ -1,21 +1,10 @@
-import { Item, LanguageCode, Maybe, Task } from "@/graphql/generated";
-import { GET_ITEMS, GET_TASKS } from "@/query";
+import { ChangeEvent, useEffect, useState } from "react";
 import { toPascalCase } from "@/utils";
-import { useQuery } from "@apollo/client";
 import { debounce } from "@mui/material";
-import { ChangeEvent, useMemo, useState } from "react";
-
-type taskDataType = {
-  tasks: Task[];
-};
-
-type itemDataType = {
-  itemsWithoutCategories: Item[];
-};
-
+import { LanguageCode } from "@/graphql/generated";
 
 export type searchResult = {
-  id: Maybe<string> | undefined;
+  id: string | undefined;
   name: string;
   type: string;
   categoryName?: string;
@@ -26,53 +15,60 @@ export const useHooks = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [results, setResults] = useState<searchResult[]>([]);
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [allData, setAllData] = useState<searchResult[]>([]);
 
-  const { data: taskData, loading: taskIsLoading } = useQuery<taskDataType>(GET_TASKS(LanguageCode.En));
-  const { data: itemData, loading: itemIsLoading } = useQuery<itemDataType>(
-    GET_ITEMS(LanguageCode.En),
-    {
-      variables: { categoryNames: [], withCategory: false },
-    }
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("https://5bup4s7gdh.execute-api.ap-northeast-1.amazonaws.com/default/get_search_items", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            lang: LanguageCode.En,
+          }),
+        });
+        const data = await response.json();
+        if (data) {
+          console.log(data);
+          const combinedResults = [...data.tasks, ...data.items];
+          setAllData(combinedResults);
+        }
+        
+      } catch (err) {
+        setError(err as Error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const isLoading = taskIsLoading || itemIsLoading;
+    fetchData();
+  }, []);
 
-  const searchItems = useMemo(() => {
-    const tasks =
-      taskData?.tasks.map((task) => {
-        return { id: task.id, name: task.name, trader: task.trader.name ,type: "task" };
-      }) ?? [];
-    const items =
-      itemData?.itemsWithoutCategories.map((item) => {
-        return {
-          id: item.id,
-          name: item.name ? item.name : "",
-          categoryName: item.category?.normalizedName,
-          type: "item",
-        };
-      }) ?? [];
-    return { tasks, items };
-  }, [taskData, itemData]);
-  const filteredOptions = useMemo(() => [...searchItems.tasks, ...searchItems.items], [searchItems]);
   const debouncedSearch = debounce((searchValue: string) => {
-    const filteredResults = filteredOptions.filter((item) =>
+    const filteredResults = allData.filter((item) =>
       item.name.toLowerCase().includes(searchValue.toLowerCase())
     );
     setResults(filteredResults);
   }, 500);
-  
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const searchValue = event.target.value;
     setAnchorEl(event.currentTarget);
     setInputValue(searchValue);
-  
+
     if (searchValue) {
       debouncedSearch(searchValue);
     } else {
       setResults([]);
     }
   };
-  const generateLink = (rowLink:searchResult) => {
+
+  const generateLink = (rowLink: searchResult) => {
     if (rowLink.type === "task") {
       return `/task/${rowLink.trader}`;
     } else {
@@ -80,12 +76,24 @@ export const useHooks = () => {
     }
   }
 
-  const generateState = (rowState:searchResult) => {
+  const generateState = (rowState: searchResult) => {
     if (rowState.type === "task") {
-      return {taskId: rowState.id};
+      return { taskId: rowState.id };
     } else {
-      return {itemId: rowState.id};
+      return { itemId: rowState.id };
     }
-  }
-  return { inputValue, results, anchorEl, isLoading, setResults, setInputValue, handleChange, generateLink,generateState }
-}
+  };
+
+  return {
+    inputValue,
+    results,
+    anchorEl,
+    isLoading,
+    error,
+    setResults,
+    setInputValue,
+    handleChange,
+    generateLink,
+    generateState,
+  };
+};
