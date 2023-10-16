@@ -38,7 +38,6 @@ export const useHooks = () => {
             (trader) => trader?.name === profit.sellVendor.name
           );
           const imageLink = correspondingTrader?.imageLink || null;
-          console.log(imageLink);
           return {
             ...profit,
             sellVendorImageLink: imageLink,
