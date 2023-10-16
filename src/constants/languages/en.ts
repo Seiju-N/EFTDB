@@ -79,6 +79,7 @@ const EN_DICT = {
     sell_price: "Sell price",
     buy_price: "Buy price",
     profit: "Profit",
+    total: "Total buy price",
   },
 
   TASK_COLUMN: {

@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Backdrop,
   Box,
   CircularProgress,
@@ -10,9 +11,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { useHooks } from "./hooks";
+import { Fragment } from "react";
 
 export const Profit = () => {
   const { data, langDict } = useHooks();
@@ -24,27 +27,24 @@ export const Profit = () => {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ fontSize: 18, py: 1 }}>
-                  {langDict.PROFITS.item_name}
+                  <Typography>{langDict.PROFITS.item_name}</Typography>
                 </TableCell>
                 <TableCell sx={{ fontSize: 18, py: 1 }}>
-                  {langDict.PROFITS.sell_price}
+                  <Typography>{langDict.PROFITS.sell_price}</Typography>
                 </TableCell>
                 <TableCell sx={{ fontSize: 18, py: 1 }} align="right">
-                  {langDict.PROFITS.profit}
+                  <Typography>{langDict.PROFITS.profit}</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {data?.map((row) => (
-                <>
-                  <TableRow
-                    key={row.sellItem.item.id}
-                    sx={{ "& > *": { borderBottom: "unset" } }}
-                  >
+                <Fragment key={row.sellItem.item.id}>
+                  <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
                     <TableCell
                       component="th"
                       scope="row"
-                      style={{ fontSize: "20px" }}
+                      style={{ fontSize: "18px" }}
                     >
                       {row.sellItem.item.iconLink && (
                         <img
@@ -59,31 +59,60 @@ export const Profit = () => {
                       )}
                       {row.sellItem.item.name}
                     </TableCell>
-                    <TableCell style={{ fontSize: "20px" }}>
-                      {row.sellVendor.name} ₽{row.sellItem.sellPrice}
+                    <TableCell style={{ fontSize: "20px", paddingLeft: 0 }}>
+                      <Box display="flex" alignItems="center">
+                        <Avatar
+                          alt={row.sellVendor.name}
+                          src={row.sellVendorImageLink || ""}
+                          sx={{ marginRight: 1 }}
+                        />
+                        <Typography>₽{row.sellItem.sellPrice}</Typography>
+                      </Box>
                     </TableCell>
                     <TableCell align="right" style={{ fontSize: "20px" }}>
-                      + ₽
-                      {row.sellItem.sellPrice
-                        ? row.sellItem.sellPrice - row.buyPrice
-                        : 0}
+                      <Typography variant="subtitle1">
+                        {"+ ₽"}
+                        {row.sellItem.sellPrice
+                          ? row.sellItem.sellPrice - row.buyPrice
+                          : 0}
+                      </Typography>
                     </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell sx={{ py: 0, pl: 10 }} colSpan={3}>
                       <Box sx={{ margin: 1, pb: 2 }}>
-                        <CurrencyExchangeIcon
-                          fontSize="medium"
-                          sx={{ verticalAlign: "middle", mr: 1 }}
-                        />
                         <Table size="small" aria-label="purchases">
                           <colgroup>
-                            <col style={{ width: "60%" }} />
-                            <col style={{ width: "20%" }} />
+                            <col style={{ width: "65%" }} />
+                            <col style={{ width: "15%" }} />
                             <col style={{ width: "20%" }} />
                           </colgroup>
                           <TableBody>
+                            <TableRow>
+                              <TableCell sx={{ fontSize: 18, py: 1 }}>
+                                <CurrencyExchangeIcon
+                                  fontSize="medium"
+                                  sx={{ verticalAlign: "middle", mr: 1 }}
+                                />
+                              </TableCell>
+                              <TableCell
+                                align="right"
+                                sx={{ fontSize: 18, py: 1 }}
+                              >
+                                <Typography>
+                                  {langDict.PROFITS.buy_price}
+                                </Typography>
+                              </TableCell>
+                              <TableCell
+                                sx={{ fontSize: 18, py: 1 }}
+                                align="right"
+                              >
+                                <Typography>
+                                  {langDict.PROFITS.total}
+                                </Typography>
+                              </TableCell>
+                            </TableRow>
                             {row.buyItems.map((buyItem) => (
                               <TableRow key={buyItem.item.id}>
                                 <TableCell component="th" scope="row">
@@ -99,6 +128,7 @@ export const Profit = () => {
                                     />
                                   )}
                                   {buyItem.item.name}
+                                  {` (x${buyItem.count})`}
                                 </TableCell>
                                 <TableCell align="right">
                                   ₽
@@ -121,7 +151,7 @@ export const Profit = () => {
                       </Box>
                     </TableCell>
                   </TableRow>
-                </>
+                </Fragment>
               ))}
             </TableBody>
           </Table>

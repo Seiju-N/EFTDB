@@ -34,7 +34,6 @@ export const useHooks = () => {
         });
         const data = await response.json();
         if (data) {
-          console.log(data);
           const combinedResults = [...data.tasks, ...data.items];
           setAllData(combinedResults);
         }
