@@ -31,7 +31,6 @@ export const useHooks = () => {
             }
           });
         const data = await response.json();
-        console.log(data);
         if (data) {
           const combinedResults = [...data.tasks, ...data.items];
           setAllData(combinedResults);
@@ -43,8 +42,6 @@ export const useHooks = () => {
         setIsLoading(false);
       }
     };
-    console.log(allData);
-
     fetchData();
   }, []);
 

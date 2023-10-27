@@ -12,7 +12,6 @@ export const useTracking = (trackingId: string | undefined = "G-93Z965NJ8Q") => 
 
   useEffect(() => {
     if (!window.gtag) return;
-    console.log('Sending data to Google Analytics');
     if (!trackingId) {
       console.log(
         'Tracking not enabled, as `trackingId` was not given and there is no `GA_MEASUREMENT_ID`.',
@@ -26,7 +25,5 @@ export const useTracking = (trackingId: string | undefined = "G-93Z965NJ8Q") => 
       page_location: pagePath,
       debug_mode: true
     });
-    
-    console.log(location.pathname)
   }, [location.pathname, trackingId]);
 };
