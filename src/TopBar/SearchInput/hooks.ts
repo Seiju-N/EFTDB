@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { toPascalCase } from "@/utils";
 import { debounce } from "@mui/material";
-import { LanguageCode } from "@/graphql/generated";
 
 export type searchResult = {
   id: string | undefined;
@@ -23,30 +22,32 @@ export const useHooks = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("https://5bup4s7gdh.execute-api.ap-northeast-1.amazonaws.com/default/get_search_items", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            lang: LanguageCode.En,
-          }),
-        });
+        const response = await fetch(
+          "https://9gcyzp9x0k.execute-api.ap-northeast-1.amazonaws.com/default/get_item_name_list",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            }
+          });
         const data = await response.json();
+        console.log(data);
         if (data) {
           const combinedResults = [...data.tasks, ...data.items];
           setAllData(combinedResults);
         }
-        
+
       } catch (err) {
         setError(err as Error);
       } finally {
         setIsLoading(false);
       }
     };
+    console.log(allData);
 
     fetchData();
   }, []);
+
 
   const debouncedSearch = debounce((searchValue: string) => {
     const filteredResults = allData.filter((item) =>
