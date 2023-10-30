@@ -18,6 +18,7 @@ export const Home = () => {
     return (
       <Typography
         sx={{
+          pl: 1,
           fontSize: {
             xs: "1.4rem",
             md: "2.2rem",
