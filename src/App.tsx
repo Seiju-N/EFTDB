@@ -107,15 +107,6 @@ const App = () => {
         break;
     }
   }, [language]);
-  // if (tradersIsLoading || !tradersData || categoryIsLoading || !categoryData)
-  //   return (
-  //     <Backdrop open={true}>
-  //       <CircularProgress color="inherit" />
-  //       <Typography variant="h4" pl={2}>
-  //         Loading...
-  //       </Typography>
-  //     </Backdrop>
-  //   );
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
