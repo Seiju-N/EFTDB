@@ -19,7 +19,7 @@ export const Footer = () => {
           "linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))",
         color: "#ffffff",
         fontSize: (theme) => theme.typography.subtitle1.fontSize,
-        mt: 4,
+        mt: "auto",
         height: {
           xs: 128,
           sm: 96,

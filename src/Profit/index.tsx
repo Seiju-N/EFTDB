@@ -20,9 +20,9 @@ import { Fragment } from "react";
 export const Profit = () => {
   const { data, langDict } = useHooks();
   return (
-    <Container sx={{ height: "100%" }}>
+    <Container sx={{ height: "100%", py: 2 }}>
       <Box sx={{ height: "100%" }}>
-        <TableContainer component={Paper} sx={{ maxHeight: "75vh" }}>
+        <TableContainer component={Paper}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>

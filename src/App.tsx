@@ -30,6 +30,11 @@ const darkTheme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        "#root": {
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        },
         body: {
           ...darkScrollbar(),
           height: "100%",
@@ -110,24 +115,26 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <CategoryContext.Provider value={categoryData?.itemCategories}>
-        <LanguageContext.Provider value={language}>
-          <LanguageDictContext.Provider value={languageDict}>
-            <TradersContext.Provider value={tradersData?.traders}>
-              <TopBar setLanguage={setLanguage} />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/task/:traderName/" element={<TaskList />} />
-                <Route path="/item/" element={<ItemList />} />
-                <Route path="/item/:categoryName" element={<ItemList />} />
-                <Route path="/profit/" element={<Profit />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <Footer />
-            </TradersContext.Provider>
-          </LanguageDictContext.Provider>
-        </LanguageContext.Provider>
-      </CategoryContext.Provider>
+      <div id="root">
+        <CategoryContext.Provider value={categoryData?.itemCategories}>
+          <LanguageContext.Provider value={language}>
+            <LanguageDictContext.Provider value={languageDict}>
+              <TradersContext.Provider value={tradersData?.traders}>
+                <TopBar setLanguage={setLanguage} />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/task/:traderName/" element={<TaskList />} />
+                  <Route path="/item/" element={<ItemList />} />
+                  <Route path="/item/:categoryName" element={<ItemList />} />
+                  <Route path="/profit/" element={<Profit />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                <Footer />
+              </TradersContext.Provider>
+            </LanguageDictContext.Provider>
+          </LanguageContext.Provider>
+        </CategoryContext.Provider>
+      </div>
     </ThemeProvider>
   );
 };
