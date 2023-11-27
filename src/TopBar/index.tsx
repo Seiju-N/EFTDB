@@ -14,6 +14,7 @@ import { LanguageSelect } from "./LanguageSelect";
 import { SearchInput } from "./SearchInput";
 import { LanguageCode } from "@/graphql/generated";
 import { Box } from "@mui/material";
+import { LoginButton } from "./LoginButton";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<LanguageCode>>;
@@ -48,6 +49,7 @@ export const TopBar = ({ setLanguage }: Props) => {
           <SearchInput />
           <DiscordButton />
           <LanguageSelect setLanguage={setLanguage} />
+          <LoginButton />
         </Toolbar>
         <Box textAlign={"center"} bgcolor={"#222"}>
           <Typography variant="overline" color={"#DDD"}>
