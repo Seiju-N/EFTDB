@@ -170,6 +170,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/lodash": "^4.14.191",
     "@types/react-signature-canvas": "^1.0.2",
     "@types/react-virtualized-auto-sizer": "^1.0.1",
