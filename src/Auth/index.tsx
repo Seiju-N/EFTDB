@@ -8,9 +8,7 @@ export const AuthCallback = () => {
     const code = new URLSearchParams(window.location.search).get("code");
 
     if (!code) {
-      // 認証コードがない場合、エラーハンドリング
       console.error("認証コードがURLに含まれていません。");
-      // ログインページやエラーページにリダイレクトする
       history("/AuthError");
       return;
     }
@@ -19,7 +17,8 @@ export const AuthCallback = () => {
     const fetchAuthToken = async () => {
       try {
         const response = await fetch(
-          "https://bpszwkieq1.execute-api.ap-northeast-1.amazonaws.com/default/handle_discord_oauth",
+          // "https://bpszwkieq1.execute-api.ap-northeast-1.amazonaws.com/default/handle_discord_oauth",
+          "https://cxfck57axf.execute-api.ap-northeast-1.amazonaws.com/default/handle_discord_oauth_prod",
           {
             method: "POST",
             headers: {
@@ -30,21 +29,16 @@ export const AuthCallback = () => {
           }
         );
 
-        if (!response.ok) {
+        if (!response.ok || response.status !== 200) {
           throw new Error("サーバーからのレスポンスが正常ではありません。");
+        } else {
+          const _data = await response.json();
+          console.log("認証に成功しました。");
+
+          history("/");
         }
-
-        const data = await response.json();
-        // 取得したデータ（ユーザー情報やトークン）を処理
-        // 例: ローカルストレージに保存、グローバルステートに設定など
-
-        // ダッシュボードなど、ログイン後のページにリダイレクト
-        console.log(data);
-        console.log("認証に成功しました。");
-        history("/");
       } catch (error) {
         console.error("エラーが発生しました:", error);
-        // エラーハンドリング: エラーページにリダイレクトなど
         history("/AuthError");
       }
     };

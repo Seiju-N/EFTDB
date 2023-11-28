@@ -15,12 +15,15 @@ import { SearchInput } from "./SearchInput";
 import { LanguageCode } from "@/graphql/generated";
 import { Box } from "@mui/material";
 import { LoginButton } from "./LoginButton";
+import { useAuth } from "@/contexts/AuthContext";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<LanguageCode>>;
 };
 
 export const TopBar = ({ setLanguage }: Props) => {
+  const { isLogin } = useAuth();
+  console.log(isLogin);
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl">

@@ -6,7 +6,7 @@ import { useHooks } from "./hooks";
 export const LoginButton = memo(() => {
   const { handleLogin } = useHooks();
   return (
-    <IconButton onClick={handleLogin}>
+    <IconButton onClick={handleLogin} sx={{ opacity: 0, cursor: "default" }}>
       <Login />
     </IconButton>
   );
