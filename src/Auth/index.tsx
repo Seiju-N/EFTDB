@@ -17,7 +17,6 @@ export const AuthCallback = () => {
     const fetchAuthToken = async () => {
       try {
         const response = await fetch(
-          // "https://bpszwkieq1.execute-api.ap-northeast-1.amazonaws.com/default/handle_discord_oauth",
           "https://cxfck57axf.execute-api.ap-northeast-1.amazonaws.com/default/handle_discord_oauth_prod",
           {
             method: "POST",
@@ -25,6 +24,7 @@ export const AuthCallback = () => {
               "Content-Type": "application/json",
             },
             mode: "cors",
+            credentials: "include",
             body: JSON.stringify({ code }),
           }
         );
