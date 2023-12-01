@@ -14,12 +14,13 @@ import { LanguageSelect } from "./LanguageSelect";
 import { SearchInput } from "./SearchInput";
 import { LanguageCode } from "@/graphql/generated";
 import { Box } from "@mui/material";
-import { LoginButton } from "./LoginButton";
+import { User } from "./User";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<LanguageCode>>;
 };
 
+// SearchInputとDiscordButtonの間にユーザー情報を表示するコンポーネントを追加する
 export const TopBar = ({ setLanguage }: Props) => {
   return (
     <AppBar position="sticky">
@@ -47,9 +48,9 @@ export const TopBar = ({ setLanguage }: Props) => {
           </Typography>
           <MenuItemsMD />
           <SearchInput />
+          <User />
           <DiscordButton />
           <LanguageSelect setLanguage={setLanguage} />
-          <LoginButton />
         </Toolbar>
         <Box textAlign={"center"} bgcolor={"#222"}>
           <Typography variant="overline" color={"#DDD"}>

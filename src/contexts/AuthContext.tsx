@@ -1,7 +1,27 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+type DiscordUser = {
+  accent_color: string;
+  avatar: string;
+  avatar_decoration_data: string;
+  banner: string;
+  banner_color: string;
+  discriminator: string;
+  email: string;
+  flags: number;
+  global_name: string;
+  id: string;
+  locale: string;
+  mfa_enabled: boolean;
+  premium_type: number;
+  public_flags: number;
+  username: string;
+  verified: boolean;
+};
+
 type AuthContextType = {
   isLogin: boolean;
+  discordUser: DiscordUser | undefined;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type AuthProviderProps = {
@@ -14,6 +34,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLogin, setIsLogin] = useState(false);
+  const [discordUser, setDiscordUser] = useState<DiscordUser>();
 
   const checkLoginStatus = async () => {
     try {
@@ -28,8 +49,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const data = await response.json();
       if (response.ok && data.isAuthenticated) {
         setIsLogin(true);
+        setDiscordUser(data.user);
       } else {
         setIsLogin(false);
+        setDiscordUser(undefined);
       }
     } catch (error) {
       console.error("ログイン状態の確認中にエラーが発生しました:", error);
@@ -42,7 +65,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLogin, setIsLogin }}>
+    <AuthContext.Provider value={{ isLogin, discordUser, setIsLogin }}>
       {children}
     </AuthContext.Provider>
   );
