@@ -38,7 +38,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   useEffect(() => {
-    console.log("ログイン状態を確認します。");
     checkLoginStatus();
   }, []);
 
