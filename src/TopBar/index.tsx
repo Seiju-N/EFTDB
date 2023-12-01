@@ -48,9 +48,9 @@ export const TopBar = ({ setLanguage }: Props) => {
           </Typography>
           <MenuItemsMD />
           <SearchInput />
-          <User />
           <DiscordButton />
           <LanguageSelect setLanguage={setLanguage} />
+          <User />
         </Toolbar>
         <Box textAlign={"center"} bgcolor={"#222"}>
           <Typography variant="overline" color={"#DDD"}>

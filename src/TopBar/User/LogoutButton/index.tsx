@@ -6,7 +6,7 @@ import { useHooks } from "./hooks";
 export const LogoutButton = memo(() => {
   const { handleLogout } = useHooks();
   return (
-    <IconButton onClick={handleLogout} sx={{ opacity: 0, cursor: "default" }}>
+    <IconButton onClick={handleLogout}>
       <Logout />
     </IconButton>
   );

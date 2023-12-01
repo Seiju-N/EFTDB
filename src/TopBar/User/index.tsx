@@ -5,14 +5,17 @@ import { LogoutButton } from "./LogoutButton";
 
 export const User = () => {
   const { isLogin, discordUser } = useAuth();
-
+  console.log(
+    "Avatar link: ",
+    `https://cdn.discordapp.com/avatars/${discordUser?.id}/${discordUser?.avatar}.png`
+  );
   return (
     <>
       {isLogin && discordUser ? (
         <>
           <Avatar
             alt={discordUser.username}
-            src={`https://cdn.discordapp.com/${discordUser.id}/${discordUser.avatar}.png`}
+            src={`https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`}
           />
           <LogoutButton />
         </>
