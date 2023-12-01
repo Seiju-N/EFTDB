@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const checkLoginStatus = async () => {
     try {
       const response = await fetch(
-        "https://ncxgfgecaj.execute-api.ap-northeast-1.amazonaws.com/default/handle_check_auth",
+        "https://cxfck57axf.execute-api.ap-northeast-1.amazonaws.com/default/handle_check_auth",
         {
           method: "POST",
           credentials: "include",
