@@ -2,7 +2,9 @@ const EN_DICT = {
   LOGIN_STATUS:{
     logout: "Logout",
     login_msg: "Login success.",
-    logout_msg: "Logout success."
+    logout_msg: "Logout success.",
+    code_missing: "Authorization code is missing.",
+    login_failed: "Login failed.",
   },
   LOADING:{
     auth_check: "Checking authentication status...",

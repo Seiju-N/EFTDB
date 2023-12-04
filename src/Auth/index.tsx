@@ -15,7 +15,11 @@ export const AuthCallback = () => {
 
     if (!code) {
       console.error("認証コードがURLに含まれていません。");
-      history("/AuthError");
+      history("/");
+      showSnackBar({
+        message: langDict.LOGIN_STATUS.code_missing,
+        severity: "error",
+      });
       return;
     }
 
@@ -43,15 +47,17 @@ export const AuthCallback = () => {
           setIsLogin(true);
           console.log("認証に成功しました。");
           history("/");
-
           showSnackBar({ message: langDict.LOGIN_STATUS.login_msg });
         }
       } catch (error) {
         console.error("エラーが発生しました:", error);
-        history("/AuthError");
+        history("/");
+        showSnackBar({
+          message: langDict.LOGIN_STATUS.login_failed,
+          severity: "error",
+        });
       }
     };
-
     fetchAuthToken();
   }, [history]);
 

@@ -1,12 +1,6 @@
 export type dictType = {
-  LOGIN_STATUS:{
-    logout: string,
-    login_msg: string,
-    logout_msg: string 
-  },
-  LOADING:{
-    auth_check: string,
-  },
+  LOGIN_STATUS:Record<string, string>,
+  LOADING:Record<string, string>,
   HOME_SENTENCE: {
     welcome_msg: string,
     discord_server: string,
@@ -43,9 +37,7 @@ export type dictType = {
   ARMOR_MATERIAL: Record<string, string>[],
   HEAD_ZONES: Record<string, string>,
   BODY_ZONES: Record<string, string>,
-  ITEM_PROPERTIES: {
-    [key: string]: string;
-  },
+  ITEM_PROPERTIES: Record<string, string>,
   ITEM_PROPERTIES_TAB: Record<string, string>,
   ITEM_PROPERTIES_AMMO: Record<string, string>,
   ITEM_PROPERTIES_ARMOR: Record<string, string>,
