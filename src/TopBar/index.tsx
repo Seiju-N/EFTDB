@@ -13,7 +13,6 @@ import { MenuItemsXS } from "./MenuItemsXS";
 import { LanguageSelect } from "./LanguageSelect";
 import { SearchInput } from "./SearchInput";
 import { LanguageCode } from "@/graphql/generated";
-import { Box } from "@mui/material";
 import { User } from "./User";
 
 type Props = {
@@ -51,11 +50,6 @@ export const TopBar = ({ setLanguage }: Props) => {
           <LanguageSelect setLanguage={setLanguage} />
           <User />
         </Toolbar>
-        <Box textAlign={"center"} bgcolor={"#222"}>
-          <Typography variant="overline" color={"#DDD"}>
-            画面上部の検索機能は別機能への置き換えのため今後廃止されます。
-          </Typography>
-        </Box>
       </Container>
     </AppBar>
   );
