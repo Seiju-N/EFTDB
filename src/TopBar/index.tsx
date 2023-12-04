@@ -20,7 +20,6 @@ type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<LanguageCode>>;
 };
 
-// SearchInputとDiscordButtonの間にユーザー情報を表示するコンポーネントを追加する
 export const TopBar = ({ setLanguage }: Props) => {
   return (
     <AppBar position="sticky">

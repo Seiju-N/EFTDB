@@ -10,7 +10,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { memo, useCallback, useContext, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import type { ItemCategory, Maybe } from "@/graphql/generated";
@@ -25,12 +25,22 @@ import { toPascalCase } from "../utils";
 import SearchIcon from "@mui/icons-material/Search";
 import { useQuery } from "@apollo/client";
 import { GET_TASKS } from "@/query";
+import { useAuth } from "@/contexts/AuthContext";
+import { useSnackBar } from "@/contexts/SnackBarContext";
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
   const lang = useContext(LanguageContext);
   const categories = useContext(CategoryContext);
   const traders = useContext(TradersContext);
+  const { isLogin } = useAuth();
+  const { showSnackBar } = useSnackBar();
+
+  useEffect(() => {
+    if (isLogin) {
+      showSnackBar({ message: "ログインしました。" });
+    }
+  }, [isLogin, showSnackBar]);
 
   const { data: _taskData } = useQuery(GET_TASKS(lang));
   type nestedCategoryProps = {

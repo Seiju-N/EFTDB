@@ -23,6 +23,7 @@ type AuthContextType = {
   isLogin: boolean;
   discordUser: DiscordUser | undefined;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  setDiscordUser: React.Dispatch<React.SetStateAction<DiscordUser | undefined>>;
 };
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -65,7 +66,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLogin, discordUser, setIsLogin }}>
+    <AuthContext.Provider
+      value={{ isLogin, discordUser, setIsLogin, setDiscordUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
