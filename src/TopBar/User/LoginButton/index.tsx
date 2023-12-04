@@ -1,13 +1,15 @@
 import Login from "@mui/icons-material/Login";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { memo } from "react";
 import { useHooks } from "./hooks";
-
+//Discordでログイン
 export const LoginButton = memo(() => {
   const { handleLogin } = useHooks();
   return (
-    <IconButton onClick={handleLogin}>
-      <Login />
-    </IconButton>
+    <Tooltip title="Discord Sign-In">
+      <IconButton onClick={handleLogin}>
+        <Login />
+      </IconButton>
+    </Tooltip>
   );
 });

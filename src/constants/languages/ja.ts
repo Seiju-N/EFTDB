@@ -1,8 +1,13 @@
 const JA_DICT = {
+  SIDE_MENU: {
+    user_setting: "ユーザー設定",
+  },
   LOGIN_STATUS:{
     logout: "ログアウト",
     login_msg: "ログインしました。",
-    logout_msg: "ログアウトしました。" 
+    logout_msg: "ログアウトしました。",
+    code_missing: "認証エラー: 認証コードがありません。",
+    login_failed: "ログインに失敗しました。",
   },
 
   LOADING:{
