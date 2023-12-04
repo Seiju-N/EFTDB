@@ -1,4 +1,11 @@
 const EN_DICT = {
+  LOGIN_STATUS:{
+    login_msg: "Login success.",
+    logout_msg: "Logout success." 
+  },
+  LOADING:{
+    auth_check: "Checking authentication status...",
+  },
   HOME_SENTENCE: {
     welcome_msg: "Welcome to",
     discord_server: "Join our Discord server",

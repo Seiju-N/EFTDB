@@ -60,7 +60,7 @@ export const SnackBarProvider = ({ children }: SnackBarProviderProps) => {
           severity={snackBarInfo.severity}
           sx={{ width: "100%" }}
         >
-          snackBarInfo.message
+          {snackBarInfo.message}
         </Alert>
       </Snackbar>
     </SnackBarContext.Provider>

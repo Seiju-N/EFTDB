@@ -1,12 +1,15 @@
+import { LanguageDictContext } from "@/App";
 import { useAuth } from "@/contexts/AuthContext";
+import { useSnackBar } from "@/contexts/SnackBarContext";
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AuthCallback = () => {
   const history = useNavigate();
   const { setIsLogin, setDiscordUser } = useAuth();
-
+  const { showSnackBar } = useSnackBar();
+  const langDict = useContext(LanguageDictContext);
   useEffect(() => {
     const code = new URLSearchParams(window.location.search).get("code");
 
@@ -40,6 +43,8 @@ export const AuthCallback = () => {
           setIsLogin(true);
           console.log("認証に成功しました。");
           history("/");
+
+          showSnackBar({ message: langDict.LOGIN_STATUS.login_msg });
         }
       } catch (error) {
         console.error("エラーが発生しました:", error);
@@ -61,7 +66,7 @@ export const AuthCallback = () => {
       >
         <CircularProgress />
         <Typography variant="h6" style={{ marginTop: 20 }}>
-          認証中...
+          {langDict.LOADING.auth_check}
         </Typography>
       </Box>
     </Container>
