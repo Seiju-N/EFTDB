@@ -86,6 +86,7 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "add-domain": "echo \"eftdb.info\" > docs/CNAME && echo \"eftdb.info\" > public/CNAME",
     "start": "graphql-codegen && node scripts/start.js",
     "dev": "graphql-codegen && node scripts/start.js",
