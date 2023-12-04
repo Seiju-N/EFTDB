@@ -1,7 +1,8 @@
 const EN_DICT = {
   LOGIN_STATUS:{
+    logout: "Logout",
     login_msg: "Login success.",
-    logout_msg: "Logout success." 
+    logout_msg: "Logout success."
   },
   LOADING:{
     auth_check: "Checking authentication status...",

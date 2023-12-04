@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import {
   Avatar,
   Drawer,
@@ -14,20 +13,14 @@ import Logout from "@mui/icons-material/Logout";
 import { useHooks } from "./hooks";
 
 export const User = () => {
-  const { isLogin, discordUser } = useAuth();
-  const { handleLogout, drawerOpen, setDrawerOpen } = useHooks();
-
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
-      setDrawerOpen(open);
-    };
+  const {
+    handleLogout,
+    drawerOpen,
+    langDict,
+    discordUser,
+    isLogin,
+    toggleDrawer,
+  } = useHooks();
 
   return (
     <>
@@ -49,7 +42,7 @@ export const User = () => {
                 <ListItemIcon sx={{ minWidth: 40 }}>
                   <Logout />
                 </ListItemIcon>
-                <ListItemText primary="ログアウト" />
+                <ListItemText primary={langDict.LOGIN_STATUS.logout} />
               </ListItemButton>
             </List>
           </Drawer>

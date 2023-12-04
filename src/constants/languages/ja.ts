@@ -1,5 +1,6 @@
 const JA_DICT = {
   LOGIN_STATUS:{
+    logout: "ログアウト",
     login_msg: "ログインしました。",
     logout_msg: "ログアウトしました。" 
   },

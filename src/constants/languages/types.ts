@@ -1,5 +1,6 @@
 export type dictType = {
   LOGIN_STATUS:{
+    logout: string,
     login_msg: string,
     logout_msg: string 
   },

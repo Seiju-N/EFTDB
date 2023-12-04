@@ -9,7 +9,19 @@ export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
   const { showSnackBar } = useSnackBar();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { setIsLogin } = useAuth();
+  const { isLogin, discordUser,setIsLogin } = useAuth();
+
+  const toggleDrawer =
+  (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event.type === "keydown" &&
+      ((event as React.KeyboardEvent).key === "Tab" ||
+        (event as React.KeyboardEvent).key === "Shift")
+    ) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
 
   const handleLogout = async () => {
     try {
@@ -38,6 +50,9 @@ export const useHooks = () => {
   return {
     handleLogout,
     drawerOpen,
-    setDrawerOpen,
+    langDict,
+    isLogin,
+    discordUser,
+    toggleDrawer,
   };
 }
