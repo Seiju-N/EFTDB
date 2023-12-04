@@ -1,4 +1,5 @@
 export type dictType = {
+  SIDE_MENU: Record<string, string>,
   LOGIN_STATUS:Record<string, string>,
   LOADING:Record<string, string>,
   HOME_SENTENCE: {

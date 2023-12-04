@@ -1,4 +1,7 @@
 const EN_DICT = {
+  SIDE_MENU: {
+    user_setting: "User setting",
+  },
   LOGIN_STATUS:{
     logout: "Logout",
     login_msg: "Login success.",

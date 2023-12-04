@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { LoginButton } from "./LoginButton";
 import Logout from "@mui/icons-material/Logout";
+import Person from "@mui/icons-material/Person";
 import { useHooks } from "./hooks";
 
 export const User = () => {
@@ -38,6 +39,12 @@ export const User = () => {
             onClose={toggleDrawer(false)}
           >
             <List>
+              <ListItemButton disabled>
+                <ListItemIcon sx={{ minWidth: 40 }}>
+                  <Person />
+                </ListItemIcon>
+                <ListItemText primary={langDict.SIDE_MENU.user_setting} />
+              </ListItemButton>
               <ListItemButton onClick={handleLogout}>
                 <ListItemIcon sx={{ minWidth: 40 }}>
                   <Logout />

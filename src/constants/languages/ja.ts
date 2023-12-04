@@ -1,4 +1,7 @@
 const JA_DICT = {
+  SIDE_MENU: {
+    user_setting: "ユーザー設定",
+  },
   LOGIN_STATUS:{
     logout: "ログアウト",
     login_msg: "ログインしました。",
