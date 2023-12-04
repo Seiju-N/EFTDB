@@ -22,6 +22,9 @@ import { ITEM_CATEGORIES, TRADERS } from "@/query";
 import { useTracking } from "./ga/useTracking";
 import { Profit } from "./Profit";
 import { NotFound } from "./404";
+import { AuthCallback } from "./Auth";
+import { AuthProvider } from "./contexts/AuthContext";
+import { SnackBarProvider } from "./contexts/SnackBarContext";
 
 const darkTheme = createTheme({
   palette: {
@@ -76,6 +79,7 @@ const App = () => {
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const { data: tradersData } = useQuery<Query>(TRADERS);
   const { data: categoryData } = useQuery<Query>(ITEM_CATEGORIES);
+
   useTracking("G-93Z965NJ8Q");
 
   useEffect(() => {
@@ -114,27 +118,35 @@ const App = () => {
   }, [language]);
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div id="root">
-        <CategoryContext.Provider value={categoryData?.itemCategories}>
-          <LanguageContext.Provider value={language}>
-            <LanguageDictContext.Provider value={languageDict}>
-              <TradersContext.Provider value={tradersData?.traders}>
-                <TopBar setLanguage={setLanguage} />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/task/:traderName/" element={<TaskList />} />
-                  <Route path="/item/" element={<ItemList />} />
-                  <Route path="/item/:categoryName" element={<ItemList />} />
-                  <Route path="/profit/" element={<Profit />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-                <Footer />
-              </TradersContext.Provider>
-            </LanguageDictContext.Provider>
-          </LanguageContext.Provider>
-        </CategoryContext.Provider>
-      </div>
+      <AuthProvider>
+        <SnackBarProvider>
+          <CssBaseline />
+          <div id="root">
+            <CategoryContext.Provider value={categoryData?.itemCategories}>
+              <LanguageContext.Provider value={language}>
+                <LanguageDictContext.Provider value={languageDict}>
+                  <TradersContext.Provider value={tradersData?.traders}>
+                    <TopBar setLanguage={setLanguage} />
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/task/:traderName/" element={<TaskList />} />
+                      <Route path="/item/" element={<ItemList />} />
+                      <Route
+                        path="/item/:categoryName"
+                        element={<ItemList />}
+                      />
+                      <Route path="/profit/" element={<Profit />} />
+                      <Route path="/auth/callback" element={<AuthCallback />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                    <Footer />
+                  </TradersContext.Provider>
+                </LanguageDictContext.Provider>
+              </LanguageContext.Provider>
+            </CategoryContext.Provider>
+          </div>
+        </SnackBarProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 };

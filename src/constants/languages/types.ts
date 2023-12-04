@@ -1,4 +1,12 @@
 export type dictType = {
+  LOGIN_STATUS:{
+    logout: string,
+    login_msg: string,
+    logout_msg: string 
+  },
+  LOADING:{
+    auth_check: string,
+  },
   HOME_SENTENCE: {
     welcome_msg: string,
     discord_server: string,

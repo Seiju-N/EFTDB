@@ -1,4 +1,14 @@
 const JA_DICT = {
+  LOGIN_STATUS:{
+    logout: "ログアウト",
+    login_msg: "ログインしました。",
+    logout_msg: "ログアウトしました。" 
+  },
+
+  LOADING:{
+    auth_check: "認証中...",
+  },
+
   HOME_SENTENCE: {
     welcome_msg: "Welcome to",
     discord_server: "Discordサーバーに参加",
