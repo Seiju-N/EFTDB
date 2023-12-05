@@ -57,6 +57,12 @@ export const User = () => {
             <Box sx={{ mt: "auto" }}>
               <List>
                 <ListItem>
+                  <ListItemIcon>
+                    <Avatar
+                      alt={discordUser.username}
+                      src={`https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`}
+                    />
+                  </ListItemIcon>
                   <ListItemText
                     primary={`${discordUser.username}#${discordUser.discriminator}`}
                   />
