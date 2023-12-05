@@ -46,7 +46,6 @@ export const useHooks = () => {
       console.error("ログアウト中にエラーが発生しました:", error);
     }
   };
-  setIsLogin(true);
   return {
     handleLogout,
     drawerOpen,
