@@ -39,12 +39,12 @@ export const SnackBarProvider = ({ children }: SnackBarProviderProps) => {
   }: ShowSnackBarProps) => {
     setSnackBarInfo({ open: true, message, severity });
     setTimeout(() => {
-      setSnackBarInfo({ open: false, message: "", severity: "success" });
+      setSnackBarInfo({ open: false, message, severity });
     }, 4000);
   };
 
   const handleCloseSnackBar = () => {
-    setSnackBarInfo({ open: false, message: "", severity: "success" });
+    setSnackBarInfo({ open: false, message: "", severity: undefined });
   };
 
   return (
@@ -52,7 +52,7 @@ export const SnackBarProvider = ({ children }: SnackBarProviderProps) => {
       {children}
       <Snackbar
         open={snackBarInfo.open}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={handleCloseSnackBar}
       >
         <Alert
