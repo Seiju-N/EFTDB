@@ -1,9 +1,11 @@
 import React from "react";
 import {
   Avatar,
+  Box,
   Drawer,
   IconButton,
   List,
+  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -52,6 +54,15 @@ export const User = () => {
                 <ListItemText primary={langDict.LOGIN_STATUS.logout} />
               </ListItemButton>
             </List>
+            <Box sx={{ mt: "auto" }}>
+              <List>
+                <ListItem>
+                  <ListItemText
+                    primary={`${discordUser.username}#${discordUser.discriminator}`}
+                  />
+                </ListItem>
+              </List>
+            </Box>
           </Drawer>
         </>
       ) : (
