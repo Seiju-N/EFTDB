@@ -64,8 +64,8 @@ export const User = () => {
                     />
                   </ListItemIcon>
                   <ListItemText
-                    primary={`${discordUser.username}#${discordUser.discriminator}`}
-                    secondary={`#${discordUser.global_name}`}
+                    primary={`${discordUser.username}`}
+                    secondary={`${discordUser.global_name}`}
                     primaryTypographyProps={{ letterSpacing: 0.5 }}
                     secondaryTypographyProps={{ letterSpacing: 0.5 }}
                   />
