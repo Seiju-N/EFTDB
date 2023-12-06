@@ -66,8 +66,8 @@ export const User = () => {
                   <ListItemText
                     primary={`${discordUser.username}`}
                     secondary={`${discordUser.global_name}`}
-                    primaryTypographyProps={{ letterSpacing: 0.5 }}
-                    secondaryTypographyProps={{ letterSpacing: 0.5 }}
+                    primaryTypographyProps={{ letterSpacing: 0.2 }}
+                    secondaryTypographyProps={{ letterSpacing: 0.2 }}
                   />
                 </ListItem>
               </List>
