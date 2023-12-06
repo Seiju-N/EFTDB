@@ -40,7 +40,7 @@ export const User = () => {
             open={drawerOpen}
             onClose={toggleDrawer(false)}
           >
-            <List>
+            <List sx={{ width: 250 }}>
               <ListItemButton disabled>
                 <ListItemIcon sx={{ minWidth: 40 }}>
                   <Person />
@@ -65,6 +65,9 @@ export const User = () => {
                   </ListItemIcon>
                   <ListItemText
                     primary={`${discordUser.username}#${discordUser.discriminator}`}
+                    secondary={`#${discordUser.global_name}`}
+                    primaryTypographyProps={{ letterSpacing: 0.5 }}
+                    secondaryTypographyProps={{ letterSpacing: 0.5 }}
                   />
                 </ListItem>
               </List>
