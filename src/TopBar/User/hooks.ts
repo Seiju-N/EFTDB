@@ -9,19 +9,19 @@ export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
   const { showSnackBar } = useSnackBar();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { isLogin, discordUser,setIsLogin } = useAuth();
+  const { isLogin, discordUser, setIsLogin } = useAuth();
 
   const toggleDrawer =
-  (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" ||
-        (event as React.KeyboardEvent).key === "Shift")
-    ) {
-      return;
-    }
-    setDrawerOpen(open);
-  };
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+      setDrawerOpen(open);
+    };
 
   const handleLogout = async () => {
     try {
@@ -46,7 +46,6 @@ export const useHooks = () => {
       console.error("ログアウト中にエラーが発生しました:", error);
     }
   };
-
   return {
     handleLogout,
     drawerOpen,

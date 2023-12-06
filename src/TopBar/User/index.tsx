@@ -1,9 +1,11 @@
 import React from "react";
 import {
   Avatar,
+  Box,
   Drawer,
   IconButton,
   List,
+  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -38,7 +40,7 @@ export const User = () => {
             open={drawerOpen}
             onClose={toggleDrawer(false)}
           >
-            <List>
+            <List sx={{ width: 250 }}>
               <ListItemButton disabled>
                 <ListItemIcon sx={{ minWidth: 40 }}>
                   <Person />
@@ -52,6 +54,24 @@ export const User = () => {
                 <ListItemText primary={langDict.LOGIN_STATUS.logout} />
               </ListItemButton>
             </List>
+            <Box sx={{ mt: "auto" }}>
+              <List>
+                <ListItem>
+                  <ListItemIcon>
+                    <Avatar
+                      alt={discordUser.username}
+                      src={`https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={`${discordUser.username}#${discordUser.discriminator}`}
+                    secondary={`#${discordUser.global_name}`}
+                    primaryTypographyProps={{ letterSpacing: 0.5 }}
+                    secondaryTypographyProps={{ letterSpacing: 0.5 }}
+                  />
+                </ListItem>
+              </List>
+            </Box>
           </Drawer>
         </>
       ) : (
