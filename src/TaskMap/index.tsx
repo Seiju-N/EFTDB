@@ -57,50 +57,37 @@ const getLinkClass = (linkDatum: TreeLinkDatum) => {
   return linkDatum.target.children ? "branch-link" : "leaf-link";
 };
 
+const defaultData: RawNodeDatum = {
+  name: "データがありません。",
+  children: [],
+};
+
 export const TaskMap = () => {
-  // const nodes: RawNodeDatum = {
-  //   name: "由仁 太郎",
-  //   children: [
-  //     {
-  //       name: "由仁 次郎",
-  //     },
-  //     {
-  //       name: "由仁 三郎",
-  //       children: [
-  //         {
-  //           name: "由仁 四郎",
-  //           children: [
-  //             {
-  //               name: "由仁 五郎",
-  //             },
-  //           ],
-  //         },
-  //         {
-  //           name: "由仁 五郎",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // };
   const [isLoading, setIsLoading] = useState(true);
-  const [taskTree, setTaskTree] = useState<RawNodeDatum>();
+  const [taskTree, setTaskTree] = useState<RawNodeDatum>(defaultData);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          "https://p5murtn855.execute-api.ap-northeast-1.amazonaws.com/default/get_task_tree",
+          "https://cxfck57axf.execute-api.ap-northeast-1.amazonaws.com/default/handle_get_task_tree",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
+            mode: "cors",
+            credentials: "include",
           }
         );
-        const data = await response.json();
-        console.log(data);
-        if (data) {
-          setTaskTree(data);
+        if (!response.ok || response.status !== 200) {
+          throw new Error("サーバーからのレスポンスが正常ではありません。");
+        } else {
+          const data = await response.json();
+          console.log(data);
+          if (data) {
+            setTaskTree(data);
+          }
         }
       } catch (err) {
         console.error(err);
@@ -111,7 +98,7 @@ export const TaskMap = () => {
     fetchData();
   }, []);
 
-  return isLoading ? (
+  return isLoading || !taskTree ? (
     <div>loading...</div>
   ) : (
     <div style={{ height: "80vh", width: "100vw", overflow: "hidden" }}>
