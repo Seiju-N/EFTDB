@@ -123,6 +123,7 @@ const EN_DICT = {
     item: "Items",
     taskMarker: "Task markers",
     profit: "Profit",
+    taskMap: "Task map",
   },
 
   ARMOR_MATERIAL: [

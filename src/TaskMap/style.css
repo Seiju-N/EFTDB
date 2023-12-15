@@ -1,0 +1,11 @@
+.branch-link {
+  stroke: #eee !important; /* Example color for branch links */
+}
+
+.leaf-link {
+  stroke: #eee !important; /* Example color for leaf links */
+}
+
+.rd3t-tree-container {
+  overflow: hidden;
+}
