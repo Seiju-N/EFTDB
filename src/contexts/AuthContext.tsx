@@ -17,6 +17,7 @@ type DiscordUser = {
   public_flags: number;
   username: string;
   verified: boolean;
+  is_staff: boolean;
 };
 
 type AuthContextType = {

@@ -25,6 +25,7 @@ import { NotFound } from "./404";
 import { AuthCallback } from "./Auth";
 import { AuthProvider } from "./contexts/AuthContext";
 import { SnackBarProvider } from "./contexts/SnackBarContext";
+import { Admin } from "./Admin";
 
 const darkTheme = createTheme({
   palette: {
@@ -137,6 +138,7 @@ const App = () => {
                       />
                       <Route path="/profit/" element={<Profit />} />
                       <Route path="/auth/callback" element={<AuthCallback />} />
+                      <Route path="/admin/" element={<Admin />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                     <Footer />
