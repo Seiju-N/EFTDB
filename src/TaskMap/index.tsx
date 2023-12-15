@@ -89,7 +89,7 @@ export const TaskMap = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          "https://e050cd2d2i.execute-api.ap-northeast-1.amazonaws.com/default/get_task_tree",
+          "https://p5murtn855.execute-api.ap-northeast-1.amazonaws.com/default/get_task_tree",
           {
             method: "POST",
             headers: {
