@@ -124,7 +124,8 @@ const JA_DICT = {
     task: "タスク",
     item: "アイテム",
     taskMarker: "タスクマーカー",
-    profit:"利益表"
+    profit:"利益表",
+    taskMap: "タスクマップ",
   },
 
   ITEM_TYPE: {

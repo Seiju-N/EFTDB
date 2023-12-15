@@ -25,6 +25,7 @@ import { NotFound } from "./404";
 import { AuthCallback } from "./Auth";
 import { AuthProvider } from "./contexts/AuthContext";
 import { SnackBarProvider } from "./contexts/SnackBarContext";
+import { TaskMap } from "./TaskMap";
 
 const darkTheme = createTheme({
   palette: {
@@ -136,6 +137,7 @@ const App = () => {
                         element={<ItemList />}
                       />
                       <Route path="/profit/" element={<Profit />} />
+                      <Route path="/taskmap/" element={<TaskMap />} />
                       <Route path="/auth/callback" element={<AuthCallback />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>

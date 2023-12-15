@@ -47,13 +47,13 @@ export const MenuItemsMD = () => {
       >
         {langDict.MENU_SENTENCE.profit}
       </Button>
-      {/* <Button
+      <Button
         component={RouterLink}
-        to={"/tracker/"}
+        to={"/taskmap/"}
         sx={{ my: 2, color: "white", display: "block" }}
       >
-        {langDict.MENU_SENTENCE.tracker}
-      </Button> */}
+        {langDict.MENU_SENTENCE.taskMap}
+      </Button>
       <Menu
         sx={{ mt: "45px" }}
         id="menu-appbar"

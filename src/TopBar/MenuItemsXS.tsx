@@ -173,6 +173,12 @@ export const MenuItemsXS = () => {
               sx={{ pr: 10 }}
             />
           </ListItemButton>
+          <ListItemButton component={RouterLink} to="/taskmap">
+            <ListItemText
+              primary={langDict.MENU_SENTENCE.taskMap}
+              sx={{ pr: 10 }}
+            />
+          </ListItemButton>
         </List>
       </Menu>
     </Box>
