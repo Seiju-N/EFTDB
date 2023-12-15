@@ -13,6 +13,7 @@ import { useHooks } from "./hooks";
 import { Link as RouterLink } from "react-router-dom";
 import { NestedItem } from "./ItemMenuComponents/NestedItem";
 import { NestedSubItem } from "./ItemMenuComponents/NestedSubItem";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const MenuItemsMD = () => {
   const {
@@ -25,7 +26,7 @@ export const MenuItemsMD = () => {
     handleOpenItemMenu,
     handleCloseItemMenu,
   } = useHooks();
-
+  const { isLogin } = useAuth();
   return (
     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
       <Button
@@ -47,13 +48,15 @@ export const MenuItemsMD = () => {
       >
         {langDict.MENU_SENTENCE.profit}
       </Button>
-      <Button
-        component={RouterLink}
-        to={"/taskmap/"}
-        sx={{ my: 2, color: "white", display: "block" }}
-      >
-        {langDict.MENU_SENTENCE.taskMap}
-      </Button>
+      {isLogin && (
+        <Button
+          component={RouterLink}
+          to={"/taskmap/"}
+          sx={{ my: 2, color: "white", display: "block" }}
+        >
+          {langDict.MENU_SENTENCE.taskMap}
+        </Button>
+      )}
       <Menu
         sx={{ mt: "45px" }}
         id="menu-appbar"
