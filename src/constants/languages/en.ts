@@ -11,6 +11,7 @@ const EN_DICT = {
   },
   LOADING:{
     auth_check: "Checking authentication status...",
+    loading: "Loading...",
   },
   HOME_SENTENCE: {
     welcome_msg: "Welcome to",

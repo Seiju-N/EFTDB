@@ -12,6 +12,7 @@ const JA_DICT = {
 
   LOADING:{
     auth_check: "認証中...",
+    loading: "読み込み中...",
   },
 
   HOME_SENTENCE: {
