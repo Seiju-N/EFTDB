@@ -8,10 +8,8 @@ export const CustomEdge = ({
   targetY,
   sourcePosition,
   targetPosition,
-  style = {},
-  showKappaRequired,
   markerEnd,
-}: EdgeProps & { showKappaRequired: boolean }) => {
+}: EdgeProps) => {
   const [edgePath] = getBezierPath({
     sourceX,
     sourceY,
@@ -20,8 +18,5 @@ export const CustomEdge = ({
     targetY,
     targetPosition,
   });
-  const edgeOpacity = showKappaRequired ? 0.3 : 1;
-  const customStyle = { ...style, opacity: edgeOpacity };
-
-  return <BaseEdge path={edgePath} markerEnd={markerEnd} style={customStyle} />;
+  return <BaseEdge path={edgePath} markerEnd={markerEnd} />;
 };

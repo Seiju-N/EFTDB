@@ -7,7 +7,6 @@ import styled from "styled-components";
 const Node = styled.div<{
   selected: boolean;
   kappa_required?: string;
-  show_kappa?: string;
 }>`
   padding: 10px 20px;
   border-radius: 5px;
@@ -16,8 +15,6 @@ const Node = styled.div<{
   border: 1px solid
     ${(props) =>
       props.selected ? props.theme.primary : props.theme.nodeBorder};
-  opacity: ${(props) => (props.kappa_required || !props.show_kappa ? 1 : 0.3)};
-
   .react-flow__handle {
     background: ${(props) => props.theme.primary};
     width: 8px;
@@ -26,34 +23,31 @@ const Node = styled.div<{
   }
 `;
 
-export const CustomNode = memo(
-  ({ id, data, selected, showKappa }: NodeProps & { showKappa: boolean }) => {
-    const navigate = useNavigate();
+export const CustomNode = memo(({ id, data, selected }: NodeProps) => {
+  const navigate = useNavigate();
 
-    const handleOnClick = () => {
-      navigate(`/task/${data.traderName}`, {
-        state: { taskId: id },
-      });
-    };
+  const handleOnClick = () => {
+    navigate(`/task/${data.traderName}`, {
+      state: { taskId: id },
+    });
+  };
 
-    return (
-      <Node
-        selected={!!selected}
-        {...(data.kappaRequired ? { kappa_required: "true" } : {})}
-        {...(showKappa ? { show_kappa: "true" } : {})}
-        onClick={handleOnClick}
-      >
-        <Handle type="target" position={Position.Left} />
-        <div>
-          <Typography variant="h6" fontWeight={"bold"}>
-            {data.taskName}
-          </Typography>
-          <Typography variant="subtitle2">
-            Min PMC level: {data.minPlayerLevel}
-          </Typography>
-        </div>
-        <Handle type="source" position={Position.Right} />
-      </Node>
-    );
-  }
-);
+  return (
+    <Node
+      selected={!!selected}
+      {...(data.kappaRequired ? { kappa_required: "true" } : {})}
+      onClick={handleOnClick}
+    >
+      <Handle type="target" position={Position.Left} />
+      <div>
+        <Typography variant="h6" fontWeight={"bold"}>
+          {data.taskName}
+        </Typography>
+        <Typography variant="subtitle2">
+          Min PMC level: {data.minPlayerLevel}
+        </Typography>
+      </div>
+      <Handle type="source" position={Position.Right} />
+    </Node>
+  );
+});

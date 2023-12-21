@@ -6,6 +6,7 @@ import ReactFlow, {
   MiniMap,
   Node,
   NodeProps,
+  useReactFlow,
 } from "reactflow";
 import styled from "styled-components";
 import { CustomNode } from "./CustomNodes";
@@ -61,92 +62,104 @@ const ControlsStyled = styled(Controls)`
   }
 `;
 
-const initialNodes: Node[] = [
-  {
-    id: "1",
-    type: "custom",
-    data: {
-      taskName: "Node 1",
-      minPlayerLevel: 1,
-      kappaRequired: true,
-      traderName: "Prapor",
-    },
-    position: { x: 0, y: 0 },
-  },
-  {
-    id: "2",
-    type: "custom",
-    data: {
-      taskName: "Node 2",
-      minPlayerLevel: 2,
-      kappaRequired: false,
-      traderName: "Therapist",
-    },
-    position: { x: 200, y: 0 },
-  },
-];
-
-const initialEdges: Edge[] = [
-  {
-    id: "e1",
-    source: "1",
-    target: "2",
-    type: "custom",
-  },
-];
-
 export const useHooks = () => {
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const [nodes, setNodes] = useState<Node[]>([]);
+  const [edges, setEdges] = useState<Edge[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showKappaRequired, setShowKappaRequired] = useState(false);
+  const [dataWithKappa, setDataWithKappa] = useState({ nodes: [], edges: [] });
+  const [dataWithoutKappa, setDataWithoutKappa] = useState({
+    nodes: [],
+    edges: [],
+  });
   const langDict = useContext(LanguageDictContext);
+  const reactFlowInstance = useReactFlow();
   const nodeTypes = {
-    custom: (nodeProps: NodeProps) => (
-      <CustomNode {...nodeProps} showKappa={showKappaRequired} />
-    ),
+    custom: (nodeProps: NodeProps) => <CustomNode {...nodeProps} />,
   };
 
   const edgeTypes = {
-    custom: (edgeProps: EdgeProps) => (
-      <CustomEdge {...edgeProps} showKappaRequired={showKappaRequired} />
-    ),
-  };
-
-  const handleToggleKappaRequired = () => {
-    setShowKappaRequired(!showKappaRequired);
+    custom: (edgeProps: EdgeProps) => <CustomEdge {...edgeProps} />,
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          "https://cxfck57axf.execute-api.ap-northeast-1.amazonaws.com/default/handle_get_task_tree_prod",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            mode: "cors",
-            credentials: "include",
-          }
-        );
-        if (!response.ok || response.status !== 200) {
-          throw new Error("サーバーからのレスポンスが正常ではありません。");
-        } else {
-          const { nodes, edges } = await response.json();
-          setNodes(nodes);
-          setEdges(edges);
+    if (reactFlowInstance) {
+      reactFlowInstance.setViewport({
+        zoom: 0.4,
+        x: 40,
+        y: 40,
+      });
+    }
+  }, [reactFlowInstance]);
+
+  const fetchData = async (kappaRequiredFilter: boolean) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        "https://cxfck57axf.execute-api.ap-northeast-1.amazonaws.com/default/handle_get_task_tree_prod",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            kappaRequiredFilter: kappaRequiredFilter.toString(),
+          },
+          mode: "cors",
+          credentials: "include",
         }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
+      );
+
+      if (!response.ok || response.status !== 200) {
+        throw new Error("サーバーからのレスポンスが正常ではありません。");
+      } else {
+        const result = await response.json();
+        if (kappaRequiredFilter) {
+          setDataWithKappa(result);
+          if (showKappaRequired) {
+            setNodes(result.nodes);
+            setEdges(result.edges);
+          }
+        } else {
+          setDataWithoutKappa(result);
+          if (!showKappaRequired) {
+            setNodes(result.nodes);
+            setEdges(result.edges);
+          }
+        }
       }
-    };
-    fetchData();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(true);
+    fetchData(false);
   }, []);
+
+  useEffect(() => {
+    if (reactFlowInstance) {
+      reactFlowInstance.setEdges(edges);
+    }
+  }, [edges, reactFlowInstance]);
+
+  const handleToggleKappaRequired = () => {
+    setIsLoading(true);
+    setShowKappaRequired((prevShowKappaRequired) => {
+      const newShowKappaRequired = !prevShowKappaRequired;
+      const data = newShowKappaRequired ? dataWithKappa : dataWithoutKappa;
+      setNodes(data.nodes);
+      if (reactFlowInstance) {
+        reactFlowInstance.setEdges([]);
+      }
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 50);
+
+      return newShowKappaRequired;
+    });
+  };
 
   return {
     nodes,

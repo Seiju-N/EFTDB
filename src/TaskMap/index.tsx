@@ -1,5 +1,5 @@
 import React from "react";
-import { Panel } from "reactflow";
+import { Panel, ReactFlowProvider } from "reactflow";
 import "reactflow/dist/style.css";
 import {
   Box,
@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useHooks } from "./hooks";
 
-export const TaskMap = () => {
+const TaskMapPlane = () => {
   const {
     isLoading,
     nodes,
@@ -25,8 +25,8 @@ export const TaskMap = () => {
     langDict,
   } = useHooks();
 
-  return isLoading ? (
-    <Container>
+  return isLoading || (nodes.length === 0 && edges.length === 0) ? (
+    <Container sx={{ height: "80vh", width: "100vw", overflow: "hidden" }}>
       <Box
         display="flex"
         flexDirection="column"
@@ -43,12 +43,13 @@ export const TaskMap = () => {
   ) : (
     <Box sx={{ height: "80vh", width: "100vw", overflow: "hidden" }}>
       <ReactFlowStyled
+        key={showKappaRequired ? "with-kappa" : "without-kappa"}
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        fitView
         minZoom={0.2}
+        attributionPosition="bottom-left"
       >
         <Panel position="top-right">
           <Button
@@ -63,5 +64,13 @@ export const TaskMap = () => {
         <ControlsStyled />
       </ReactFlowStyled>
     </Box>
+  );
+};
+
+export const TaskMap = () => {
+  return (
+    <ReactFlowProvider>
+      <TaskMapPlane />
+    </ReactFlowProvider>
   );
 };
