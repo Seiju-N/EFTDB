@@ -112,18 +112,14 @@ export const useHooks = () => {
         throw new Error("サーバーからのレスポンスが正常ではありません。");
       } else {
         const result = await response.json();
-        if (kappaRequiredFilter) {
-          setDataWithKappa(result);
-          if (showKappaRequired) {
-            setNodes(result.nodes);
-            setEdges(result.edges);
-          }
+        setDataWithKappa(result.kappa);
+        setDataWithoutKappa(result.all);
+        if (showKappaRequired) {
+          setNodes(result.kappa.nodes);
+          setEdges(result.kappa.edges);
         } else {
-          setDataWithoutKappa(result);
-          if (!showKappaRequired) {
-            setNodes(result.nodes);
-            setEdges(result.edges);
-          }
+          setNodes(result.all.nodes);
+          setEdges(result.all.edges);
         }
       }
     } catch (err) {
