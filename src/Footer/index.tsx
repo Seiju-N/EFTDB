@@ -21,8 +21,8 @@ export const Footer = () => {
         fontSize: (theme) => theme.typography.subtitle1.fontSize,
         mt: "auto",
         height: {
-          xs: 128,
-          sm: 96,
+          xs: 120,
+          sm: 80,
         },
       }}
     >
@@ -40,9 +40,6 @@ export const Footer = () => {
       >
         {langDict.FOOTER_SENTENCE.report}
       </Button>
-      <Typography variant="caption" sx={{ textAlign: "center" }}>
-        {"データはtarkov-apiから取得されています。"}
-      </Typography>
       <Typography variant="subtitle2" sx={{ textAlign: "center" }}>
         {
           "Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved."
