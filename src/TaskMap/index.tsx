@@ -3,9 +3,11 @@ import { Panel, ReactFlowProvider } from "reactflow";
 import "reactflow/dist/style.css";
 import {
   Box,
-  Button,
+  Card,
+  Checkbox,
   CircularProgress,
   Container,
+  FormControlLabel,
   Typography,
 } from "@mui/material";
 import { useHooks } from "./hooks";
@@ -18,7 +20,7 @@ const TaskMapPlane = () => {
     nodeTypes,
     edgeTypes,
     showKappaRequired,
-    handleToggleKappaRequired,
+    handleCheckboxChange,
     ReactFlowStyled,
     MiniMapStyled,
     ControlsStyled,
@@ -48,17 +50,23 @@ const TaskMapPlane = () => {
         edges={edges}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        minZoom={0.2}
+        minZoom={0.1}
+        fitView
         attributionPosition="bottom-left"
       >
         <Panel position="top-right">
-          <Button
-            onClick={handleToggleKappaRequired}
-            color={showKappaRequired ? "primary" : "success"}
-            variant={showKappaRequired ? "outlined" : "contained"}
-          >
-            {showKappaRequired ? "Show kappa required" : "Hide kappa required"}
-          </Button>
+          <Card sx={{ px: 2 }} variant="outlined">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={showKappaRequired}
+                  onChange={handleCheckboxChange}
+                  color="primary"
+                />
+              }
+              label={"Hide kappa required"}
+            />
+          </Card>
         </Panel>
         <MiniMapStyled />
         <ControlsStyled />

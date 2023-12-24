@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import dagre from "dagre";
 import ReactFlow, {
   Controls,
   Edge,
@@ -6,12 +7,13 @@ import ReactFlow, {
   MiniMap,
   Node,
   NodeProps,
-  useReactFlow,
+  Position,
 } from "reactflow";
 import styled from "styled-components";
 import { CustomNode } from "./CustomNodes";
 import { CustomEdge } from "./CustomEdge";
 import { LanguageDictContext } from "@/App";
+import { GetTestDummy } from "./GetTestDummy";
 
 const darkTheme = {
   bg: "#000",
@@ -61,19 +63,25 @@ const ControlsStyled = styled(Controls)`
     }
   }
 `;
+type dataType = {
+  nodes: Node[];
+  edges: Edge[];
+};
 
 export const useHooks = () => {
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showKappaRequired, setShowKappaRequired] = useState(false);
-  const [dataWithKappa, setDataWithKappa] = useState({ nodes: [], edges: [] });
-  const [dataWithoutKappa, setDataWithoutKappa] = useState({
+  const [dataWithKappa, setDataWithKappa] = useState<dataType>({
+    nodes: [],
+    edges: [],
+  });
+  const [dataWithoutKappa, setDataWithoutKappa] = useState<dataType>({
     nodes: [],
     edges: [],
   });
   const langDict = useContext(LanguageDictContext);
-  const reactFlowInstance = useReactFlow();
   const nodeTypes = {
     custom: (nodeProps: NodeProps) => <CustomNode {...nodeProps} />,
   };
@@ -82,15 +90,44 @@ export const useHooks = () => {
     custom: (edgeProps: EdgeProps) => <CustomEdge {...edgeProps} />,
   };
 
-  useEffect(() => {
-    if (reactFlowInstance) {
-      reactFlowInstance.setViewport({
-        zoom: 0.4,
-        x: 40,
-        y: 40,
-      });
-    }
-  }, [reactFlowInstance]);
+  const dagreGraph = new dagre.graphlib.Graph();
+  dagreGraph.setDefaultEdgeLabel(() => ({}));
+
+  const nodeWidth = 200;
+  const nodeHeight = 30;
+
+  const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
+    dagreGraph.setGraph({ rankdir: "LR", ranksep: 600, nodesep: 60 });
+
+    nodes.forEach((node: Node) => {
+      dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+    });
+
+    edges.forEach((edge: Edge) => {
+      dagreGraph.setEdge(edge.source, edge.target);
+    });
+
+    dagre.layout(dagreGraph);
+
+    nodes.forEach((node: Node) => {
+      const nodeWithPosition = dagreGraph.node(node.id);
+      if (!nodeWithPosition) {
+        console.error("Node with ID not found in Dagre graph:", node.id);
+        return;
+      }
+      node.targetPosition = Position.Left;
+      node.sourcePosition = Position.Right;
+      let xPosition = nodeWithPosition.x - nodeWidth / 2;
+      if (node.data.taskName === "Collector") {
+        xPosition += 4000;
+      }
+      node.position = {
+        x: xPosition,
+        y: nodeWithPosition.y - nodeHeight / 2,
+      };
+    });
+    return { nodes, edges };
+  };
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -111,18 +148,44 @@ export const useHooks = () => {
         throw new Error("サーバーからのレスポンスが正常ではありません。");
       } else {
         const result = await response.json();
-        setDataWithKappa(result.kappa);
-        setDataWithoutKappa(result.all);
+        const layoutedKappa = getLayoutedElements(
+          result.kappa.nodes,
+          result.kappa.edges
+        );
+        const layoutedAll = getLayoutedElements(
+          result.all.nodes,
+          result.all.edges
+        );
+        setDataWithKappa(layoutedKappa);
+        setDataWithoutKappa(layoutedAll);
         if (showKappaRequired) {
-          setNodes(result.kappa.nodes);
-          setEdges(result.kappa.edges);
+          setNodes(layoutedKappa.nodes);
+          setEdges(layoutedKappa.edges);
         } else {
-          setNodes(result.all.nodes);
-          setEdges(result.all.edges);
+          setNodes(layoutedAll.nodes);
+          setEdges(layoutedAll.edges);
         }
       }
     } catch (err) {
       console.error(err);
+      const result = GetTestDummy();
+      const layoutedKappa = getLayoutedElements(
+        result.kappa.nodes,
+        result.kappa.edges
+      );
+      const layoutedAll = getLayoutedElements(
+        result.all.nodes,
+        result.all.edges
+      );
+      setDataWithKappa(layoutedKappa);
+      setDataWithoutKappa(layoutedAll);
+      if (showKappaRequired) {
+        setNodes(layoutedKappa.nodes);
+        setEdges(layoutedKappa.edges);
+      } else {
+        setNodes(layoutedAll.nodes);
+        setEdges(layoutedAll.edges);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -133,26 +196,26 @@ export const useHooks = () => {
   }, []);
 
   useEffect(() => {
-    if (reactFlowInstance) {
-      reactFlowInstance.setEdges(edges);
+    if (nodes.length > 0 && edges.length > 0) {
+      const { nodes: layoutedNodes, edges: layoutedEdges } =
+        getLayoutedElements(nodes, edges);
+      setNodes(layoutedNodes);
+      setEdges(layoutedEdges);
     }
-  }, [edges, reactFlowInstance]);
+  }, [nodes, edges]);
 
-  const handleToggleKappaRequired = () => {
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
     setIsLoading(true);
-    setShowKappaRequired((prevShowKappaRequired) => {
-      const newShowKappaRequired = !prevShowKappaRequired;
-      const data = newShowKappaRequired ? dataWithKappa : dataWithoutKappa;
-      setNodes(data.nodes);
-      if (reactFlowInstance) {
-        reactFlowInstance.setEdges([]);
-      }
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 50);
+    setShowKappaRequired(checked);
 
-      return newShowKappaRequired;
-    });
+    const data = checked ? dataWithKappa : dataWithoutKappa;
+    setNodes(data.nodes);
+    setEdges(data.edges);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 4);
   };
 
   return {
@@ -162,7 +225,7 @@ export const useHooks = () => {
     edgeTypes,
     isLoading,
     showKappaRequired,
-    handleToggleKappaRequired,
+    handleCheckboxChange,
     darkTheme,
     ReactFlowStyled,
     MiniMapStyled,

@@ -39,14 +39,12 @@ export const CustomNode = memo(({ id, data, selected }: NodeProps) => {
       onClick={handleOnClick}
     >
       <Handle type="target" position={Position.Left} />
-      <div>
-        <Typography variant="h6" fontWeight={"bold"}>
-          {data.taskName}
-        </Typography>
-        <Typography variant="subtitle2">
-          Min PMC level: {data.minPlayerLevel}
-        </Typography>
-      </div>
+      <Typography variant="h5" fontWeight={"bold"}>
+        {data.taskName}
+      </Typography>
+      <Typography variant="subtitle2">
+        Min PMC level: {data.minPlayerLevel}
+      </Typography>
       <Handle type="source" position={Position.Right} />
     </Node>
   );
