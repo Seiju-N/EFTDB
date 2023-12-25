@@ -14,8 +14,9 @@ import { Link as RouterLink } from "react-router-dom";
 import { NestedItem } from "./ItemMenuComponents/NestedItem";
 import { NestedSubItem } from "./ItemMenuComponents/NestedSubItem";
 import { useAuth } from "@/contexts/AuthContext";
+import { memo } from "react";
 
-export const MenuItemsMD = () => {
+export const MenuItemsMD = memo(() => {
   const {
     langDict,
     traders,
@@ -150,4 +151,4 @@ export const MenuItemsMD = () => {
       </Menu>
     </Box>
   );
-};
+});

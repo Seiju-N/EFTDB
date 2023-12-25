@@ -19,8 +19,9 @@ import { FlatItem } from "./ItemMenuComponents/FlatItem";
 import { NestedSubItem } from "./ItemMenuComponents/NestedSubItem";
 import { NestedItem } from "./ItemMenuComponents/NestedItem";
 import { useAuth } from "@/contexts/AuthContext";
+import { memo } from "react";
 
-export const MenuItemsXS = () => {
+export const MenuItemsXS = memo(() => {
   const {
     taskOpen,
     itemOpen,
@@ -187,4 +188,4 @@ export const MenuItemsXS = () => {
       </Menu>
     </Box>
   );
-};
+});
