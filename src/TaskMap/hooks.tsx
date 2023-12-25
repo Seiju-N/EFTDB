@@ -1,14 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import {
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import dagre from "dagre";
-import ReactFlow, {
-  Controls,
-  Edge,
-  EdgeProps,
-  MiniMap,
-  Node,
-  NodeProps,
-  Position,
-} from "reactflow";
+import ReactFlow, { Controls, Edge, MiniMap, Node, Position } from "reactflow";
 import styled from "styled-components";
 import { CustomNode } from "./CustomNodes";
 import { CustomEdge } from "./CustomEdge";
@@ -82,12 +81,14 @@ export const useHooks = () => {
     edges: [],
   });
   const langDict = useContext(LanguageDictContext);
+  const MemoizedCustomNode = memo(CustomNode);
+  const MemoizedCustomEdge = memo(CustomEdge);
   const nodeTypes = {
-    custom: (nodeProps: NodeProps) => <CustomNode {...nodeProps} />,
+    custom: MemoizedCustomNode,
   };
 
   const edgeTypes = {
-    custom: (edgeProps: EdgeProps) => <CustomEdge {...edgeProps} />,
+    custom: MemoizedCustomEdge,
   };
 
   const dagreGraph = new dagre.graphlib.Graph();
@@ -128,6 +129,11 @@ export const useHooks = () => {
     });
     return { nodes, edges };
   };
+
+  const layoutedElements = useMemo(
+    () => getLayoutedElements(nodes, edges),
+    [nodes, edges]
+  );
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -197,26 +203,28 @@ export const useHooks = () => {
 
   useEffect(() => {
     if (nodes.length > 0 && edges.length > 0) {
-      const { nodes: layoutedNodes, edges: layoutedEdges } =
-        getLayoutedElements(nodes, edges);
+      const { nodes: layoutedNodes, edges: layoutedEdges } = layoutedElements;
       setNodes(layoutedNodes);
       setEdges(layoutedEdges);
     }
-  }, [nodes, edges]);
+  }, [layoutedElements]);
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = event.target.checked;
-    setIsLoading(true);
-    setShowKappaRequired(checked);
+  const handleCheckboxChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const checked = event.target.checked;
+      setIsLoading(true);
+      setShowKappaRequired(checked);
 
-    const data = checked ? dataWithKappa : dataWithoutKappa;
-    setNodes(data.nodes);
-    setEdges(data.edges);
+      const data = checked ? dataWithKappa : dataWithoutKappa;
+      setNodes(data.nodes);
+      setEdges(data.edges);
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 4);
-  };
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 4);
+    },
+    [dataWithKappa, dataWithoutKappa]
+  );
 
   return {
     nodes,

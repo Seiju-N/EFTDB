@@ -600,6 +600,11 @@ const JA_DICT = {
     ergonomics: "エルゴノミクス",
     recoilModifier: "リコイル",
   },
+
+  TASKMAP: {
+    tooltip: "クリア済みとしてマークする",
+    minLevel: "最低レベル",
+  },
 };
 
 export type typeJaDict = typeof JA_DICT;

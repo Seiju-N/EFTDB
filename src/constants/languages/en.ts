@@ -588,7 +588,11 @@ const EN_DICT = {
     VisObservDevice: 'Eyewear',
     Weapon: 'Weapon',
     WeaponMod: 'Weapon Part'
-  }
+  },
+  TASKMAP: {
+    tooltip: "Mark the task as completed.",
+    minLevel: "Min require lvl",
+  },
 }
 
 export default EN_DICT;

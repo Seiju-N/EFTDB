@@ -1,8 +1,11 @@
-import { Typography } from "@mui/material";
-import React, { memo } from "react";
+import { Box, Checkbox, Link, Tooltip, Typography } from "@mui/material";
+import React, { memo, useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Handle, NodeProps, Position } from "reactflow";
 import styled from "styled-components";
+import CheckCircleOutline from "@mui/icons-material/CheckCircleOutline";
+import CheckCircle from "@mui/icons-material/CheckCircle";
+import { LanguageDictContext } from "@/App";
 
 const Node = styled.div<{
   selected: boolean;
@@ -25,26 +28,61 @@ const Node = styled.div<{
 
 export const CustomNode = memo(({ id, data, selected }: NodeProps) => {
   const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
+  const langDict = useContext(LanguageDictContext);
+  const handleCheckboxChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      event.stopPropagation();
+      setIsChecked(event.target.checked);
+    },
+    []
+  );
 
-  const handleOnClick = () => {
+  const handleOnClick = useCallback(() => {
     navigate(`/task/${data.traderName}`, {
       state: { taskId: id },
     });
-  };
+  }, [navigate, data.traderName, id]);
 
   return (
     <Node
       selected={!!selected}
       {...(data.kappaRequired ? { kappa_required: "true" } : {})}
-      onClick={handleOnClick}
+      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
     >
-      <Handle type="target" position={Position.Left} />
-      <Typography variant="h5" fontWeight={"bold"}>
+      <Link
+        component={"button"}
+        variant="h5"
+        fontWeight={"bold"}
+        underline="hover"
+        color={"inherit"}
+        onClick={handleOnClick}
+      >
         {data.taskName}
-      </Typography>
-      <Typography variant="subtitle2">
-        Min PMC level: {data.minPlayerLevel}
-      </Typography>
+      </Link>
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="subtitle2">
+          {langDict.TASKMAP.minLevel}: {data.minPlayerLevel}
+        </Typography>
+        <Tooltip title={langDict.TASKMAP.tooltip}>
+          <Checkbox
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+            icon={<CheckCircleOutline />}
+            checkedIcon={<CheckCircle />}
+            color="success"
+            sx={{ "& .MuiSvgIcon-root": { fontSize: 30 }, p: 0, pl: 1 }}
+          />
+        </Tooltip>
+      </Box>
+      <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
     </Node>
   );

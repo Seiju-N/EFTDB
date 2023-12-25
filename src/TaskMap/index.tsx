@@ -10,6 +10,7 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { useHooks } from "./hooks";
 
 const TaskMapPlane = () => {
@@ -55,7 +56,14 @@ const TaskMapPlane = () => {
         attributionPosition="bottom-left"
       >
         <Panel position="top-right">
-          <Card sx={{ px: 2 }} variant="outlined">
+          <Card
+            sx={{
+              backgroundColor: (theme) =>
+                alpha(theme.palette.background.default, 0.5),
+              px: 2,
+            }}
+            variant="outlined"
+          >
             <FormControlLabel
               control={
                 <Checkbox
