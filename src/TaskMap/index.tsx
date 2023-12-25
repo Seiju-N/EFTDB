@@ -74,7 +74,7 @@ const TaskMapPlane = () => {
                   color="primary"
                 />
               }
-              label={"Hide kappa required"}
+              label={"Kappa required only"}
             />
           </Card>
         </Panel>
