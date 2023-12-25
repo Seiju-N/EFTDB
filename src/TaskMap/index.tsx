@@ -12,6 +12,11 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useHooks } from "./hooks";
+import {
+  ControlsStyled,
+  MiniMapStyled,
+  ReactFlowStyled,
+} from "./styledComponents";
 
 const TaskMapPlane = () => {
   const {
@@ -22,9 +27,6 @@ const TaskMapPlane = () => {
     edgeTypes,
     showKappaRequired,
     handleCheckboxChange,
-    ReactFlowStyled,
-    MiniMapStyled,
-    ControlsStyled,
     langDict,
   } = useHooks();
 

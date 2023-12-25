@@ -28,14 +28,35 @@ const Node = styled.div<{
 
 export const CustomNode = memo(({ id, data, selected }: NodeProps) => {
   const navigate = useNavigate();
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(() => {
+    const savedNodes = JSON.parse(localStorage.getItem("checkedNodes") || "{}");
+    return savedNodes[id] || false;
+  });
   const langDict = useContext(LanguageDictContext);
+
+  const updateLocalStorage = useCallback(
+    (checked: boolean) => {
+      const savedNodes = JSON.parse(
+        localStorage.getItem("checkedNodes") || "{}"
+      );
+      if (checked) {
+        savedNodes[id] = true;
+      } else {
+        delete savedNodes[id];
+      }
+      localStorage.setItem("checkedNodes", JSON.stringify(savedNodes));
+    },
+    [id]
+  );
+
   const handleCheckboxChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.stopPropagation();
-      setIsChecked(event.target.checked);
+      const newChecked = event.target.checked;
+      setIsChecked(newChecked);
+      updateLocalStorage(newChecked);
     },
-    []
+    [updateLocalStorage]
   );
 
   const handleOnClick = useCallback(() => {
@@ -78,7 +99,7 @@ export const CustomNode = memo(({ id, data, selected }: NodeProps) => {
             icon={<CheckCircleOutline />}
             checkedIcon={<CheckCircle />}
             color="success"
-            sx={{ "& .MuiSvgIcon-root": { fontSize: 30 }, p: 0, pl: 1 }}
+            sx={{ "& .MuiSvgIcon-root": { fontSize: 32 }, p: 0, pl: 1 }}
           />
         </Tooltip>
       </Box>
