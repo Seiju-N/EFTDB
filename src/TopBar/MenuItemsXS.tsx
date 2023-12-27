@@ -18,7 +18,6 @@ import { Link as RouterLink } from "react-router-dom";
 import { FlatItem } from "./ItemMenuComponents/FlatItem";
 import { NestedSubItem } from "./ItemMenuComponents/NestedSubItem";
 import { NestedItem } from "./ItemMenuComponents/NestedItem";
-import { useAuth } from "@/contexts/AuthContext";
 import { memo } from "react";
 
 export const MenuItemsXS = memo(() => {
@@ -33,7 +32,6 @@ export const MenuItemsXS = memo(() => {
     handleOpenNavMenu,
     handleCloseNavMenu,
   } = useHooks();
-  const { isLogin } = useAuth();
   return (
     <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
       <IconButton
@@ -176,14 +174,12 @@ export const MenuItemsXS = memo(() => {
               sx={{ pr: 10 }}
             />
           </ListItemButton>
-          {isLogin && (
-            <ListItemButton component={RouterLink} to="/taskmap">
-              <ListItemText
-                primary={langDict.MENU_SENTENCE.taskMap}
-                sx={{ pr: 10 }}
-              />
-            </ListItemButton>
-          )}
+          <ListItemButton component={RouterLink} to="/taskmap">
+            <ListItemText
+              primary={langDict.MENU_SENTENCE.taskMap}
+              sx={{ pr: 10 }}
+            />
+          </ListItemButton>
         </List>
       </Menu>
     </Box>
