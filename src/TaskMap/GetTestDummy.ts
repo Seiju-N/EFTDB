@@ -8,7 +8,11 @@ export const GetTestDummy = () => {
             "taskName": "Debut",
             "minPlayerLevel": "1",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5936da9e86f7742d65037edf",
+              "5fd9fad9c1ce6b1a3b486d00"
+            ]
           },
           "type": "custom",
           "position": {
@@ -19,10 +23,14 @@ export const GetTestDummy = () => {
         {
           "id": "5936da9e86f7742d65037edf",
           "data": {
-            "taskName": "Checking",
+            "taskName": "Background Check",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59674cd986f7744ab26e32f2",
+              "59674eb386f774539f14813a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -36,7 +44,8 @@ export const GetTestDummy = () => {
             "taskName": "Shootout Picnic",
             "minPlayerLevel": "3",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -50,7 +59,10 @@ export const GetTestDummy = () => {
             "taskName": "Delivery from the Past",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59c124d686f774189b3c843f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -64,7 +76,10 @@ export const GetTestDummy = () => {
             "taskName": "Bad Rep Evidence",
             "minPlayerLevel": "6",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59675d6c86f7740a842fc482"
+            ]
           },
           "type": "custom",
           "position": {
@@ -78,7 +93,11 @@ export const GetTestDummy = () => {
             "taskName": "Ice Cream Cones",
             "minPlayerLevel": "9",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59675ea386f77414b32bded2",
+              "5967725e86f774601a446662"
+            ]
           },
           "type": "custom",
           "position": {
@@ -92,7 +111,11 @@ export const GetTestDummy = () => {
             "taskName": "Postman Pat - Part 1",
             "minPlayerLevel": "10",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "596760e186f7741e11214d58",
+              "6391359b9444fb141f4e6ee6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -106,7 +129,8 @@ export const GetTestDummy = () => {
             "taskName": "Postman Pat - Part 2",
             "minPlayerLevel": "10",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -120,7 +144,12 @@ export const GetTestDummy = () => {
             "taskName": "Shaking up the Teller",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59c50a9e86f7745fef66f4ff",
+              "5c12452c86f7744b83469073",
+              "5eda19f0edce541157209cee"
+            ]
           },
           "type": "custom",
           "position": {
@@ -134,7 +163,11 @@ export const GetTestDummy = () => {
             "taskName": "Shortage",
             "minPlayerLevel": "1",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "59689ee586f7740d1570bbd5",
+              "59689fbd86f7740d137ebfc4"
+            ]
           },
           "type": "custom",
           "position": {
@@ -148,7 +181,10 @@ export const GetTestDummy = () => {
             "taskName": "Sanitary Standards - Part 1",
             "minPlayerLevel": "4",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "596a204686f774576d4c95de"
+            ]
           },
           "type": "custom",
           "position": {
@@ -162,7 +198,10 @@ export const GetTestDummy = () => {
             "taskName": "Operation Aquarius - Part 1",
             "minPlayerLevel": "6",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5968eb3186f7741dde183a4d"
+            ]
           },
           "type": "custom",
           "position": {
@@ -176,7 +215,8 @@ export const GetTestDummy = () => {
             "taskName": "Operation Aquarius - Part 2",
             "minPlayerLevel": "6",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -190,7 +230,10 @@ export const GetTestDummy = () => {
             "taskName": "Painkiller",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5969f9e986f7741dde183a50"
+            ]
           },
           "type": "custom",
           "position": {
@@ -204,7 +247,15 @@ export const GetTestDummy = () => {
             "taskName": "Pharmacist",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "596a0e1686f7741ddf17dbee",
+              "596a1e6c86f7741ddc2d3206",
+              "596a218586f77420d232807c",
+              "5a68661a86f774500f48afb0",
+              "60896e28e4a85c72ef3fa301",
+              "639135d89444fb141f4e6eea"
+            ]
           },
           "type": "custom",
           "position": {
@@ -218,7 +269,12 @@ export const GetTestDummy = () => {
             "taskName": "Supply Plans",
             "minPlayerLevel": "13",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "596a101f86f7741ddb481582",
+              "5d25e2ee86f77443e35162ea",
+              "63ab180c87413d64ae0ac20a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -232,7 +288,8 @@ export const GetTestDummy = () => {
             "taskName": "Kind of Sabotage",
             "minPlayerLevel": "13",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -246,7 +303,10 @@ export const GetTestDummy = () => {
             "taskName": "General Wares",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5edab736cc183c769d778bc2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -260,7 +320,10 @@ export const GetTestDummy = () => {
             "taskName": "Sanitary Standards - Part 2",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5969f90786f77420d2328015"
+            ]
           },
           "type": "custom",
           "position": {
@@ -274,7 +337,10 @@ export const GetTestDummy = () => {
             "taskName": "Car Repair",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -288,7 +354,12 @@ export const GetTestDummy = () => {
             "taskName": "Supplier",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "596b43fb86f77457ca186186",
+              "596b455186f77457cb50eccb",
+              "5a27c99a86f7747d2c6bdd8e"
+            ]
           },
           "type": "custom",
           "position": {
@@ -302,7 +373,10 @@ export const GetTestDummy = () => {
             "taskName": "The Extortionist",
             "minPlayerLevel": "7",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5979ed3886f77431307dc512"
+            ]
           },
           "type": "custom",
           "position": {
@@ -316,7 +390,10 @@ export const GetTestDummy = () => {
             "taskName": "Stirrup",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -330,7 +407,11 @@ export const GetTestDummy = () => {
             "taskName": "What’s on the Flash Drive?",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5979eee086f774311955e614",
+              "5d25e48d86f77408251c4bfb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -344,7 +425,10 @@ export const GetTestDummy = () => {
             "taskName": "Golden Swag",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5979f9ba86f7740f6c3fe9f2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -358,7 +442,10 @@ export const GetTestDummy = () => {
             "taskName": "Polikhim Hobo",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5d4bec3486f7743cac246665"
+            ]
           },
           "type": "custom",
           "position": {
@@ -372,7 +459,11 @@ export const GetTestDummy = () => {
             "taskName": "Chemical - Part 1",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5979f8bb86f7743ec214c7a6",
+              "597a0b2986f77426d66c0633"
+            ]
           },
           "type": "custom",
           "position": {
@@ -386,7 +477,10 @@ export const GetTestDummy = () => {
             "taskName": "Chemical - Part 2",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "597a0e5786f77426d66c0636"
+            ]
           },
           "type": "custom",
           "position": {
@@ -400,7 +494,11 @@ export const GetTestDummy = () => {
             "taskName": "Chemical - Part 3",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "597a0f5686f774273b74f676",
+              "5b478eca86f7744642012254"
+            ]
           },
           "type": "custom",
           "position": {
@@ -414,7 +512,13 @@ export const GetTestDummy = () => {
             "taskName": "Chemical - Part 4",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "597a160786f77477531d39d2",
+              "597a171586f77405ba6887d3",
+              "59c93e8e86f7742a406989c4",
+              "6089743983426423753cd58a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -428,7 +532,10 @@ export const GetTestDummy = () => {
             "taskName": "Out of Curiosity",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "59c9392986f7742f6923add2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -442,7 +549,10 @@ export const GetTestDummy = () => {
             "taskName": "Big Customer",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59ca1a6286f774509a270942"
+            ]
           },
           "type": "custom",
           "position": {
@@ -456,7 +566,11 @@ export const GetTestDummy = () => {
             "taskName": "BP Depot",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5967530a86f77462ba22226b",
+              "5ede55112c95834b583f052a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -470,7 +584,10 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 1",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59c50c8886f7745fed3193bf"
+            ]
           },
           "type": "custom",
           "position": {
@@ -484,7 +601,11 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 2",
             "minPlayerLevel": "18",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59c512ad86f7741f0d09de9b",
+              "6179ac7511973d018217d0b9"
+            ]
           },
           "type": "custom",
           "position": {
@@ -498,7 +619,10 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 3",
             "minPlayerLevel": "19",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59ca264786f77445a80ed044"
+            ]
           },
           "type": "custom",
           "position": {
@@ -512,7 +636,8 @@ export const GetTestDummy = () => {
             "taskName": "Trust Regain",
             "minPlayerLevel": "11",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -526,7 +651,8 @@ export const GetTestDummy = () => {
             "taskName": "Loyalty Buyout",
             "minPlayerLevel": "11",
             "kappaRequired": false,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -540,7 +666,8 @@ export const GetTestDummy = () => {
             "taskName": "No Offence",
             "minPlayerLevel": "11",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -554,7 +681,11 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 4",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59ca29fb86f77445ab465c87",
+              "639136f086e646067c176a8b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -568,7 +699,12 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 5",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59ca2eb686f77445a80ed049",
+              "6179b5b06e9dd54ac275e409",
+              "625d6ff5ddc94657c21a1625"
+            ]
           },
           "type": "custom",
           "position": {
@@ -582,7 +718,15 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 6",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "60e71b62a0beca400d69efc4",
+              "60e71b9bbd90872cb85440f3",
+              "60e71bb4e456d449cd47ca75",
+              "60effd818b669d08a35bfad5",
+              "63a9ae24009ffc6a551631a5",
+              "64e7b99017ab941a6f7bf9d7"
+            ]
           },
           "type": "custom",
           "position": {
@@ -596,7 +740,11 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a03173786f77451cb427172",
+              "6179aff8f57fb279792c60a1"
+            ]
           },
           "type": "custom",
           "position": {
@@ -610,7 +758,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a0327ba86f77456b9154236"
+            ]
           },
           "type": "custom",
           "position": {
@@ -624,7 +775,11 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 3",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a03296886f774569778596a",
+              "6179b5eabca27a099552e052"
+            ]
           },
           "type": "custom",
           "position": {
@@ -638,7 +793,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 4",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a0449d586f77474e66227b7"
+            ]
           },
           "type": "custom",
           "position": {
@@ -652,7 +810,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 5",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27ba9586f7741b543d8e85"
+            ]
           },
           "type": "custom",
           "position": {
@@ -666,7 +827,12 @@ export const GetTestDummy = () => {
             "taskName": "Fishing Gear",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27b7a786f774579c3eb376",
+              "5edac020218d181e29451446",
+              "60e71ccb5688f6424c7bfec4"
+            ]
           },
           "type": "custom",
           "position": {
@@ -680,7 +846,10 @@ export const GetTestDummy = () => {
             "taskName": "Tigr Safari",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27b7d686f77460d847e6a6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -694,7 +863,10 @@ export const GetTestDummy = () => {
             "taskName": "Scrap Metal",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27b80086f774429a5d7e20"
+            ]
           },
           "type": "custom",
           "position": {
@@ -708,7 +880,10 @@ export const GetTestDummy = () => {
             "taskName": "Eagle Eye",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27b87686f77460de0252a8"
+            ]
           },
           "type": "custom",
           "position": {
@@ -722,7 +897,12 @@ export const GetTestDummy = () => {
             "taskName": "Humanitarian Supplies",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a03153686f77442d90e2171",
+              "5a27b9de86f77464e5044585",
+              "6086c852c945025d41566124"
+            ]
           },
           "type": "custom",
           "position": {
@@ -736,7 +916,10 @@ export const GetTestDummy = () => {
             "taskName": "The Cult - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27ba1c86f77461ea5a3c56"
+            ]
           },
           "type": "custom",
           "position": {
@@ -750,7 +933,10 @@ export const GetTestDummy = () => {
             "taskName": "The Cult - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -764,7 +950,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 6",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bafb86f7741c73584017"
+            ]
           },
           "type": "custom",
           "position": {
@@ -778,7 +967,13 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 7",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bb1e86f7741f27621b7e",
+              "5a27bb8386f7741c770d2d0a",
+              "639136d68ba6894d155e77cf",
+              "639282134ed9512be67647ed"
+            ]
           },
           "type": "custom",
           "position": {
@@ -792,7 +987,10 @@ export const GetTestDummy = () => {
             "taskName": "Cargo X - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bb3d86f77411ea361a21"
+            ]
           },
           "type": "custom",
           "position": {
@@ -806,7 +1004,10 @@ export const GetTestDummy = () => {
             "taskName": "Cargo X - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bb5986f7741dfb660900"
+            ]
           },
           "type": "custom",
           "position": {
@@ -820,7 +1021,10 @@ export const GetTestDummy = () => {
             "taskName": "Cargo X - Part 3",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "61958c366726521dd96828ec"
+            ]
           },
           "type": "custom",
           "position": {
@@ -834,7 +1038,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 1",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bbf886f774333a418eeb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -848,7 +1055,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 2",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bc1586f7741f6d40fa2f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -862,7 +1072,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 3",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bc3686f7741c73584026"
+            ]
           },
           "type": "custom",
           "position": {
@@ -876,7 +1089,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 4",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bc6986f7741c7358402b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -890,7 +1106,12 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 5",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bc8586f7741b543d8ea4",
+              "5d6fbc2886f77449d825f9d3",
+              "63a9b229813bba58a50c9ee5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -904,7 +1125,11 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 6",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c0be13186f7746f016734aa",
+              "5c0d4e61d09282029f53920e"
+            ]
           },
           "type": "custom",
           "position": {
@@ -915,10 +1140,14 @@ export const GetTestDummy = () => {
         {
           "id": "5a27c99a86f7747d2c6bdd8e",
           "data": {
-            "taskName": "Friend from the West - Part 1",
+            "taskName": "Friend From the West - Part 1",
             "minPlayerLevel": "9",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5a27b75b86f7742e97191958",
+              "5a27d2af86f7744e1115b323"
+            ]
           },
           "type": "custom",
           "position": {
@@ -929,10 +1158,19 @@ export const GetTestDummy = () => {
         {
           "id": "5a27d2af86f7744e1115b323",
           "data": {
-            "taskName": "Friend from the West - Part 2",
+            "taskName": "Friend From the West - Part 2",
             "minPlayerLevel": "9",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5a03153686f77442d90e2171",
+              "5a27b9de86f77464e5044585",
+              "5b47926a86f7747ccc057c15",
+              "5b4794cb86f774598100d5d4",
+              "5edac020218d181e29451446",
+              "6086c852c945025d41566124",
+              "6193850f60b34236ee0483de"
+            ]
           },
           "type": "custom",
           "position": {
@@ -946,7 +1184,10 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 1",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5a68663e86f774501078f78a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -960,7 +1201,11 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 2",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5a68665c86f774255929b4c7",
+              "6179afd0bca27a099552e040"
+            ]
           },
           "type": "custom",
           "position": {
@@ -974,7 +1219,10 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 3",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5a68667486f7742607157d28"
+            ]
           },
           "type": "custom",
           "position": {
@@ -988,7 +1236,13 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 4",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5a68669a86f774255929b4d4",
+              "5c0be5fc86f774467a116593",
+              "5c0d0d5086f774363760aef2",
+              "5d6fb2c086f77449da599c24"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1002,7 +1256,10 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 5",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c0d1c4cd0928202a02a6f5c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1016,7 +1273,13 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 1",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac2426c86f774138762edfe",
+              "5ac2428686f77412450b42bf",
+              "5ac345dc86f774288030817f",
+              "5d2495a886f77425cd51e403"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1030,7 +1293,11 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 2",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3467986f7741d6224abc2",
+              "639872f9decada40426d3447"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1044,7 +1311,11 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 3",
             "minPlayerLevel": "7",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3479086f7742880308199",
+              "639872f9decada40426d3447"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1058,7 +1329,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 16",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b47749f86f7746c5d6a5fd4"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1072,7 +1346,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 13",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "639872fe8871e1272b10ccf6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1086,7 +1363,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 7",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae3277186f7745973054106"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1100,7 +1380,10 @@ export const GetTestDummy = () => {
             "taskName": "Farming - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3460c86f7742880308185"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1114,7 +1397,12 @@ export const GetTestDummy = () => {
             "taskName": "Farming - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3462b86f7741d6118b983",
+              "5ac3475486f7741d6224abd3",
+              "626bd75e47ea7f506e5493c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1128,7 +1416,12 @@ export const GetTestDummy = () => {
             "taskName": "Farming - Part 3",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3464c86f7741d651d6877",
+              "5c0bde0986f77479cf22c2f8",
+              "6179b3bdc7560e13d23eeb8d"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1142,7 +1435,12 @@ export const GetTestDummy = () => {
             "taskName": "Farming - Part 4",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c1128e386f7746565181106",
+              "5c139eb686f7747878361a6f",
+              "6179b3a12153c15e937d52bc"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1156,7 +1454,11 @@ export const GetTestDummy = () => {
             "taskName": "Signal - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac346a886f7744e1b083d67",
+              "5ac3479086f7742880308199"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1170,7 +1472,11 @@ export const GetTestDummy = () => {
             "taskName": "Signal - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac346cf86f7741d63233a02",
+              "5ac3477486f7741d651d6885"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1184,7 +1490,11 @@ export const GetTestDummy = () => {
             "taskName": "Signal - Part 3",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac346e886f7741d6118b99b",
+              "64ee9df4496db64f9b7a4432"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1198,7 +1508,10 @@ export const GetTestDummy = () => {
             "taskName": "Signal - Part 4",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1212,7 +1525,10 @@ export const GetTestDummy = () => {
             "taskName": "Bad Habit",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1226,7 +1542,11 @@ export const GetTestDummy = () => {
             "taskName": "Scout",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "6089736efa70fc097863b8f6",
+              "60c0c018f7afb4354815096a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1240,7 +1560,10 @@ export const GetTestDummy = () => {
             "taskName": "Insider",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1254,7 +1577,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 5",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae3270f86f77445ba41d4dd"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1268,7 +1594,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 6",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac244eb86f7741356335af1"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1282,7 +1611,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 8",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "639872fa9b4fb827b200d8e5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1296,7 +1628,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 10",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "639872fc93ae507d5858c3a6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1310,7 +1645,11 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 15",
             "minPlayerLevel": "29",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac242ab86f77412464f68b4",
+              "625d6ff5ddc94657c21a1625"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1324,7 +1663,12 @@ export const GetTestDummy = () => {
             "taskName": "Only Business",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae448bf86f7744d733e55ee",
+              "5ae448e586f7744dcf0c2a67",
+              "638fcd23dc65553116701d33"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1338,7 +1682,11 @@ export const GetTestDummy = () => {
             "taskName": "Make ULTRA Great Again",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae448f286f77448d73c0131",
+              "5ae4493486f7744efa289417"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1352,7 +1700,11 @@ export const GetTestDummy = () => {
             "taskName": "Big Sale",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae448f286f77448d73c0131",
+              "5ae4493486f7744efa289417"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1366,7 +1718,14 @@ export const GetTestDummy = () => {
             "taskName": "The Blood of War - Part 1",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4490786f7744ca822adcc",
+              "5ae4499a86f77449783815db",
+              "5b47876e86f7744d1c353205",
+              "5b47891f86f7744d1b23c571",
+              "608974d01a66564e74191fc0"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1380,7 +1739,10 @@ export const GetTestDummy = () => {
             "taskName": "Dressed to Kill",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae449b386f77446d8741719"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1394,7 +1756,10 @@ export const GetTestDummy = () => {
             "taskName": "Database - Part 1",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4493d86f7744b8e15aa8f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1408,7 +1773,12 @@ export const GetTestDummy = () => {
             "taskName": "Database - Part 2",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4495086f77443c122bc40",
+              "5ae449b386f77446d8741719",
+              "5b478d0f86f7744d190d91b5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1422,7 +1792,11 @@ export const GetTestDummy = () => {
             "taskName": "Sew it Good - Part 1",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4495c86f7744e87761355",
+              "5b47876e86f7744d1c353205"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1436,7 +1810,11 @@ export const GetTestDummy = () => {
             "taskName": "Sew it Good - Part 2",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4496986f774459e77beb6",
+              "5ae4498786f7744bde357695"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1450,7 +1828,11 @@ export const GetTestDummy = () => {
             "taskName": "Sew it Good - Part 3",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4497b86f7744cf402ed00",
+              "5b47891f86f7744d1b23c571"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1464,7 +1846,12 @@ export const GetTestDummy = () => {
             "taskName": "Sew it Good - Part 4",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4499a86f77449783815db",
+              "5e381b0286f77420e3417a74",
+              "5e383a6386f77465910ce1f3"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1478,7 +1865,12 @@ export const GetTestDummy = () => {
             "taskName": "The Key to Success",
             "minPlayerLevel": "26",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae449a586f7744bde357696",
+              "5ae449d986f774453a54a7e1",
+              "5dc53acb86f77469c740c893"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1492,7 +1884,10 @@ export const GetTestDummy = () => {
             "taskName": "Charisma Brings Success",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1506,7 +1901,10 @@ export const GetTestDummy = () => {
             "taskName": "No Fuss Needed",
             "minPlayerLevel": "26",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1520,7 +1918,11 @@ export const GetTestDummy = () => {
             "taskName": "Gratitude",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae449c386f7744bde357697",
+              "5b478b1886f7744d1b23c57d"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1534,7 +1936,11 @@ export const GetTestDummy = () => {
             "taskName": "Sales Night",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae449d986f774453a54a7e1",
+              "5d25e2e286f77444001e2e48"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1548,7 +1954,11 @@ export const GetTestDummy = () => {
             "taskName": "Supervisor",
             "minPlayerLevel": "40",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "60e71dc0a94be721b065bbfc"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1562,7 +1972,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 17",
             "minPlayerLevel": "31",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b477b6f86f7747290681823"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1576,7 +1989,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 12",
             "minPlayerLevel": "23",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac244c486f77413e12cf945"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1590,7 +2006,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 18",
             "minPlayerLevel": "33",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "639873003693c63d86328f25"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1604,7 +2023,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 20",
             "minPlayerLevel": "37",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "63987301e11ec11ff5504036"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1618,7 +2040,11 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 22",
             "minPlayerLevel": "39",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "64f83bb69878a0569d6ecfbe"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1632,7 +2058,10 @@ export const GetTestDummy = () => {
             "taskName": "The Blood of War - Part 2",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c10f94386f774227172c572"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1646,7 +2075,10 @@ export const GetTestDummy = () => {
             "taskName": "Living High is Not a Crime - Part 1",
             "minPlayerLevel": "27",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c1141f386f77430ff393792"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1660,7 +2092,10 @@ export const GetTestDummy = () => {
             "taskName": "Hot Delivery",
             "minPlayerLevel": "29",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c112d7e86f7740d6f647486"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1674,7 +2109,11 @@ export const GetTestDummy = () => {
             "taskName": "Minibus",
             "minPlayerLevel": "24",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "639135bbc115f907b14700a6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1688,7 +2127,10 @@ export const GetTestDummy = () => {
             "taskName": "Vitamins - Part 1",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5b478ff486f7744d184ecbbf"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1702,7 +2144,11 @@ export const GetTestDummy = () => {
             "taskName": "Vitamins - Part 2",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "64f5e20652fc01298e2c61e3"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1716,7 +2162,10 @@ export const GetTestDummy = () => {
             "taskName": "Informed Means Armed",
             "minPlayerLevel": "24",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5b4795fb86f7745876267770"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1730,7 +2179,10 @@ export const GetTestDummy = () => {
             "taskName": "Lend-Lease - Part 1",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c0d0f1886f77457b8210226"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1744,7 +2196,12 @@ export const GetTestDummy = () => {
             "taskName": "Chumming",
             "minPlayerLevel": "27",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c0bc91486f7746ab41857a2",
+              "5c0bdb5286f774166e38eed4",
+              "639dbaf17c898a131e1cffff"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1758,7 +2215,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 1",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc479e586f7747f376c7da3"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1772,7 +2232,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 2",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc47dbf86f7741ee74e93b9"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1786,7 +2249,11 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 3",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc480a686f7741af0342e29",
+              "5d25e2b486f77409de05bba0"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1800,7 +2267,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 4",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4826c86f774106d22d88b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1814,7 +2284,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 5",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4836986f7740c0152911c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1828,7 +2301,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 6",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4856986f77454c317bea7"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1842,7 +2318,11 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 7",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4893c86f774626f5ebf3e",
+              "625d6ff5ddc94657c21a1625"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1856,7 +2336,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 8",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1870,7 +2353,11 @@ export const GetTestDummy = () => {
             "taskName": "Bullshit",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c1234c286f77406fa13baeb",
+              "625d6ff5ddc94657c21a1625"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1884,7 +2371,10 @@ export const GetTestDummy = () => {
             "taskName": "Silent Caliber",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c0bbaa886f7746941031d82"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1898,7 +2388,10 @@ export const GetTestDummy = () => {
             "taskName": "Insomnia",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1912,7 +2405,11 @@ export const GetTestDummy = () => {
             "taskName": "Test Drive - Part 1",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "63a5cf262964a7488f5243ce"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1926,7 +2423,10 @@ export const GetTestDummy = () => {
             "taskName": "Flint",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1940,7 +2440,10 @@ export const GetTestDummy = () => {
             "taskName": "A Shooter Born in Heaven",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1954,7 +2457,10 @@ export const GetTestDummy = () => {
             "taskName": "Psycho Sniper",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1968,7 +2474,10 @@ export const GetTestDummy = () => {
             "taskName": "Private Clinic",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c0d1c4cd0928202a02a6f5c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1982,7 +2491,10 @@ export const GetTestDummy = () => {
             "taskName": "Athlete",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "60e71c48c1bfa3050473b8e5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -1996,7 +2508,10 @@ export const GetTestDummy = () => {
             "taskName": "Lend-Lease - Part 2",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c0d4c12d09282029f539173"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2010,7 +2525,10 @@ export const GetTestDummy = () => {
             "taskName": "Grenadier",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c0bd94186f7747a727f09b2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2024,7 +2542,11 @@ export const GetTestDummy = () => {
             "taskName": "Decontamination Service",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "625d6ff5ddc94657c21a1625"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2038,7 +2560,11 @@ export const GetTestDummy = () => {
             "taskName": "Peacekeeping Mission",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "625d6ff5ddc94657c21a1625"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2052,7 +2578,11 @@ export const GetTestDummy = () => {
             "taskName": "The Guide",
             "minPlayerLevel": "40",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "60e71c9ad54b755a3b53eb66"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2066,7 +2596,10 @@ export const GetTestDummy = () => {
             "taskName": "The Blood of War - Part 3",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c1141f386f77430ff393792"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2080,7 +2613,10 @@ export const GetTestDummy = () => {
             "taskName": "Fertilizers",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2094,7 +2630,11 @@ export const GetTestDummy = () => {
             "taskName": "Scavenger",
             "minPlayerLevel": "29",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "64edbb1317ab941a6f7cc247"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2108,7 +2648,11 @@ export const GetTestDummy = () => {
             "taskName": "Living High is Not a Crime - Part 2",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "625d6ff5ddc94657c21a1625"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2122,7 +2666,10 @@ export const GetTestDummy = () => {
             "taskName": "Setup",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2136,7 +2683,10 @@ export const GetTestDummy = () => {
             "taskName": "Perfect Mediator",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2150,7 +2700,10 @@ export const GetTestDummy = () => {
             "taskName": "Import",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2164,7 +2717,8 @@ export const GetTestDummy = () => {
             "taskName": "Collector",
             "minPlayerLevel": "48",
             "kappaRequired": true,
-            "traderName": "Fence"
+            "traderName": "Fence",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -2178,7 +2732,10 @@ export const GetTestDummy = () => {
             "taskName": "Introduction",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5d24b81486f77439c92d6ba8"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2192,7 +2749,12 @@ export const GetTestDummy = () => {
             "taskName": "Acquaintance",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4776586f774512d07cf05",
+              "5d25aed386f77442734d25d2",
+              "5d25e48d86f77408251c4bfb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2206,7 +2768,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Unprotected but Dangerous",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25b6be86f77444001e1b89"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2220,7 +2785,11 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Thrifty",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25bfd086f77442734d3007",
+              "63a88045abf76d719f42d715"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2234,7 +2803,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Zhivchik",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25c81b86f77443e625dd71"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2248,7 +2820,11 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Wounded Beast",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25cf2686f77443e75488d4",
+              "5d25d2c186f77443e35162e5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2262,7 +2838,12 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Tough Guy",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e29d86f7740a22516326",
+              "5d25e2b486f77409de05bba0",
+              "5d25e48186f77443e625e386"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2276,7 +2857,8 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Cold Blooded",
             "minPlayerLevel": "2",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -2290,7 +2872,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Eagle-Owl",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e2a986f77409dd5cdf2a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2304,7 +2889,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Combat Medic",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5eaaaa7c93afa0558f3b5a1c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2318,7 +2906,13 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Secured Perimeter",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e2c386f77443e7549029",
+              "5d25e2cc86f77443e47ae019",
+              "5d25e2ee86f77443e35162ea",
+              "5d25e45e86f77408251c4bfa"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2332,7 +2926,12 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Trophy",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e43786f7740a212217fa",
+              "60e71e8ed54b755a3b53eb67",
+              "626bdcc3a371ee3a7a3514c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2346,7 +2945,18 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Forest Cleaning",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e2d886f77442734d335e",
+              "5d25e2e286f77444001e2e48",
+              "5d25e44386f77409453bce7b",
+              "60c0c018f7afb4354815096a",
+              "60e71ccb5688f6424c7bfec4",
+              "6179ad0a6e9dd54ac275e3f2",
+              "625d6ff5ddc94657c21a1625",
+              "639136df4b15ca31f76bc31f",
+              "64e7b971f9d6fa49d6769b44"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2360,7 +2970,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Controller",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2374,7 +2987,12 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Sellout",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5dc53acb86f77469c740c893",
+              "60e71e8ed54b755a3b53eb67",
+              "626bdcc3a371ee3a7a3514c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2388,7 +3006,13 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Woods Keeper",
             "minPlayerLevel": "13",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e4ca86f77409dd5cdf2c",
+              "600302d73b897b11364cd161",
+              "60e71e8ed54b755a3b53eb67",
+              "626bdcc3a371ee3a7a3514c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2402,7 +3026,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Justice",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2416,7 +3043,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Evil Watchman",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2430,7 +3060,11 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Eraser - Part 1",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e45e86f77408251c4bfa",
+              "60e71e8ed54b755a3b53eb67"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2444,7 +3078,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Eraser - Part 2",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2458,7 +3095,10 @@ export const GetTestDummy = () => {
             "taskName": "Ambulance",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2472,7 +3112,11 @@ export const GetTestDummy = () => {
             "taskName": "Courtesy Visit",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e4ad86f77443e625e387",
+              "61904daa7d0d857927447b9c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2486,7 +3130,10 @@ export const GetTestDummy = () => {
             "taskName": "Shady Business",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e46e86f77409453bce7c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2500,7 +3147,10 @@ export const GetTestDummy = () => {
             "taskName": "Nostalgia",
             "minPlayerLevel": "28",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e4b786f77408251c4bfc"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2514,7 +3164,10 @@ export const GetTestDummy = () => {
             "taskName": "Fishing Place",
             "minPlayerLevel": "28",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2528,7 +3181,10 @@ export const GetTestDummy = () => {
             "taskName": "Hunting Trip",
             "minPlayerLevel": "33",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2542,7 +3198,10 @@ export const GetTestDummy = () => {
             "taskName": "Reserve",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "608a768d82e40b3c727fd17d"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2556,7 +3215,10 @@ export const GetTestDummy = () => {
             "taskName": "Regulated Materials",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2570,7 +3232,8 @@ export const GetTestDummy = () => {
             "taskName": "An Apple a Day Keeps the Doctor Away",
             "minPlayerLevel": "10",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -2584,7 +3247,8 @@ export const GetTestDummy = () => {
             "taskName": "Mentor",
             "minPlayerLevel": "14",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -2598,7 +3262,8 @@ export const GetTestDummy = () => {
             "taskName": "The Stylish One",
             "minPlayerLevel": "30",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -2612,7 +3277,10 @@ export const GetTestDummy = () => {
             "taskName": "Textile - Part 1",
             "minPlayerLevel": "42",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5e4d4ac186f774264f758336"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2626,7 +3294,10 @@ export const GetTestDummy = () => {
             "taskName": "Textile - Part 1",
             "minPlayerLevel": "42",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5e4d515e86f77438b2195244"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2640,7 +3311,8 @@ export const GetTestDummy = () => {
             "taskName": "Textile - Part 2",
             "minPlayerLevel": "42",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -2654,7 +3326,8 @@ export const GetTestDummy = () => {
             "taskName": "Textile - Part 2",
             "minPlayerLevel": "42",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -2668,7 +3341,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Junkie",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2682,7 +3358,12 @@ export const GetTestDummy = () => {
             "taskName": "Anesthesia",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5edabd13218d181e29451442",
+              "5edac020218d181e29451446",
+              "5f04886a3937dc337a6b8238"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2696,7 +3377,12 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Sadist",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5edac34d0bb72a50635c2bfa",
+              "60e71e8ed54b755a3b53eb67",
+              "60e729cf5698ee7b05057439"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2710,7 +3396,11 @@ export const GetTestDummy = () => {
             "taskName": "Colleagues - Part 1",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5edaba7c0c502106f869bc02",
+              "5f04886a3937dc337a6b8238"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2724,7 +3414,10 @@ export const GetTestDummy = () => {
             "taskName": "Colleagues - Part 2",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5edab4b1218d181e29451435"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2738,7 +3431,11 @@ export const GetTestDummy = () => {
             "taskName": "Rigged Game",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5edab4b1218d181e29451435",
+              "60e71c11d54b755a3b53eb65"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2752,7 +3449,10 @@ export const GetTestDummy = () => {
             "taskName": "Samples",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5edac63b930f5454f51e128b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2766,7 +3466,10 @@ export const GetTestDummy = () => {
             "taskName": "Colleagues - Part 3",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5edac63b930f5454f51e128b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2780,7 +3483,10 @@ export const GetTestDummy = () => {
             "taskName": "TerraGroup Employee",
             "minPlayerLevel": "23",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2794,7 +3500,10 @@ export const GetTestDummy = () => {
             "taskName": "The Bunker - Part 1",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5ede567cfa6dc072ce15d6e3"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2808,7 +3517,10 @@ export const GetTestDummy = () => {
             "taskName": "The Bunker - Part 2",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "60896bca6ee58f38c417d4f2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2822,7 +3534,11 @@ export const GetTestDummy = () => {
             "taskName": "Chemistry Closet",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5edab4b1218d181e29451435",
+              "60e71d23c1bfa3050473b8e6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2836,7 +3552,10 @@ export const GetTestDummy = () => {
             "taskName": "Search Mission",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2850,7 +3569,8 @@ export const GetTestDummy = () => {
             "taskName": "Hunter",
             "minPlayerLevel": "33",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -2864,7 +3584,12 @@ export const GetTestDummy = () => {
             "taskName": "Revision - Reserve",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "60896888e4a85c72ef3fa300",
+              "6179b4d1bca27a099552e04e",
+              "639135f286e646067c176a87"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2878,7 +3603,10 @@ export const GetTestDummy = () => {
             "taskName": "Classified Technologies",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2892,7 +3620,10 @@ export const GetTestDummy = () => {
             "taskName": "Documents",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2906,7 +3637,10 @@ export const GetTestDummy = () => {
             "taskName": "No Place for Renegades",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "60896b7bfa70fc097863b8f5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2920,7 +3654,10 @@ export const GetTestDummy = () => {
             "taskName": "Disease History",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "6179ad56c760af5ad2053587"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2934,7 +3671,10 @@ export const GetTestDummy = () => {
             "taskName": "Surplus Goods",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2948,7 +3688,10 @@ export const GetTestDummy = () => {
             "taskName": "Back Door",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "6089732b59b92115597ad789"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2962,7 +3705,10 @@ export const GetTestDummy = () => {
             "taskName": "Safe Corridor",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2976,7 +3722,10 @@ export const GetTestDummy = () => {
             "taskName": "Inventory Check",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -2990,7 +3739,10 @@ export const GetTestDummy = () => {
             "taskName": "A Fuel Matter",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "608974af4b05530f55550c21"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3004,7 +3756,10 @@ export const GetTestDummy = () => {
             "taskName": "Pest Control",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e44f86f77443e625e385"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3018,7 +3773,11 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Factory Chief",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "60e71e8ed54b755a3b53eb67"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3032,7 +3791,8 @@ export const GetTestDummy = () => {
             "taskName": "Escort",
             "minPlayerLevel": "60",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3046,7 +3806,8 @@ export const GetTestDummy = () => {
             "taskName": "Capturing Outposts",
             "minPlayerLevel": "42",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3060,7 +3821,10 @@ export const GetTestDummy = () => {
             "taskName": "Intimidator",
             "minPlayerLevel": "45",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3074,7 +3838,8 @@ export const GetTestDummy = () => {
             "taskName": "Night Sweep",
             "minPlayerLevel": "50",
             "kappaRequired": false,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3088,7 +3853,10 @@ export const GetTestDummy = () => {
             "taskName": "Crisis",
             "minPlayerLevel": "48",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3102,7 +3870,8 @@ export const GetTestDummy = () => {
             "taskName": "The Cleaner",
             "minPlayerLevel": "45",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3116,7 +3885,10 @@ export const GetTestDummy = () => {
             "taskName": "Trophies",
             "minPlayerLevel": "55",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "60e71ce009d7c801eb0c0ec6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3130,7 +3902,8 @@ export const GetTestDummy = () => {
             "taskName": "Special Equipment",
             "minPlayerLevel": "60",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3144,7 +3917,10 @@ export const GetTestDummy = () => {
             "taskName": "Calibration",
             "minPlayerLevel": "47",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "60e71d6d7fcf9c556f325055"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3158,7 +3934,8 @@ export const GetTestDummy = () => {
             "taskName": "The Courier",
             "minPlayerLevel": "52",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3172,7 +3949,10 @@ export const GetTestDummy = () => {
             "taskName": "Long Line",
             "minPlayerLevel": "45",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "60e71dc67fcf9c556f325056"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3186,7 +3966,8 @@ export const GetTestDummy = () => {
             "taskName": "Booze",
             "minPlayerLevel": "50",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3200,7 +3981,8 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Relentless",
             "minPlayerLevel": "65",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3214,7 +3996,8 @@ export const GetTestDummy = () => {
             "taskName": "Swift One",
             "minPlayerLevel": "50",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3228,7 +4011,8 @@ export const GetTestDummy = () => {
             "taskName": "The Choice",
             "minPlayerLevel": "50",
             "kappaRequired": false,
-            "traderName": "Fence"
+            "traderName": "Fence",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3242,7 +4026,11 @@ export const GetTestDummy = () => {
             "taskName": "Easy Job - Part 1",
             "minPlayerLevel": "18",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "6179acbdc760af5ad2053585",
+              "626bd75c71bd851e971b82a5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3256,7 +4044,10 @@ export const GetTestDummy = () => {
             "taskName": "Easy Job - Part 2",
             "minPlayerLevel": "18",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3270,7 +4061,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Outcasts",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3284,7 +4078,10 @@ export const GetTestDummy = () => {
             "taskName": "Seaside Vacation",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3298,7 +4095,10 @@ export const GetTestDummy = () => {
             "taskName": "Lost Contact",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "626bd75b05f287031503c7f6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3312,7 +4112,10 @@ export const GetTestDummy = () => {
             "taskName": "Overpopulation",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3326,7 +4129,10 @@ export const GetTestDummy = () => {
             "taskName": "Energy Crisis",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3340,7 +4146,11 @@ export const GetTestDummy = () => {
             "taskName": "Corporate Secrets",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "639135e8c115f907b14700aa"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3354,7 +4164,10 @@ export const GetTestDummy = () => {
             "taskName": "Revision - Lighthouse",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3368,7 +4181,11 @@ export const GetTestDummy = () => {
             "taskName": "Missing Cargo",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "626bd75d5bef5d7d590bd415"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3382,7 +4199,8 @@ export const GetTestDummy = () => {
             "taskName": "Our Own Land",
             "minPlayerLevel": "20",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3396,7 +4214,8 @@ export const GetTestDummy = () => {
             "taskName": "Counteraction",
             "minPlayerLevel": "30",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3410,7 +4229,10 @@ export const GetTestDummy = () => {
             "taskName": "The Hermit",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3424,7 +4246,10 @@ export const GetTestDummy = () => {
             "taskName": "Long Road",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "6179b4f16e9dd54ac275e407"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3438,7 +4263,12 @@ export const GetTestDummy = () => {
             "taskName": "Cargo X - Part 4",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c0bd01e86f7747cdd799e56",
+              "625d6ff5ddc94657c21a1625",
+              "639135534b15ca31f76bc317"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3452,7 +4282,8 @@ export const GetTestDummy = () => {
             "taskName": "Compensation for Damage - Trust",
             "minPlayerLevel": "0",
             "kappaRequired": false,
-            "traderName": "Fence"
+            "traderName": "Fence",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3466,7 +4297,8 @@ export const GetTestDummy = () => {
             "taskName": "Compensation for Damage - Wager",
             "minPlayerLevel": "0",
             "kappaRequired": false,
-            "traderName": "Fence"
+            "traderName": "Fence",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3480,7 +4312,8 @@ export const GetTestDummy = () => {
             "taskName": "Compensation for Damage - Wergild",
             "minPlayerLevel": "0",
             "kappaRequired": false,
-            "traderName": "Fence"
+            "traderName": "Fence",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3494,7 +4327,8 @@ export const GetTestDummy = () => {
             "taskName": "Compensation for Damage - Barkeep",
             "minPlayerLevel": "0",
             "kappaRequired": false,
-            "traderName": "Fence"
+            "traderName": "Fence",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3508,7 +4342,8 @@ export const GetTestDummy = () => {
             "taskName": "Compensation for Damage - Collection",
             "minPlayerLevel": "0",
             "kappaRequired": false,
-            "traderName": "Fence"
+            "traderName": "Fence",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3522,7 +4357,10 @@ export const GetTestDummy = () => {
             "taskName": "Network Provider - Part 1",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "625d6ffaf7308432be1d44c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3536,7 +4374,10 @@ export const GetTestDummy = () => {
             "taskName": "Network Provider - Part 2",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "625d6ffcaa168e51321d69d7"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3550,7 +4391,10 @@ export const GetTestDummy = () => {
             "taskName": "Assessment - Part 1",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "625d6fff4149f1149b5b12c9"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3564,7 +4408,10 @@ export const GetTestDummy = () => {
             "taskName": "Assessment - Part 2",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "625d7001c4874104f230c0c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3578,7 +4425,10 @@ export const GetTestDummy = () => {
             "taskName": "Assessment - Part 3",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "625d70031ed3bb5bcc5bd9e5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3592,7 +4442,10 @@ export const GetTestDummy = () => {
             "taskName": "Key to the Tower",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "625d7005a4eb80027c4f2e09"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3606,7 +4459,12 @@ export const GetTestDummy = () => {
             "taskName": "Knock-Knock",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "625d700cc48e6c62a440fab5",
+              "626148251ed3bb5bcc5bd9ed",
+              "63966faeea19ac7ed845db2c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3620,7 +4478,10 @@ export const GetTestDummy = () => {
             "taskName": "Getting Acquainted",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "626bd75d5bef5d7d590bd415"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3634,7 +4495,10 @@ export const GetTestDummy = () => {
             "taskName": "Make Amends - Buyout",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "6261482fa4eb80027c4f2e11"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3648,7 +4512,11 @@ export const GetTestDummy = () => {
             "taskName": "Make Amends - Equipment",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "626148334149f1149b5b12ca",
+              "6391d90f4ed9512be67647df"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3662,7 +4530,10 @@ export const GetTestDummy = () => {
             "taskName": "Make Amends - Security",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "62614836f7308432be1d44cc"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3676,7 +4547,8 @@ export const GetTestDummy = () => {
             "taskName": "Make Amends - Sweep Up",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3690,7 +4562,11 @@ export const GetTestDummy = () => {
             "taskName": "Drug Trafficking",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "625d6ff5ddc94657c21a1625"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3704,7 +4580,10 @@ export const GetTestDummy = () => {
             "taskName": "Reconnaissance",
             "minPlayerLevel": "18",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3718,7 +4597,8 @@ export const GetTestDummy = () => {
             "taskName": "Top Secret",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3732,7 +4612,11 @@ export const GetTestDummy = () => {
             "taskName": "Broadcast - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552",
+              "63913715f8e5dd32bf4e3aaa"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3746,7 +4630,10 @@ export const GetTestDummy = () => {
             "taskName": "Stray Dogs",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3760,7 +4647,10 @@ export const GetTestDummy = () => {
             "taskName": "Audit",
             "minPlayerLevel": "17",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "639135a7e705511c8a4a1b78"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3774,7 +4664,8 @@ export const GetTestDummy = () => {
             "taskName": "Your Car Needs a Service",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3788,7 +4679,10 @@ export const GetTestDummy = () => {
             "taskName": "You've Got Mail",
             "minPlayerLevel": "10",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "639135b04ed9512be67647d7"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3802,7 +4696,11 @@ export const GetTestDummy = () => {
             "taskName": "Ballet Lover",
             "minPlayerLevel": "20",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "639135bbc115f907b14700a6",
+              "64edbb1317ab941a6f7cc247"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3816,7 +4714,10 @@ export const GetTestDummy = () => {
             "taskName": "Glory to CPSU - Part 1",
             "minPlayerLevel": "15",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "64f5aac4b63b74469b6c14c2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3830,7 +4731,8 @@ export const GetTestDummy = () => {
             "taskName": "Audiophile",
             "minPlayerLevel": "25",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3844,7 +4746,11 @@ export const GetTestDummy = () => {
             "taskName": "House Arrest - Part 1",
             "minPlayerLevel": "33",
             "kappaRequired": false,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "625d6ff5ddc94657c21a1625",
+              "639135cd8ba6894d155e77cb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3858,7 +4764,8 @@ export const GetTestDummy = () => {
             "taskName": "House Arrest - Part 2",
             "minPlayerLevel": "33",
             "kappaRequired": false,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3872,7 +4779,11 @@ export const GetTestDummy = () => {
             "taskName": "Population Census",
             "minPlayerLevel": "12",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "639135e0fa894f0a866afde6",
+              "64f731ab83cfca080a361e42"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3886,7 +4797,11 @@ export const GetTestDummy = () => {
             "taskName": "Urban Medicine",
             "minPlayerLevel": "17",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "64e7b971f9d6fa49d6769b44",
+              "64f3176921045e77405d63b5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3900,7 +4815,8 @@ export const GetTestDummy = () => {
             "taskName": "Surveillance",
             "minPlayerLevel": "25",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3914,7 +4830,10 @@ export const GetTestDummy = () => {
             "taskName": "Revision - Streets of Tarkov",
             "minPlayerLevel": "17",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "63a9b229813bba58a50c9ee5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3928,7 +4847,8 @@ export const GetTestDummy = () => {
             "taskName": "Green Corridor",
             "minPlayerLevel": "20",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3942,7 +4862,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Administrator",
             "minPlayerLevel": "23",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "63a9b36cc31b00242d28a99f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3956,7 +4879,10 @@ export const GetTestDummy = () => {
             "taskName": "Cease Fire!",
             "minPlayerLevel": "10",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "64f3176921045e77405d63b5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3970,7 +4896,10 @@ export const GetTestDummy = () => {
             "taskName": "Kings of the Rooftops",
             "minPlayerLevel": "22",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "63a9ae24009ffc6a551631a5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -3984,7 +4913,8 @@ export const GetTestDummy = () => {
             "taskName": "Watching You",
             "minPlayerLevel": "20",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -3998,7 +4928,13 @@ export const GetTestDummy = () => {
             "taskName": "Broadcast - Part 2",
             "minPlayerLevel": "15",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "625d6ff5ddc94657c21a1625",
+              "639135e8c115f907b14700aa",
+              "639136fa9444fb141f4e6eee",
+              "63a511ea30d85e10e375b045"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4012,7 +4948,11 @@ export const GetTestDummy = () => {
             "taskName": "Broadcast - Part 4",
             "minPlayerLevel": "27",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "63a9b36cc31b00242d28a99f",
+              "64ee99639878a0569d6ec8c9"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4026,7 +4966,8 @@ export const GetTestDummy = () => {
             "taskName": "Make Amends",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4040,7 +4981,8 @@ export const GetTestDummy = () => {
             "taskName": "Road Closed",
             "minPlayerLevel": "20",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4054,7 +4996,10 @@ export const GetTestDummy = () => {
             "taskName": "Information Source",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "63966fbeea19ac7ed845db2e"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4068,7 +5013,10 @@ export const GetTestDummy = () => {
             "taskName": "Missing Informant",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "63966fccac6f8f3c677b9d89"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4082,7 +5030,10 @@ export const GetTestDummy = () => {
             "taskName": "Snatch",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "63966fe7ea74a47c2d3fc0e6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4096,7 +5047,10 @@ export const GetTestDummy = () => {
             "taskName": "Payback",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "63966ff54c3ef01b6f3ffad8"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4110,7 +5064,10 @@ export const GetTestDummy = () => {
             "taskName": "Return the Favor",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "63966fd9ea19ac7ed845db30"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4124,7 +5081,10 @@ export const GetTestDummy = () => {
             "taskName": "Provocation",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "639670029113f06a7c3b2377"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4138,7 +5098,10 @@ export const GetTestDummy = () => {
             "taskName": "Following the Bread Crumbs",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "6396700fea19ac7ed845db32"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4152,7 +5115,10 @@ export const GetTestDummy = () => {
             "taskName": "Spotter",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "6396701b9113f06a7c3b2379"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4166,7 +5132,10 @@ export const GetTestDummy = () => {
             "taskName": "Make an Impression",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "63967028c4a91c5cb76abd81"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4180,7 +5149,10 @@ export const GetTestDummy = () => {
             "taskName": "Trouble in the Big City",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "64f1cc571a5f313cb144bf90"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4194,7 +5166,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 4",
             "minPlayerLevel": "9",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae3267986f7742a413592fe"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4208,7 +5183,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 9",
             "minPlayerLevel": "19",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae327c886f7745c7b3f2f3f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4222,7 +5200,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 11",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b47799d86f7746c5d6a5fd8"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4236,7 +5217,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 14",
             "minPlayerLevel": "27",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae3280386f7742a41359364"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4250,7 +5234,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 19",
             "minPlayerLevel": "36",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b477f7686f7744d1b23c4d2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4264,7 +5251,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 21",
             "minPlayerLevel": "38",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b47825886f77468074618d3"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4278,7 +5268,10 @@ export const GetTestDummy = () => {
             "taskName": "Debtor",
             "minPlayerLevel": "31",
             "kappaRequired": false,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "639135c3744e452011470807"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4292,7 +5285,10 @@ export const GetTestDummy = () => {
             "taskName": "Broadcast - Part 3",
             "minPlayerLevel": "20",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "6391372c8ba6894d155e77d7"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4306,7 +5302,10 @@ export const GetTestDummy = () => {
             "taskName": "Test Drive - Part 2",
             "minPlayerLevel": "30",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "64f5deac39e45b527a7c4232"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4320,7 +5319,11 @@ export const GetTestDummy = () => {
             "taskName": "The Delicious Sausage",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e4d586f77443e625e388",
+              "639136e84ed9512be67647db"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4334,7 +5337,8 @@ export const GetTestDummy = () => {
             "taskName": "Best Job in the World",
             "minPlayerLevel": "25",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4348,7 +5352,8 @@ export const GetTestDummy = () => {
             "taskName": "Worst Job in the World",
             "minPlayerLevel": "25",
             "kappaRequired": false,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4362,7 +5367,8 @@ export const GetTestDummy = () => {
             "taskName": "Slaughterhouse",
             "minPlayerLevel": "40",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4376,7 +5382,8 @@ export const GetTestDummy = () => {
             "taskName": "Dangerous Road",
             "minPlayerLevel": "15",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4390,7 +5397,8 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Big Game",
             "minPlayerLevel": "17",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4404,7 +5412,10 @@ export const GetTestDummy = () => {
             "taskName": "Gendarmerie - Mall Cop",
             "minPlayerLevel": "21",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "64e7b9a4aac4cd0a726562cb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4418,7 +5429,8 @@ export const GetTestDummy = () => {
             "taskName": "Gendarmerie - Tickets, Please",
             "minPlayerLevel": "21",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4432,7 +5444,8 @@ export const GetTestDummy = () => {
             "taskName": "Out of Time",
             "minPlayerLevel": "29",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4446,7 +5459,8 @@ export const GetTestDummy = () => {
             "taskName": "Broadcast - Part 5",
             "minPlayerLevel": "27",
             "kappaRequired": false,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4460,7 +5474,8 @@ export const GetTestDummy = () => {
             "taskName": "The Door",
             "minPlayerLevel": "15",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4474,7 +5489,10 @@ export const GetTestDummy = () => {
             "taskName": "Overseas Trust - Part 1",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Lightkeeper"
+            "traderName": "Lightkeeper",
+            "parents": [
+              "64f1d6e732bed22c3e0c7423"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4488,7 +5506,8 @@ export const GetTestDummy = () => {
             "taskName": "Overseas Trust - Part 2",
             "minPlayerLevel": "35",
             "kappaRequired": false,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4502,7 +5521,8 @@ export const GetTestDummy = () => {
             "taskName": "Ambulances Again",
             "minPlayerLevel": "17",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4516,7 +5536,8 @@ export const GetTestDummy = () => {
             "taskName": "Glory to CPSU - Part 2",
             "minPlayerLevel": "15",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4530,7 +5551,8 @@ export const GetTestDummy = () => {
             "taskName": "Test Drive - Part 3",
             "minPlayerLevel": "30",
             "kappaRequired": false,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4544,7 +5566,10 @@ export const GetTestDummy = () => {
             "taskName": "Beyond the Red Meat - Part 1",
             "minPlayerLevel": "22",
             "kappaRequired": false,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "64f6aafd67e11a7c6206e0d0"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4558,7 +5583,8 @@ export const GetTestDummy = () => {
             "taskName": "Beyond the Red Meat - Part 2",
             "minPlayerLevel": "22",
             "kappaRequired": false,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4569,10 +5595,11 @@ export const GetTestDummy = () => {
         {
           "id": "64f731ab83cfca080a361e42",
           "data": {
-            "taskName": "Pets Won't Need It",
+            "taskName": "Pets Won't Need It - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": false,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -4586,7 +5613,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 23",
             "minPlayerLevel": "39",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "64f83bcdde58fc437700d8fa"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4600,7 +5630,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 24",
             "minPlayerLevel": "39",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "64f83bd983cfca080a362c82"
+            ]
           },
           "type": "custom",
           "position": {
@@ -4614,7 +5647,68 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 25",
             "minPlayerLevel": "39",
             "kappaRequired": false,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": []
+          },
+          "type": "custom",
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "657315ddab5a49b71f098853",
+          "data": {
+            "taskName": "First in Line",
+            "minPlayerLevel": "0",
+            "kappaRequired": false,
+            "traderName": "Therapist",
+            "parents": []
+          },
+          "type": "custom",
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "657315df034d76585f032e01",
+          "data": {
+            "taskName": "Shooting Cans",
+            "minPlayerLevel": "0",
+            "kappaRequired": false,
+            "traderName": "Prapor",
+            "parents": []
+          },
+          "type": "custom",
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "657315e270bb0b8dba00cc48",
+          "data": {
+            "taskName": "Burning Rubber",
+            "minPlayerLevel": "0",
+            "kappaRequired": false,
+            "traderName": "Skier",
+            "parents": []
+          },
+          "type": "custom",
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "id": "657315e4a6af4ab4b50f3459",
+          "data": {
+            "taskName": "Saving the Mole",
+            "minPlayerLevel": "0",
+            "kappaRequired": false,
+            "traderName": "Mechanic",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -7226,7 +8320,11 @@ export const GetTestDummy = () => {
             "taskName": "Debut",
             "minPlayerLevel": "1",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5936da9e86f7742d65037edf",
+              "5fd9fad9c1ce6b1a3b486d00"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7237,10 +8335,13 @@ export const GetTestDummy = () => {
         {
           "id": "5936da9e86f7742d65037edf",
           "data": {
-            "taskName": "Checking",
+            "taskName": "Background Check",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59674eb386f774539f14813a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7254,7 +8355,10 @@ export const GetTestDummy = () => {
             "taskName": "Delivery from the Past",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59c124d686f774189b3c843f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7268,7 +8372,10 @@ export const GetTestDummy = () => {
             "taskName": "Bad Rep Evidence",
             "minPlayerLevel": "6",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59675d6c86f7740a842fc482"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7282,7 +8389,10 @@ export const GetTestDummy = () => {
             "taskName": "Ice Cream Cones",
             "minPlayerLevel": "9",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5967725e86f774601a446662"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7296,7 +8406,12 @@ export const GetTestDummy = () => {
             "taskName": "Shaking up the Teller",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59c50a9e86f7745fef66f4ff",
+              "5c12452c86f7744b83469073",
+              "5eda19f0edce541157209cee"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7310,7 +8425,10 @@ export const GetTestDummy = () => {
             "taskName": "Shortage",
             "minPlayerLevel": "1",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "59689ee586f7740d1570bbd5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7324,7 +8442,10 @@ export const GetTestDummy = () => {
             "taskName": "Sanitary Standards - Part 1",
             "minPlayerLevel": "4",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "596a204686f774576d4c95de"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7338,7 +8459,10 @@ export const GetTestDummy = () => {
             "taskName": "Painkiller",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5969f9e986f7741dde183a50"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7352,7 +8476,14 @@ export const GetTestDummy = () => {
             "taskName": "Pharmacist",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "596a0e1686f7741ddf17dbee",
+              "596a1e6c86f7741ddc2d3206",
+              "596a218586f77420d232807c",
+              "5a68661a86f774500f48afb0",
+              "60896e28e4a85c72ef3fa301"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7366,7 +8497,11 @@ export const GetTestDummy = () => {
             "taskName": "Supply Plans",
             "minPlayerLevel": "13",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "596a101f86f7741ddb481582",
+              "5d25e2ee86f77443e35162ea"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7380,7 +8515,8 @@ export const GetTestDummy = () => {
             "taskName": "Kind of Sabotage",
             "minPlayerLevel": "13",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -7394,7 +8530,10 @@ export const GetTestDummy = () => {
             "taskName": "General Wares",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5edab736cc183c769d778bc2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7408,7 +8547,10 @@ export const GetTestDummy = () => {
             "taskName": "Sanitary Standards - Part 2",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5969f90786f77420d2328015"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7422,7 +8564,10 @@ export const GetTestDummy = () => {
             "taskName": "Car Repair",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7436,7 +8581,12 @@ export const GetTestDummy = () => {
             "taskName": "Supplier",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "596b43fb86f77457ca186186",
+              "596b455186f77457cb50eccb",
+              "5a27c99a86f7747d2c6bdd8e"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7450,7 +8600,10 @@ export const GetTestDummy = () => {
             "taskName": "The Extortionist",
             "minPlayerLevel": "7",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5979ed3886f77431307dc512"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7464,7 +8617,10 @@ export const GetTestDummy = () => {
             "taskName": "Stirrup",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7478,7 +8634,11 @@ export const GetTestDummy = () => {
             "taskName": "What’s on the Flash Drive?",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5979eee086f774311955e614",
+              "5d25e48d86f77408251c4bfb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7492,7 +8652,10 @@ export const GetTestDummy = () => {
             "taskName": "Golden Swag",
             "minPlayerLevel": "8",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5979f9ba86f7740f6c3fe9f2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7506,7 +8669,10 @@ export const GetTestDummy = () => {
             "taskName": "Polikhim Hobo",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5d4bec3486f7743cac246665"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7520,7 +8686,11 @@ export const GetTestDummy = () => {
             "taskName": "Chemical - Part 1",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5979f8bb86f7743ec214c7a6",
+              "597a0b2986f77426d66c0633"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7534,7 +8704,10 @@ export const GetTestDummy = () => {
             "taskName": "Chemical - Part 2",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "597a0e5786f77426d66c0636"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7548,7 +8721,11 @@ export const GetTestDummy = () => {
             "taskName": "Chemical - Part 3",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "597a0f5686f774273b74f676",
+              "5b478eca86f7744642012254"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7562,7 +8739,12 @@ export const GetTestDummy = () => {
             "taskName": "Chemical - Part 4",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "597a160786f77477531d39d2",
+              "597a171586f77405ba6887d3",
+              "6089743983426423753cd58a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7576,7 +8758,8 @@ export const GetTestDummy = () => {
             "taskName": "Out of Curiosity",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -7590,7 +8773,8 @@ export const GetTestDummy = () => {
             "taskName": "Big Customer",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -7604,7 +8788,11 @@ export const GetTestDummy = () => {
             "taskName": "BP Depot",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5967530a86f77462ba22226b",
+              "5ede55112c95834b583f052a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7618,7 +8806,10 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 1",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59c50c8886f7745fed3193bf"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7632,7 +8823,11 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 2",
             "minPlayerLevel": "18",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59c512ad86f7741f0d09de9b",
+              "6179ac7511973d018217d0b9"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7646,7 +8841,10 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 3",
             "minPlayerLevel": "19",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59ca264786f77445a80ed044"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7660,7 +8858,10 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 4",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59ca29fb86f77445ab465c87"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7674,7 +8875,10 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 5",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "59ca2eb686f77445a80ed049"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7688,7 +8892,10 @@ export const GetTestDummy = () => {
             "taskName": "The Punisher - Part 6",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "60e71bb4e456d449cd47ca75"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7702,7 +8909,11 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a03173786f77451cb427172",
+              "6179aff8f57fb279792c60a1"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7716,7 +8927,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a0327ba86f77456b9154236"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7730,7 +8944,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 3",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a03296886f774569778596a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7744,7 +8961,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 4",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a0449d586f77474e66227b7"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7758,7 +8978,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 5",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27ba9586f7741b543d8e85"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7772,7 +8995,11 @@ export const GetTestDummy = () => {
             "taskName": "Fishing Gear",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27b7a786f774579c3eb376",
+              "5edac020218d181e29451446"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7786,7 +9013,10 @@ export const GetTestDummy = () => {
             "taskName": "Tigr Safari",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27b7d686f77460d847e6a6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7800,7 +9030,10 @@ export const GetTestDummy = () => {
             "taskName": "Scrap Metal",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27b80086f774429a5d7e20"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7814,7 +9047,10 @@ export const GetTestDummy = () => {
             "taskName": "Eagle Eye",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27b87686f77460de0252a8"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7828,7 +9064,12 @@ export const GetTestDummy = () => {
             "taskName": "Humanitarian Supplies",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a03153686f77442d90e2171",
+              "5a27b9de86f77464e5044585",
+              "6086c852c945025d41566124"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7842,7 +9083,10 @@ export const GetTestDummy = () => {
             "taskName": "The Cult - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27ba1c86f77461ea5a3c56"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7856,7 +9100,10 @@ export const GetTestDummy = () => {
             "taskName": "The Cult - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7870,7 +9117,10 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 6",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bafb86f7741c73584017"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7884,7 +9134,11 @@ export const GetTestDummy = () => {
             "taskName": "Spa Tour - Part 7",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bb1e86f7741f27621b7e",
+              "5a27bb8386f7741c770d2d0a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7898,7 +9152,10 @@ export const GetTestDummy = () => {
             "taskName": "Cargo X - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bb3d86f77411ea361a21"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7912,7 +9169,10 @@ export const GetTestDummy = () => {
             "taskName": "Cargo X - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bb5986f7741dfb660900"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7926,7 +9186,10 @@ export const GetTestDummy = () => {
             "taskName": "Cargo X - Part 3",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "61958c366726521dd96828ec"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7940,7 +9203,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 1",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bbf886f774333a418eeb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7954,7 +9220,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 2",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bc1586f7741f6d40fa2f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7968,7 +9237,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 3",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bc3686f7741c73584026"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7982,7 +9254,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 4",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bc6986f7741c7358402b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -7996,7 +9271,10 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 5",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5a27bc8586f7741b543d8ea4"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8010,7 +9288,11 @@ export const GetTestDummy = () => {
             "taskName": "Wet Job - Part 6",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c0be13186f7746f016734aa",
+              "5c0d4e61d09282029f53920e"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8021,10 +9303,14 @@ export const GetTestDummy = () => {
         {
           "id": "5a27c99a86f7747d2c6bdd8e",
           "data": {
-            "taskName": "Friend from the West - Part 1",
+            "taskName": "Friend From the West - Part 1",
             "minPlayerLevel": "9",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5a27b75b86f7742e97191958",
+              "5a27d2af86f7744e1115b323"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8035,10 +9321,19 @@ export const GetTestDummy = () => {
         {
           "id": "5a27d2af86f7744e1115b323",
           "data": {
-            "taskName": "Friend from the West - Part 2",
+            "taskName": "Friend From the West - Part 2",
             "minPlayerLevel": "9",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5a03153686f77442d90e2171",
+              "5a27b9de86f77464e5044585",
+              "5b47926a86f7747ccc057c15",
+              "5b4794cb86f774598100d5d4",
+              "5edac020218d181e29451446",
+              "6086c852c945025d41566124",
+              "6193850f60b34236ee0483de"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8052,7 +9347,10 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 1",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5a68663e86f774501078f78a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8066,7 +9364,11 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 2",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5a68665c86f774255929b4c7",
+              "6179afd0bca27a099552e040"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8080,7 +9382,10 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 3",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5a68667486f7742607157d28"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8094,7 +9399,12 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 4",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5a68669a86f774255929b4d4",
+              "5c0be5fc86f774467a116593",
+              "5c0d0d5086f774363760aef2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8108,7 +9418,10 @@ export const GetTestDummy = () => {
             "taskName": "Health Care Privacy - Part 5",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c0d1c4cd0928202a02a6f5c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8122,7 +9435,13 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 1",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac2426c86f774138762edfe",
+              "5ac2428686f77412450b42bf",
+              "5ac345dc86f774288030817f",
+              "5d2495a886f77425cd51e403"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8136,7 +9455,11 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 2",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3467986f7741d6224abc2",
+              "639872f9decada40426d3447"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8150,7 +9473,11 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 3",
             "minPlayerLevel": "7",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3479086f7742880308199",
+              "639872f9decada40426d3447"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8164,7 +9491,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 16",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b47749f86f7746c5d6a5fd4"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8178,7 +9508,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 13",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "639872fe8871e1272b10ccf6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8192,7 +9525,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 7",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae3277186f7745973054106"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8206,7 +9542,10 @@ export const GetTestDummy = () => {
             "taskName": "Farming - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3460c86f7742880308185"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8220,7 +9559,12 @@ export const GetTestDummy = () => {
             "taskName": "Farming - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3462b86f7741d6118b983",
+              "5ac3475486f7741d6224abd3",
+              "626bd75e47ea7f506e5493c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8234,7 +9578,12 @@ export const GetTestDummy = () => {
             "taskName": "Farming - Part 3",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac3464c86f7741d651d6877",
+              "5c0bde0986f77479cf22c2f8",
+              "6179b3bdc7560e13d23eeb8d"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8248,7 +9597,12 @@ export const GetTestDummy = () => {
             "taskName": "Farming - Part 4",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c1128e386f7746565181106",
+              "5c139eb686f7747878361a6f",
+              "6179b3a12153c15e937d52bc"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8262,7 +9616,11 @@ export const GetTestDummy = () => {
             "taskName": "Signal - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac346a886f7744e1b083d67",
+              "5ac3479086f7742880308199"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8276,7 +9634,11 @@ export const GetTestDummy = () => {
             "taskName": "Signal - Part 2",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac346cf86f7741d63233a02",
+              "5ac3477486f7741d651d6885"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8290,7 +9652,10 @@ export const GetTestDummy = () => {
             "taskName": "Signal - Part 3",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac346e886f7741d6118b99b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8304,7 +9669,10 @@ export const GetTestDummy = () => {
             "taskName": "Signal - Part 4",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8318,7 +9686,10 @@ export const GetTestDummy = () => {
             "taskName": "Bad Habit",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8332,7 +9703,11 @@ export const GetTestDummy = () => {
             "taskName": "Scout",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "6089736efa70fc097863b8f6",
+              "60c0c018f7afb4354815096a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8346,7 +9721,10 @@ export const GetTestDummy = () => {
             "taskName": "Insider",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8360,7 +9738,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 5",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae3270f86f77445ba41d4dd"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8374,7 +9755,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 6",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac244eb86f7741356335af1"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8388,7 +9772,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 8",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "639872fa9b4fb827b200d8e5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8402,7 +9789,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 10",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "639872fc93ae507d5858c3a6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8416,7 +9806,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 15",
             "minPlayerLevel": "29",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac242ab86f77412464f68b4"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8430,7 +9823,11 @@ export const GetTestDummy = () => {
             "taskName": "Only Business",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae448bf86f7744d733e55ee",
+              "5ae448e586f7744dcf0c2a67"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8444,7 +9841,11 @@ export const GetTestDummy = () => {
             "taskName": "Make ULTRA Great Again",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae448f286f77448d73c0131",
+              "5ae4493486f7744efa289417"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8458,7 +9859,11 @@ export const GetTestDummy = () => {
             "taskName": "Big Sale",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae448f286f77448d73c0131",
+              "5ae4493486f7744efa289417"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8472,7 +9877,14 @@ export const GetTestDummy = () => {
             "taskName": "The Blood of War - Part 1",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4490786f7744ca822adcc",
+              "5ae4499a86f77449783815db",
+              "5b47876e86f7744d1c353205",
+              "5b47891f86f7744d1b23c571",
+              "608974d01a66564e74191fc0"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8486,7 +9898,10 @@ export const GetTestDummy = () => {
             "taskName": "Dressed to Kill",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae449b386f77446d8741719"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8500,7 +9915,10 @@ export const GetTestDummy = () => {
             "taskName": "Database - Part 1",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4493d86f7744b8e15aa8f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8514,7 +9932,12 @@ export const GetTestDummy = () => {
             "taskName": "Database - Part 2",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4495086f77443c122bc40",
+              "5ae449b386f77446d8741719",
+              "5b478d0f86f7744d190d91b5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8528,7 +9951,11 @@ export const GetTestDummy = () => {
             "taskName": "Sew it Good - Part 1",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4495c86f7744e87761355",
+              "5b47876e86f7744d1c353205"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8542,7 +9969,11 @@ export const GetTestDummy = () => {
             "taskName": "Sew it Good - Part 2",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4496986f774459e77beb6",
+              "5ae4498786f7744bde357695"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8556,7 +9987,11 @@ export const GetTestDummy = () => {
             "taskName": "Sew it Good - Part 3",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4497b86f7744cf402ed00",
+              "5b47891f86f7744d1b23c571"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8570,7 +10005,10 @@ export const GetTestDummy = () => {
             "taskName": "Sew it Good - Part 4",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae4499a86f77449783815db"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8584,7 +10022,11 @@ export const GetTestDummy = () => {
             "taskName": "The Key to Success",
             "minPlayerLevel": "26",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae449a586f7744bde357696",
+              "5ae449d986f774453a54a7e1"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8598,7 +10040,10 @@ export const GetTestDummy = () => {
             "taskName": "Charisma Brings Success",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8612,7 +10057,10 @@ export const GetTestDummy = () => {
             "taskName": "No Fuss Needed",
             "minPlayerLevel": "26",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8626,7 +10074,11 @@ export const GetTestDummy = () => {
             "taskName": "Gratitude",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae449c386f7744bde357697",
+              "5b478b1886f7744d1b23c57d"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8640,7 +10092,11 @@ export const GetTestDummy = () => {
             "taskName": "Sales Night",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5ae449d986f774453a54a7e1",
+              "5d25e2e286f77444001e2e48"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8654,7 +10110,10 @@ export const GetTestDummy = () => {
             "taskName": "Supervisor",
             "minPlayerLevel": "40",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8668,7 +10127,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 17",
             "minPlayerLevel": "31",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b477b6f86f7747290681823"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8682,7 +10144,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 12",
             "minPlayerLevel": "23",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ac244c486f77413e12cf945"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8696,7 +10161,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 18",
             "minPlayerLevel": "33",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "639873003693c63d86328f25"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8710,7 +10178,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 20",
             "minPlayerLevel": "37",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "63987301e11ec11ff5504036"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8724,7 +10195,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 22",
             "minPlayerLevel": "39",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8738,7 +10212,10 @@ export const GetTestDummy = () => {
             "taskName": "The Blood of War - Part 2",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c10f94386f774227172c572"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8752,7 +10229,10 @@ export const GetTestDummy = () => {
             "taskName": "Living High is Not a Crime - Part 1",
             "minPlayerLevel": "27",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c1141f386f77430ff393792"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8766,7 +10246,10 @@ export const GetTestDummy = () => {
             "taskName": "Hot Delivery",
             "minPlayerLevel": "29",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c112d7e86f7740d6f647486"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8780,7 +10263,10 @@ export const GetTestDummy = () => {
             "taskName": "Minibus",
             "minPlayerLevel": "24",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8794,7 +10280,10 @@ export const GetTestDummy = () => {
             "taskName": "Vitamins - Part 1",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5b478ff486f7744d184ecbbf"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8808,7 +10297,10 @@ export const GetTestDummy = () => {
             "taskName": "Vitamins - Part 2",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8822,7 +10314,10 @@ export const GetTestDummy = () => {
             "taskName": "Informed Means Armed",
             "minPlayerLevel": "24",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5b4795fb86f7745876267770"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8836,7 +10331,10 @@ export const GetTestDummy = () => {
             "taskName": "Lend-Lease - Part 1",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c0d0f1886f77457b8210226"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8850,7 +10348,11 @@ export const GetTestDummy = () => {
             "taskName": "Chumming",
             "minPlayerLevel": "27",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c0bc91486f7746ab41857a2",
+              "5c0bdb5286f774166e38eed4"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8864,7 +10366,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 1",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc479e586f7747f376c7da3"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8878,7 +10383,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 2",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc47dbf86f7741ee74e93b9"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8892,7 +10400,11 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 3",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc480a686f7741af0342e29",
+              "5d25e2b486f77409de05bba0"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8906,7 +10418,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 4",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4826c86f774106d22d88b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8920,7 +10435,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 5",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4836986f7740c0152911c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8934,7 +10452,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 6",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4856986f77454c317bea7"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8948,7 +10469,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 7",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4893c86f774626f5ebf3e"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8962,7 +10486,10 @@ export const GetTestDummy = () => {
             "taskName": "The Tarkov Shooter - Part 8",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8976,7 +10503,10 @@ export const GetTestDummy = () => {
             "taskName": "Bullshit",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c1234c286f77406fa13baeb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -8990,7 +10520,10 @@ export const GetTestDummy = () => {
             "taskName": "Silent Caliber",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c0bbaa886f7746941031d82"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9004,7 +10537,10 @@ export const GetTestDummy = () => {
             "taskName": "Insomnia",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9018,7 +10554,10 @@ export const GetTestDummy = () => {
             "taskName": "Test Drive - Part 1",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9032,7 +10571,10 @@ export const GetTestDummy = () => {
             "taskName": "Flint",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9046,7 +10588,10 @@ export const GetTestDummy = () => {
             "taskName": "A Shooter Born in Heaven",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9060,7 +10605,10 @@ export const GetTestDummy = () => {
             "taskName": "Psycho Sniper",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9074,7 +10622,10 @@ export const GetTestDummy = () => {
             "taskName": "Private Clinic",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c0d1c4cd0928202a02a6f5c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9088,7 +10639,10 @@ export const GetTestDummy = () => {
             "taskName": "Athlete",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "60e71c48c1bfa3050473b8e5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9102,7 +10656,10 @@ export const GetTestDummy = () => {
             "taskName": "Lend-Lease - Part 2",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c0d4c12d09282029f539173"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9116,7 +10673,10 @@ export const GetTestDummy = () => {
             "taskName": "Grenadier",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c0bd94186f7747a727f09b2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9130,7 +10690,10 @@ export const GetTestDummy = () => {
             "taskName": "Decontamination Service",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9144,7 +10707,10 @@ export const GetTestDummy = () => {
             "taskName": "Peacekeeping Mission",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9158,7 +10724,10 @@ export const GetTestDummy = () => {
             "taskName": "The Guide",
             "minPlayerLevel": "40",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9172,7 +10741,10 @@ export const GetTestDummy = () => {
             "taskName": "The Blood of War - Part 3",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c1141f386f77430ff393792"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9186,7 +10758,10 @@ export const GetTestDummy = () => {
             "taskName": "Fertilizers",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9200,7 +10775,10 @@ export const GetTestDummy = () => {
             "taskName": "Scavenger",
             "minPlayerLevel": "29",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9214,7 +10792,10 @@ export const GetTestDummy = () => {
             "taskName": "Living High is Not a Crime - Part 2",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9228,7 +10809,10 @@ export const GetTestDummy = () => {
             "taskName": "Setup",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9242,7 +10826,10 @@ export const GetTestDummy = () => {
             "taskName": "Perfect Mediator",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9256,7 +10843,10 @@ export const GetTestDummy = () => {
             "taskName": "Import",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9270,7 +10860,8 @@ export const GetTestDummy = () => {
             "taskName": "Collector",
             "minPlayerLevel": "48",
             "kappaRequired": true,
-            "traderName": "Fence"
+            "traderName": "Fence",
+            "parents": []
           },
           "type": "custom",
           "position": {
@@ -9284,7 +10875,10 @@ export const GetTestDummy = () => {
             "taskName": "Introduction",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5d24b81486f77439c92d6ba8"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9298,7 +10892,12 @@ export const GetTestDummy = () => {
             "taskName": "Acquaintance",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5bc4776586f774512d07cf05",
+              "5d25aed386f77442734d25d2",
+              "5d25e48d86f77408251c4bfb"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9312,7 +10911,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Unprotected but Dangerous",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25b6be86f77444001e1b89"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9326,7 +10928,11 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Thrifty",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25bfd086f77442734d3007",
+              "63a88045abf76d719f42d715"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9340,7 +10946,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Zhivchik",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25c81b86f77443e625dd71"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9354,7 +10963,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Wounded Beast",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25cf2686f77443e75488d4"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9368,7 +10980,12 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Tough Guy",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e29d86f7740a22516326",
+              "5d25e2b486f77409de05bba0",
+              "5d25e48186f77443e625e386"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9382,7 +10999,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Eagle-Owl",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e2a986f77409dd5cdf2a"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9396,7 +11016,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Combat Medic",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5eaaaa7c93afa0558f3b5a1c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9410,7 +11033,13 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Secured Perimeter",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e2c386f77443e7549029",
+              "5d25e2cc86f77443e47ae019",
+              "5d25e2ee86f77443e35162ea",
+              "5d25e45e86f77408251c4bfa"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9424,7 +11053,11 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Trophy",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e43786f7740a212217fa",
+              "626bdcc3a371ee3a7a3514c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9438,7 +11071,14 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Forest Cleaning",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e2d886f77442734d335e",
+              "5d25e2e286f77444001e2e48",
+              "5d25e44386f77409453bce7b",
+              "60c0c018f7afb4354815096a",
+              "6179ad0a6e9dd54ac275e3f2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9452,7 +11092,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Controller",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9466,7 +11109,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Sellout",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "626bdcc3a371ee3a7a3514c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9480,7 +11126,11 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Woods Keeper",
             "minPlayerLevel": "13",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e4ca86f77409dd5cdf2c",
+              "626bdcc3a371ee3a7a3514c5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9494,7 +11144,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Justice",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9508,7 +11161,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Evil Watchman",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9522,7 +11178,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Eraser - Part 1",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e45e86f77408251c4bfa"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9536,7 +11195,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Eraser - Part 2",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9550,7 +11212,10 @@ export const GetTestDummy = () => {
             "taskName": "Ambulance",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9564,7 +11229,11 @@ export const GetTestDummy = () => {
             "taskName": "Courtesy Visit",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e4ad86f77443e625e387",
+              "61904daa7d0d857927447b9c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9578,7 +11247,10 @@ export const GetTestDummy = () => {
             "taskName": "Shady Business",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e46e86f77409453bce7c"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9592,7 +11264,10 @@ export const GetTestDummy = () => {
             "taskName": "Nostalgia",
             "minPlayerLevel": "28",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e4b786f77408251c4bfc"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9606,7 +11281,10 @@ export const GetTestDummy = () => {
             "taskName": "Fishing Place",
             "minPlayerLevel": "28",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9620,7 +11298,10 @@ export const GetTestDummy = () => {
             "taskName": "Hunting Trip",
             "minPlayerLevel": "33",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9634,7 +11315,10 @@ export const GetTestDummy = () => {
             "taskName": "Reserve",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "608a768d82e40b3c727fd17d"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9648,7 +11332,10 @@ export const GetTestDummy = () => {
             "taskName": "Regulated Materials",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9662,7 +11349,10 @@ export const GetTestDummy = () => {
             "taskName": "The Survivalist Path - Junkie",
             "minPlayerLevel": "2",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9676,7 +11366,12 @@ export const GetTestDummy = () => {
             "taskName": "Anesthesia",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5edabd13218d181e29451442",
+              "5edac020218d181e29451446",
+              "5f04886a3937dc337a6b8238"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9690,7 +11385,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Sadist",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5edac34d0bb72a50635c2bfa"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9704,7 +11402,11 @@ export const GetTestDummy = () => {
             "taskName": "Colleagues - Part 1",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5edaba7c0c502106f869bc02",
+              "5f04886a3937dc337a6b8238"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9718,7 +11420,10 @@ export const GetTestDummy = () => {
             "taskName": "Colleagues - Part 2",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5edab4b1218d181e29451435"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9732,7 +11437,10 @@ export const GetTestDummy = () => {
             "taskName": "Rigged Game",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5edab4b1218d181e29451435"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9746,7 +11454,10 @@ export const GetTestDummy = () => {
             "taskName": "Samples",
             "minPlayerLevel": "21",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5edac63b930f5454f51e128b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9760,7 +11471,10 @@ export const GetTestDummy = () => {
             "taskName": "Colleagues - Part 3",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5edac63b930f5454f51e128b"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9774,7 +11488,10 @@ export const GetTestDummy = () => {
             "taskName": "TerraGroup Employee",
             "minPlayerLevel": "23",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9788,7 +11505,10 @@ export const GetTestDummy = () => {
             "taskName": "The Bunker - Part 1",
             "minPlayerLevel": "10",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5ede567cfa6dc072ce15d6e3"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9802,7 +11522,10 @@ export const GetTestDummy = () => {
             "taskName": "The Bunker - Part 2",
             "minPlayerLevel": "11",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "60896bca6ee58f38c417d4f2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9816,7 +11539,10 @@ export const GetTestDummy = () => {
             "taskName": "Chemistry Closet",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5edab4b1218d181e29451435"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9830,7 +11556,10 @@ export const GetTestDummy = () => {
             "taskName": "Search Mission",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9844,7 +11573,11 @@ export const GetTestDummy = () => {
             "taskName": "Revision - Reserve",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "60896888e4a85c72ef3fa300",
+              "6179b4d1bca27a099552e04e"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9858,7 +11591,10 @@ export const GetTestDummy = () => {
             "taskName": "Classified Technologies",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9872,7 +11608,10 @@ export const GetTestDummy = () => {
             "taskName": "Documents",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9886,7 +11625,10 @@ export const GetTestDummy = () => {
             "taskName": "No Place for Renegades",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "60896b7bfa70fc097863b8f5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9900,7 +11642,10 @@ export const GetTestDummy = () => {
             "taskName": "Disease History",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "6179ad56c760af5ad2053587"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9914,7 +11659,10 @@ export const GetTestDummy = () => {
             "taskName": "Surplus Goods",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9928,7 +11676,10 @@ export const GetTestDummy = () => {
             "taskName": "Back Door",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "6089732b59b92115597ad789"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9942,7 +11693,10 @@ export const GetTestDummy = () => {
             "taskName": "Safe Corridor",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9956,7 +11710,10 @@ export const GetTestDummy = () => {
             "taskName": "Inventory Check",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9970,7 +11727,10 @@ export const GetTestDummy = () => {
             "taskName": "A Fuel Matter",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Ragman"
+            "traderName": "Ragman",
+            "parents": [
+              "608974af4b05530f55550c21"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9984,7 +11744,10 @@ export const GetTestDummy = () => {
             "taskName": "Pest Control",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e44f86f77443e625e385"
+            ]
           },
           "type": "custom",
           "position": {
@@ -9998,7 +11761,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Factory Chief",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10012,7 +11778,10 @@ export const GetTestDummy = () => {
             "taskName": "Intimidator",
             "minPlayerLevel": "45",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10026,7 +11795,10 @@ export const GetTestDummy = () => {
             "taskName": "Crisis",
             "minPlayerLevel": "48",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10040,7 +11812,11 @@ export const GetTestDummy = () => {
             "taskName": "Easy Job - Part 1",
             "minPlayerLevel": "18",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "6179acbdc760af5ad2053585",
+              "626bd75c71bd851e971b82a5"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10054,7 +11830,10 @@ export const GetTestDummy = () => {
             "taskName": "Easy Job - Part 2",
             "minPlayerLevel": "18",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10068,7 +11847,10 @@ export const GetTestDummy = () => {
             "taskName": "The Huntsman Path - Outcasts",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10082,7 +11864,10 @@ export const GetTestDummy = () => {
             "taskName": "Seaside Vacation",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10096,7 +11881,10 @@ export const GetTestDummy = () => {
             "taskName": "Lost Contact",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "626bd75b05f287031503c7f6"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10110,7 +11898,10 @@ export const GetTestDummy = () => {
             "taskName": "Overpopulation",
             "minPlayerLevel": "15",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10124,7 +11915,10 @@ export const GetTestDummy = () => {
             "taskName": "Energy Crisis",
             "minPlayerLevel": "25",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10138,7 +11932,10 @@ export const GetTestDummy = () => {
             "taskName": "Corporate Secrets",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10152,7 +11949,10 @@ export const GetTestDummy = () => {
             "taskName": "Revision - Lighthouse",
             "minPlayerLevel": "14",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10166,7 +11966,10 @@ export const GetTestDummy = () => {
             "taskName": "Missing Cargo",
             "minPlayerLevel": "30",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10180,7 +11983,10 @@ export const GetTestDummy = () => {
             "taskName": "The Hermit",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10194,7 +12000,10 @@ export const GetTestDummy = () => {
             "taskName": "Long Road",
             "minPlayerLevel": "20",
             "kappaRequired": true,
-            "traderName": "Skier"
+            "traderName": "Skier",
+            "parents": [
+              "6179b4f16e9dd54ac275e407"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10208,7 +12017,10 @@ export const GetTestDummy = () => {
             "taskName": "Cargo X - Part 4",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Peacekeeper"
+            "traderName": "Peacekeeper",
+            "parents": [
+              "5c0bd01e86f7747cdd799e56"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10222,7 +12034,10 @@ export const GetTestDummy = () => {
             "taskName": "Drug Trafficking",
             "minPlayerLevel": "17",
             "kappaRequired": true,
-            "traderName": "Therapist"
+            "traderName": "Therapist",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10236,7 +12051,10 @@ export const GetTestDummy = () => {
             "taskName": "Reconnaissance",
             "minPlayerLevel": "18",
             "kappaRequired": true,
-            "traderName": "Prapor"
+            "traderName": "Prapor",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10250,7 +12068,10 @@ export const GetTestDummy = () => {
             "taskName": "Broadcast - Part 1",
             "minPlayerLevel": "12",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10264,7 +12085,10 @@ export const GetTestDummy = () => {
             "taskName": "Stray Dogs",
             "minPlayerLevel": "35",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5c51aac186f77432ea65c552"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10278,7 +12102,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 4",
             "minPlayerLevel": "9",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae3267986f7742a413592fe"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10292,7 +12119,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 9",
             "minPlayerLevel": "19",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae327c886f7745c7b3f2f3f"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10306,7 +12136,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 11",
             "minPlayerLevel": "22",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b47799d86f7746c5d6a5fd8"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10320,7 +12153,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 14",
             "minPlayerLevel": "27",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5ae3280386f7742a41359364"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10334,7 +12170,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 19",
             "minPlayerLevel": "36",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b477f7686f7744d1b23c4d2"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10348,7 +12187,10 @@ export const GetTestDummy = () => {
             "taskName": "Gunsmith - Part 21",
             "minPlayerLevel": "38",
             "kappaRequired": true,
-            "traderName": "Mechanic"
+            "traderName": "Mechanic",
+            "parents": [
+              "5b47825886f77468074618d3"
+            ]
           },
           "type": "custom",
           "position": {
@@ -10362,7 +12204,10 @@ export const GetTestDummy = () => {
             "taskName": "The Delicious Sausage",
             "minPlayerLevel": "5",
             "kappaRequired": true,
-            "traderName": "Jaeger"
+            "traderName": "Jaeger",
+            "parents": [
+              "5d25e4d586f77443e625e388"
+            ]
           },
           "type": "custom",
           "position": {

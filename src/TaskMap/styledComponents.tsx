@@ -1,4 +1,4 @@
-import ReactFlow, { Controls, MiniMap } from "reactflow";
+import ReactFlow, { Controls } from "reactflow";
 import styled from "styled-components";
 
 const darkTheme = {
@@ -19,19 +19,6 @@ const darkTheme = {
 
 export const ReactFlowStyled = styled(ReactFlow)`
   background-color: ${darkTheme.bg};
-`;
-
-export const MiniMapStyled = styled(MiniMap)`
-  background-color: ${darkTheme.bg};
-
-  .react-flow__minimap-mask {
-    fill: ${darkTheme.minimapMaskBg};
-  }
-
-  .react-flow__minimap-node {
-    fill: ${darkTheme.nodeBg};
-    stroke: none;
-  }
 `;
 
 export const ControlsStyled = styled(Controls)`

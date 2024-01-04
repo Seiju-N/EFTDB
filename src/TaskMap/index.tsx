@@ -1,22 +1,13 @@
-import React from "react";
-import { Panel, ReactFlowProvider } from "reactflow";
+import React, { memo } from "react";
+import { ReactFlowProvider } from "reactflow";
 import "reactflow/dist/style.css";
-import {
-  Box,
-  Card,
-  Checkbox,
-  CircularProgress,
-  Container,
-  FormControlLabel,
-  Typography,
-} from "@mui/material";
-import { alpha } from "@mui/material/styles";
+import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import { useHooks } from "./hooks";
-import {
-  ControlsStyled,
-  MiniMapStyled,
-  ReactFlowStyled,
-} from "./styledComponents";
+import { ControlsStyled, ReactFlowStyled } from "./styledComponents";
+import { TaskMapProvider } from "@/contexts/TaskMapContext";
+import { MemorizedPanel } from "./Panel";
+
+const MemorizedControls = memo(ControlsStyled);
 
 const TaskMapPlane = () => {
   const {
@@ -57,29 +48,11 @@ const TaskMapPlane = () => {
         fitView
         attributionPosition="bottom-left"
       >
-        <Panel position="top-right">
-          <Card
-            sx={{
-              backgroundColor: (theme) =>
-                alpha(theme.palette.background.default, 0.5),
-              px: 2,
-            }}
-            variant="outlined"
-          >
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={showKappaRequired}
-                  onChange={handleCheckboxChange}
-                  color="primary"
-                />
-              }
-              label={"Kappa required only"}
-            />
-          </Card>
-        </Panel>
-        <MiniMapStyled />
-        <ControlsStyled />
+        <MemorizedPanel
+          showKappaRequired={showKappaRequired}
+          handleCheckboxChange={handleCheckboxChange}
+        />
+        <MemorizedControls />
       </ReactFlowStyled>
     </Box>
   );
@@ -87,8 +60,10 @@ const TaskMapPlane = () => {
 
 export const TaskMap = () => {
   return (
-    <ReactFlowProvider>
-      <TaskMapPlane />
-    </ReactFlowProvider>
+    <TaskMapProvider>
+      <ReactFlowProvider>
+        <TaskMapPlane />
+      </ReactFlowProvider>
+    </TaskMapProvider>
   );
 };
