@@ -14,6 +14,10 @@ import { LanguageDictContext } from "@/App";
 import { GetTestDummy } from "./GetTestDummy";
 import { useTaskMap } from "@/contexts/TaskMapContext";
 
+
+const NODE_WIDTH = 200;
+const NODE_HEIGHT = 30;
+
 type dataType = {
   nodes: Node[];
   edges: Edge[];
@@ -49,14 +53,14 @@ export const useHooks = () => {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-  const nodeWidth = 200;
-  const nodeHeight = 30;
-
-  const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
+  const getSavedNodes = useCallback(() => {
+    return JSON.parse(localStorage.getItem("checkedNodes") || "{}");
+  }, []);
+  const getLayoutedElements = useCallback((nodes: Node[], edges: Edge[]) => {
     dagreGraph.setGraph({ rankdir: "LR", ranksep: 560, nodesep: 80 });
 
     nodes.forEach((node: Node) => {
-      dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+      dagreGraph.setNode(node.id, { width: NODE_WIDTH, height: NODE_HEIGHT });
     });
 
     edges.forEach((edge: Edge) => {
@@ -73,17 +77,17 @@ export const useHooks = () => {
       }
       node.targetPosition = Position.Left;
       node.sourcePosition = Position.Right;
-      let xPosition = nodeWithPosition.x - nodeWidth / 2;
+      let xPosition = nodeWithPosition.x - NODE_WIDTH / 2;
       if (node.data.taskName === "Collector") {
         xPosition += 4000;
       }
       node.position = {
         x: xPosition,
-        y: nodeWithPosition.y - nodeHeight / 2,
+        y: nodeWithPosition.y - NODE_HEIGHT / 2,
       };
     });
     return { nodes, edges };
-  };
+  },[]);
 
   const layoutedElements = useMemo(
     () => getLayoutedElements(nodes, edges),
@@ -105,7 +109,7 @@ export const useHooks = () => {
   };
 
   const updateNodesWithCheckedStatus = (nodes: Node[], nodesMap: Map<string, Node>) => {
-    const savedNodes = JSON.parse(localStorage.getItem("checkedNodes") || "{}")
+    const savedNodes = getSavedNodes();
     nodes.forEach(node => {
       if (savedNodes[node.id]) {
         checkTaskRequirements(node.id, nodesMap);
@@ -115,6 +119,25 @@ export const useHooks = () => {
     const updatedNodes = Array.from(nodesMap.values());
     return updatedNodes;
   };
+
+  useEffect(() => {
+    const updateNodesFromLocalStorage = () => {
+      const savedNodes = getSavedNodes();
+      const updatedNodes = (showKappaRequired ? dataWithKappa.nodes : dataWithoutKappa.nodes).map(node => ({
+        ...node,
+        data: {
+          ...node.data,
+          isNodeChecked: !!savedNodes[node.id],
+        },
+      }));
+  
+      setNodes(updatedNodes);
+    };
+  
+    if (dataWithKappa.nodes.length > 0 && dataWithoutKappa.nodes.length > 0) {
+      updateNodesFromLocalStorage();
+    }
+  }, [showKappaRequired, dataWithKappa.nodes, dataWithoutKappa.nodes]);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -135,7 +158,7 @@ export const useHooks = () => {
         throw new Error("サーバーからのレスポンスが正常ではありません。");
       } else {
         const result = await response.json();
-        const savedNodes = JSON.parse(localStorage.getItem("checkedNodes") || "{}");
+        const savedNodes = getSavedNodes();
         const addCheckedStatus = (node: Node) => ({
           ...node,
           data: {
@@ -149,24 +172,15 @@ export const useHooks = () => {
 
         const layoutedKappa = getLayoutedElements(updatedKappaNodes, result.kappa.edges);
         const layoutedAll = getLayoutedElements(updatedAllNodes, result.all.edges);
-        if (JSON.stringify(layoutedKappa) !== JSON.stringify(dataWithKappa)) {
-          setDataWithKappa(layoutedKappa);
-        }
-        if (JSON.stringify(layoutedAll) !== JSON.stringify(dataWithoutKappa)) {
-          setDataWithoutKappa(layoutedAll);
-        }
-        if (showKappaRequired) {
-          setNodes(layoutedKappa.nodes);
-          setEdges(layoutedKappa.edges);
-        } else {
-          setNodes(layoutedAll.nodes);
-          setEdges(layoutedAll.edges);
-        }
+        setDataWithKappa(layoutedKappa);
+        setDataWithoutKappa(layoutedAll);
+        setNodes(showKappaRequired ? layoutedKappa.nodes : layoutedAll.nodes);
+        setEdges(showKappaRequired ? layoutedKappa.edges : layoutedAll.edges);
       }
     } catch (err) {
       console.error(err);
       const result = GetTestDummy();
-      const savedNodes = JSON.parse(localStorage.getItem("checkedNodes") || "{}");
+      const savedNodes = getSavedNodes();
       const addCheckedStatus = (node: Node) => ({
         ...node,
         data: {
@@ -179,19 +193,10 @@ export const useHooks = () => {
       const updatedAllNodes = result.all.nodes.map(addCheckedStatus);
       const layoutedKappa = getLayoutedElements(updatedKappaNodes, result.kappa.edges);
       const layoutedAll = getLayoutedElements(updatedAllNodes, result.all.edges);
-      if (JSON.stringify(layoutedKappa) !== JSON.stringify(dataWithKappa)) {
-        setDataWithKappa(layoutedKappa);
-      }
-      if (JSON.stringify(layoutedAll) !== JSON.stringify(dataWithoutKappa)) {
-        setDataWithoutKappa(layoutedAll);
-      }
-      if (showKappaRequired) {
-        setNodes(layoutedKappa.nodes);
-        setEdges(layoutedKappa.edges);
-      } else {
-        setNodes(layoutedAll.nodes);
-        setEdges(layoutedAll.edges);
-      }
+      setDataWithKappa(layoutedKappa);
+      setDataWithoutKappa(layoutedAll);
+      setNodes(showKappaRequired ? layoutedKappa.nodes : layoutedAll.nodes);
+      setEdges(showKappaRequired ? layoutedKappa.edges : layoutedAll.edges);
     } finally {
       setIsLoading(false);
     }
@@ -218,17 +223,27 @@ export const useHooks = () => {
       const checked = event.target.checked;
       setIsLoading(true);
       setShowKappaRequired(checked);
-
-      const data = checked ? dataWithKappa : dataWithoutKappa;
-      setNodes(data.nodes);
-      setEdges(data.edges);
-
+  
+      const savedNodes = getSavedNodes();
+      const currentData = checked ? dataWithKappa : dataWithoutKappa;
+      const updatedNodes = currentData.nodes.map(node => ({
+        ...node,
+        data: {
+          ...node.data,
+          isNodeChecked: savedNodes[node.id] ?? node.data.isNodeChecked,
+        },
+      }));
+  
+      setNodes(updatedNodes);
+      setEdges(currentData.edges);
+      //NOTE: 一旦ロード画面を挟まないとEdgeの表示がおかしくなるため
       setTimeout(() => {
         setIsLoading(false);
       }, 4);
     },
-    [dataWithKappa, dataWithoutKappa]
+    [dataWithKappa, dataWithoutKappa, setNodes, setEdges]
   );
+  
 
   return {
     nodes,
