@@ -44,7 +44,7 @@ const TaskMapPlane = () => {
         edges={edges}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        minZoom={0.1}
+        minZoom={0.08}
         fitView
         attributionPosition="bottom-left"
       >

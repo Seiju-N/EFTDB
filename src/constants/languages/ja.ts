@@ -162,6 +162,7 @@ const JA_DICT = {
     ArmBand: "アームバンド",
     Armor: "アーマー",
     ArmoredEquipment: "アーマー & 装備",
+    ArmorPlate: "アーマープレート",
     AssaultCarbine: "アサルトカービン",
     AssaultRifle: "アサルトライフル",
     AssaultScope: "アサルトスコープ",
@@ -604,6 +605,8 @@ const JA_DICT = {
   TASKMAP: {
     tooltip: "クリア済みとしてマークする",
     minLevel: "最低レベル",
+    kappaOnly: "kappaに必須のタスクのみ表示",
+    resetMsg: "入力した進捗をリセットします。よろしいですか？",
   },
 };
 

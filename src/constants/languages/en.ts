@@ -496,6 +496,7 @@ const EN_DICT = {
     ArmBand: 'Arm Band',
     Armor: 'Armor',
     ArmoredEquipment: 'Armored Equipment',
+    ArmorPlate: 'Armor Plate',
     AssaultCarbine: 'Assault Carbine',
     AssaultRifle: 'Assault Rifle',
     AssaultScope: 'Assault Scope',
@@ -592,6 +593,8 @@ const EN_DICT = {
   TASKMAP: {
     tooltip: "Mark the task as completed.",
     minLevel: "Min require lvl",
+    kappaOnly: "Kappa required only",
+    resetMsg: "The entered progress will be reset. Are you sure?",
   },
 }
 
