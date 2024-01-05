@@ -116,22 +116,6 @@ export const useHooks = () => {
     return updatedNodes;
   };
 
-  useEffect(() => {
-    const updateNodesFromLocalStorage = () => {
-      const savedNodes = JSON.parse(localStorage.getItem("checkedNodes") || "{}");
-      const updatedNodes = nodes.map(node => ({
-        ...node,
-        data: {
-          ...node.data,
-          isNodeChecked: !!savedNodes[node.id],
-        },
-      }));
-      setNodes(updatedNodes);
-    };
-  
-    updateNodesFromLocalStorage();
-  }, [showKappaRequired, nodes, setNodes]);
-
   const fetchData = async () => {
     setIsLoading(true);
     try {
