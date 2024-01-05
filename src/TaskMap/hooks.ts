@@ -46,9 +46,6 @@ export const useHooks = () => {
     edges: [],
   });
   const langDict = useContext(LanguageDictContext);
-
-
-
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
 
@@ -118,6 +115,22 @@ export const useHooks = () => {
     const updatedNodes = Array.from(nodesMap.values());
     return updatedNodes;
   };
+
+  useEffect(() => {
+    const updateNodesFromLocalStorage = () => {
+      const savedNodes = JSON.parse(localStorage.getItem("checkedNodes") || "{}");
+      const updatedNodes = nodes.map(node => ({
+        ...node,
+        data: {
+          ...node.data,
+          isNodeChecked: !!savedNodes[node.id],
+        },
+      }));
+      setNodes(updatedNodes);
+    };
+  
+    updateNodesFromLocalStorage();
+  }, [showKappaRequired, nodes, setNodes]);
 
   const fetchData = async () => {
     setIsLoading(true);

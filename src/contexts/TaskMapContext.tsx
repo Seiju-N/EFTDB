@@ -26,45 +26,43 @@ export const TaskMapProvider = ({ children }: Props) => {
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
 
+  const updateNodeCheckStatus = useCallback(
+    (nodeId: string, isChecked: boolean) => {
+      setNodes((prevNodes) => {
+        return prevNodes.map((node) => {
+          if (node.id === nodeId) {
+            return {
+              ...node,
+              data: { ...node.data, isNodeChecked: isChecked },
+            };
+          }
+          return node;
+        });
+      });
+    },
+    [setNodes]
+  );
+
   const updateNodeAndParents = useCallback(
     (nodeId: string, checked: boolean) => {
-      const updatedNodes = [...nodes];
-      const updatedCheckedNodes = {
-        ...JSON.parse(localStorage.getItem("checkedNodes") || "{}"),
-      };
-      const visited = new Set();
+      const updatedCheckedNodes = JSON.parse(
+        localStorage.getItem("checkedNodes") || "{}"
+      );
 
       const updateChildren = (id: string) => {
         edges
           .filter((edge) => edge.source === id)
           .forEach((edge) => {
-            const childIndex = updatedNodes.findIndex(
-              (node) => node.id === edge.target
-            );
-            if (childIndex !== -1) {
-              updatedNodes[childIndex] = {
-                ...updatedNodes[childIndex],
-                data: {
-                  ...updatedNodes[childIndex].data,
-                  isNodeChecked: false,
-                },
-              };
-              delete updatedCheckedNodes[edge.target];
-              updateChildren(edge.target);
-            }
+            updateNodeCheckStatus(edge.target, false);
+            delete updatedCheckedNodes[edge.target];
+            updateChildren(edge.target);
           });
       };
 
       const updateParents = (id: string) => {
-        if (visited.has(id)) return;
-        visited.add(id);
-
-        const nodeIndex = updatedNodes.findIndex((node) => node.id === id);
+        const nodeIndex = nodes.findIndex((node) => node.id === id);
         if (nodeIndex !== -1) {
-          updatedNodes[nodeIndex] = {
-            ...updatedNodes[nodeIndex],
-            data: { ...updatedNodes[nodeIndex].data, isNodeChecked: checked },
-          };
+          updateNodeCheckStatus(nodes[nodeIndex].id, checked);
 
           if (checked) {
             updatedCheckedNodes[id] = true;
@@ -81,10 +79,9 @@ export const TaskMapProvider = ({ children }: Props) => {
       };
 
       updateParents(nodeId);
-      setNodes(updatedNodes);
       localStorage.setItem("checkedNodes", JSON.stringify(updatedCheckedNodes));
     },
-    [nodes, edges, setNodes]
+    [nodes, edges, updateNodeCheckStatus]
   );
   const value = { nodes, setNodes, edges, setEdges, updateNodeAndParents };
 

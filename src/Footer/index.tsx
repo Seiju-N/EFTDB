@@ -2,9 +2,9 @@ import { Box, Button, Typography } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import RecommendIcon from "@mui/icons-material/Recommend";
 import { LanguageDictContext } from "@/App";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 
-export const Footer = () => {
+export const Footer = memo(() => {
   const langDict = useContext(LanguageDictContext);
 
   return (
@@ -47,4 +47,4 @@ export const Footer = () => {
       </Typography>
     </Box>
   );
-};
+});
