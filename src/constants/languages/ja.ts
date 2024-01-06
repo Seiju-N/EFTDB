@@ -2,7 +2,7 @@ const JA_DICT = {
   SIDE_MENU: {
     user_setting: "ユーザー設定",
   },
-  LOGIN_STATUS:{
+  LOGIN_STATUS: {
     logout: "ログアウト",
     login_msg: "ログインしました。",
     logout_msg: "ログアウトしました。",
@@ -10,7 +10,7 @@ const JA_DICT = {
     login_failed: "ログインに失敗しました。",
   },
 
-  LOADING:{
+  LOADING: {
     auth_check: "認証中...",
     loading: "読み込み中...",
   },
@@ -125,7 +125,7 @@ const JA_DICT = {
     task: "タスク",
     item: "アイテム",
     taskMarker: "タスクマーカー",
-    profit:"利益表",
+    profit: "利益表",
     taskMap: "タスクマップ",
   },
 
@@ -605,7 +605,7 @@ const JA_DICT = {
   TASKMAP: {
     tooltip: "クリア済みとしてマークする",
     minLevel: "最低レベル",
-    kappaOnly: "kappaに必須のタスクのみ表示",
+    kappaOnly: "kappa必須のタスクのみ表示",
     resetMsg: "入力した進捗をリセットします。よろしいですか？",
   },
 };

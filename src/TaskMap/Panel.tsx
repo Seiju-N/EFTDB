@@ -11,14 +11,24 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
   FormControl,
   FormControlLabel,
   IconButton,
   InputAdornment,
+  LinearProgress,
+  LinearProgressProps,
+  List,
+  ListItem,
+  ListItemText,
   TextField,
+  Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { alpha } from "@mui/material/styles";
 import { useTaskMap } from "@/contexts/TaskMapContext";
 import { Node } from "reactflow";
@@ -70,6 +80,105 @@ const CustomDialog = memo(
 const NODE_WIDTH = 200;
 const NODE_HEIGHT = 30;
 
+const FinishedTaskCounter = memo(
+  (
+    props: LinearProgressProps & {
+      allTaskCount: number;
+      finishedTaskCount: number;
+      finishedKappaTaskCount: number;
+      kappaTaskCount: number;
+    }
+  ) => {
+    const isFinished = props.finishedTaskCount === props.allTaskCount;
+    const isKappaFinished =
+      props.finishedKappaTaskCount === props.kappaTaskCount;
+    return (
+      <List disablePadding>
+        <ListItem disableGutters>
+          <ListItemText
+            primary={
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Box sx={{ display: "flex" }}>
+                  <Typography variant="body2" sx={{ pr: 1 }}>
+                    Finished Kappa Tasks
+                  </Typography>
+                  {isKappaFinished && (
+                    <TaskAltIcon fontSize="small" color="success" />
+                  )}
+                </Box>
+                <Box>
+                  {props.finishedKappaTaskCount}/{props.kappaTaskCount}
+                </Box>
+              </Box>
+            }
+            secondary={
+              <Box>
+                <LinearProgress
+                  variant="determinate"
+                  color="success"
+                  value={
+                    Number(
+                      props.finishedKappaTaskCount / props.kappaTaskCount
+                    ) * 100
+                  }
+                  {...props}
+                  sx={{ height: 12, borderRadius: 1 }}
+                />
+              </Box>
+            }
+            secondaryTypographyProps={{ pt: 1 }}
+          />
+        </ListItem>
+        <ListItem disableGutters>
+          <ListItemText
+            primary={
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Box sx={{ display: "flex" }}>
+                  <Typography variant="body2" sx={{ pr: 1 }}>
+                    Finished All Tasks
+                  </Typography>
+                  {isFinished && (
+                    <TaskAltIcon fontSize="small" color="success" />
+                  )}
+                </Box>
+                <Box>
+                  {props.finishedTaskCount}/{props.allTaskCount}
+                </Box>
+              </Box>
+            }
+            secondary={
+              <Box>
+                <LinearProgress
+                  variant="determinate"
+                  color="success"
+                  value={
+                    Number(props.finishedTaskCount / props.allTaskCount) * 100
+                  }
+                  {...props}
+                  sx={{ height: 12, borderRadius: 1 }}
+                />
+              </Box>
+            }
+            secondaryTypographyProps={{ pt: 1 }}
+          />
+        </ListItem>
+      </List>
+    );
+  }
+);
+
 export const MemorizedPanel = memo(
   ({ showKappaRequired, handleCheckboxChange }: MemorizedPanelProps) => {
     const reactFlowInstance = useReactFlow();
@@ -79,6 +188,11 @@ export const MemorizedPanel = memo(
     const [searchText, setSearchText] = useState<string>("");
     const [searchIndex, setSearchIndex] = useState<number>(0);
     const [lastSearchText, setLastSearchText] = useState<string>("");
+    const [isPanelOpen, setIsPanelOpen] = useState<boolean>(true);
+
+    const togglePanel = useCallback(() => {
+      setIsPanelOpen(!isPanelOpen);
+    }, [isPanelOpen]);
     const handleOpen = useCallback(() => setOpen(true), []);
     const handleClose = useCallback(() => setOpen(false), []);
     const handleSearchChange = useCallback(
@@ -90,7 +204,6 @@ export const MemorizedPanel = memo(
       },
       [lastSearchText]
     );
-
     const handleSearchClick = useCallback(() => {
       const filteredNodes = nodes
         .filter((node) =>
@@ -127,6 +240,19 @@ export const MemorizedPanel = memo(
       },
       [handleSearchClick]
     );
+
+    const allTaskCount = nodes.length;
+    const finishedTaskCount = nodes.filter(
+      (node) => node.data.isNodeChecked
+    ).length;
+
+    const kappaTaskCount = nodes.filter(
+      (node) => node.data.kappaRequired
+    ).length;
+    const finishedKappaTaskCount = nodes.filter(
+      (node) => node.data.isNodeChecked && node.data.kappaRequired
+    ).length;
+
     return (
       <Panel position="top-right">
         <Card
@@ -138,61 +264,84 @@ export const MemorizedPanel = memo(
           }}
           variant="outlined"
         >
-          <Box sx={{ py: 1, width: "100%" }}>
-            <FormControl
-              variant="standard"
-              fullWidth
-              component={"form"}
-              onSubmit={handleFormSubmit}
-            >
-              <TextField
-                margin="dense"
-                sx={{ width: "100%" }}
-                label="Task Search"
-                onChange={handleSearchChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <IconButton size="small" onClick={handleSearchClick}>
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-                type="search"
-                variant="filled"
+          {isPanelOpen ? (
+            <>
+              <Box sx={{ py: 1, width: "100%" }}>
+                <FormControl
+                  variant="standard"
+                  fullWidth
+                  component={"form"}
+                  onSubmit={handleFormSubmit}
+                >
+                  <TextField
+                    margin="dense"
+                    sx={{ width: "100%" }}
+                    label="Task Search"
+                    onChange={handleSearchChange}
+                    color="success"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <IconButton size="small" onClick={handleSearchClick}>
+                            <SearchIcon />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                    type="search"
+                    variant="filled"
+                  />
+                </FormControl>
+              </Box>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showKappaRequired}
+                    onChange={handleCheckboxChange}
+                    color="success"
+                  />
+                }
+                label={langDict.TASKMAP.kappaOnly}
+                sx={{ mb: 1 }}
               />
-            </FormControl>
-          </Box>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={showKappaRequired}
-                onChange={handleCheckboxChange}
-                color="primary"
-              />
-            }
-            label={langDict.TASKMAP.kappaOnly}
-            sx={{ mb: 1 }}
-          />
 
-          <Box
-            sx={{
-              pb: 1,
-              width: "100%",
-            }}
-          >
-            <Button
-              sx={{ width: "100%" }}
-              startIcon={<RestartAltIcon />}
-              variant="contained"
-              color="inherit"
-              onClick={handleOpen}
-            >
-              {"Reset"}
-            </Button>
-            <CustomDialog {...{ nodes, open, handleClose, setNodes }} />
-          </Box>
+              <Divider />
+              <FinishedTaskCounter
+                allTaskCount={allTaskCount}
+                finishedTaskCount={finishedTaskCount}
+                finishedKappaTaskCount={finishedKappaTaskCount}
+                kappaTaskCount={kappaTaskCount}
+              />
+              <Divider />
+              <Box
+                sx={{
+                  py: 1,
+                  width: "100%",
+                  display: "flex",
+                }}
+              >
+                <Button
+                  sx={{ flex: 4 }}
+                  startIcon={<RestartAltIcon />}
+                  variant="contained"
+                  color="inherit"
+                  onClick={handleOpen}
+                >
+                  {"Reset"}
+                </Button>
+                <IconButton onClick={togglePanel} sx={{ flex: 1 }}>
+                  {isPanelOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </IconButton>
+                <CustomDialog {...{ nodes, open, handleClose, setNodes }} />
+              </Box>
+            </>
+          ) : (
+            <Box>
+              <IconButton onClick={togglePanel}>
+                <ExpandMoreIcon />
+              </IconButton>
+            </Box>
+          )}
         </Card>
       </Panel>
     );
