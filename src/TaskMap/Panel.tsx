@@ -94,7 +94,7 @@ export const MemorizedPanel = memo(
     const handleSearchClick = useCallback(() => {
       const filteredNodes = nodes
         .filter((node) =>
-          node.data.taskName.toLowerCase().startsWith(searchText.toLowerCase())
+          node.data.taskName.toLowerCase().includes(searchText.toLowerCase())
         )
         .sort((a, b) => a.position.x - b.position.x);
 
