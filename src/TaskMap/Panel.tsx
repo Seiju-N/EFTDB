@@ -87,6 +87,7 @@ const FinishedTaskCounter = memo(
       finishedTaskCount: number;
       finishedKappaTaskCount: number;
       kappaTaskCount: number;
+      showKappaRequired: boolean;
     }
   ) => {
     const isFinished = props.finishedTaskCount === props.allTaskCount;
@@ -135,45 +136,47 @@ const FinishedTaskCounter = memo(
             secondaryTypographyProps={{ pt: 1 }}
           />
         </ListItem>
-        <ListItem disableGutters>
-          <ListItemText
-            primary={
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Box sx={{ display: "flex" }}>
-                  <Typography variant="body2" sx={{ pr: 1 }}>
-                    Finished All Tasks
-                  </Typography>
-                  {isFinished && (
-                    <TaskAltIcon fontSize="small" color="success" />
-                  )}
+        {!props.showKappaRequired && (
+          <ListItem disableGutters>
+            <ListItemText
+              primary={
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box sx={{ display: "flex" }}>
+                    <Typography variant="body2" sx={{ pr: 1 }}>
+                      Finished All Tasks
+                    </Typography>
+                    {isFinished && (
+                      <TaskAltIcon fontSize="small" color="success" />
+                    )}
+                  </Box>
+                  <Box>
+                    {props.finishedTaskCount}/{props.allTaskCount}
+                  </Box>
                 </Box>
+              }
+              secondary={
                 <Box>
-                  {props.finishedTaskCount}/{props.allTaskCount}
+                  <LinearProgress
+                    variant="determinate"
+                    color="success"
+                    value={
+                      Number(props.finishedTaskCount / props.allTaskCount) * 100
+                    }
+                    {...props}
+                    sx={{ height: 12, borderRadius: 1 }}
+                  />
                 </Box>
-              </Box>
-            }
-            secondary={
-              <Box>
-                <LinearProgress
-                  variant="determinate"
-                  color="success"
-                  value={
-                    Number(props.finishedTaskCount / props.allTaskCount) * 100
-                  }
-                  {...props}
-                  sx={{ height: 12, borderRadius: 1 }}
-                />
-              </Box>
-            }
-            secondaryTypographyProps={{ pt: 1 }}
-          />
-        </ListItem>
+              }
+              secondaryTypographyProps={{ pt: 1 }}
+            />
+          </ListItem>
+        )}
       </List>
     );
   }
@@ -207,7 +210,7 @@ export const MemorizedPanel = memo(
     const handleSearchClick = useCallback(() => {
       const filteredNodes = nodes
         .filter((node) =>
-          node.data.taskName.toLowerCase().startsWith(searchText.toLowerCase())
+          node.data.taskName.toLowerCase().includes(searchText.toLowerCase())
         )
         .sort((a, b) => a.position.x - b.position.x);
 
@@ -311,6 +314,7 @@ export const MemorizedPanel = memo(
                 finishedTaskCount={finishedTaskCount}
                 finishedKappaTaskCount={finishedKappaTaskCount}
                 kappaTaskCount={kappaTaskCount}
+                showKappaRequired={showKappaRequired}
               />
               <Divider />
               <Box
