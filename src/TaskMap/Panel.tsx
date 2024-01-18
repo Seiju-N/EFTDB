@@ -208,11 +208,15 @@ export const MemorizedPanel = memo(
       [lastSearchText]
     );
     const handleSearchClick = useCallback(() => {
-      const filteredNodes = nodes
-        .filter((node) =>
-          node.data.taskName.toLowerCase().includes(searchText.toLowerCase())
-        )
-        .sort((a, b) => a.position.x - b.position.x);
+      const filteredNodes = searchText
+        ? nodes
+            .filter((node) =>
+              node.data.taskName
+                .toLowerCase()
+                .includes(searchText.toLowerCase())
+            )
+            .sort((a, b) => a.position.x - b.position.x)
+        : [];
 
       if (filteredNodes.length > 0) {
         const targetNode = filteredNodes[searchIndex % filteredNodes.length];
