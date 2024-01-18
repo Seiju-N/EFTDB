@@ -3,7 +3,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import dagre from "dagre";
@@ -87,12 +86,9 @@ export const useHooks = () => {
       };
     });
     return { nodes, edges };
-  },[]);
+  }, []);
 
-  const layoutedElements = useMemo(
-    () => getLayoutedElements(nodes, edges),
-    [nodes]
-  );
+  const layoutedElements = getLayoutedElements(nodes, edges);
 
   const checkTaskRequirements = (nodeId: string, nodesMap: Map<string, Node>) => {
     const currentNode = nodesMap.get(nodeId);
@@ -130,10 +126,10 @@ export const useHooks = () => {
           isNodeChecked: !!savedNodes[node.id],
         },
       }));
-  
+
       setNodes(updatedNodes);
     };
-  
+
     if (dataWithKappa.nodes.length > 0 && dataWithoutKappa.nodes.length > 0) {
       updateNodesFromLocalStorage();
     }
@@ -223,7 +219,7 @@ export const useHooks = () => {
       const checked = event.target.checked;
       setIsLoading(true);
       setShowKappaRequired(checked);
-  
+
       const savedNodes = getSavedNodes();
       const currentData = checked ? dataWithKappa : dataWithoutKappa;
       const updatedNodes = currentData.nodes.map(node => ({
@@ -233,7 +229,7 @@ export const useHooks = () => {
           isNodeChecked: savedNodes[node.id] ?? node.data.isNodeChecked,
         },
       }));
-  
+
       setNodes(updatedNodes);
       setEdges(currentData.edges);
       //NOTE: 一旦ロード画面を挟まないとEdgeの表示がおかしくなるため
@@ -243,7 +239,7 @@ export const useHooks = () => {
     },
     [dataWithKappa, dataWithoutKappa, setNodes, setEdges]
   );
-  
+
 
   return {
     nodes,
