@@ -67,4 +67,5 @@ export type dictType = {
   ITEM_PROPERTIES_WEAPON_MOD: Record<string, string>,
   ITEM_TYPE: Record<string, string>,
   ITEM_CATEGORY_NAME: Record<string, string>,
+  TASKMAP: Record<string, string>,
 }

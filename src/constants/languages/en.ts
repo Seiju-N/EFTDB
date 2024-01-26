@@ -11,6 +11,7 @@ const EN_DICT = {
   },
   LOADING:{
     auth_check: "Checking authentication status...",
+    loading: "Loading...",
   },
   HOME_SENTENCE: {
     welcome_msg: "Welcome to",
@@ -495,6 +496,7 @@ const EN_DICT = {
     ArmBand: 'Arm Band',
     Armor: 'Armor',
     ArmoredEquipment: 'Armored Equipment',
+    ArmorPlate: 'Armor Plate',
     AssaultCarbine: 'Assault Carbine',
     AssaultRifle: 'Assault Rifle',
     AssaultScope: 'Assault Scope',
@@ -587,7 +589,13 @@ const EN_DICT = {
     VisObservDevice: 'Eyewear',
     Weapon: 'Weapon',
     WeaponMod: 'Weapon Part'
-  }
+  },
+  TASKMAP: {
+    tooltip: "Mark the task as completed.",
+    minLevel: "Min require lvl",
+    kappaOnly: "Kappa required only",
+    resetMsg: "The entered progress will be reset. Are you sure?",
+  },
 }
 
 export default EN_DICT;

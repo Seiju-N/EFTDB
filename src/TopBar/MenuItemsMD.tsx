@@ -13,8 +13,9 @@ import { useHooks } from "./hooks";
 import { Link as RouterLink } from "react-router-dom";
 import { NestedItem } from "./ItemMenuComponents/NestedItem";
 import { NestedSubItem } from "./ItemMenuComponents/NestedSubItem";
+import { memo } from "react";
 
-export const MenuItemsMD = () => {
+export const MenuItemsMD = memo(() => {
   const {
     langDict,
     traders,
@@ -25,7 +26,6 @@ export const MenuItemsMD = () => {
     handleOpenItemMenu,
     handleCloseItemMenu,
   } = useHooks();
-
   return (
     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
       <Button
@@ -147,4 +147,4 @@ export const MenuItemsMD = () => {
       </Menu>
     </Box>
   );
-};
+});
