@@ -6,6 +6,7 @@ import React, {
   useContext,
   useEffect,
   useState,
+  useTransition,
 } from "react";
 import { Edge, Node } from "reactflow";
 
@@ -19,13 +20,14 @@ type TaskMapContextType = {
   edges: Edge[];
   setEdges: Dispatch<SetStateAction<Edge[]>>;
   updateNodeAndParents: (nodeId: string, checked: boolean) => void;
+  isPending: boolean;
 };
 const TaskMapContext = createContext<TaskMapContextType | undefined>(undefined);
 
 export const TaskMapProvider = ({ children }: Props) => {
+  const [isPending, startTransition] = useTransition();
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
-
   const updateNodeCheckStatus = useCallback(
     (nodeId: string, isChecked: boolean) => {
       setNodes((prevNodes) => {
@@ -45,45 +47,57 @@ export const TaskMapProvider = ({ children }: Props) => {
 
   const updateNodeAndParents = useCallback(
     (nodeId: string, checked: boolean) => {
-      const updatedCheckedNodes = JSON.parse(
-        localStorage.getItem("checkedNodes") || "{}"
-      );
+      startTransition(() => {
+        const updatedCheckedNodes = JSON.parse(
+          localStorage.getItem("checkedNodes") || "{}"
+        );
 
-      const updateChildren = (id: string) => {
-        edges
-          .filter((edge) => edge.source === id)
-          .forEach((edge) => {
-            updateNodeCheckStatus(edge.target, false);
-            delete updatedCheckedNodes[edge.target];
-            updateChildren(edge.target);
-          });
-      };
+        const updateChildren = (id: string) => {
+          edges
+            .filter((edge) => edge.source === id)
+            .forEach((edge) => {
+              updateNodeCheckStatus(edge.target, false);
+              delete updatedCheckedNodes[edge.target];
+              updateChildren(edge.target);
+            });
+        };
 
-      const updateParents = (id: string) => {
-        const nodeIndex = nodes.findIndex((node) => node.id === id);
-        if (nodeIndex !== -1) {
-          updateNodeCheckStatus(nodes[nodeIndex].id, checked);
+        const updateParents = (id: string) => {
+          const nodeIndex = nodes.findIndex((node) => node.id === id);
+          if (nodeIndex !== -1) {
+            updateNodeCheckStatus(nodes[nodeIndex].id, checked);
 
-          if (checked) {
-            updatedCheckedNodes[id] = true;
-            edges
-              .filter((edge) => edge.target === id)
-              .forEach((edge) => {
-                updateParents(edge.source);
-              });
-          } else {
-            delete updatedCheckedNodes[id];
-            updateChildren(id);
+            if (checked) {
+              updatedCheckedNodes[id] = true;
+              edges
+                .filter((edge) => edge.target === id)
+                .forEach((edge) => {
+                  updateParents(edge.source);
+                });
+            } else {
+              delete updatedCheckedNodes[id];
+              updateChildren(id);
+            }
           }
-        }
-      };
+        };
 
-      updateParents(nodeId);
-      localStorage.setItem("checkedNodes", JSON.stringify(updatedCheckedNodes));
+        updateParents(nodeId);
+        localStorage.setItem(
+          "checkedNodes",
+          JSON.stringify(updatedCheckedNodes)
+        );
+      });
     },
     [nodes, edges, updateNodeCheckStatus]
   );
-  const value = { nodes, setNodes, edges, setEdges, updateNodeAndParents };
+  const value = {
+    nodes,
+    setNodes,
+    edges,
+    setEdges,
+    updateNodeAndParents,
+    isPending,
+  };
 
   useEffect(() => {
     const findParentNodes = (nodeId: string) => {
