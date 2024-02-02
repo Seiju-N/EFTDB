@@ -88,7 +88,7 @@ export const TaskMapProvider = ({ children }: Props) => {
         );
       });
     },
-    [nodes, edges, updateNodeCheckStatus]
+    [nodes, edges, startTransition]
   );
   const value = {
     nodes,
