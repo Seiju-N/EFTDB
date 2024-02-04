@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import dagre from "dagre";
@@ -88,7 +89,9 @@ export const useHooks = () => {
     return { nodes, edges };
   }, []);
 
-  const layoutedElements = getLayoutedElements(nodes, edges);
+  const layoutedElements = useMemo(() => {
+    return getLayoutedElements(nodes, edges);
+  }, [nodes, edges, getLayoutedElements]);
 
   const checkTaskRequirements = (nodeId: string, nodesMap: Map<string, Node>) => {
     const currentNode = nodesMap.get(nodeId);
