@@ -28,23 +28,19 @@ export const TaskMapProvider = ({ children }: Props) => {
   const [isPending, startTransition] = useTransition();
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
-  const updateNodeCheckStatus = useCallback(
-    (nodeId: string, isChecked: boolean) => {
-      setNodes((prevNodes) => {
-        return prevNodes.map((node) => {
-          if (node.id === nodeId) {
-            return {
-              ...node,
-              data: { ...node.data, isNodeChecked: isChecked },
-            };
-          }
-          return node;
-        });
+  const updateNodeCheckStatus = (nodeId: string, isChecked: boolean) => {
+    setNodes((prevNodes) => {
+      return prevNodes.map((node) => {
+        if (node.id === nodeId) {
+          return {
+            ...node,
+            data: { ...node.data, isNodeChecked: isChecked },
+          };
+        }
+        return node;
       });
-    },
-    [setNodes]
-  );
-
+    });
+  };
   const updateNodeAndParents = useCallback(
     (nodeId: string, checked: boolean) => {
       startTransition(() => {
@@ -128,7 +124,7 @@ export const TaskMapProvider = ({ children }: Props) => {
         updateParentNodes(node);
       }
     });
-  }, [nodes, edges, setNodes]);
+  }, [nodes, edges]);
 
   return (
     <TaskMapContext.Provider value={value}>{children}</TaskMapContext.Provider>
