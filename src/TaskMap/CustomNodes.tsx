@@ -81,6 +81,7 @@ type CheckBoxWrapperProps = {
 const CheckBoxWrapper = memo(
   ({ isNodeChecked, handleCheckboxChange }: CheckBoxWrapperProps) => {
     const langDict = useContext(LanguageDictContext);
+    const { isPending } = useTaskMap();
     return (
       <Box sx={{ pl: 1 }}>
         <Tooltip title={langDict.TASKMAP.tooltip}>
@@ -89,6 +90,7 @@ const CheckBoxWrapper = memo(
             onChange={handleCheckboxChange}
             icon={<CheckCircleOutline />}
             checkedIcon={<CheckCircleOutline />}
+            disabled={isPending}
             color="success"
             sx={{ "& .MuiSvgIcon-root": { fontSize: 36 }, p: 0 }}
           />
