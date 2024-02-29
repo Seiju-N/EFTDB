@@ -80,8 +80,20 @@ const App = () => {
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
   const { data: tradersData } = useQuery<Query>(TRADERS);
   const { data: categoryData } = useQuery<Query>(ITEM_CATEGORIES);
+  const [filteredTraders, setFilteredTraders] = useState<
+    readonly Maybe<Trader>[] | undefined
+  >([]);
 
   useTracking("G-93Z965NJ8Q");
+
+  useEffect(() => {
+    if (tradersData?.traders) {
+      const filtered = tradersData.traders.filter(
+        (trader) => trader?.name !== "BTR Driver"
+      );
+      setFilteredTraders(filtered);
+    }
+  }, [tradersData]);
 
   useEffect(() => {
     const storageLang = localStorage.getItem("lang") as LanguageCode;
@@ -126,7 +138,7 @@ const App = () => {
             <CategoryContext.Provider value={categoryData?.itemCategories}>
               <LanguageContext.Provider value={language}>
                 <LanguageDictContext.Provider value={languageDict}>
-                  <TradersContext.Provider value={tradersData?.traders}>
+                  <TradersContext.Provider value={filteredTraders}>
                     <TopBar setLanguage={setLanguage} />
                     <Routes>
                       <Route path="/" element={<Home />} />
