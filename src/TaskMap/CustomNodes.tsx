@@ -76,14 +76,14 @@ const Title = memo(({ taskName, data, id }: TitleProps) => {
 type MinLevelProps = {
   minLevel: string | number;
 };
-const MinLevel = memo(({ minLevel }: MinLevelProps) => {
+const MinLevel = ({ minLevel }: MinLevelProps) => {
   const langDict = useContext(LanguageDictContext);
   return (
     <Typography variant="body1">
       {langDict.TASKMAP.minLevel}: {minLevel}
     </Typography>
   );
-});
+};
 
 type CheckBoxWrapperProps = {
   isNodeChecked: boolean;
@@ -107,6 +107,36 @@ const CheckBoxWrapper = memo(
             sx={{ "& .MuiSvgIcon-root": { fontSize: 36 }, p: 0 }}
           />
         </Tooltip>
+      </Box>
+    );
+  }
+);
+
+type TaskDetailsProps = {
+  minPlayerLevel: string | number;
+  isNodeChecked: boolean;
+  handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const TaskDetails = memo(
+  ({
+    minPlayerLevel,
+    isNodeChecked,
+    handleCheckboxChange,
+  }: TaskDetailsProps) => {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <MinLevel minLevel={minPlayerLevel} />
+        <CheckBoxWrapper
+          isNodeChecked={isNodeChecked}
+          handleCheckboxChange={handleCheckboxChange}
+        />
       </Box>
     );
   }
@@ -143,16 +173,11 @@ export const CustomNode = memo(({ id, data }: NodeProps) => {
       style={nodeStyle}
     >
       <Title taskName={data.taskName} data={data} id={id} />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <MinLevel minLevel={data.minPlayerLevel} />
-        <CheckBoxWrapper {...{ isNodeChecked, handleCheckboxChange }} />
-      </Box>
+      <TaskDetails
+        {...data}
+        isNodeChecked={isNodeChecked}
+        handleCheckboxChange={handleCheckboxChange}
+      />
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
     </Node>
