@@ -3,22 +3,28 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # メインブランチにプッシュされたときに実行
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+          cache: 'pnpm'  # pnpmのキャッシュを設定
 
-      - name: Build and Test
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies and build
         run: |
           pnpm install
           pnpm run build
+        shell: /usr/bin/bash -e {0}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
