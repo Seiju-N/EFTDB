@@ -17,8 +17,8 @@ jobs:
 
       - name: Build and Test
         run: |
-          npm install
-          npm run build  # ビルドプロセス
+          pnpm install
+          pnpm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
