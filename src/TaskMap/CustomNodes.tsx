@@ -24,7 +24,17 @@ import { useTaskMap } from "@/contexts/TaskMapContext";
 const Node = styled.div<{ $kappaRequired?: string }>`
   padding: 10px 20px;
   border-radius: 5px;
-  background: ${(props) => props.theme.nodeBg};
+  background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.1) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.1) 75%,
+      transparent 75%,
+      transparent
+    )
+    0 0 / 50px 50px;
   color: ${(props) => props.theme.nodeColor};
   border: 1px solid ${(props) => props.theme.nodeBorder};
   .react-flow__handle {
@@ -33,6 +43,8 @@ const Node = styled.div<{ $kappaRequired?: string }>`
     height: 10px;
     border-radius: 3px;
   }
+  width: 100%;
+  height: auto;
 `;
 
 type TitleProps = {
