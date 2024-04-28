@@ -8,6 +8,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_DISCORD_CLIENT_ID: ${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v2
 
@@ -22,9 +24,8 @@ jobs:
       - name: Install dependencies and build
         run: |
           pnpm install
-          REACT_APP_DISCORD_CLIENT_ID=${{ secrets.REACT_APP_DISCORD_CLIENT_ID }} pnpm run build
+          pnpm run build
         shell: /usr/bin/bash -e {0}
-
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
