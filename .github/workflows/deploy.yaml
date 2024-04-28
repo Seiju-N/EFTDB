@@ -3,23 +3,18 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # メインブランチにプッシュされたときに実行
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_DISCORD_CLIENT_ID: ${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v2
         with:
-          node-version: '20'
-
-      - name: Print environment variable
-        run: echo "REACT_APP_DISCORD_CLIENT_ID=${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}"
+          node-version: '18.12'
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -27,7 +22,7 @@ jobs:
       - name: Install dependencies and build
         run: |
           pnpm install
-          REACT_APP_DISCORD_CLIENT_ID=${{ secrets.REACT_APP_DISCORD_CLIENT_ID }} pnpm run build
+          pnpm run build
         shell: /usr/bin/bash -e {0}
 
       - name: Deploy to GitHub Pages
