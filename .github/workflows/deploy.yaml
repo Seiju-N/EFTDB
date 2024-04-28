@@ -11,12 +11,12 @@ jobs:
     env:
       REACT_APP_DISCORD_CLIENT_ID: ${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.12'
+          node-version: '20'
 
       - name: Print environment variable
         run: echo "REACT_APP_DISCORD_CLIENT_ID=${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}"
