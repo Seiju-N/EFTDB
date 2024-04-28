@@ -23,6 +23,8 @@ jobs:
         run: |
           pnpm install
           pnpm run build
+        env:
+          REACT_APP_DISCORD_CLIENT_ID: ${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}
         shell: /usr/bin/bash -e {0}
 
       - name: Deploy to GitHub Pages
