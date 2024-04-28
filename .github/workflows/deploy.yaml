@@ -19,15 +19,12 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Get env
-        run: |
-            echo ENV_NAME=\"\">>.env
-            echo REACT_APP_DISCORD_CLIENT_ID=${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}>>.env
       - name: Install dependencies and build
         run: |
           pnpm install
-          pnpm run build
+          REACT_APP_DISCORD_CLIENT_ID=${{ secrets.REACT_APP_DISCORD_CLIENT_ID }} pnpm run build
         shell: /usr/bin/bash -e {0}
+
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
