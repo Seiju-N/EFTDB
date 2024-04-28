@@ -22,9 +22,6 @@ jobs:
         run: |
           pnpm install
           pnpm run build
-        env:
-          REACT_APP_DISCORD_CLIENT_ID: ${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}
-          REACT_APP_OAUTH2_REDIRECT_URI: ${{ secrets.REACT_APP_OAUTH2_REDIRECT_URI }}
         shell: /usr/bin/bash -e {0}
 
 
