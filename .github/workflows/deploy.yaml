@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # メインブランチにプッシュされたときに実行
+      - main
 
 jobs:
   build-and-deploy:
@@ -18,6 +18,10 @@ jobs:
 
       - name: Install pnpm
         run: npm install -g pnpm
+
+      - name: Print partial environment variable
+        run: |
+          echo "DISCORD_CLIENT_ID first 5 chars: ${REACT_APP_DISCORD_CLIENT_ID:0:5}"
 
       - name: Install dependencies and build
         run: |
