@@ -19,19 +19,12 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Print partial environment variable
-        run: |
-          echo "DISCORD_CLIENT_ID first 5 chars: ${REACT_APP_DISCORD_CLIENT_ID:0:5}"
-        shell: /usr/bin/bash -e {0}
-        env:
-          REACT_APP_DISCORD_CLIENT_ID: ${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}
-
       - name: Install dependencies and build
         run: |
           pnpm install
           pnpm run build
         env:
-          REACT_APP_DISCORD_CLIENT_ID: ${{ secrets.REACT_APP_DISCORD_CLIENT_ID }}
+          REACT_APP_DISCORD_CLIENT_ID: ${{ env.REACT_APP_DISCORD_CLIENT_ID }}
         shell: /usr/bin/bash -e {0}
 
       - name: Deploy to GitHub Pages
