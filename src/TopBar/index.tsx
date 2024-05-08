@@ -13,7 +13,7 @@ import { MenuItemsXS } from "./MenuItemsXS";
 import { LanguageSelect } from "./LanguageSelect";
 import { SearchInput } from "./SearchInput";
 import { LanguageCode } from "@/graphql/generated";
-import { User } from "./User";
+import { SideDrawer } from "./SideDrawer";
 
 type Props = {
   setLanguage: React.Dispatch<React.SetStateAction<LanguageCode>>;
@@ -48,7 +48,7 @@ export const TopBar = ({ setLanguage }: Props) => {
           <SearchInput />
           <DiscordButton />
           <LanguageSelect setLanguage={setLanguage} />
-          <User />
+          <SideDrawer />
         </Toolbar>
       </Container>
     </AppBar>

@@ -15,7 +15,7 @@ import Logout from "@mui/icons-material/Logout";
 import Person from "@mui/icons-material/Person";
 import { useHooks } from "./hooks";
 
-export const User = () => {
+export const SideDrawer = () => {
   const {
     handleLogout,
     drawerOpen,
