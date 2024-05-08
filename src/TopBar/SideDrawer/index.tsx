@@ -13,7 +13,9 @@ import {
 import { LoginButton } from "./LoginButton";
 import Logout from "@mui/icons-material/Logout";
 import Person from "@mui/icons-material/Person";
+import PersonOff from "@mui/icons-material/PersonOff";
 import { useHooks } from "./hooks";
+import { UserListModal } from "./BannedUserList";
 
 export const SideDrawer = () => {
   const {
@@ -23,6 +25,10 @@ export const SideDrawer = () => {
     discordUser,
     isLogin,
     toggleDrawer,
+    modalOpen,
+    handleModalOpen,
+    handleModalClose,
+    bandedUsers,
   } = useHooks();
 
   return (
@@ -47,11 +53,11 @@ export const SideDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary={langDict.SIDE_MENU.user_setting} />
               </ListItemButton>
-              <ListItemButton onClick={handleLogout}>
+              <ListItemButton onClick={handleModalOpen}>
                 <ListItemIcon sx={{ minWidth: 40 }}>
-                  <Logout />
+                  <PersonOff />
                 </ListItemIcon>
-                <ListItemText primary={langDict.LOGIN_STATUS.logout} />
+                <ListItemText primary={"Banded user list"} />
               </ListItemButton>
             </List>
             <Box sx={{ mt: "auto" }}>
@@ -70,9 +76,20 @@ export const SideDrawer = () => {
                     secondaryTypographyProps={{ letterSpacing: 0.2 }}
                   />
                 </ListItem>
+                <ListItemButton onClick={handleLogout} dense>
+                  <ListItemIcon sx={{ minWidth: 40 }}>
+                    <Logout />
+                  </ListItemIcon>
+                  <ListItemText primary={langDict.LOGIN_STATUS.logout} />
+                </ListItemButton>
               </List>
             </Box>
           </Drawer>
+          <UserListModal
+            open={modalOpen}
+            handleClose={handleModalClose}
+            bannedUsers={bandedUsers}
+          />
         </>
       ) : (
         <LoginButton />

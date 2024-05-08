@@ -6,10 +6,25 @@ import { useNavigate } from "react-router-dom";
 
 export const useHooks = () => {
   const history = useNavigate();
-  const langDict = useContext(LanguageDictContext);
   const { showSnackBar } = useSnackBar();
+  const langDict = useContext(LanguageDictContext);
+
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const { isLogin, discordUser, setIsLogin } = useAuth();
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  }
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  }
+
+  const bandedUsers = [
+    { id: "1", username: 'User1' },
+    { id: "2", username: 'User2' }
+  ];
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -53,5 +68,9 @@ export const useHooks = () => {
     isLogin,
     discordUser,
     toggleDrawer,
+    handleModalOpen,
+    handleModalClose,
+    modalOpen,
+    bandedUsers
   };
 }
