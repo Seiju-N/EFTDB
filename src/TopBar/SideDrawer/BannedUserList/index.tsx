@@ -44,18 +44,22 @@ const getBannedUsers = async (): Promise<UserType[]> => {
   }
 };
 
-// 日付は 2024-04-26T04:47:15.310Z のような形式で返ってくるので、整形する
-
 const formatDate = (date: string) => {
   const dateObj = new Date(date);
-  return dateObj.toLocaleString();
+  return dateObj.toLocaleString("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 };
 
 const columns: GridColDef[] = [
   {
     field: "ban_date",
     headerName: "Ban Date",
-    width: 200,
+    width: 150,
     valueFormatter: (params) => formatDate(params.value as string),
     renderCell: (params: GridRenderCellParams) => (
       <Typography variant="subtitle2">
@@ -75,10 +79,12 @@ const columns: GridColDef[] = [
           sx={{ width: 40, height: 40, marginRight: 2 }}
         />
         <Box display="flex" flexDirection="column">
-          <Typography variant="body1">{params.row.display_name}</Typography>
+          <Typography variant="body1">
+            {params.row.nickname || params.row.display_name}
+          </Typography>
           {params.row.nickname ? (
             <Typography variant="caption" color="textSecondary">
-              {params.row.nickname}
+              {params.row.display_name}
             </Typography>
           ) : null}
         </Box>
@@ -87,8 +93,27 @@ const columns: GridColDef[] = [
   },
   {
     field: "user_id",
-    headerName: "User ID",
-    width: 200,
+    headerName: "Discord User ID",
+    width: 160,
+    renderCell: (params: GridRenderCellParams) => (
+      <Typography variant="subtitle2">{params.row.user_id}</Typography>
+    ),
+  },
+  {
+    field: "channel_name",
+    headerName: "Channel",
+    width: 160,
+    renderCell: (params: GridRenderCellParams) => (
+      <Typography variant="subtitle2">{params.row.channel_name}</Typography>
+    ),
+  },
+  {
+    field: "message_content",
+    headerName: "Message Content",
+    width: 240,
+    renderCell: (params: GridRenderCellParams) => (
+      <Typography variant="subtitle2">{params.row.message_content}</Typography>
+    ),
   },
 ];
 
@@ -97,7 +122,9 @@ export const UserListModal = ({ open, handleClose }: Props) => {
 
   useEffect(() => {
     if (open) {
-      getBannedUsers().then((users) => setBannedUsers(users));
+      getBannedUsers().then((users) => {
+        setBannedUsers(users);
+      });
     }
   }, [open]);
 
@@ -106,6 +133,7 @@ export const UserListModal = ({ open, handleClose }: Props) => {
       <DialogTitle>Banned Users</DialogTitle>
       <Paper style={{ height: 400, width: "100%" }}>
         <DataGrid
+          disableSelectionOnClick
           rows={bannedUsers}
           columns={columns}
           pageSize={5}
@@ -120,6 +148,18 @@ export const UserListModal = ({ open, handleClose }: Props) => {
                 },
               ],
             },
+          }}
+          components={{
+            NoRowsOverlay: () => (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+              >
+                <Typography variant="h6">No banned users</Typography>
+              </Box>
+            ),
           }}
         />
       </Paper>
