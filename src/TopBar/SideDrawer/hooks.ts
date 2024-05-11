@@ -21,11 +21,6 @@ export const useHooks = () => {
     setModalOpen(false);
   }
 
-  const bandedUsers = [
-    { id: "1", username: 'User1' },
-    { id: "2", username: 'User2' }
-  ];
-
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -71,6 +66,5 @@ export const useHooks = () => {
     handleModalOpen,
     handleModalClose,
     modalOpen,
-    bandedUsers
   };
 }

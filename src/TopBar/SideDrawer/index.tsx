@@ -28,7 +28,6 @@ export const SideDrawer = () => {
     modalOpen,
     handleModalOpen,
     handleModalClose,
-    bandedUsers,
   } = useHooks();
 
   return (
@@ -85,11 +84,7 @@ export const SideDrawer = () => {
               </List>
             </Box>
           </Drawer>
-          <UserListModal
-            open={modalOpen}
-            handleClose={handleModalClose}
-            bannedUsers={bandedUsers}
-          />
+          <UserListModal open={modalOpen} handleClose={handleModalClose} />
         </>
       ) : (
         <LoginButton />
