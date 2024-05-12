@@ -50,6 +50,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
       );
       const data = await response.json();
+      console.log(data);
       if (response.ok && data.isAuthenticated) {
         setIsLogin(true);
         setIsAdmin(data.isAdmin);

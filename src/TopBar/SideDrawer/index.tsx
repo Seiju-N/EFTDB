@@ -28,6 +28,7 @@ export const SideDrawer = () => {
     modalOpen,
     handleModalOpen,
     handleModalClose,
+    isAdmin,
   } = useHooks();
 
   return (
@@ -52,12 +53,14 @@ export const SideDrawer = () => {
                 </ListItemIcon>
                 <ListItemText primary={langDict.SIDE_MENU.user_setting} />
               </ListItemButton>
-              <ListItemButton onClick={handleModalOpen}>
-                <ListItemIcon sx={{ minWidth: 40 }}>
-                  <PersonOff />
-                </ListItemIcon>
-                <ListItemText primary={"Banded user list"} />
-              </ListItemButton>
+              {isAdmin && (
+                <ListItemButton onClick={handleModalOpen}>
+                  <ListItemIcon sx={{ minWidth: 40 }}>
+                    <PersonOff />
+                  </ListItemIcon>
+                  <ListItemText primary={"Banded user list"} />
+                </ListItemButton>
+              )}
             </List>
             <Box sx={{ mt: "auto" }}>
               <List>

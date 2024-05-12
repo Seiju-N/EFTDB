@@ -11,7 +11,7 @@ export const useHooks = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const { isLogin, discordUser, setIsLogin } = useAuth();
+  const { isLogin, discordUser, setIsLogin, isAdmin } = useAuth();
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -66,5 +66,6 @@ export const useHooks = () => {
     handleModalOpen,
     handleModalClose,
     modalOpen,
+    isAdmin,
   };
 }
