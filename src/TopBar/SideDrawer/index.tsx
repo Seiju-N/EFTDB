@@ -13,9 +13,11 @@ import {
 import { LoginButton } from "./LoginButton";
 import Logout from "@mui/icons-material/Logout";
 import Person from "@mui/icons-material/Person";
+import PersonOff from "@mui/icons-material/PersonOff";
 import { useHooks } from "./hooks";
+import { UserListModal } from "./BannedUserList";
 
-export const User = () => {
+export const SideDrawer = () => {
   const {
     handleLogout,
     drawerOpen,
@@ -23,6 +25,10 @@ export const User = () => {
     discordUser,
     isLogin,
     toggleDrawer,
+    modalOpen,
+    handleModalOpen,
+    handleModalClose,
+    isAdmin,
   } = useHooks();
 
   return (
@@ -47,12 +53,14 @@ export const User = () => {
                 </ListItemIcon>
                 <ListItemText primary={langDict.SIDE_MENU.user_setting} />
               </ListItemButton>
-              <ListItemButton onClick={handleLogout}>
-                <ListItemIcon sx={{ minWidth: 40 }}>
-                  <Logout />
-                </ListItemIcon>
-                <ListItemText primary={langDict.LOGIN_STATUS.logout} />
-              </ListItemButton>
+              {isAdmin && (
+                <ListItemButton onClick={handleModalOpen}>
+                  <ListItemIcon sx={{ minWidth: 40 }}>
+                    <PersonOff />
+                  </ListItemIcon>
+                  <ListItemText primary={"Banded user list"} />
+                </ListItemButton>
+              )}
             </List>
             <Box sx={{ mt: "auto" }}>
               <List>
@@ -70,9 +78,16 @@ export const User = () => {
                     secondaryTypographyProps={{ letterSpacing: 0.2 }}
                   />
                 </ListItem>
+                <ListItemButton onClick={handleLogout} dense>
+                  <ListItemIcon sx={{ minWidth: 40 }}>
+                    <Logout />
+                  </ListItemIcon>
+                  <ListItemText primary={langDict.LOGIN_STATUS.logout} />
+                </ListItemButton>
               </List>
             </Box>
           </Drawer>
+          <UserListModal open={modalOpen} handleClose={handleModalClose} />
         </>
       ) : (
         <LoginButton />

@@ -22,6 +22,7 @@ type DiscordUser = {
 type AuthContextType = {
   isLogin: boolean;
   discordUser: DiscordUser | undefined;
+  isAdmin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
   setDiscordUser: React.Dispatch<React.SetStateAction<DiscordUser | undefined>>;
 };
@@ -35,6 +36,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLogin, setIsLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [discordUser, setDiscordUser] = useState<DiscordUser>();
 
   const checkLoginStatus = async () => {
@@ -48,12 +50,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
       );
       const data = await response.json();
+      console.log(data);
       if (response.ok && data.isAuthenticated) {
         setIsLogin(true);
+        setIsAdmin(data.isAdmin);
         setDiscordUser(data.user);
-      } else {
-        setIsLogin(false);
-        setDiscordUser(undefined);
       }
     } catch (error) {
       console.error("ログイン状態の確認中にエラーが発生しました:", error);
@@ -67,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLogin, discordUser, setIsLogin, setDiscordUser }}
+      value={{ isLogin, discordUser, isAdmin, setIsLogin, setDiscordUser }}
     >
       {children}
     </AuthContext.Provider>
