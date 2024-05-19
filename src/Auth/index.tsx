@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export const AuthCallback = () => {
   const history = useNavigate();
-  const { setIsLogin, setDiscordUser } = useAuth();
+  const { setIsLogin, setDiscordUser, setIsAdmin } = useAuth();
   const { showSnackBar } = useSnackBar();
   const langDict = useContext(LanguageDictContext);
   useEffect(() => {
@@ -44,6 +44,7 @@ export const AuthCallback = () => {
         } else {
           const data = await response.json();
           setDiscordUser(data);
+          setIsAdmin(data.isAdmin);
           setIsLogin(true);
           console.log("認証に成功しました。");
           history("/");
