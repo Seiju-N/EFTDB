@@ -12,6 +12,20 @@ export type Scalars = {
   Float: number;
 };
 
+export type Achievement = {
+  readonly __typename?: 'Achievement';
+  readonly adjustedPlayersCompletedPercent?: Maybe<Scalars['Float']>;
+  readonly description?: Maybe<Scalars['String']>;
+  readonly hidden: Scalars['Boolean'];
+  readonly id: Scalars['ID'];
+  readonly name: Scalars['String'];
+  readonly normalizedRarity?: Maybe<Scalars['String']>;
+  readonly normalizedSide?: Maybe<Scalars['String']>;
+  readonly playersCompletedPercent: Scalars['Float'];
+  readonly rarity?: Maybe<Scalars['String']>;
+  readonly side?: Maybe<Scalars['String']>;
+};
+
 export type Ammo = {
   readonly __typename?: 'Ammo';
   /** @deprecated Use accuracyModifier instead. */
@@ -28,6 +42,7 @@ export type Ammo = {
   readonly lightBleedModifier: Scalars['Float'];
   readonly penetrationChance: Scalars['Float'];
   readonly penetrationPower: Scalars['Int'];
+  readonly penetrationPowerDeviation?: Maybe<Scalars['Float']>;
   readonly projectileCount?: Maybe<Scalars['Int']>;
   /** @deprecated Use recoilModifier instead. */
   readonly recoil?: Maybe<Scalars['Int']>;
@@ -60,6 +75,7 @@ export type AttributeThreshold = {
 
 export type Barter = {
   readonly __typename?: 'Barter';
+  readonly buyLimit?: Maybe<Scalars['Int']>;
   readonly id: Scalars['ID'];
   readonly level: Scalars['Int'];
   readonly requiredItems: ReadonlyArray<Maybe<ContainedItem>>;
@@ -103,6 +119,7 @@ export type BossSpawn = {
   readonly spawnTime?: Maybe<Scalars['Int']>;
   readonly spawnTimeRandom?: Maybe<Scalars['Boolean']>;
   readonly spawnTrigger?: Maybe<Scalars['String']>;
+  readonly switch?: Maybe<MapSwitch>;
 };
 
 /**
@@ -145,6 +162,7 @@ export type Craft = {
 export type FleaMarket = Vendor & {
   readonly __typename?: 'FleaMarket';
   readonly enabled: Scalars['Boolean'];
+  readonly foundInRaidRequired?: Maybe<Scalars['Boolean']>;
   readonly minPlayerLevel: Scalars['Int'];
   readonly name: Scalars['String'];
   readonly normalizedName: Scalars['String'];
@@ -158,6 +176,12 @@ export type FleaMarketReputationLevel = {
   readonly maxRep: Scalars['Float'];
   readonly minRep: Scalars['Float'];
   readonly offers: Scalars['Int'];
+  readonly offersSpecialEditions: Scalars['Int'];
+};
+
+export const enum GameMode {
+  Pve = 'pve',
+  Regular = 'regular'
 };
 
 export type GameProperty = {
@@ -167,6 +191,12 @@ export type GameProperty = {
   readonly numericValue?: Maybe<Scalars['Float']>;
   readonly objectValue?: Maybe<Scalars['String']>;
   readonly stringValue?: Maybe<Scalars['String']>;
+};
+
+export type GoonReport = {
+  readonly __typename?: 'GoonReport';
+  readonly map?: Maybe<Map>;
+  readonly timestamp?: Maybe<Scalars['String']>;
 };
 
 export const enum HandbookCategoryName {
@@ -234,6 +264,7 @@ export const enum HandbookCategoryName {
   PistolGrips = 'PistolGrips',
   Pistols = 'Pistols',
   Provisions = 'Provisions',
+  QuestItems = 'QuestItems',
   ReceiversSlides = 'ReceiversSlides',
   Rounds = 'Rounds',
   SmGs = 'SMGs',
@@ -287,6 +318,7 @@ export type HideoutStation = {
   /** crafts is only available via the hideoutStations query. */
   readonly crafts: ReadonlyArray<Maybe<Craft>>;
   readonly id: Scalars['ID'];
+  readonly imageLink?: Maybe<Scalars['String']>;
   readonly levels: ReadonlyArray<Maybe<HideoutStationLevel>>;
   readonly name: Scalars['String'];
   readonly normalizedName: Scalars['String'];
@@ -407,6 +439,36 @@ export type ItemTranslationArgs = {
   languageCode?: InputMaybe<LanguageCode>;
 };
 
+export type ItemArmorSlot = {
+  readonly nameId?: Maybe<Scalars['String']>;
+  readonly zones?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+};
+
+export type ItemArmorSlotLocked = ItemArmorSlot & {
+  readonly __typename?: 'ItemArmorSlotLocked';
+  readonly armorType?: Maybe<Scalars['String']>;
+  readonly baseValue?: Maybe<Scalars['Int']>;
+  readonly bluntThroughput?: Maybe<Scalars['Float']>;
+  readonly class?: Maybe<Scalars['Int']>;
+  readonly durability?: Maybe<Scalars['Int']>;
+  readonly ergoPenalty?: Maybe<Scalars['Float']>;
+  readonly material?: Maybe<ArmorMaterial>;
+  readonly name?: Maybe<Scalars['String']>;
+  readonly nameId?: Maybe<Scalars['String']>;
+  readonly repairCost?: Maybe<Scalars['Int']>;
+  readonly speedPenalty?: Maybe<Scalars['Float']>;
+  readonly turnPenalty?: Maybe<Scalars['Float']>;
+  readonly zones?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+};
+
+export type ItemArmorSlotOpen = ItemArmorSlot & {
+  readonly __typename?: 'ItemArmorSlotOpen';
+  readonly allowedPlates?: Maybe<ReadonlyArray<Maybe<Item>>>;
+  readonly name?: Maybe<Scalars['String']>;
+  readonly nameId?: Maybe<Scalars['String']>;
+  readonly zones?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+};
+
 export type ItemAttribute = {
   readonly __typename?: 'ItemAttribute';
   readonly name: Scalars['String'];
@@ -428,6 +490,7 @@ export const enum ItemCategoryName {
   AmmoContainer = 'AmmoContainer',
   ArmBand = 'ArmBand',
   Armor = 'Armor',
+  ArmorPlate = 'ArmorPlate',
   ArmoredEquipment = 'ArmoredEquipment',
   AssaultCarbine = 'AssaultCarbine',
   AssaultRifle = 'AssaultRifle',
@@ -447,6 +510,7 @@ export const enum ItemCategoryName {
   CompactReflexSight = 'CompactReflexSight',
   Compass = 'Compass',
   CompoundItem = 'CompoundItem',
+  CultistAmulet = 'CultistAmulet',
   CylinderMagazine = 'CylinderMagazine',
   Drink = 'Drink',
   Drug = 'Drug',
@@ -489,10 +553,12 @@ export const enum ItemCategoryName {
   Meds = 'Meds',
   Money = 'Money',
   Mount = 'Mount',
+  Multitools = 'Multitools',
   MuzzleDevice = 'MuzzleDevice',
   NightVision = 'NightVision',
   Other = 'Other',
   PistolGrip = 'PistolGrip',
+  PlantingKits = 'PlantingKits',
   PortContainer = 'PortContainer',
   PortableRangeFinder = 'PortableRangeFinder',
   RadioTransmitter = 'RadioTransmitter',
@@ -514,7 +580,7 @@ export const enum ItemCategoryName {
   StackableItem = 'StackableItem',
   Stimulant = 'Stimulant',
   Stock = 'Stock',
-  TermalVision = 'TermalVision',
+  ThermalVision = 'ThermalVision',
   ThrowableWeapon = 'ThrowableWeapon',
   Tool = 'Tool',
   Ubgl = 'UBGL',
@@ -544,7 +610,7 @@ export type ItemPrice = {
   readonly vendor: Vendor;
 };
 
-export type ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHeadphone | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedKit | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesResource | ItemPropertiesScope | ItemPropertiesStim | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod;
+export type ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHeadphone | ItemPropertiesHeadwear | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedKit | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesResource | ItemPropertiesScope | ItemPropertiesStim | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod;
 
 export type ItemPropertiesAmmo = {
   readonly __typename?: 'ItemPropertiesAmmo';
@@ -559,13 +625,16 @@ export type ItemPropertiesAmmo = {
   readonly caliber?: Maybe<Scalars['String']>;
   readonly damage?: Maybe<Scalars['Int']>;
   readonly durabilityBurnFactor?: Maybe<Scalars['Float']>;
+  readonly failureToFeedChance?: Maybe<Scalars['Float']>;
   readonly fragmentationChance?: Maybe<Scalars['Float']>;
   readonly heatFactor?: Maybe<Scalars['Float']>;
   readonly heavyBleedModifier?: Maybe<Scalars['Float']>;
   readonly initialSpeed?: Maybe<Scalars['Float']>;
   readonly lightBleedModifier?: Maybe<Scalars['Float']>;
+  readonly misfireChance?: Maybe<Scalars['Float']>;
   readonly penetrationChance?: Maybe<Scalars['Float']>;
   readonly penetrationPower?: Maybe<Scalars['Int']>;
+  readonly penetrationPowerDeviation?: Maybe<Scalars['Float']>;
   readonly projectileCount?: Maybe<Scalars['Int']>;
   /** @deprecated Use recoilModifier instead. */
   readonly recoil?: Maybe<Scalars['Float']>;
@@ -579,11 +648,12 @@ export type ItemPropertiesAmmo = {
 
 export type ItemPropertiesArmor = {
   readonly __typename?: 'ItemPropertiesArmor';
+  readonly armorSlots?: Maybe<ReadonlyArray<Maybe<ItemArmorSlot>>>;
   readonly armorType?: Maybe<Scalars['String']>;
   readonly bluntThroughput?: Maybe<Scalars['Float']>;
   readonly class?: Maybe<Scalars['Int']>;
   readonly durability?: Maybe<Scalars['Int']>;
-  readonly ergoPenalty?: Maybe<Scalars['Int']>;
+  readonly ergoPenalty?: Maybe<Scalars['Float']>;
   readonly material?: Maybe<ArmorMaterial>;
   readonly repairCost?: Maybe<Scalars['Int']>;
   readonly speedPenalty?: Maybe<Scalars['Float']>;
@@ -593,23 +663,26 @@ export type ItemPropertiesArmor = {
 
 export type ItemPropertiesArmorAttachment = {
   readonly __typename?: 'ItemPropertiesArmorAttachment';
+  readonly armorType?: Maybe<Scalars['String']>;
   readonly blindnessProtection?: Maybe<Scalars['Float']>;
   readonly bluntThroughput?: Maybe<Scalars['Float']>;
   readonly class?: Maybe<Scalars['Int']>;
   readonly durability?: Maybe<Scalars['Int']>;
-  readonly ergoPenalty?: Maybe<Scalars['Int']>;
+  readonly ergoPenalty?: Maybe<Scalars['Float']>;
+  /** @deprecated Use zones instead. */
   readonly headZones?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly material?: Maybe<ArmorMaterial>;
   readonly repairCost?: Maybe<Scalars['Int']>;
   readonly slots?: Maybe<ReadonlyArray<Maybe<ItemSlot>>>;
   readonly speedPenalty?: Maybe<Scalars['Float']>;
   readonly turnPenalty?: Maybe<Scalars['Float']>;
+  readonly zones?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
 };
 
 export type ItemPropertiesBackpack = {
   readonly __typename?: 'ItemPropertiesBackpack';
   readonly capacity?: Maybe<Scalars['Int']>;
-  readonly ergoPenalty?: Maybe<Scalars['Int']>;
+  readonly ergoPenalty?: Maybe<Scalars['Float']>;
   readonly grids?: Maybe<ReadonlyArray<Maybe<ItemStorageGrid>>>;
   /** @deprecated Use grids instead. */
   readonly pouches?: Maybe<ReadonlyArray<Maybe<ItemStorageGrid>>>;
@@ -633,12 +706,13 @@ export type ItemPropertiesBarrel = {
 
 export type ItemPropertiesChestRig = {
   readonly __typename?: 'ItemPropertiesChestRig';
+  readonly armorSlots?: Maybe<ReadonlyArray<Maybe<ItemArmorSlot>>>;
   readonly armorType?: Maybe<Scalars['String']>;
   readonly bluntThroughput?: Maybe<Scalars['Float']>;
   readonly capacity?: Maybe<Scalars['Int']>;
   readonly class?: Maybe<Scalars['Int']>;
   readonly durability?: Maybe<Scalars['Int']>;
-  readonly ergoPenalty?: Maybe<Scalars['Int']>;
+  readonly ergoPenalty?: Maybe<Scalars['Float']>;
   readonly grids?: Maybe<ReadonlyArray<Maybe<ItemStorageGrid>>>;
   readonly material?: Maybe<ArmorMaterial>;
   /** @deprecated Use grids instead. */
@@ -699,8 +773,14 @@ export type ItemPropertiesHeadphone = {
   readonly resonance?: Maybe<Scalars['Float']>;
 };
 
+export type ItemPropertiesHeadwear = {
+  readonly __typename?: 'ItemPropertiesHeadwear';
+  readonly slots?: Maybe<ReadonlyArray<Maybe<ItemSlot>>>;
+};
+
 export type ItemPropertiesHelmet = {
   readonly __typename?: 'ItemPropertiesHelmet';
+  readonly armorSlots?: Maybe<ReadonlyArray<Maybe<ItemArmorSlot>>>;
   readonly armorType?: Maybe<Scalars['String']>;
   readonly blindnessProtection?: Maybe<Scalars['Float']>;
   readonly blocksHeadset?: Maybe<Scalars['Boolean']>;
@@ -708,7 +788,7 @@ export type ItemPropertiesHelmet = {
   readonly class?: Maybe<Scalars['Int']>;
   readonly deafening?: Maybe<Scalars['String']>;
   readonly durability?: Maybe<Scalars['Int']>;
-  readonly ergoPenalty?: Maybe<Scalars['Int']>;
+  readonly ergoPenalty?: Maybe<Scalars['Float']>;
   readonly headZones?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly material?: Maybe<ArmorMaterial>;
   readonly repairCost?: Maybe<Scalars['Int']>;
@@ -884,6 +964,7 @@ export const enum ItemSourceName {
   Peacekeeper = 'peacekeeper',
   Prapor = 'prapor',
   Ragman = 'ragman',
+  Ref = 'ref',
   Skier = 'skier',
   Therapist = 'therapist'
 };
@@ -914,6 +995,7 @@ export const enum ItemType {
   AmmoBox = 'ammoBox',
   Any = 'any',
   Armor = 'armor',
+  ArmorPlate = 'armorPlate',
   Backpack = 'backpack',
   Barter = 'barter',
   Container = 'container',
@@ -948,10 +1030,35 @@ export const enum LanguageCode {
   Ko = 'ko',
   Pl = 'pl',
   Pt = 'pt',
+  Ro = 'ro',
   Ru = 'ru',
   Sk = 'sk',
   Tr = 'tr',
   Zh = 'zh'
+};
+
+export type Lock = {
+  readonly __typename?: 'Lock';
+  readonly bottom?: Maybe<Scalars['Float']>;
+  readonly key?: Maybe<Item>;
+  readonly lockType?: Maybe<Scalars['String']>;
+  readonly needsPower?: Maybe<Scalars['Boolean']>;
+  readonly outline?: Maybe<ReadonlyArray<Maybe<MapPosition>>>;
+  readonly position?: Maybe<MapPosition>;
+  readonly top?: Maybe<Scalars['Float']>;
+};
+
+export type LootContainer = {
+  readonly __typename?: 'LootContainer';
+  readonly id: Scalars['ID'];
+  readonly name: Scalars['String'];
+  readonly normalizedName: Scalars['String'];
+};
+
+export type LootContainerPosition = {
+  readonly __typename?: 'LootContainerPosition';
+  readonly lootContainer?: Maybe<LootContainer>;
+  readonly position?: Maybe<MapPosition>;
 };
 
 export type Map = {
@@ -961,15 +1068,46 @@ export type Map = {
   readonly bosses: ReadonlyArray<Maybe<BossSpawn>>;
   readonly description?: Maybe<Scalars['String']>;
   readonly enemies?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly extracts?: Maybe<ReadonlyArray<Maybe<MapExtract>>>;
+  readonly hazards?: Maybe<ReadonlyArray<Maybe<MapHazard>>>;
   readonly id: Scalars['ID'];
+  readonly locks?: Maybe<ReadonlyArray<Maybe<Lock>>>;
+  readonly lootContainers?: Maybe<ReadonlyArray<Maybe<LootContainerPosition>>>;
+  readonly maxPlayerLevel?: Maybe<Scalars['Int']>;
+  readonly minPlayerLevel?: Maybe<Scalars['Int']>;
   readonly name: Scalars['String'];
   readonly nameId?: Maybe<Scalars['String']>;
   readonly normalizedName: Scalars['String'];
   readonly players?: Maybe<Scalars['String']>;
   readonly raidDuration?: Maybe<Scalars['Int']>;
   readonly spawns?: Maybe<ReadonlyArray<Maybe<MapSpawn>>>;
+  readonly stationaryWeapons?: Maybe<ReadonlyArray<Maybe<StationaryWeaponPosition>>>;
+  readonly switches?: Maybe<ReadonlyArray<Maybe<MapSwitch>>>;
   readonly tarkovDataId?: Maybe<Scalars['ID']>;
+  readonly transits?: Maybe<ReadonlyArray<Maybe<MapTransit>>>;
   readonly wiki?: Maybe<Scalars['String']>;
+};
+
+export type MapExtract = {
+  readonly __typename?: 'MapExtract';
+  readonly bottom?: Maybe<Scalars['Float']>;
+  readonly faction?: Maybe<Scalars['String']>;
+  readonly id: Scalars['ID'];
+  readonly name?: Maybe<Scalars['String']>;
+  readonly outline?: Maybe<ReadonlyArray<Maybe<MapPosition>>>;
+  readonly position?: Maybe<MapPosition>;
+  readonly switches?: Maybe<ReadonlyArray<Maybe<MapSwitch>>>;
+  readonly top?: Maybe<Scalars['Float']>;
+};
+
+export type MapHazard = {
+  readonly __typename?: 'MapHazard';
+  readonly bottom?: Maybe<Scalars['Float']>;
+  readonly hazardType?: Maybe<Scalars['String']>;
+  readonly name?: Maybe<Scalars['String']>;
+  readonly outline?: Maybe<ReadonlyArray<Maybe<MapPosition>>>;
+  readonly position?: Maybe<MapPosition>;
+  readonly top?: Maybe<Scalars['Float']>;
 };
 
 export type MapPosition = {
@@ -985,6 +1123,50 @@ export type MapSpawn = {
   readonly position: MapPosition;
   readonly sides?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly zoneName?: Maybe<Scalars['String']>;
+};
+
+export type MapSwitch = {
+  readonly __typename?: 'MapSwitch';
+  readonly activatedBy?: Maybe<MapSwitch>;
+  readonly activates?: Maybe<ReadonlyArray<Maybe<MapSwitchOperation>>>;
+  readonly id: Scalars['ID'];
+  readonly name?: Maybe<Scalars['String']>;
+  readonly position?: Maybe<MapPosition>;
+  readonly switchType?: Maybe<Scalars['String']>;
+};
+
+export type MapSwitchOperation = {
+  readonly __typename?: 'MapSwitchOperation';
+  readonly operation?: Maybe<Scalars['String']>;
+  readonly target?: Maybe<MapSwitchTarget>;
+};
+
+export type MapSwitchTarget = MapExtract | MapSwitch;
+
+export type MapTransit = {
+  readonly __typename?: 'MapTransit';
+  readonly bottom?: Maybe<Scalars['Float']>;
+  readonly conditions?: Maybe<Scalars['String']>;
+  readonly description?: Maybe<Scalars['String']>;
+  readonly id: Scalars['ID'];
+  readonly map?: Maybe<Map>;
+  readonly outline?: Maybe<ReadonlyArray<Maybe<MapPosition>>>;
+  readonly position?: Maybe<MapPosition>;
+  readonly top?: Maybe<Scalars['Float']>;
+};
+
+export type MapWithPosition = {
+  readonly __typename?: 'MapWithPosition';
+  readonly map?: Maybe<Map>;
+  readonly positions?: Maybe<ReadonlyArray<Maybe<MapPosition>>>;
+};
+
+export type Mastering = {
+  readonly __typename?: 'Mastering';
+  readonly id: Scalars['ID'];
+  readonly level2?: Maybe<Scalars['Int']>;
+  readonly level3?: Maybe<Scalars['Int']>;
+  readonly weapons: ReadonlyArray<Maybe<Item>>;
 };
 
 export type MobInfo = {
@@ -1029,12 +1211,14 @@ export type PriceRequirement = {
 
 export type Query = {
   readonly __typename?: 'Query';
+  readonly achievements: ReadonlyArray<Maybe<Achievement>>;
   readonly ammo?: Maybe<ReadonlyArray<Maybe<Ammo>>>;
   readonly armorMaterials: ReadonlyArray<Maybe<ArmorMaterial>>;
   readonly barters?: Maybe<ReadonlyArray<Maybe<Barter>>>;
   readonly bosses?: Maybe<ReadonlyArray<Maybe<MobInfo>>>;
   readonly crafts?: Maybe<ReadonlyArray<Maybe<Craft>>>;
   readonly fleaMarket: FleaMarket;
+  readonly goonReports: ReadonlyArray<Maybe<GoonReport>>;
   readonly handbookCategories: ReadonlyArray<Maybe<ItemCategory>>;
   /** @deprecated Use hideoutStations instead. */
   readonly hideoutModules?: Maybe<ReadonlyArray<Maybe<HideoutModule>>>;
@@ -1053,11 +1237,15 @@ export type Query = {
   readonly itemsByName: ReadonlyArray<Maybe<Item>>;
   /** @deprecated Use items instead. */
   readonly itemsByType: ReadonlyArray<Maybe<Item>>;
+  readonly lootContainers?: Maybe<ReadonlyArray<Maybe<LootContainer>>>;
   readonly maps: ReadonlyArray<Maybe<Map>>;
+  readonly mastering: ReadonlyArray<Maybe<Mastering>>;
   readonly playerLevels: ReadonlyArray<Maybe<PlayerLevel>>;
   readonly questItems?: Maybe<ReadonlyArray<Maybe<QuestItem>>>;
   /** @deprecated Use tasks instead. */
   readonly quests?: Maybe<ReadonlyArray<Maybe<Quest>>>;
+  readonly skills: ReadonlyArray<Maybe<Skill>>;
+  readonly stationaryWeapons?: Maybe<ReadonlyArray<Maybe<StationaryWeapon>>>;
   readonly status: ServerStatus;
   readonly task?: Maybe<Task>;
   readonly tasks: ReadonlyArray<Maybe<Task>>;
@@ -1067,7 +1255,15 @@ export type Query = {
 };
 
 
+export type QueryAchievementsArgs = {
+  lang?: InputMaybe<LanguageCode>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryAmmoArgs = {
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1080,6 +1276,7 @@ export type QueryArmorMaterialsArgs = {
 
 
 export type QueryBartersArgs = {
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1087,6 +1284,7 @@ export type QueryBartersArgs = {
 
 
 export type QueryBossesArgs = {
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<ReadonlyArray<Scalars['String']>>;
@@ -1095,6 +1293,7 @@ export type QueryBossesArgs = {
 
 
 export type QueryCraftsArgs = {
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1102,7 +1301,16 @@ export type QueryCraftsArgs = {
 
 
 export type QueryFleaMarketArgs = {
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
+};
+
+
+export type QueryGoonReportsArgs = {
+  gameMode?: InputMaybe<GameMode>;
+  lang?: InputMaybe<LanguageCode>;
+  limit?: InputMaybe<Scalars['Int']>;
+  ofset?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1114,6 +1322,7 @@ export type QueryHandbookCategoriesArgs = {
 
 
 export type QueryHideoutStationsArgs = {
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1121,6 +1330,8 @@ export type QueryHideoutStationsArgs = {
 
 
 export type QueryHistoricalItemPricesArgs = {
+  days?: InputMaybe<Scalars['Int']>;
+  gameMode?: InputMaybe<GameMode>;
   id: Scalars['ID'];
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1129,6 +1340,7 @@ export type QueryHistoricalItemPricesArgs = {
 
 
 export type QueryItemArgs = {
+  gameMode?: InputMaybe<GameMode>;
   id?: InputMaybe<Scalars['ID']>;
   lang?: InputMaybe<LanguageCode>;
   normalizedName?: InputMaybe<Scalars['String']>;
@@ -1152,6 +1364,7 @@ export type QueryItemsArgs = {
   bsgCategoryId?: InputMaybe<Scalars['String']>;
   bsgCategoryIds?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']>>>;
   categoryNames?: InputMaybe<ReadonlyArray<InputMaybe<ItemCategoryName>>>;
+  gameMode?: InputMaybe<GameMode>;
   handbookCategoryNames?: InputMaybe<ReadonlyArray<InputMaybe<HandbookCategoryName>>>;
   ids?: InputMaybe<ReadonlyArray<InputMaybe<Scalars['ID']>>>;
   lang?: InputMaybe<LanguageCode>;
@@ -1184,12 +1397,25 @@ export type QueryItemsByTypeArgs = {
 };
 
 
+export type QueryLootContainersArgs = {
+  lang?: InputMaybe<LanguageCode>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryMapsArgs = {
   enemies?: InputMaybe<ReadonlyArray<Scalars['String']>>;
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<ReadonlyArray<Scalars['String']>>;
   offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryMasteringArgs = {
+  lang?: InputMaybe<LanguageCode>;
 };
 
 
@@ -1198,7 +1424,20 @@ export type QueryQuestItemsArgs = {
 };
 
 
+export type QuerySkillsArgs = {
+  lang?: InputMaybe<LanguageCode>;
+};
+
+
+export type QueryStationaryWeaponsArgs = {
+  lang?: InputMaybe<LanguageCode>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryTaskArgs = {
+  gameMode?: InputMaybe<GameMode>;
   id: Scalars['ID'];
   lang?: InputMaybe<LanguageCode>;
 };
@@ -1206,6 +1445,7 @@ export type QueryTaskArgs = {
 
 export type QueryTasksArgs = {
   faction?: InputMaybe<Scalars['String']>;
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1213,6 +1453,7 @@ export type QueryTasksArgs = {
 
 
 export type QueryTradersArgs = {
+  gameMode?: InputMaybe<GameMode>;
   lang?: InputMaybe<LanguageCode>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1317,6 +1558,7 @@ export type RequirementSkill = {
   readonly id?: Maybe<Scalars['ID']>;
   readonly level: Scalars['Int'];
   readonly name: Scalars['String'];
+  readonly skill: Skill;
 };
 
 export type RequirementTask = {
@@ -1350,10 +1592,30 @@ export type ServerStatus = {
   readonly messages?: Maybe<ReadonlyArray<Maybe<StatusMessage>>>;
 };
 
+export type Skill = {
+  readonly __typename?: 'Skill';
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly name?: Maybe<Scalars['String']>;
+};
+
 export type SkillLevel = {
   readonly __typename?: 'SkillLevel';
   readonly level: Scalars['Float'];
   readonly name: Scalars['String'];
+  readonly skill: Skill;
+};
+
+export type StationaryWeapon = {
+  readonly __typename?: 'StationaryWeapon';
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly name?: Maybe<Scalars['String']>;
+  readonly shortName?: Maybe<Scalars['String']>;
+};
+
+export type StationaryWeaponPosition = {
+  readonly __typename?: 'StationaryWeaponPosition';
+  readonly position?: Maybe<MapPosition>;
+  readonly stationaryWeapon?: Maybe<StationaryWeapon>;
 };
 
 export type Status = {
@@ -1386,6 +1648,7 @@ export type StimEffect = {
   readonly delay: Scalars['Int'];
   readonly duration: Scalars['Int'];
   readonly percent: Scalars['Boolean'];
+  readonly skill?: Maybe<Skill>;
   readonly skillName?: Maybe<Scalars['String']>;
   readonly type: Scalars['String'];
   readonly value: Scalars['Float'];
@@ -1406,6 +1669,7 @@ export type Task = {
   readonly map?: Maybe<Map>;
   readonly minPlayerLevel?: Maybe<Scalars['Int']>;
   readonly name: Scalars['String'];
+  /** @deprecated Use requiredKeys on objectives instead. */
   readonly neededKeys?: Maybe<ReadonlyArray<Maybe<TaskKey>>>;
   readonly normalizedName: Scalars['String'];
   readonly objectives: ReadonlyArray<Maybe<TaskObjective>>;
@@ -1443,7 +1707,9 @@ export type TaskObjectiveBasic = TaskObjective & {
   readonly id?: Maybe<Scalars['ID']>;
   readonly maps: ReadonlyArray<Maybe<Map>>;
   readonly optional: Scalars['Boolean'];
+  readonly requiredKeys?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly type: Scalars['String'];
+  readonly zones?: Maybe<ReadonlyArray<Maybe<TaskZone>>>;
 };
 
 export type TaskObjectiveBuildItem = TaskObjective & {
@@ -1463,6 +1729,7 @@ export type TaskObjectiveBuildItem = TaskObjective & {
 
 export type TaskObjectiveExperience = TaskObjective & {
   readonly __typename?: 'TaskObjectiveExperience';
+  readonly count: Scalars['Int'];
   readonly description: Scalars['String'];
   readonly healthEffect: HealthEffect;
   readonly id?: Maybe<Scalars['ID']>;
@@ -1473,12 +1740,14 @@ export type TaskObjectiveExperience = TaskObjective & {
 
 export type TaskObjectiveExtract = TaskObjective & {
   readonly __typename?: 'TaskObjectiveExtract';
+  readonly count: Scalars['Int'];
   readonly description: Scalars['String'];
   readonly exitName?: Maybe<Scalars['String']>;
   readonly exitStatus: ReadonlyArray<Maybe<Scalars['String']>>;
   readonly id?: Maybe<Scalars['ID']>;
   readonly maps: ReadonlyArray<Maybe<Map>>;
   readonly optional: Scalars['Boolean'];
+  readonly requiredKeys?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly type: Scalars['String'];
   readonly zoneNames: ReadonlyArray<Maybe<Scalars['String']>>;
 };
@@ -1490,12 +1759,16 @@ export type TaskObjectiveItem = TaskObjective & {
   readonly dogTagLevel?: Maybe<Scalars['Int']>;
   readonly foundInRaid: Scalars['Boolean'];
   readonly id?: Maybe<Scalars['ID']>;
+  /** @deprecated Use items instead. */
   readonly item: Item;
+  readonly items: ReadonlyArray<Maybe<Item>>;
   readonly maps: ReadonlyArray<Maybe<Map>>;
   readonly maxDurability?: Maybe<Scalars['Int']>;
   readonly minDurability?: Maybe<Scalars['Int']>;
   readonly optional: Scalars['Boolean'];
+  readonly requiredKeys?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly type: Scalars['String'];
+  readonly zones?: Maybe<ReadonlyArray<Maybe<TaskZone>>>;
 };
 
 export type TaskObjectiveMark = TaskObjective & {
@@ -1505,7 +1778,9 @@ export type TaskObjectiveMark = TaskObjective & {
   readonly maps: ReadonlyArray<Maybe<Map>>;
   readonly markerItem: Item;
   readonly optional: Scalars['Boolean'];
+  readonly requiredKeys?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly type: Scalars['String'];
+  readonly zones?: Maybe<ReadonlyArray<Maybe<TaskZone>>>;
 };
 
 export type TaskObjectivePlayerLevel = TaskObjective & {
@@ -1525,8 +1800,11 @@ export type TaskObjectiveQuestItem = TaskObjective & {
   readonly id?: Maybe<Scalars['ID']>;
   readonly maps: ReadonlyArray<Maybe<Map>>;
   readonly optional: Scalars['Boolean'];
+  readonly possibleLocations?: Maybe<ReadonlyArray<Maybe<MapWithPosition>>>;
   readonly questItem: QuestItem;
+  readonly requiredKeys?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly type: Scalars['String'];
+  readonly zones?: Maybe<ReadonlyArray<Maybe<TaskZone>>>;
 };
 
 export type TaskObjectiveShoot = TaskObjective & {
@@ -1541,6 +1819,7 @@ export type TaskObjectiveShoot = TaskObjective & {
   readonly notWearing?: Maybe<ReadonlyArray<Maybe<Item>>>;
   readonly optional: Scalars['Boolean'];
   readonly playerHealthEffect?: Maybe<HealthEffect>;
+  readonly requiredKeys?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly shotType: Scalars['String'];
   /** @deprecated Use targetNames instead. */
   readonly target: Scalars['String'];
@@ -1552,6 +1831,7 @@ export type TaskObjectiveShoot = TaskObjective & {
   readonly usingWeaponMods?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly wearing?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly zoneNames: ReadonlyArray<Maybe<Scalars['String']>>;
+  readonly zones?: Maybe<ReadonlyArray<Maybe<TaskZone>>>;
 };
 
 export type TaskObjectiveSkill = TaskObjective & {
@@ -1606,9 +1886,11 @@ export type TaskObjectiveUseItem = TaskObjective & {
   readonly id?: Maybe<Scalars['ID']>;
   readonly maps: ReadonlyArray<Maybe<Map>>;
   readonly optional: Scalars['Boolean'];
+  readonly requiredKeys?: Maybe<ReadonlyArray<Maybe<ReadonlyArray<Maybe<Item>>>>>;
   readonly type: Scalars['String'];
   readonly useAny: ReadonlyArray<Maybe<Item>>;
   readonly zoneNames: ReadonlyArray<Maybe<Scalars['String']>>;
+  readonly zones?: Maybe<ReadonlyArray<Maybe<TaskZone>>>;
 };
 
 export type TaskRewards = {
@@ -1625,6 +1907,16 @@ export type TaskStatusRequirement = {
   readonly __typename?: 'TaskStatusRequirement';
   readonly status: ReadonlyArray<Maybe<Scalars['String']>>;
   readonly task: Task;
+};
+
+export type TaskZone = {
+  readonly __typename?: 'TaskZone';
+  readonly bottom?: Maybe<Scalars['Float']>;
+  readonly id: Scalars['ID'];
+  readonly map?: Maybe<Map>;
+  readonly outline?: Maybe<ReadonlyArray<Maybe<MapPosition>>>;
+  readonly position?: Maybe<MapPosition>;
+  readonly top?: Maybe<Scalars['Float']>;
 };
 
 export type Trader = {
@@ -1648,6 +1940,7 @@ export type Trader = {
 
 export type TraderCashOffer = {
   readonly __typename?: 'TraderCashOffer';
+  readonly buyLimit?: Maybe<Scalars['Int']>;
   readonly currency?: Maybe<Scalars['String']>;
   readonly currencyItem?: Maybe<Item>;
   readonly item: Item;
@@ -1681,12 +1974,14 @@ export const enum TraderName {
   Peacekeeper = 'peacekeeper',
   Prapor = 'prapor',
   Ragman = 'ragman',
+  Ref = 'ref',
   Skier = 'skier',
   Therapist = 'therapist'
 };
 
 export type TraderOffer = Vendor & {
   readonly __typename?: 'TraderOffer';
+  readonly buyLimit?: Maybe<Scalars['Int']>;
   readonly minTraderLevel?: Maybe<Scalars['Int']>;
   readonly name: Scalars['String'];
   readonly normalizedName: Scalars['String'];
@@ -1712,6 +2007,11 @@ export type TraderReputationLevel = TraderReputationLevelFence;
 export type TraderReputationLevelFence = {
   readonly __typename?: 'TraderReputationLevelFence';
   readonly availableScavExtracts?: Maybe<Scalars['Int']>;
+  readonly btrCoveringFireDiscount?: Maybe<Scalars['Int']>;
+  readonly btrDeliveryDiscount?: Maybe<Scalars['Int']>;
+  readonly btrDeliveryGridSize?: Maybe<MapPosition>;
+  readonly btrEnabled?: Maybe<Scalars['Boolean']>;
+  readonly btrTaxiDiscount?: Maybe<Scalars['Int']>;
   readonly extractPriceModifier?: Maybe<Scalars['Float']>;
   readonly hostileBosses?: Maybe<Scalars['Boolean']>;
   readonly hostileScavs?: Maybe<Scalars['Boolean']>;
@@ -1747,5 +2047,6 @@ export type Vendor = {
 export type HistoricalPricePoint = {
   readonly __typename?: 'historicalPricePoint';
   readonly price?: Maybe<Scalars['Int']>;
+  readonly priceMin?: Maybe<Scalars['Int']>;
   readonly timestamp?: Maybe<Scalars['String']>;
 };

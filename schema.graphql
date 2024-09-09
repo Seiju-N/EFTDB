@@ -1,8 +1,26 @@
-"""Exposes a URL that specifies the behaviour of this scalar."""
+"""Exposes a URL that specifies the behavior of this scalar."""
 directive @specifiedBy(
-  """The URL that specifies the behaviour of this scalar."""
+  """The URL that specifies the behavior of this scalar."""
   url: String!
 ) on SCALAR
+
+"""
+Indicates exactly one field must be supplied and this field must not be `null`.
+"""
+directive @oneOf on INPUT_OBJECT
+
+type Achievement {
+  id: ID!
+  name: String!
+  description: String
+  hidden: Boolean!
+  playersCompletedPercent: Float!
+  adjustedPlayersCompletedPercent: Float
+  side: String
+  normalizedSide: String
+  rarity: String
+  normalizedRarity: String
+}
 
 type Ammo {
   item: Item!
@@ -19,6 +37,7 @@ type Ammo {
   ricochetChance: Float!
   penetrationChance: Float!
   penetrationPower: Int!
+  penetrationPowerDeviation: Float
   accuracy: Int @deprecated(reason: "Use accuracyModifier instead.")
   accuracyModifier: Float
   recoil: Int @deprecated(reason: "Use recoilModifier instead.")
@@ -55,6 +74,7 @@ type Barter {
   source: String! @deprecated(reason: "Use trader and level instead.")
   sourceName: ItemSourceName! @deprecated(reason: "Use trader instead.")
   requirements: [PriceRequirement]! @deprecated(reason: "Use level instead.")
+  buyLimit: Int
 }
 
 type BossEscort {
@@ -77,6 +97,7 @@ type BossSpawn {
   spawnTime: Int
   spawnTimeRandom: Boolean
   spawnTrigger: String
+  switch: MapSwitch
   name: String! @deprecated(reason: "Use boss.name instead.")
   normalizedName: String! @deprecated(reason: "Use boss.normalizedName instead.")
 }
@@ -119,13 +140,20 @@ type FleaMarket implements Vendor {
   enabled: Boolean!
   sellOfferFeeRate: Float!
   sellRequirementFeeRate: Float!
+  foundInRaidRequired: Boolean
   reputationLevels: [FleaMarketReputationLevel]!
 }
 
 type FleaMarketReputationLevel {
   offers: Int!
+  offersSpecialEditions: Int!
   minRep: Float!
   maxRep: Float!
+}
+
+enum GameMode {
+  regular
+  pve
 }
 
 type GameProperty {
@@ -134,6 +162,11 @@ type GameProperty {
   stringValue: String
   arrayValue: [String]
   objectValue: String
+}
+
+type GoonReport {
+  map: Map
+  timestamp: String
 }
 
 enum HandbookCategoryName {
@@ -201,6 +234,7 @@ enum HandbookCategoryName {
   PistolGrips
   Pistols
   Provisions
+  QuestItems
   ReceiversSlides
   Rounds
   SMGs
@@ -248,6 +282,7 @@ type HideoutStation {
   id: ID!
   name: String!
   normalizedName: String!
+  imageLink: String
   levels: [HideoutStationLevel]!
   tarkovDataId: Int
 
@@ -283,6 +318,7 @@ type HideoutStationLevel {
 
 type historicalPricePoint {
   price: Int
+  priceMin: Int
   timestamp: String
 }
 
@@ -351,6 +387,34 @@ type Item {
   gridImageLinkFallback: String! @deprecated(reason: "Fallback handled automatically by gridImageLink.")
 }
 
+interface ItemArmorSlot {
+  nameId: String
+  zones: [String]
+}
+
+type ItemArmorSlotLocked implements ItemArmorSlot {
+  nameId: String
+  name: String
+  bluntThroughput: Float
+  class: Int
+  durability: Int
+  repairCost: Int
+  speedPenalty: Float
+  turnPenalty: Float
+  ergoPenalty: Float
+  material: ArmorMaterial
+  zones: [String]
+  armorType: String
+  baseValue: Int
+}
+
+type ItemArmorSlotOpen implements ItemArmorSlot {
+  nameId: String
+  name: String
+  zones: [String]
+  allowedPlates: [Item]
+}
+
 type ItemAttribute {
   type: String!
   name: String!
@@ -370,6 +434,7 @@ enum ItemCategoryName {
   AmmoContainer
   ArmBand
   Armor
+  ArmorPlate
   ArmoredEquipment
   AssaultCarbine
   AssaultRifle
@@ -389,6 +454,7 @@ enum ItemCategoryName {
   CompactReflexSight
   Compass
   CompoundItem
+  CultistAmulet
   CylinderMagazine
   Drink
   Drug
@@ -431,10 +497,12 @@ enum ItemCategoryName {
   Meds
   Money
   Mount
+  Multitools
   MuzzleDevice
   NightVision
   Other
   PistolGrip
+  PlantingKits
   PortContainer
   PortableRangeFinder
   RadioTransmitter
@@ -456,7 +524,7 @@ enum ItemCategoryName {
   StackableItem
   Stimulant
   Stock
-  TermalVision
+  ThermalVision
   ThrowableWeapon
   Tool
   UBGL
@@ -482,7 +550,7 @@ type ItemPrice {
   requirements: [PriceRequirement]! @deprecated(reason: "Use vendor instead.")
 }
 
-union ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHeadphone | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesMedKit | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesResource | ItemPropertiesScope | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod | ItemPropertiesStim
+union ItemProperties = ItemPropertiesAmmo | ItemPropertiesArmor | ItemPropertiesArmorAttachment | ItemPropertiesBackpack | ItemPropertiesBarrel | ItemPropertiesChestRig | ItemPropertiesContainer | ItemPropertiesFoodDrink | ItemPropertiesGlasses | ItemPropertiesGrenade | ItemPropertiesHeadwear | ItemPropertiesHeadphone | ItemPropertiesHelmet | ItemPropertiesKey | ItemPropertiesMagazine | ItemPropertiesMedicalItem | ItemPropertiesMelee | ItemPropertiesMedKit | ItemPropertiesNightVision | ItemPropertiesPainkiller | ItemPropertiesPreset | ItemPropertiesResource | ItemPropertiesScope | ItemPropertiesSurgicalKit | ItemPropertiesWeapon | ItemPropertiesWeaponMod | ItemPropertiesStim
 
 type ItemPropertiesAmmo {
   caliber: String
@@ -497,6 +565,7 @@ type ItemPropertiesAmmo {
   ricochetChance: Float
   penetrationChance: Float
   penetrationPower: Int
+  penetrationPowerDeviation: Float
   accuracy: Int @deprecated(reason: "Use accuracyModifier instead.")
   accuracyModifier: Float
   recoil: Float @deprecated(reason: "Use recoilModifier instead.")
@@ -510,6 +579,8 @@ type ItemPropertiesAmmo {
   ballisticCoeficient: Float
   bulletDiameterMilimeters: Float
   bulletMassGrams: Float
+  misfireChance: Float
+  failureToFeedChance: Float
 }
 
 type ItemPropertiesArmor {
@@ -518,11 +589,12 @@ type ItemPropertiesArmor {
   repairCost: Int
   speedPenalty: Float
   turnPenalty: Float
-  ergoPenalty: Int
+  ergoPenalty: Float
   zones: [String]
   material: ArmorMaterial
   armorType: String
   bluntThroughput: Float
+  armorSlots: [ItemArmorSlot]
 }
 
 type ItemPropertiesArmorAttachment {
@@ -531,12 +603,14 @@ type ItemPropertiesArmorAttachment {
   repairCost: Int
   speedPenalty: Float
   turnPenalty: Float
-  ergoPenalty: Int
-  headZones: [String]
+  ergoPenalty: Float
+  zones: [String]
   material: ArmorMaterial
+  armorType: String
   blindnessProtection: Float
   bluntThroughput: Float
   slots: [ItemSlot]
+  headZones: [String] @deprecated(reason: "Use zones instead.")
 }
 
 type ItemPropertiesBackpack {
@@ -544,7 +618,7 @@ type ItemPropertiesBackpack {
   grids: [ItemStorageGrid]
   speedPenalty: Float
   turnPenalty: Float
-  ergoPenalty: Int
+  ergoPenalty: Float
   pouches: [ItemStorageGrid] @deprecated(reason: "Use grids instead.")
 }
 
@@ -565,7 +639,7 @@ type ItemPropertiesChestRig {
   repairCost: Int
   speedPenalty: Float
   turnPenalty: Float
-  ergoPenalty: Int
+  ergoPenalty: Float
   zones: [String]
   material: ArmorMaterial
   capacity: Int
@@ -573,6 +647,7 @@ type ItemPropertiesChestRig {
   pouches: [ItemStorageGrid] @deprecated(reason: "Use grids instead.")
   armorType: String
   bluntThroughput: Float
+  armorSlots: [ItemArmorSlot]
 }
 
 type ItemPropertiesContainer {
@@ -620,13 +695,17 @@ type ItemPropertiesHeadphone {
   resonance: Float
 }
 
+type ItemPropertiesHeadwear {
+  slots: [ItemSlot]
+}
+
 type ItemPropertiesHelmet {
   class: Int
   durability: Int
   repairCost: Int
   speedPenalty: Float
   turnPenalty: Float
-  ergoPenalty: Int
+  ergoPenalty: Float
   headZones: [String]
   material: ArmorMaterial
   deafening: String
@@ -638,6 +717,7 @@ type ItemPropertiesHelmet {
   ricochetZ: Float
   armorType: String
   bluntThroughput: Float
+  armorSlots: [ItemArmorSlot]
 }
 
 type ItemPropertiesKey {
@@ -787,6 +867,7 @@ enum ItemSourceName {
   mechanic
   ragman
   jaeger
+  ref
   fleaMarket
 }
 
@@ -811,6 +892,7 @@ enum ItemType {
   ammoBox
   any
   armor
+  armorPlate
   backpack
   barter
   container
@@ -845,10 +927,32 @@ enum LanguageCode {
   ko
   pl
   pt
+  ro
   ru
   sk
   tr
   zh
+}
+
+type Lock {
+  lockType: String
+  key: Item
+  needsPower: Boolean
+  position: MapPosition
+  outline: [MapPosition]
+  top: Float
+  bottom: Float
+}
+
+type LootContainer {
+  id: ID!
+  name: String!
+  normalizedName: String!
+}
+
+type LootContainerPosition {
+  lootContainer: LootContainer
+  position: MapPosition
 }
 
 type Map {
@@ -865,7 +969,36 @@ type Map {
   nameId: String
   accessKeys: [Item]!
   accessKeysMinPlayerLevel: Int
+  minPlayerLevel: Int
+  maxPlayerLevel: Int
   spawns: [MapSpawn]
+  extracts: [MapExtract]
+  transits: [MapTransit]
+  locks: [Lock]
+  switches: [MapSwitch]
+  hazards: [MapHazard]
+  lootContainers: [LootContainerPosition]
+  stationaryWeapons: [StationaryWeaponPosition]
+}
+
+type MapExtract {
+  id: ID!
+  name: String
+  faction: String
+  switches: [MapSwitch]
+  position: MapPosition
+  outline: [MapPosition]
+  top: Float
+  bottom: Float
+}
+
+type MapHazard {
+  hazardType: String
+  name: String
+  position: MapPosition
+  outline: [MapPosition]
+  top: Float
+  bottom: Float
 }
 
 type MapPosition {
@@ -879,6 +1012,45 @@ type MapSpawn {
   position: MapPosition!
   sides: [String]
   categories: [String]
+}
+
+type MapSwitch {
+  id: ID!
+  name: String
+  switchType: String
+  activatedBy: MapSwitch
+  activates: [MapSwitchOperation]
+  position: MapPosition
+}
+
+type MapSwitchOperation {
+  operation: String
+  target: MapSwitchTarget
+}
+
+union MapSwitchTarget = MapSwitch | MapExtract
+
+type MapTransit {
+  id: ID!
+  description: String
+  conditions: String
+  map: Map
+  position: MapPosition
+  outline: [MapPosition]
+  top: Float
+  bottom: Float
+}
+
+type MapWithPosition {
+  map: Map
+  positions: [MapPosition]
+}
+
+type Mastering {
+  id: ID!
+  weapons: [Item]!
+  level2: Int
+  level3: Int
 }
 
 type MobInfo {
@@ -918,25 +1090,31 @@ type PriceRequirement {
 }
 
 type Query {
-  ammo(lang: LanguageCode, limit: Int, offset: Int): [Ammo]
-  barters(lang: LanguageCode, limit: Int, offset: Int): [Barter]
-  bosses(lang: LanguageCode, name: [String!], limit: Int, offset: Int): [MobInfo]
-  crafts(lang: LanguageCode, limit: Int, offset: Int): [Craft]
-  hideoutStations(lang: LanguageCode, limit: Int, offset: Int): [HideoutStation]!
-  historicalItemPrices(id: ID!, lang: LanguageCode, limit: Int, offset: Int): [historicalPricePoint]!
-  item(id: ID, normalizedName: String, lang: LanguageCode): Item
-  items(ids: [ID], name: String, names: [String], type: ItemType, types: [ItemType], categoryNames: [ItemCategoryName], handbookCategoryNames: [HandbookCategoryName], bsgCategoryId: String, bsgCategoryIds: [String], bsgCategory: String, lang: LanguageCode, limit: Int, offset: Int): [Item]!
+  achievements(lang: LanguageCode, limit: Int, offset: Int): [Achievement]!
+  ammo(lang: LanguageCode, gameMode: GameMode, limit: Int, offset: Int): [Ammo]
+  barters(lang: LanguageCode, gameMode: GameMode, limit: Int, offset: Int): [Barter]
+  bosses(lang: LanguageCode, gameMode: GameMode, name: [String!], limit: Int, offset: Int): [MobInfo]
+  crafts(lang: LanguageCode, gameMode: GameMode, limit: Int, offset: Int): [Craft]
+  hideoutStations(lang: LanguageCode, gameMode: GameMode, limit: Int, offset: Int): [HideoutStation]!
+  historicalItemPrices(id: ID!, days: Int, lang: LanguageCode, gameMode: GameMode, limit: Int, offset: Int): [historicalPricePoint]!
+  item(id: ID, normalizedName: String, lang: LanguageCode, gameMode: GameMode): Item
+  items(ids: [ID], name: String, names: [String], type: ItemType, types: [ItemType], categoryNames: [ItemCategoryName], handbookCategoryNames: [HandbookCategoryName], bsgCategoryId: String, bsgCategoryIds: [String], bsgCategory: String, lang: LanguageCode, gameMode: GameMode, limit: Int, offset: Int): [Item]!
   itemCategories(lang: LanguageCode, limit: Int, offset: Int): [ItemCategory]!
+  goonReports(lang: LanguageCode, gameMode: GameMode, limit: Int, ofset: Int): [GoonReport]!
   handbookCategories(lang: LanguageCode, limit: Int, offset: Int): [ItemCategory]!
-  maps(lang: LanguageCode, name: [String!], enemies: [String!], limit: Int, offset: Int): [Map]!
+  lootContainers(lang: LanguageCode, limit: Int, offset: Int): [LootContainer]
+  maps(lang: LanguageCode, gameMode: GameMode, name: [String!], enemies: [String!], limit: Int, offset: Int): [Map]!
   questItems(lang: LanguageCode): [QuestItem]
+  stationaryWeapons(lang: LanguageCode, limit: Int, offset: Int): [StationaryWeapon]
   status: ServerStatus!
-  task(id: ID!, lang: LanguageCode): Task
-  tasks(faction: String, lang: LanguageCode, limit: Int, offset: Int): [Task]!
-  traders(lang: LanguageCode, limit: Int, offset: Int): [Trader]!
-  fleaMarket(lang: LanguageCode): FleaMarket!
+  task(id: ID!, lang: LanguageCode, gameMode: GameMode): Task
+  tasks(faction: String, lang: LanguageCode, gameMode: GameMode, limit: Int, offset: Int): [Task]!
+  traders(lang: LanguageCode, gameMode: GameMode, limit: Int, offset: Int): [Trader]!
+  fleaMarket(lang: LanguageCode, gameMode: GameMode): FleaMarket!
   armorMaterials(lang: LanguageCode): [ArmorMaterial]!
   playerLevels: [PlayerLevel]!
+  skills(lang: LanguageCode): [Skill]!
+  mastering(lang: LanguageCode): [Mastering]!
   hideoutModules: [HideoutModule] @deprecated(reason: "Use hideoutStations instead.")
   itemsByIDs(ids: [ID]!): [Item] @deprecated(reason: "Use items instead.")
   itemsByType(type: ItemType!): [Item]! @deprecated(reason: "Use items instead.")
@@ -1016,6 +1194,7 @@ type RequirementItem {
 type RequirementSkill {
   id: ID
   name: String!
+  skill: Skill!
   level: Int!
 }
 
@@ -1046,9 +1225,26 @@ type ServerStatus {
   messages: [StatusMessage]
 }
 
+type Skill {
+  id: ID
+  name: String
+}
+
 type SkillLevel {
+  skill: Skill!
   name: String!
   level: Float!
+}
+
+type StationaryWeapon {
+  id: ID
+  name: String
+  shortName: String
+}
+
+type StationaryWeaponPosition {
+  stationaryWeapon: StationaryWeapon
+  position: MapPosition
 }
 
 type Status {
@@ -1081,6 +1277,7 @@ type StimEffect {
   value: Float!
   percent: Boolean!
   skillName: String
+  skill: Skill
 }
 
 type Task {
@@ -1103,7 +1300,7 @@ type Task {
   failureOutcome: TaskRewards
   restartable: Boolean
   factionName: String
-  neededKeys: [TaskKey]
+  neededKeys: [TaskKey] @deprecated(reason: "Use requiredKeys on objectives instead.")
   kappaRequired: Boolean
   lightkeeperRequired: Boolean
   descriptionMessageId: String
@@ -1132,6 +1329,8 @@ type TaskObjectiveBasic implements TaskObjective {
   description: String!
   maps: [Map]!
   optional: Boolean!
+  zones: [TaskZone]
+  requiredKeys: [[Item]]
 }
 
 type TaskObjectiveBuildItem implements TaskObjective {
@@ -1151,6 +1350,7 @@ type TaskObjectiveExperience implements TaskObjective {
   id: ID
   type: String!
   description: String!
+  count: Int!
   maps: [Map]!
   optional: Boolean!
   healthEffect: HealthEffect!
@@ -1165,6 +1365,8 @@ type TaskObjectiveExtract implements TaskObjective {
   exitStatus: [String]!
   exitName: String
   zoneNames: [String]!
+  count: Int!
+  requiredKeys: [[Item]]
 }
 
 type TaskObjectiveItem implements TaskObjective {
@@ -1173,12 +1375,15 @@ type TaskObjectiveItem implements TaskObjective {
   description: String!
   maps: [Map]!
   optional: Boolean!
-  item: Item!
+  items: [Item]!
   count: Int!
   foundInRaid: Boolean!
   dogTagLevel: Int
   maxDurability: Int
   minDurability: Int
+  zones: [TaskZone]
+  requiredKeys: [[Item]]
+  item: Item! @deprecated(reason: "Use items instead.")
 }
 
 type TaskObjectiveMark implements TaskObjective {
@@ -1188,6 +1393,8 @@ type TaskObjectiveMark implements TaskObjective {
   maps: [Map]!
   optional: Boolean!
   markerItem: Item!
+  zones: [TaskZone]
+  requiredKeys: [[Item]]
 }
 
 type TaskObjectivePlayerLevel implements TaskObjective {
@@ -1207,6 +1414,9 @@ type TaskObjectiveQuestItem implements TaskObjective {
   optional: Boolean!
   questItem: QuestItem!
   count: Int!
+  possibleLocations: [MapWithPosition]
+  zones: [TaskZone]
+  requiredKeys: [[Item]]
 }
 
 type TaskObjectiveShoot implements TaskObjective {
@@ -1229,6 +1439,8 @@ type TaskObjectiveShoot implements TaskObjective {
   enemyHealthEffect: HealthEffect
   timeFromHour: Int
   timeUntilHour: Int
+  zones: [TaskZone]
+  requiredKeys: [[Item]]
   target: String! @deprecated(reason: "Use targetNames instead.")
 }
 
@@ -1282,6 +1494,8 @@ type TaskObjectiveUseItem implements TaskObjective {
   compareMethod: String!
   count: Int!
   zoneNames: [String]!
+  zones: [TaskZone]
+  requiredKeys: [[Item]]
 }
 
 type TaskRewards {
@@ -1296,6 +1510,15 @@ type TaskRewards {
 type TaskStatusRequirement {
   task: Task!
   status: [String]!
+}
+
+type TaskZone {
+  id: ID!
+  map: Map
+  position: MapPosition
+  outline: [MapPosition]
+  top: Float
+  bottom: Float
 }
 
 type Trader {
@@ -1325,6 +1548,7 @@ type TraderCashOffer {
   currencyItem: Item
   priceRUB: Int
   taskUnlock: Task
+  buyLimit: Int
 }
 
 type TraderLevel {
@@ -1353,6 +1577,7 @@ enum TraderName {
   mechanic
   ragman
   jaeger
+  ref
 }
 
 type TraderOffer implements Vendor {
@@ -1361,6 +1586,7 @@ type TraderOffer implements Vendor {
   trader: Trader!
   minTraderLevel: Int
   taskUnlock: Task
+  buyLimit: Int
 }
 
 """TraderPrice is deprecated and replaced with ItemPrice."""
@@ -1385,6 +1611,11 @@ type TraderReputationLevelFence {
   hostileScavs: Boolean
   scavAttackSupport: Boolean
   availableScavExtracts: Int
+  btrEnabled: Boolean
+  btrDeliveryDiscount: Int
+  btrDeliveryGridSize: MapPosition
+  btrTaxiDiscount: Int
+  btrCoveringFireDiscount: Int
 }
 
 """TraderResetTime is deprecated and replaced with Trader."""

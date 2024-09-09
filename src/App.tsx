@@ -69,6 +69,7 @@ const SUPPORTED_LANGUAGES = [
   "ko",
   "pl",
   "pt",
+  "ro",
   "ru",
   "sk",
   "tr",
