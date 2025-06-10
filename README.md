@@ -37,7 +37,7 @@ For further inquiries or support, please contact @Seiju-N.
 
 # EFTDB
 ## 概要
-EFTDBは、ゲーム「Escape from Tarkov」（EFT）に関する様々な情報を提供するユーザーフレンドリーなツールです。このサービスは、プレイヤーがゲーム関連のデータにアクセスしやすく理解しやすくすることを目的としており、ゲーム体験を向上させることを目指しています。
+EFTDBは、ゲーム「Escape from Tarkov」（EFT）に関する様々な情報を提供するツールです。
 
 ## 技術スタック
 - フロントエンド：React with TypeScript
@@ -45,8 +45,6 @@ EFTDBは、ゲーム「Escape from Tarkov」（EFT）に関する様々な情報
 
 ## Getting started
 前提条件
-始める前に、以下のものがインストールされていることを確認してください：
-
 - Git
 - pnpm
 ## インストール
