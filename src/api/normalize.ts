@@ -23,16 +23,16 @@ const toArray = <T,>(obj: Record<string, T> | T[] | undefined | null): T[] =>
 export const normalizeCategories = (itemsRaw: Raw): Category[] => {
   const rawCategories = itemsRaw.itemCategories as Record<string, Raw>;
   const byId = new Map<string, Raw>(Object.entries(rawCategories));
-  return Object.values(rawCategories).map((c) => ({
-    id: c.id,
-    name: c.name,
-    normalizedName: c.normalizedName,
-    parent:
-      c.parent && byId.has(c.parent)
-        ? { name: byId.get(c.parent)!.name, normalizedName: byId.get(c.parent)!.normalizedName }
-        : null,
-    children: [],
-  }));
+  return Object.values(rawCategories).map((c) => {
+    const parent = c.parent ? byId.get(c.parent) : undefined;
+    return {
+      id: c.id,
+      name: c.name,
+      normalizedName: c.normalizedName,
+      parent: parent ? { name: parent.name, normalizedName: parent.normalizedName } : null,
+      children: [],
+    };
+  });
 };
 
 export const normalizeTraders = (tradersRaw: Raw): Trader[] =>
@@ -47,7 +47,8 @@ const buildItemRefIndex = (itemsRaw: Raw, categoriesById: Map<string, Raw>): Map
   const index = new Map<string, ItemRef>();
   Object.values(itemsRaw.items as Record<string, Raw>).forEach((item: Raw) => {
     const categoryId = item.categories?.[0];
-    const category = categoryId && categoriesById.has(categoryId) ? { name: categoriesById.get(categoryId)!.name } : null;
+    const categoryRaw = categoryId ? categoriesById.get(categoryId) : undefined;
+    const category = categoryRaw ? { name: categoryRaw.name } : null;
     index.set(item.id, { id: item.id, name: item.name, iconLink: item.iconLink, category });
   });
   // Quest items live in a separate pool (tasks dataset) but are referenced the
@@ -70,8 +71,9 @@ export const normalizeItems = (itemsRaw: Raw, tradersRaw: Raw, bartersRaw: Raw, 
   toArray(bartersRaw).forEach((barter: Raw) => {
     const targetId = barter.offeredItem?.item;
     if (!targetId) return;
-    if (!bartersByOfferedItem.has(targetId)) bartersByOfferedItem.set(targetId, []);
-    bartersByOfferedItem.get(targetId)!.push(barter);
+    const list = bartersByOfferedItem.get(targetId) ?? [];
+    list.push(barter);
+    bartersByOfferedItem.set(targetId, list);
   });
 
   const tasksByRequiredItem = new Map<string, Raw[]>();
@@ -84,16 +86,16 @@ export const normalizeItems = (itemsRaw: Raw, tradersRaw: Raw, bartersRaw: Raw, 
       if (objective.item) referencedIds.add(objective.item);
     });
     referencedIds.forEach((id) => {
-      if (!tasksByRequiredItem.has(id)) tasksByRequiredItem.set(id, []);
-      tasksByRequiredItem.get(id)!.push(task);
+      const list = tasksByRequiredItem.get(id) ?? [];
+      list.push(task);
+      tasksByRequiredItem.set(id, list);
     });
   });
 
   return Object.values(itemsRaw.items as Record<string, Raw>).map((raw: Raw): Item => {
     const categoryId = raw.categories?.[0];
-    const category = categoryId && categoriesById.has(categoryId)
-      ? { name: categoriesById.get(categoryId)!.name, normalizedName: categoriesById.get(categoryId)!.normalizedName }
-      : null;
+    const categoryRaw = categoryId ? categoriesById.get(categoryId) : undefined;
+    const category = categoryRaw ? { name: categoryRaw.name, normalizedName: categoryRaw.normalizedName } : null;
 
     const toItemPrice = (offer: Raw): ItemPriceLike => ({
       price: offer.price,
@@ -202,7 +204,10 @@ export const normalizeTasks = (
         base.attributes = o.buildAttributes || [];
         base.containsAll = (o.containsAll || []).map((id: string) => itemRefIndex.get(id)).filter(Boolean) as ItemRef[];
         base.containsCategory = (o.containsCategory || [])
-          .map((id: string) => (categoriesById.has(id) ? { name: categoriesById.get(id)!.name } : null))
+          .map((id: string) => {
+            const cat = categoriesById.get(id);
+            return cat ? { name: cat.name } : null;
+          })
           .filter(Boolean) as { name: string }[];
       } else {
         const refId = objectiveItemId(o);
@@ -211,10 +216,12 @@ export const normalizeTasks = (
       return base;
     });
 
+    const mapRaw = raw.map ? mapsById.get(raw.map) : undefined;
+
     return {
       ...raw,
       trader: traderRef(raw.trader),
-      map: raw.map && mapsById.has(raw.map) ? { name: mapsById.get(raw.map)!.name } : null,
+      map: mapRaw ? { name: mapRaw.name } : null,
       objectives,
       neededKeys: (raw.neededKeys || []).map((nk: Raw) => ({
         keys: (nk.keys || []).map((id: string) => itemRefIndex.get(id)).filter(Boolean) as ItemRef[],
@@ -237,13 +244,17 @@ export const normalizeMaps = (mapsRaw: Raw): GameMap[] => {
   const mobsById = new Map<string, Raw>(Object.entries((mapsRaw.mobs || {}) as Record<string, Raw>));
   return toArray(mapsRaw.maps).map((map: Raw) => ({
     name: map.name,
-    bosses: (map.bosses || [])
-      .filter((b: Raw) => mobsById.has(b.mob))
-      .map((b: Raw) => ({
+    bosses: ((map.bosses || [])
+      .map((b: Raw) => {
+        const mob = mobsById.get(b.mob);
+        return mob ? { b, mob } : null;
+      })
+      .filter(Boolean) as { b: Raw; mob: Raw }[])
+      .map(({ b, mob }) => ({
         boss: {
-          name: mobsById.get(b.mob)!.name,
-          imagePortraitLink: mobsById.get(b.mob)!.imagePortraitLink,
-          imagePosterLink: mobsById.get(b.mob)!.imagePosterLink,
+          name: mob.name,
+          imagePortraitLink: mob.imagePortraitLink,
+          imagePosterLink: mob.imagePosterLink,
         },
         spawnChance: b.spawnChance,
         spawnLocations: (b.spawnLocations || []).map((loc: Raw) => ({ name: loc.name, chance: loc.chance })),

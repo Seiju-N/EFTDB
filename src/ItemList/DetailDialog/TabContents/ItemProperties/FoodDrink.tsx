@@ -6,6 +6,7 @@ import { convertPercent, CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { Loading } from "./Loading";
 import { LanguageContext, LanguageDictContext } from "@/App";
 import { useItemProperties } from "@/api/hooks";
+import { Maybe, StimEffect } from "@/graphql/generated";
 
 type Props = {
   ItemId: string;
@@ -55,7 +56,7 @@ export const FoodDrink = ({ ItemId }: Props) => {
                     {ITEM_PROPERTIES_FOOD_DRINK.stimEffects}
                   </Typography>
                 </Grid>
-                {properties.stimEffects.map((effect: any) => (
+                {properties.stimEffects.map((effect: Maybe<StimEffect>) => (
                   <Fragment key={effect?.skillName}>
                     <Grid xs={6} md={3} color="text.secondary">
                       {effect?.skillName ? effect?.skillName : effect?.type}
