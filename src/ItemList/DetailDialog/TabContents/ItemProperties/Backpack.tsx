@@ -1,7 +1,5 @@
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { ItemPropertiesBackpack } from "@/graphql/generated";
-import { GET_ITEM_PROPERTIES_BACKPACK } from "@/query";
-import { useQuery } from "@apollo/client";
+import { useItemProperties } from "@/api/hooks";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
@@ -12,23 +10,10 @@ type Props = {
   ItemId: string;
 };
 
-type QueryType = {
-  item: {
-    properties: ItemPropertiesBackpack | null;
-  };
-};
-
 export const Backpack = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_BACKPACK } = useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_BACKPACK(lang),
-    {
-      variables: {
-        itemId: ItemId,
-      },
-    }
-  );
+  const { loading, error, data } = useItemProperties(ItemId, lang);
 
   if (loading) return <Loading />;
   if (!data || error) return null;

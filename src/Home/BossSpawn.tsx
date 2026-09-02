@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import {
   Accordion,
   AccordionDetails,
@@ -15,11 +14,11 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Fragment, memo, SyntheticEvent, useState } from "react";
-import type { Query } from "@/graphql/generated";
-import { GET_BOSS_SPAWN } from "@/query";
+import { Fragment, memo, SyntheticEvent, useContext, useState } from "react";
+import { useBossSpawns } from "@/api/hooks";
 import GroupIcon from "@mui/icons-material/Group";
 import { useHooks } from "./hooks";
+import { LanguageContext } from "@/App";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { convertPercent } from "@/ItemList/DetailDialog/utils";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
@@ -35,7 +34,8 @@ export const BossSpawn = memo(() => {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const { loading, error, data } = useQuery<Query>(GET_BOSS_SPAWN);
+  const lang = useContext(LanguageContext);
+  const { loading, error, data } = useBossSpawns(lang);
   if (error) return null;
   const Title = memo(() => (
     <Box sx={{ display: "flex", alignItems: "center" }} p={2}>

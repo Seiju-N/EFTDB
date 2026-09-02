@@ -14,7 +14,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useNavigate } from "react-router-dom";
 import { Handle, NodeProps, Position } from "reactflow";
 import styled from "styled-components";
 import CheckCircleOutline from "@mui/icons-material/CheckCircleOutline";
@@ -49,16 +48,13 @@ const Node = styled.div<{ $kappaRequired?: string }>`
 
 type TitleProps = {
   taskName: string;
-  data: NodeProps["data"];
   id: string;
 };
-const Title = memo(({ taskName, data, id }: TitleProps) => {
-  const navigate = useNavigate();
+const Title = memo(({ taskName, id }: TitleProps) => {
+  const { openTaskModal } = useTaskMap();
   const handleOnClick = useCallback(() => {
-    navigate(`/task/${data.traderName}`, {
-      state: { taskId: id },
-    });
-  }, [navigate, data.traderName, id]);
+    openTaskModal(id);
+  }, [openTaskModal, id]);
   return (
     <Link
       component={"button"}
@@ -172,7 +168,7 @@ export const CustomNode = memo(({ id, data }: NodeProps) => {
       $kappaRequired={data.kappaRequired ? "true" : undefined}
       style={nodeStyle}
     >
-      <Title taskName={data.taskName} data={data} id={id} />
+      <Title taskName={data.taskName} id={id} />
       <TaskDetails
         {...data}
         isNodeChecked={isNodeChecked}

@@ -1,7 +1,5 @@
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { ItemPropertiesScope } from "@/graphql/generated";
-import { GET_ITEM_PROPERTIES_SCOPE } from "@/query";
-import { useQuery } from "@apollo/client";
+import { useItemProperties } from "@/api/hooks";
 import { Box, List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
@@ -13,23 +11,10 @@ type Props = {
   ItemId: string;
 };
 
-type QueryType = {
-  item: {
-    properties: ItemPropertiesScope | null;
-  };
-};
-
 export const Scope = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_SCOPE } = useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_SCOPE(lang),
-    {
-      variables: {
-        itemId: ItemId,
-      },
-    }
-  );
+  const { loading, error, data } = useItemProperties(ItemId, lang);
 
   if (loading) return <Loading />;
   if (!data || error) return null;
@@ -78,7 +63,7 @@ export const Scope = ({ ItemId }: Props) => {
                   {ITEM_PROPERTIES_SCOPE.sightModes}
                 </Grid>
                 <Grid xs={6} md={3} display={"flex"}>
-                  {properties.sightModes?.map((sightMode) => (
+                  {properties.sightModes?.map((sightMode: number) => (
                     <Box pr={2} key={sightMode}>{`x${sightMode}`}</Box>
                   ))}
                 </Grid>
@@ -91,14 +76,14 @@ export const Scope = ({ ItemId }: Props) => {
                 </Grid>
                 <Grid xs={6} md={3}>
                   <List disablePadding>
-                    {properties.zoomLevels?.map((zoomLevels, idx) => (
+                    {properties.zoomLevels?.map((zoomLevels: number[], idx: number) => (
                       <ListItem
                         disableGutters
                         disablePadding
                         key={`${zoomLevels}_${idx}`}
                       >
                         {zoomLevels
-                          ?.map((zoomLevel) => `x${zoomLevel}`)
+                          ?.map((zoomLevel: number) => `x${zoomLevel}`)
                           .join(", ")}
                       </ListItem>
                     ))}

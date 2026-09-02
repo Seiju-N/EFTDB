@@ -3,33 +3,18 @@ import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
 import { CustomSkelton } from "@/ItemList/DetailDialog/utils";
-import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { ItemPropertiesMedicalItem } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { GET_ITEM_PROPERTIES_MEDICAL_ITEM } from "@/query";
+import { useItemProperties } from "@/api/hooks";
 
 type Props = {
   ItemId: string;
 };
 
-type QueryType = {
-  item: {
-    properties: ItemPropertiesMedicalItem | null;
-  };
-};
-
 export const MedicalItem = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_MEDICAL_ITEM } = useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_MEDICAL_ITEM(lang),
-    {
-      variables: {
-        itemId: ItemId,
-      },
-    }
-  );
+  const { loading, error, data } = useItemProperties(ItemId, lang);
 
   if (!data || loading) return <Loading />;
   if (error) return null;
@@ -51,7 +36,7 @@ export const MedicalItem = ({ ItemId }: Props) => {
                 </Grid>
                 <Grid xs={6} md={3}>
                   <List disablePadding>
-                    {properties.cures.map((cure) => (
+                    {properties.cures.map((cure: string) => (
                       <ListItem disablePadding disableGutters key={cure}>
                         {cure}
                       </ListItem>

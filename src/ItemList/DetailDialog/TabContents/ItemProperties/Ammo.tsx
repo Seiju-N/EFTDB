@@ -1,25 +1,18 @@
-import { useQuery } from "@apollo/client";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import type { ItemPropertiesAmmo, Scalars } from "@/graphql/generated";
+import type { Scalars } from "@/graphql/generated";
 
 import { convertPercent, CustomSkelton } from "@/ItemList/DetailDialog/utils";
 import { Loading } from "./Loading";
 import { LanguageContext, LanguageDictContext } from "@/App";
 import { normalise } from "@/utils";
-import { GET_ITEM_PROPERTIES_AMMO } from "@/query";
+import { useItemProperties } from "@/api/hooks";
 
 type Props = {
   ItemId: Scalars["ID"];
-};
-
-type QueryType = {
-  item: {
-    properties: ItemPropertiesAmmo | null;
-  };
 };
 
 const LinearProgressWithLabel = (
@@ -45,14 +38,7 @@ const LinearProgressWithLabel = (
 export const Ammo = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_AMMO } = useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_AMMO(lang),
-    {
-      variables: {
-        itemId: ItemId,
-      },
-    }
-  );
+  const { loading, error, data } = useItemProperties(ItemId, lang);
   if (loading) return <Loading />;
   if (!data || error) return null;
   const properties = data.item.properties;

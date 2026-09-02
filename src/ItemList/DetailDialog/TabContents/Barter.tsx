@@ -9,31 +9,23 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Fragment, memo } from "react";
-import { Item, Maybe, Trader } from "@/graphql/generated";
+import { Item } from "@/api/types";
 import { CardContentNoPadding } from "@/components/CardContentNoPadding";
 import { useHooks } from "../hooks";
 
 type Props = {
   currentItem: Item;
-  cashOffersData: ReadonlyArray<Maybe<Trader>>;
 };
 
-export const Barter = memo(({ currentItem, cashOffersData }: Props) => {
+export const Barter = memo(({ currentItem }: Props) => {
   const { ITEM_DETAIL_DIALOG } = useHooks();
-  const filteredData = cashOffersData
-    .map((cashOfferData) => {
-      const foundCashOffer = cashOfferData?.cashOffers.find((cashOffer) => {
-        return cashOffer?.item.id == currentItem.id;
-      });
-
-      return foundCashOffer
-        ? {
-            ...foundCashOffer,
-            traderName: cashOfferData?.name,
-          }
-        : null;
-    })
-    .filter((cashOffer) => cashOffer !== null);
+  const filteredData = currentItem.buyFor
+    .filter((offer) => offer.minTraderLevel !== undefined)
+    .map((offer) => ({
+      minTraderLevel: offer.minTraderLevel,
+      taskUnlock: offer.taskUnlock,
+      traderName: offer.vendor.name,
+    }));
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>

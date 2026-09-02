@@ -1,4 +1,4 @@
-import { Item, Maybe, Trader } from "@/graphql/generated";
+import { Item } from "@/api/types";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Box, Card, Dialog, DialogContent, Tab, Tabs } from "@mui/material";
 import { useHooks } from "./hooks";
@@ -20,14 +20,12 @@ type Props = {
   currentItem: Item | undefined;
   dialogOpen: boolean;
   handleDialogClose: () => void;
-  cashOffers: ReadonlyArray<Maybe<Trader>>;
 };
 
 export const DetailDialog = ({
   currentItem,
   dialogOpen,
   handleDialogClose,
-  cashOffers,
 }: Props) => {
   const { selectedTab, handleTabChange, ITEM_PROPERTIES_TAB, verticalCenter } =
     useHooks();
@@ -81,7 +79,7 @@ export const DetailDialog = ({
             <DetailTab currentItem={currentItem} />
           </TabPanel>
           <TabPanel value={selectedTab} index={1}>
-            <Barter currentItem={currentItem} cashOffersData={cashOffers} />
+            <Barter currentItem={currentItem} />
           </TabPanel>
         </Card>
       </DialogContent>

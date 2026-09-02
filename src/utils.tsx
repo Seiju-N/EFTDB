@@ -1,7 +1,7 @@
 import { format, formatDistance } from "date-fns";
 import { ja } from "date-fns/locale";
 
-import type { Task, Trader } from "./graphql/generated";
+import type { Task, Trader } from "./api/types";
 
 export const formatDate = (date: string) => {
   const formattedDate = formatDistance(new Date(), Date.parse(date), {

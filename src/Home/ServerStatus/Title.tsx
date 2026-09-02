@@ -3,10 +3,10 @@ import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { memo } from "react";
 import StorageIcon from "@mui/icons-material/Storage";
 import WarningIcon from "@mui/icons-material/Warning";
-import { Query } from "@/graphql/generated";
+import { ServerStatus } from "@/api/types";
 
 type Props = {
-  data: Query | undefined;
+  data: { status: ServerStatus } | undefined;
   handleClickOpen: () => void;
   langDict: dictType;
 };

@@ -2,7 +2,7 @@ import { memo } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Tooltip, Typography } from "@mui/material";
 import { useHooks } from "./hooks";
-import { Item } from "@/graphql/generated";
+import { Item } from "@/api/types";
 import QueryStats from "@mui/icons-material/QueryStats";
 
 type Props = {

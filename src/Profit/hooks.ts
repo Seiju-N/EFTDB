@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { LanguageDictContext, TradersContext } from "@/App";
 import axios from "axios";
-import { Item, Vendor } from "@/graphql/generated";
+import { Item, Vendor } from "@/api/types";
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);

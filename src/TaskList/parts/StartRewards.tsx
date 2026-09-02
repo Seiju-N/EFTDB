@@ -1,5 +1,6 @@
 import { dictType } from "@/constants/languages/types";
-import { ItemCategory, Maybe, Task } from "@/graphql/generated";
+import { Maybe } from "@/graphql/generated";
+import { Category as ItemCategory, Task } from "@/api/types";
 import {
   Card,
   Grid,

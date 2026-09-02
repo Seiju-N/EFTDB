@@ -6,6 +6,7 @@ import { useHooks } from "./hooks";
 import { ControlsStyled, ReactFlowStyled } from "./styledComponents";
 import { TaskMapProvider } from "@/contexts/TaskMapContext";
 import { MemorizedPanel } from "./Panel";
+import { TaskDetailDialog } from "@/TaskList/TaskDetailDialog";
 
 const MemorizedControls = memo(ControlsStyled);
 
@@ -19,6 +20,12 @@ const TaskMapPlane = () => {
     showKappaRequired,
     handleCheckboxChange,
     langDict,
+    lang,
+    categories,
+    selectedTask,
+    isTaskModalOpen,
+    openTaskModal,
+    closeTaskModal,
   } = useHooks();
 
   return isLoading || (nodes.length === 0 && edges.length === 0) ? (
@@ -47,6 +54,7 @@ const TaskMapPlane = () => {
         minZoom={0.08}
         fitView
         attributionPosition="bottom-left"
+        onlyRenderVisibleElements
       >
         <MemorizedPanel
           showKappaRequired={showKappaRequired}
@@ -54,6 +62,15 @@ const TaskMapPlane = () => {
         />
         <MemorizedControls />
       </ReactFlowStyled>
+      <TaskDetailDialog
+        currentTask={selectedTask}
+        dialogOpen={isTaskModalOpen}
+        handleDialogClose={closeTaskModal}
+        categories={categories}
+        langDict={langDict}
+        lang={lang}
+        onTaskSelect={openTaskModal}
+      />
     </Box>
   );
 };

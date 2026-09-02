@@ -5,34 +5,19 @@ import {
   CustomSkelton,
   translateMaterialName,
 } from "@/ItemList/DetailDialog/utils";
-import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { ItemPropertiesGlasses } from "@/graphql/generated";
-import { GET_ITEM_PROPERTIES_GLASSES } from "@/query";
+import { useItemProperties } from "@/api/hooks";
 
 type Props = {
   ItemId: string;
-};
-
-type QueryType = {
-  item: {
-    properties: ItemPropertiesGlasses | null;
-  };
 };
 
 export const Glasses = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_GLASSES, ARMOR_MATERIAL } =
     useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_GLASSES(lang),
-    {
-      variables: {
-        itemId: ItemId,
-      },
-    }
-  );
+  const { loading, error, data } = useItemProperties(ItemId, lang);
 
   if (loading) return <Loading />;
   if (!data || error) return null;
@@ -77,14 +62,14 @@ export const Glasses = ({ ItemId }: Props) => {
                 </Grid>
               </>
             ) : null}
-            {properties.material?.id ? (
+            {properties.material ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_GLASSES.material}
                 </Grid>
                 <Grid xs={6} md={3}>
                   {translateMaterialName(
-                    properties.material.id,
+                    properties.material,
                     ARMOR_MATERIAL
                   )}
                 </Grid>

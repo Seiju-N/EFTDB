@@ -4,7 +4,7 @@ import React, {
   SetStateAction,
   useCallback,
   useContext,
-  useEffect,
+  useMemo,
   useState,
   useTransition,
 } from "react";
@@ -21,6 +21,9 @@ type TaskMapContextType = {
   setEdges: Dispatch<SetStateAction<Edge[]>>;
   updateNodeAndParents: (nodeId: string, checked: boolean) => void;
   isPending: boolean;
+  selectedTaskId: string | null;
+  openTaskModal: (taskId: string) => void;
+  closeTaskModal: () => void;
 };
 const TaskMapContext = createContext<TaskMapContextType | undefined>(undefined);
 
@@ -86,45 +89,28 @@ export const TaskMapProvider = ({ children }: Props) => {
     },
     [nodes, edges, startTransition]
   );
-  const value = {
-    nodes,
-    setNodes,
-    edges,
-    setEdges,
-    updateNodeAndParents,
-    isPending,
-  };
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+  const openTaskModal = useCallback((taskId: string) => {
+    setSelectedTaskId(taskId);
+  }, []);
+  const closeTaskModal = useCallback(() => {
+    setSelectedTaskId(null);
+  }, []);
 
-  useEffect(() => {
-    const findParentNodes = (nodeId: string) => {
-      return edges
-        .filter((edge) => edge.target === nodeId)
-        .map((edge) => edge.source);
-    };
-
-    const updateParentNodes = (updatedNode: Node) => {
-      const parentIds = findParentNodes(updatedNode.id);
-      let updated = false;
-
-      const newNodes = nodes.map((node) => {
-        if (parentIds.includes(node.id) && !node.data.isNodeChecked) {
-          updated = true;
-          return { ...node, data: { ...node.data, isNodeChecked: true } };
-        }
-        return { ...node, data: { ...node.data, isNodeChecked: false } };
-      });
-
-      if (updated) {
-        setNodes(newNodes);
-      }
-    };
-
-    nodes.forEach((node) => {
-      if (node.data.isNodeChecked) {
-        updateParentNodes(node);
-      }
-    });
-  }, [nodes, edges]);
+  const value = useMemo(
+    () => ({
+      nodes,
+      setNodes,
+      edges,
+      setEdges,
+      updateNodeAndParents,
+      isPending,
+      selectedTaskId,
+      openTaskModal,
+      closeTaskModal,
+    }),
+    [nodes, edges, updateNodeAndParents, isPending, selectedTaskId, openTaskModal, closeTaskModal]
+  );
 
   return (
     <TaskMapContext.Provider value={value}>{children}</TaskMapContext.Provider>

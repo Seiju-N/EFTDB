@@ -1,8 +1,8 @@
-import { Backdrop, Box, CircularProgress, Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React, { useEffect } from "react";
 
 import { useHooks } from "./hooks";
-import type { Item } from "../graphql/generated";
+import type { Item } from "@/api/types";
 import { Loading } from "./Loading";
 import { DetailDialog } from "./DetailDialog";
 import { DataGrid } from "@/components/DataGrid";
@@ -24,7 +24,6 @@ export const ItemList = () => {
     loading,
     error,
     data,
-    cashOffers,
     items,
     location,
   } = useHooks();
@@ -78,14 +77,7 @@ export const ItemList = () => {
         currentItem={currentItem}
         dialogOpen={dialogOpen}
         handleDialogClose={handleDialogClose}
-        cashOffers={cashOffers?.traders || []}
       />
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={items.length === 0}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
     </Container>
   );
 };

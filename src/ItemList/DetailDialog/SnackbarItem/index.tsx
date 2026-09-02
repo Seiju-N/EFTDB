@@ -1,4 +1,4 @@
-import { Item } from "@/graphql/generated";
+import { Item } from "@/api/types";
 import { Alert, Snackbar } from "@mui/material";
 
 type Props = {

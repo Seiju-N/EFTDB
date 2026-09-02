@@ -1,4 +1,4 @@
-import { Item } from "@/graphql/generated";
+import { Item } from "@/api/types";
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import { ItemProperties } from "./ItemProperties";
@@ -14,9 +14,9 @@ export const DetailTab = memo(({ currentItem }: Props) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <CardContentNoPadding>
-        {currentItem.properties && currentItem.properties.__typename ? (
+        {currentItem.properties && currentItem.properties.propertiesType ? (
           <ItemProperties
-            typeName={currentItem.properties.__typename}
+            typeName={currentItem.properties.propertiesType}
             ItemId={currentItem.id}
           />
         ) : (

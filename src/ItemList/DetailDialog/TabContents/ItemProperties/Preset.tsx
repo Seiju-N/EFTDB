@@ -2,33 +2,18 @@ import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
 import { CustomSkelton } from "@/ItemList/DetailDialog/utils";
-import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { ItemPropertiesPreset } from "@/graphql/generated";
-import { GET_ITEM_PROPERTIES_PRESET } from "@/query";
+import { useItemProperties } from "@/api/hooks";
 
 type Props = {
   ItemId: string;
 };
 
-type QueryType = {
-  item: {
-    properties: ItemPropertiesPreset | null;
-  };
-};
-
 export const Preset = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_PRESET } = useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_PRESET(lang),
-    {
-      variables: {
-        itemId: ItemId,
-      },
-    }
-  );
+  const { loading, error, data } = useItemProperties(ItemId, lang);
 
   if (loading) return <Loading />;
   if (!data || error) return null;

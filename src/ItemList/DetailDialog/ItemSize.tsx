@@ -3,7 +3,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { Tooltip, Typography } from "@mui/material";
 import ZoomOutMap from "@mui/icons-material/ZoomOutMap";
 import { useHooks } from "./hooks";
-import { Item } from "@/graphql/generated";
+import { Item } from "@/api/types";
 
 type Props = {
   currentItem: Item;

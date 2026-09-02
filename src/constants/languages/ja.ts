@@ -89,6 +89,8 @@ const JA_DICT = {
     TaskRequirements: "前提タスク",
     NeededKeys: "必要な鍵",
     StartRewardsItems: "開始時報酬アイテム",
+    SwitchToThisTask: "このタスクを表示",
+    OpenTaskPage: "タスク一覧で開く",
   },
 
   OPERATORS: {
@@ -109,6 +111,8 @@ const JA_DICT = {
 
   TASK_STATUS: {
     complete: "完了",
+    active: "開始",
+    failed: "失敗",
   },
 
   ITEM_DETAIL_DIALOG: {

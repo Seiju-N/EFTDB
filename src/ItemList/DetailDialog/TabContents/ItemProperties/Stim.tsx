@@ -3,33 +3,18 @@ import Grid from "@mui/material/Unstable_Grid2";
 import React, { Fragment, useContext } from "react";
 
 import { convertPercent, CustomSkelton } from "@/ItemList/DetailDialog/utils";
-import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { ItemPropertiesStim } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { GET_ITEM_PROPERTIES_STIM } from "@/query";
+import { useItemProperties } from "@/api/hooks";
 
 type Props = {
   ItemId: string;
 };
 
-type QueryType = {
-  item: {
-    properties: ItemPropertiesStim | null;
-  };
-};
-
 export const Stim = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_STIM } = useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_STIM(lang),
-    {
-      variables: {
-        itemId: ItemId,
-      },
-    }
-  );
+  const { loading, error, data } = useItemProperties(ItemId, lang);
   if (!data || loading) return <Loading />;
   if (error) return null;
   const properties = data.item.properties;
@@ -57,7 +42,7 @@ export const Stim = ({ ItemId }: Props) => {
                 <Grid xs={12}>
                   <Typography>{ITEM_PROPERTIES_STIM.stimEffects}</Typography>
                 </Grid>
-                {properties.stimEffects.map((effect, idx) => (
+                {properties.stimEffects.map((effect: any, idx: number) => (
                   <Fragment key={`${effect?.skillName}_${idx}`}>
                     <Grid xs={6} md={3} color="text.secondary">
                       {effect?.skillName ? effect?.skillName : effect?.type}

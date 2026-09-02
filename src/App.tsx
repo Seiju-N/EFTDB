@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import {
   createTheme,
   CssBaseline,
@@ -12,13 +11,14 @@ import EN_DICT from "./constants/languages/en";
 import JA_DICT from "./constants/languages/ja";
 import type { dictType } from "./constants/languages/types";
 import { Footer } from "./Footer";
-import type { ItemCategory, Maybe, Query, Trader } from "./graphql/generated";
 import { LanguageCode } from "./graphql/generated";
+import type { Maybe } from "./graphql/generated";
+import type { Category, Trader } from "@/api/types";
 import { Home } from "./Home";
 import { ItemList } from "./ItemList";
 import { TaskList } from "./TaskList";
 import { TopBar } from "./TopBar";
-import { ITEM_CATEGORIES, TRADERS } from "@/query";
+import { useItemCategories, useTraders } from "@/api/hooks";
 import { useTracking } from "./ga/useTracking";
 import { Profit } from "./Profit";
 import { NotFound } from "./404";
@@ -54,7 +54,7 @@ export const TradersContext = createContext<
 export const LanguageDictContext = createContext<dictType>(EN_DICT);
 export const LanguageContext = createContext<LanguageCode>(LanguageCode.En);
 export const CategoryContext = createContext<
-  readonly Maybe<ItemCategory>[] | undefined
+  readonly Maybe<Category>[] | undefined
 >([]);
 
 const SUPPORTED_LANGUAGES = [
@@ -79,8 +79,8 @@ const SUPPORTED_LANGUAGES = [
 const App = () => {
   const [language, setLanguage] = useState<LanguageCode>(LanguageCode.En);
   const [languageDict, setLanguageDict] = useState<dictType>(EN_DICT);
-  const { data: tradersData } = useQuery<Query>(TRADERS);
-  const { data: categoryData } = useQuery<Query>(ITEM_CATEGORIES);
+  const { data: tradersData } = useTraders(language);
+  const { data: categoryData } = useItemCategories(language);
   const [filteredTraders, setFilteredTraders] = useState<
     readonly Maybe<Trader>[] | undefined
   >([]);
@@ -90,7 +90,7 @@ const App = () => {
   useEffect(() => {
     if (tradersData?.traders) {
       const filtered = tradersData.traders.filter(
-        (trader) => trader?.name !== "BTR Driver"
+        (trader) => trader?.normalizedName !== "btr-driver"
       );
       setFilteredTraders(filtered);
     }

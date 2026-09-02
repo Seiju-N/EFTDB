@@ -1,4 +1,4 @@
-import { HistoricalPricePoint, Maybe } from "@/graphql/generated";
+import { PriceHistoryPoint } from "@/api/types";
 import { Typography } from "@mui/material";
 import {
   CartesianGrid,
@@ -31,7 +31,7 @@ export const PriceChart = ({ itemId }: Props) => {
       <LineChart
         style={{ width: "100%", height: 100 }}
         height={200}
-        data={formattedData as Maybe<HistoricalPricePoint>[]}
+        data={formattedData as PriceHistoryPoint[]}
       >
         <XAxis
           dataKey="timestamp"

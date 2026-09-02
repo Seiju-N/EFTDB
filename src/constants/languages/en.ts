@@ -78,6 +78,8 @@ const EN_DICT = {
     TaskRequirements: "Task requirements",
     NeededKeys: "Needed keys",
     StartRewardsItems: "Start rewards items",
+    SwitchToThisTask: "View this task",
+    OpenTaskPage: "Open in task list",
   },
 
   OPERATORS: {
@@ -107,6 +109,8 @@ const EN_DICT = {
 
   TASK_STATUS: {
     complete: "complete",
+    active: "started",
+    failed: "failed",
   },
 
   ITEM_DETAIL_DIALOG: {

@@ -11,24 +11,8 @@ import {
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { NoInfo } from "../NoInfo";
-import {
-  ItemCategory,
-  LanguageCode,
-  Maybe,
-  Task,
-  TaskObjectiveBasic,
-  TaskObjectiveBuildItem,
-  TaskObjectiveExperience,
-  TaskObjectiveExtract,
-  TaskObjectiveItem,
-  TaskObjectiveMark,
-  TaskObjectivePlayerLevel,
-  TaskObjectiveQuestItem,
-  TaskObjectiveShoot,
-  TaskObjectiveSkill,
-  TaskObjectiveTaskStatus,
-  TaskObjectiveTraderLevel,
-} from "@/graphql/generated";
+import { LanguageCode, Maybe } from "@/graphql/generated";
+import { Category as ItemCategory, Task, TaskObjective } from "@/api/types";
 import { Fragment } from "react";
 import { Item } from "@/components/Item";
 import { toPascalCase } from "@/utils";
@@ -40,30 +24,6 @@ type Props = {
   lang: LanguageCode;
 };
 
-type taskObjectiveType =
-  | TaskObjectiveBasic[]
-  | TaskObjectiveBuildItem[]
-  | TaskObjectiveExperience[]
-  | TaskObjectiveExtract[]
-  | TaskObjectiveItem[]
-  | TaskObjectiveMark[]
-  | TaskObjectivePlayerLevel[]
-  | TaskObjectiveQuestItem[]
-  | TaskObjectiveShoot[]
-  | TaskObjectiveSkill[]
-  | TaskObjectiveTaskStatus[]
-  | TaskObjectiveTraderLevel[];
-
-const isTaskObjectiveItem = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  objective: any
-): objective is TaskObjectiveItem => "item" in objective;
-
-const isTaskObjectiveBuildItem = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  objective: any
-): objective is TaskObjectiveBuildItem => "attributes" in objective;
-
 export const TaskObjectives = ({
   currentTask,
   langDict,
@@ -71,7 +31,7 @@ export const TaskObjectives = ({
   lang,
 }: Props) => {
   if (!currentTask.objectives) return <NoInfo />;
-  const objectives = currentTask.objectives as taskObjectiveType;
+  const objectives: TaskObjective[] = currentTask.objectives;
   return (
     <Card variant="outlined">
       <List sx={{ height: "60vh", overflow: "auto" }} disablePadding>
@@ -82,14 +42,14 @@ export const TaskObjectives = ({
               <ListItemText>
                 {data?.optional ? "(Optional):" : ""}
                 {data?.description}
-                {"count" in data ? `( x ${data?.count} )` : ""}
+                {data?.count ? `( x ${data?.count} )` : ""}
               </ListItemText>
-              {isTaskObjectiveItem(data) && data.item.id ? (
+              {data.item?.id ? (
                 <IconButton
                   component={RouterLink}
                   to={`/item/${toPascalCase(
                     categories?.find(
-                      (category) => category?.name === data.item.category?.name
+                      (category) => category?.name === data.item?.category?.name
                     )?.normalizedName
                   )}`}
                   state={{ itemId: data.item?.id }}
@@ -103,64 +63,58 @@ export const TaskObjectives = ({
                 </IconButton>
               ) : null}
             </ListItem>
-            {isTaskObjectiveBuildItem(data)
-              ? data.attributes.map((attribute) => {
-                  const { name, requirement } = attribute || {};
-                  const { value, compareMethod } = requirement || {};
-                  const operator = compareMethod
-                    ? langDict.OPERATORS[compareMethod]
-                    : "";
+            {data.attributes?.map((attribute) => {
+              const { name, requirement } = attribute || {};
+              const { value, compareMethod } = requirement || {};
+              const operator = compareMethod
+                ? langDict.OPERATORS[compareMethod]
+                : "";
 
-                  const text =
-                    lang === "ja"
-                      ? `${name} ${value} ${operator}`
-                      : `${name} ${operator} ${value}`;
+              const text =
+                lang === "ja"
+                  ? `${name} ${value} ${operator}`
+                  : `${name} ${operator} ${value}`;
 
-                  return (
-                    <ListItem key={name} dense>
-                      <ListItemText inset>{text}</ListItemText>
-                    </ListItem>
-                  );
-                })
-              : null}
-            {isTaskObjectiveBuildItem(data)
-              ? data.containsAll.map((item) => (
-                  <ListItem key={item?.id} dense>
-                    <ListItemText
-                      inset
-                    >{`Required any ${item?.name}`}</ListItemText>
-                    <IconButton
-                      component={RouterLink}
-                      to={`/item/${toPascalCase(
-                        categories?.find(
-                          (category) => category?.name === item?.category?.name
-                        )?.normalizedName
-                      )}`}
-                      state={{ itemId: item?.id }}
-                      edge="end"
-                    >
-                      <img
-                        style={{
-                          height: 40,
-                          width: "auto",
-                          maxWidth: "100%",
-                        }}
-                        src={item?.iconLink?.toString()}
-                        alt="Task objective item"
-                      />
-                    </IconButton>
-                  </ListItem>
-                ))
-              : null}
-            {isTaskObjectiveBuildItem(data)
-              ? data.containsCategory.map((category) => (
-                  <ListItem key={category?.name} dense>
-                    <ListItemText
-                      inset
-                    >{`Required any ${category?.name}`}</ListItemText>
-                  </ListItem>
-                ))
-              : null}
+              return (
+                <ListItem key={name} dense>
+                  <ListItemText inset>{text}</ListItemText>
+                </ListItem>
+              );
+            })}
+            {data.containsAll?.map((item) => (
+              <ListItem key={item?.id} dense>
+                <ListItemText
+                  inset
+                >{`Required any ${item?.name}`}</ListItemText>
+                <IconButton
+                  component={RouterLink}
+                  to={`/item/${toPascalCase(
+                    categories?.find(
+                      (category) => category?.name === item?.category?.name
+                    )?.normalizedName
+                  )}`}
+                  state={{ itemId: item?.id }}
+                  edge="end"
+                >
+                  <img
+                    style={{
+                      height: 40,
+                      width: "auto",
+                      maxWidth: "100%",
+                    }}
+                    src={item?.iconLink?.toString()}
+                    alt="Task objective item"
+                  />
+                </IconButton>
+              </ListItem>
+            ))}
+            {data.containsCategory?.map((category) => (
+              <ListItem key={category?.name} dense>
+                <ListItemText
+                  inset
+                >{`Required any ${category?.name}`}</ListItemText>
+              </ListItem>
+            ))}
           </Fragment>
         ))}
         {currentTask.neededKeys?.length !== 0 ? (

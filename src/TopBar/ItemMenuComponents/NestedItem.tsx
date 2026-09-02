@@ -9,7 +9,8 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import { useHooks } from "../hooks";
 import { useCallback, useState } from "react";
-import { ItemCategory, Maybe } from "@/graphql/generated";
+import { Maybe } from "@/graphql/generated";
+import { Category as ItemCategory } from "@/api/types";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
@@ -25,7 +26,11 @@ export const NestedItem = ({ categoryName, handleClose }: props) => {
     setOpen(!open);
   }, [open]);
   const parsedCategories: Maybe<ItemCategory>[] | undefined =
-    categories?.filter((category) => category?.parent?.name === categoryName);
+    categories?.filter(
+      (category) =>
+        toPascalCase(category?.parent?.normalizedName) ===
+        toPascalCase(categoryName)
+    );
   if (!parsedCategories || parsedCategories.length === 0) return null;
   return (
     <>

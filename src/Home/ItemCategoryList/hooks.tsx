@@ -13,32 +13,29 @@ import {
 import { memo, useCallback, useContext, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-import type { ItemCategory, Maybe } from "@/graphql/generated";
+import type { Maybe } from "@/graphql/generated";
+import type { Category as ItemCategory } from "@/api/types";
 
 import {
   CategoryContext,
-  LanguageContext,
   LanguageDictContext,
   TradersContext,
 } from "@/App";
 import { toPascalCase } from "@/utils";
 import SearchIcon from "@mui/icons-material/Search";
-import { useQuery } from "@apollo/client";
-import { GET_TASKS } from "@/query";
 
 export const useHooks = () => {
   const langDict = useContext(LanguageDictContext);
-  const lang = useContext(LanguageContext);
   const categories = useContext(CategoryContext);
   const traders = useContext(TradersContext);
 
-  const { data: _taskData } = useQuery(GET_TASKS(lang));
   type nestedCategoryProps = {
     categoryName: string;
   };
   const FlatCategory = ({ categoryName }: nestedCategoryProps) => {
     const parsedCategory: Maybe<ItemCategory> | undefined = categories?.find(
-      (category) => category?.name === categoryName
+      (category) =>
+        toPascalCase(category?.normalizedName) === toPascalCase(categoryName)
     );
     if (!parsedCategory) return null;
     return (
@@ -66,7 +63,11 @@ export const useHooks = () => {
       setOpen(!open);
     }, [open]);
     const parsedCategories: Maybe<ItemCategory>[] | undefined =
-      categories?.filter((category) => category?.parent?.name === categoryName);
+      categories?.filter(
+        (category) =>
+          toPascalCase(category?.parent?.normalizedName) ===
+          toPascalCase(categoryName)
+      );
     if (!parsedCategories || parsedCategories.length === 0) return null;
     return (
       <>
@@ -116,7 +117,9 @@ export const useHooks = () => {
     }, [open]);
 
     const filterByParentCategory = categories?.filter(
-      (category) => category?.parent?.name === categoryName
+      (category) =>
+        toPascalCase(category?.parent?.normalizedName) ===
+        toPascalCase(categoryName)
     );
 
     type props = {

@@ -2,7 +2,7 @@ import { memo, useCallback } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Tooltip, Typography } from "@mui/material";
 import { useHooks } from "./hooks";
-import { Item, ItemPrice, Maybe } from "@/graphql/generated";
+import { Item, ItemPrice } from "@/api/types";
 import SellIcon from "@mui/icons-material/Sell";
 
 type Props = {
@@ -17,7 +17,7 @@ export const SellPrice = memo(({ currentItem }: Props) => {
           Number(a.priceRUB) > Number(b.priceRUB) ? a : b
         )
       : null;
-  const convertCurrency = useCallback((currency: Maybe<string> | undefined) => {
+  const convertCurrency = useCallback((currency: string | undefined) => {
     switch (currency) {
       case "USD":
         return "$";

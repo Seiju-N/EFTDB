@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useHooks } from "./hooks";
-import { Item } from "@/graphql/generated";
+import { Item } from "@/api/types";
 import { Link as RouterLink } from "react-router-dom";
 import TaskIcon from "@mui/icons-material/Task";
 

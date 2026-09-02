@@ -2,11 +2,10 @@ import { useCallback, useContext, useState } from "react";
 
 import { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 
-import { Task } from "@/graphql/generated";
+import { Task } from "@/api/types";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { useQuery } from "@apollo/client";
 import { CategoryContext, LanguageContext, LanguageDictContext } from "@/App";
-import { GET_TASKS } from "@/query";
+import { useTasks } from "@/api/hooks";
 import { useLocation, useParams } from "react-router-dom";
 
 export const useHooks = () => {
@@ -96,7 +95,7 @@ export const useHooks = () => {
     setTaskFilter(convertObject(value));
   }, []);
 
-  const { data: taskData, loading } = useQuery(GET_TASKS(lang));
+  const { data: taskData, loading } = useTasks(lang);
   const param = useParams();
 
   return {

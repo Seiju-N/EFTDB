@@ -2,7 +2,7 @@ import { memo } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { DialogTitle, IconButton, Tooltip } from "@mui/material";
 import { PinIcon } from "./PinIcon";
-import { Item } from "@/graphql/generated";
+import { Item } from "@/api/types";
 import { useHooks } from "./hooks";
 import LanguageIcon from "@mui/icons-material/Language";
 

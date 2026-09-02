@@ -1,4 +1,4 @@
-import { Item } from "@/graphql/generated";
+import { Item } from "@/api/types";
 import { IconButton, Tooltip } from "@mui/material";
 import { SnackbarItem } from "../SnackbarItem";
 import PushPinIcon from "@mui/icons-material/PushPin";

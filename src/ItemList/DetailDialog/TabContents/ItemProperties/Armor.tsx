@@ -1,34 +1,20 @@
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { ItemPropertiesArmor } from "@/graphql/generated";
-import { GET_ITEM_PROPERTIES_ARMOR } from "@/query";
-import { useQuery } from "@apollo/client";
+import { useItemProperties } from "@/api/hooks";
 import { List, ListItem } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useContext } from "react";
 
-import { CustomSkelton } from "@/ItemList/DetailDialog/utils";
+import { CustomSkelton, translateMaterialName } from "@/ItemList/DetailDialog/utils";
 import { Loading } from "./Loading";
 
 type Props = {
   ItemId: string;
 };
 
-type QueryType = {
-  item: {
-    properties: ItemPropertiesArmor | null;
-  };
-};
-
 export const Armor = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
-  const { ITEM_PROPERTIES_ARMOR } = useContext(LanguageDictContext);
-  const QUERY = GET_ITEM_PROPERTIES_ARMOR(lang);
-  const { loading, error, data } = useQuery<QueryType>(QUERY, {
-    variables: {
-      itemId: ItemId,
-      lang,
-    },
-  });
+  const { ITEM_PROPERTIES_ARMOR, ARMOR_MATERIAL } = useContext(LanguageDictContext);
+  const { loading, error, data } = useItemProperties(ItemId, lang);
   if (loading) return <Loading />;
   if (!data || error) return null;
   const properties = data.item.properties;
@@ -59,7 +45,7 @@ export const Armor = ({ ItemId }: Props) => {
                 </Grid>
                 <Grid xs={6} md={3}>
                   <List disablePadding>
-                    {properties.zones.map((zone) => (
+                    {properties.zones.map((zone: string) => (
                       <ListItem disableGutters disablePadding key={zone}>
                         {zone ? zone : null}
                       </ListItem>
@@ -78,13 +64,13 @@ export const Armor = ({ ItemId }: Props) => {
                 </Grid>
               </>
             ) : null}
-            {properties.material?.id ? (
+            {properties.material ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_ARMOR.material}
                 </Grid>
                 <Grid xs={6} md={3}>
-                  {properties.material.name}
+                  {translateMaterialName(properties.material, ARMOR_MATERIAL)}
                 </Grid>
               </>
             ) : null}

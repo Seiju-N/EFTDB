@@ -1,6 +1,5 @@
-import { Item, Query } from "@/graphql/generated";
-import { GET_CASH_OFFERS, GET_ITEMS } from "@/query";
-import { useQuery } from "@apollo/client";
+import { Item } from "@/api/types";
+import { useItems } from "@/api/hooks";
 import {  SelectChangeEvent } from "@mui/material";
 import type { GridColDef, GridFilterModel, GridSortingInitialState } from "@mui/x-data-grid";
 import { enUS } from "@mui/x-data-grid";
@@ -54,7 +53,7 @@ export const useHooks = () => {
       field: "category",
       headerName: "category",
       minWidth: 120,
-      flex: 1,
+      flex: 0.4,
       valueGetter: ({ value }) => {
         return value.name;
       },
@@ -84,15 +83,8 @@ export const useHooks = () => {
     sortModel: [{ field: "category", sort: "asc" }],
   };
 
-  const { loading, error, data } = useQuery(GET_ITEMS(lang), {
-    variables: {
-      categoryNames: [param.categoryName],
-      withCategory: Boolean(param.categoryName),
-    },
-  });
+  const { loading, error, data } = useItems(lang, param.categoryName);
+  const items = data?.items || [];
 
-  const { data:cashOffers } = useQuery<Query>(GET_CASH_OFFERS);
-  const items = data?.itemsWithCategories || data?.itemsWithoutCategories || [];
-
-  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, cashOffers, items, location }
+  return { langDict, param, filter, ammoTypeFilter, localeText, cols, defaultSort, dialogOpen, currentItem, handleChange, handleDialogOpen, handleDialogClose, data, error, loading, items, location }
 }

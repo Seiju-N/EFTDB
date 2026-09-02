@@ -7,34 +7,19 @@ import {
   CustomSkelton,
   translateMaterialName,
 } from "@/ItemList/DetailDialog/utils";
-import { useQuery } from "@apollo/client";
 import { Loading } from "./Loading";
-import { ItemPropertiesChestRig } from "@/graphql/generated";
 import { LanguageContext, LanguageDictContext } from "@/App";
-import { GET_ITEM_PROPERTIES_CHEST_RIG } from "@/query";
+import { useItemProperties } from "@/api/hooks";
 
 type Props = {
   ItemId: string;
-};
-
-type QueryType = {
-  item: {
-    properties: ItemPropertiesChestRig | null;
-  };
 };
 
 export const ChestRig = ({ ItemId }: Props) => {
   const lang = useContext(LanguageContext);
   const { ITEM_PROPERTIES_CHEST_RIG, ARMOR_MATERIAL, BODY_ZONES } =
     useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<QueryType>(
-    GET_ITEM_PROPERTIES_CHEST_RIG(lang),
-    {
-      variables: {
-        itemId: ItemId,
-      },
-    }
-  );
+  const { loading, error, data } = useItemProperties(ItemId, lang);
   if (loading) return <Loading />;
   if (!data || error) return null;
   const properties = data.item.properties;
@@ -65,7 +50,7 @@ export const ChestRig = ({ ItemId }: Props) => {
                 </Grid>
                 <Grid xs={6} md={3}>
                   <List disablePadding>
-                    {properties.zones.map((zone) => (
+                    {properties.zones.map((zone: string) => (
                       <ListItem disableGutters disablePadding key={zone}>
                         {zone ? BODY_ZONES[zone] : null}
                       </ListItem>
@@ -84,14 +69,14 @@ export const ChestRig = ({ ItemId }: Props) => {
                 </Grid>
               </>
             ) : null}
-            {properties.material?.id ? (
+            {properties.material ? (
               <>
                 <Grid xs={6} md={3} color="text.secondary">
                   {ITEM_PROPERTIES_CHEST_RIG.material}
                 </Grid>
                 <Grid xs={6} md={3}>
                   {translateMaterialName(
-                    properties.material.id,
+                    properties.material,
                     ARMOR_MATERIAL
                   )}
                 </Grid>

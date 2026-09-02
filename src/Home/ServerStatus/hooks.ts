@@ -1,13 +1,11 @@
 import { LanguageDictContext } from "@/App";
-import { Query } from "@/graphql/generated";
-import { GET_SERVER_STATUS } from "@/query";
-import { useQuery } from "@apollo/client";
+import { useServerStatus } from "@/api/hooks";
 import { useContext, useState } from "react";
 
 export const useHooks = () => {
   const [open, setOpen] = useState(false);
   const langDict = useContext(LanguageDictContext);
-  const { loading, error, data } = useQuery<Query>(GET_SERVER_STATUS);
+  const { loading, error, data } = useServerStatus();
 
   const handleClickOpen = () => {
     setOpen(true);

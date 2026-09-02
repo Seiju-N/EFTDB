@@ -1,7 +1,6 @@
 import { LanguageDictContext } from "@/App";
-import { Item, ItemPrice, Maybe, Query, Vendor } from "@/graphql/generated";
-import { GET_ITEM_PRICE } from "@/query";
-import { useQuery } from "@apollo/client";
+import { Item, ItemPrice, Vendor } from "@/api/types";
+import { useItemPrices } from "@/api/hooks";
 import { SyntheticEvent, useCallback, useContext, useEffect, useState } from "react";
 
 export const useHooks = () => {
@@ -25,10 +24,8 @@ export const useHooks = () => {
     setExpanded(false);
   }, []);
 
-  const { loading, error, data } = useQuery<Query>(GET_ITEM_PRICE, {
-    variables: { ids: itemIds },
-  });
-  const convertCurrency = (currency: Maybe<string> | undefined) => {
+  const { loading, error, data } = useItemPrices(itemIds);
+  const convertCurrency = (currency: string | undefined) => {
     switch (currency) {
       case "USD":
         return "$";
@@ -41,7 +38,7 @@ export const useHooks = () => {
     }
   };
 
-  const maxPriceObj = (item: Maybe<Item>): {text: string, vendor: Vendor | null } => {
+  const maxPriceObj = (item: Item | undefined): {text: string, vendor: Vendor | null } => {
     if (!item?.sellFor || item?.sellFor?.length === 0) return {text :"No price data." , vendor:null};
     const resultItem = item.sellFor.reduce((a: ItemPrice, b: ItemPrice) =>
       Number(a.priceRUB) > Number(b.priceRUB) ? a : b
